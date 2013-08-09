@@ -116,11 +116,17 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tfSenha">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Insira a senha do usu&#xe1;rio!"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jbEntrar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Entrar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEntrarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
