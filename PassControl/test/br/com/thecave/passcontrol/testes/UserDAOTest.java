@@ -48,7 +48,14 @@ public class UserDAOTest
         bean.setLogin("login");
         bean.setPassword("senha");
         
-        assertTrue(UserDAO.insert(bean));
-        
+        assertTrue(UserDAO.insert(bean));        
+    }
+    @Test
+    public void UserDaoUpdateTest()
+    {
+//        UserBean bean = new UserBean();
+//        bean.setId(1);
+//        
+//        assertTrue(UserDAO.update(bean));        
     }
 }
