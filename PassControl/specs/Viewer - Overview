@@ -1,0 +1,15 @@
+Ao inicializar Viewer, o próprio:
+
+Carregará o arquivo de configuração (ou criará um default, caso não encontre)
+Se conectará ao server, informando que está ativo e criando uma conexão.
+Perguntará ao server se já existe alguma fila criada para hoje, se sim, exibe.
+
+Mensagens ao server:
+ViewerInit //Verifica usuário-senha e requisita o estado atual da fila (vazia, se novo dia)
+ViewerInitResponse //Sim, há fila. Ei-la: (vários ViewerPopQueue, ver mensagens do servr ao Viewer)
+
+Mensagens do server:
+ViewerPopQueue //Olá viewer, esse novo cliente foi chamado: "Pass:25-R;Balcony:01;Service:Fila prioritária"
+ViewerSetMainImage //arquivo de imagem
+ViewerAddSlideImage //arquivo de imagem
+ViewerRemoveSlideImage //nome do arquivo de imagem
