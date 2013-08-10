@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 public class ServiceDAO {
     /**
-     * Metodo para persistir um ClientBean na tabela TB_SERVICE
+     * Metodo para persistir um ServiceBean na tabela TB_SERVICE
      * @param bean Objeto ServiceBean a ser inserido
      * @return  true se o metodo executar corretamente, false caso contrario
      * @see ServiceBean
@@ -85,7 +85,7 @@ public class ServiceDAO {
     /**
      * Metodo para deleção de um registro na tabela TB_SERVICE com base no ServiceBean, utilizando o seu id
      * @param bean ServiceBean a ser deletado.
-     * @see UserBean
+     * @see ServiceBean
      * @return True se deleção ocorrida com sucesso. false, caso contrario.
      */
     public static boolean delete(ServiceBean bean)
@@ -101,7 +101,7 @@ public class ServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "DELETE FROM  TB_CLIENT WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "DELETE FROM  TB_SERVICE WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          

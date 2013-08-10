@@ -30,7 +30,7 @@ public class ClientDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_CLIENT (TX_REGISTER,TX_NAME,TX_TELEFONE) " +
+            String sql = "INSERT INTO TB_CLIENT (TX_NAME,TX_REGISTER,TX_TELEFONE) " +
                          "VALUES ('" + bean.getName() + "', " + 
                          bean.getRegister() + ", " + 
                          "'" + bean.getTelefone() + "' );";
@@ -85,9 +85,9 @@ public class ClientDAO {
         }              
     }
     /**
-     * Metodo para deleção de um registro na tabela TB_USER com base no UserBean, utilizando o seu id
-     * @param bean UserBean a ser deletado.
-     * @see UserBean
+     * Metodo para deleção de um registro na tabela TB_CLIENT com base no ClientBean, utilizando o seu id
+     * @param bean ClientBean a ser deletado.
+     * @see ClientBean
      * @return True se deleção ocorrida com sucesso. false, caso contrario.
      */
     public static boolean delete(ClientBean bean)
@@ -119,7 +119,7 @@ public class ClientDAO {
         }    
     }
     /**
-     * Metodo para recuperar um UserBean a partir de seu id.
+     * Metodo para recuperar um ClientBean a partir de seu id.
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */

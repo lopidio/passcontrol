@@ -30,8 +30,8 @@ public class BalconyDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_BALCONY (TX_ID_NUMBER) " +
-                         "VALUES ('" + bean.getNumber() +"' );";
+            String sql = "INSERT INTO TB_BALCONY (TX_ID_NUMBER,INT_ID_BALCONY_TYPE) " +
+                         "VALUES ('" + bean.getNumber() +"' , '" + bean.getIdBalconyType()+ "' );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -65,6 +65,7 @@ public class BalconyDAO {
 
             stmt = conn.createStatement();
             String sql = "UPDATE TB_BALCONY SET INT_NUMBER = '"+ bean.getNumber() + 
+                    "',INT_ID_BALCONY_TYPE = '" + bean.getIdBalconyType() + 
                     "' WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
@@ -82,8 +83,8 @@ public class BalconyDAO {
     }
     /**
      * Metodo para deleção de um registro na tabela TB_BALCONY com base no BalconyBean, utilizando o seu id
-     * @param bean UserBean a ser deletado.
-     * @see UserBean
+     * @param bean BalconyBean a ser deletado.
+     * @see BalconyBean
      * @return True se deleção ocorrida com sucesso. false, caso contrario.
      */
     public static boolean delete(BalconyBean bean)
@@ -142,7 +143,8 @@ public class BalconyDAO {
             {
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setNumber(rs.getInt("INT_NUMBER"));
-               
+                bean.setIdBalconyType(rs.getInt("INT_ID_BALCONY_TYPE"));
+
             }
             
             stmt.close();

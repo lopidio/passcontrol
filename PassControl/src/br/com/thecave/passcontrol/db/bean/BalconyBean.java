@@ -14,7 +14,7 @@ public class BalconyBean extends TableBean
      */
     private int number;
     /**
-     * Guarda o valor da variavel [INT_ID_BALCONY] da tabela TB_BALCONY
+     * Guarda o valor da variavel [INT_ID_BALCONY_TYPE] da tabela TB_BALCONY
      */
     private int idBalconyType;
     
