@@ -43,7 +43,7 @@ public class ConnectionDataBase
         try 
         {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:queue_manager.db");
+            c = DriverManager.getConnection("jdbc:sqlite:database/queue_manager.db");
             return c;
         } 
         catch ( ClassNotFoundException e ) 
