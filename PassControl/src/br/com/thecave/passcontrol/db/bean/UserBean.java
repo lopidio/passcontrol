@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package br.com.thecave.passcontrol.db.bean;
 
 /**
@@ -15,11 +16,31 @@ public class UserBean
      * Guarda o valor da variavel [TX_NAME] da tabela TB_USER
      */
     private String name;
+=======
+
+package br.com.thecave.passcontrol.db.bean;
+/**
+ * Classe que irá guardar os dados da tabela TB_USER no banco "queue_manager.db"
+ * @author Glaylson Alves
+ */
+public class UserBean extends TableBean{
+     /**
+     * Guarda o valor da variavel [INT_ID] da tabela TB_USER
+     */
+    private int id;
+>>>>>>> refs/remotes/origin/master
     /**
      * Guarda o valor da variavel [INT_TYPE] da tabela TB_USER
      */
     private int type;
     /**
+<<<<<<< HEAD
+=======
+     * Guarda o valor da variavel [TX_NAME] da tabela TB_USER
+     */
+    private String name;
+    /**
+>>>>>>> refs/remotes/origin/master
      * Guarda o valor da variavel [TX_LOGIN] da tabela TB_USER
      */
     private String login;
@@ -45,6 +66,7 @@ public class UserBean
     }
 
     /**
+<<<<<<< HEAD
      * @return the name
      */
     public String getName() 
@@ -74,6 +96,37 @@ public class UserBean
     public void setType(int type) 
     {
         this.type = type;
+=======
+     * @return the type
+     */
+    public int getType() 
+    {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(int type) 
+    {
+        this.type = type;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() 
+    {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) 
+    {
+        this.name = name;
+>>>>>>> refs/remotes/origin/master
     }
 
     /**
