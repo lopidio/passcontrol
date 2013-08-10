@@ -1,0 +1,16 @@
+Ao inicializar Queue push:
+
+Carregará o arquivo de configuração (ou criará um default, caso não encontre)
+Perguntará ao server se já existe alguma fila criada para hoje, se sim, exibe.
+
+Mensagens ao server:
+QueuePushInit //Verifica usuário-senha
+QueuePushInitResponse //Sim ou não
+QueuePushVerifyClientRecord //Olá, server, tal registro já está cadastrado no banco?
+QueuePushVerifyClientRecordResponse //Olá, cliente, sim, eis o nome e o telefone.
+QueuePushInserQueueElement //Olá, server, insira esse cliente na fila.
+QueuePushInserQueueElementResponse //Olá, cliente, cliente inserido com sucesso, eis o código dele: "23-B"
+
+
+Mensagens do server:
+QueuePushSetMainImage //arquivo de imagem
