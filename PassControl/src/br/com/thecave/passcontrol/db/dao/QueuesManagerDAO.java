@@ -80,13 +80,13 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "UPDATE TB_USER SET TX_NAME = '"+ bean.getName() + 
-                         "',INT_TYPE = " + bean.getType() + 
-                         ",TX_LOGIN = '"+ bean.getLogin() + 
-                         "',TX_PASSWORD = '" + bean.getPassword() + 
-                         "' WHERE INT_ID=" + bean.getId() + ";";
+//            String sql = "UPDATE TB_USER SET TX_NAME = '"+ bean.getName() + 
+//                         "',INT_TYPE = " + bean.getType() + 
+//                         ",TX_LOGIN = '"+ bean.getLogin() + 
+//                         "',TX_PASSWORD = '" + bean.getPassword() + 
+//                         "' WHERE INT_ID=" + bean.getId() + ";";
 
-            stmt.executeUpdate(sql);
+            //stmt.executeUpdate(sql);
             conn.commit();          
             stmt.close();
             conn.close();
@@ -158,11 +158,11 @@ public class QueuesManagerDAO
             
             while(rs.next())
             {
-                bean.setId(rs.getInt("INT_ID"));
-                bean.setName(rs.getString("TX_NAME"));
-                bean.setType(rs.getInt("INT_TYPE"));
-                bean.setLogin(rs.getString("TX_LOGIN"));
-                bean.setPassword(rs.getString("TX_PASSWORD"));
+//                bean.setId(rs.getInt("INT_ID"));
+//                bean.setName(rs.getString("TX_NAME"));
+//                bean.setType(rs.getInt("INT_TYPE"));
+//                bean.setLogin(rs.getString("TX_LOGIN"));
+//                bean.setPassword(rs.getString("TX_PASSWORD"));
             }
             
             stmt.close();
