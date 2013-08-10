@@ -1,7 +1,7 @@
 package br.com.thecave.passcontrol.db.dao;
 
 import br.com.thecave.passcontrol.db.ConnectionDataBase;
-import br.com.thecave.passcontrol.db.bean.UserBean;
+import br.com.thecave.passcontrol.db.bean.QueuesManagerBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -13,12 +13,12 @@ import java.sql.Statement;
 public class QueuesManagerDAO 
 {
     /**
-     * Metodo para persistir um QueuesManagerBean na tabela Tb_USER
-     * @param bean Objeto UserBean a ser inserido
+     * Metodo para persistir um QueuesManagerBean na tabela Tb_QUEUES_MANAGER
+     * @param bean Objeto QueuesManagerBean a ser inserido
      * @return  true se o metodo executar corretamente, false caso contrario
-     * @see UserBean
+     * @see QueuesManagerBean
      */
-    public static boolean insert(UserBean bean)
+    public static boolean insert(QueuesManagerBean bean)
     {
         try
         {
@@ -31,11 +31,23 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_USER (TX_NAME,INT_TYPE,TX_LOGIN,TX_PASSWORD) " +
-                         "VALUES ('" + bean.getName() + "', " + 
-                         bean.getType() + ", " + 
-                         "'" + bean.getLogin() + "', " + 
-                         "'" + bean.getPassword() + "' );";
+            String sql = "INSERT INTO TB_QUEUES_MANAGER (INT_ID_SERVICE," + 
+                                                        "INT_ID_BALCONY," + 
+                                                        "INT_ID_USER_CHECKIN," + 
+                                                        "INT_ID_USER_CHECKOUT," +
+                                                        "INT_ID_CLIENT," +
+                                                        "DT_CHECKIN," + 
+                                                        "DT_CHECKOUT," + 
+                                                        "TX_PASS_NUMBER) " +
+                                                        "VALUES (" + 
+                                                        bean.getIdService() + ", " + 
+                                                        bean.getIdBalcony() + ", " +
+                                                        bean.getIdUserCheckin() + ", " +
+                                                        bean.getIdUserCheckout() + ", " +
+                                                        bean.getIdClient() + ", " +
+                                                        bean.getCheckin() + ", " +
+                                                        bean.getCheckout() + ", " +                     
+                                                        "'" + bean.getPassNumber()+ "' );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -55,7 +67,7 @@ public class QueuesManagerDAO
      * @param bean Bean atual.
      * @return true se executado com sucesso, false, caso contrario.
      */
-    public static boolean update(UserBean bean)
+    public static boolean update(QueuesManagerBean bean)
     {
         try
         {
@@ -88,12 +100,12 @@ public class QueuesManagerDAO
         }              
     }
     /**
-     * Metodo para deleção de um registro na tabela TB_USER com base no UserBean, utilizando o seu id
-     * @param bean UserBean a ser deletado.
-     * @see UserBean
+     * Metodo para deleção de um registro na tabela TB_USER com base no QueuesManagerBean, utilizando o seu id
+     * @param bean QueuesManagerBean a ser deletado.
+     * @see QueuesManagerBean
      * @return True se deleção ocorrida com sucesso. false, caso contrario.
      */
-    public static boolean delete(UserBean bean)
+    public static boolean delete(QueuesManagerBean bean)
     {
      try
         {
@@ -122,13 +134,13 @@ public class QueuesManagerDAO
         }    
     }
     /**
-     * Metodo para recuperar um UserBean a partir de seu id.
+     * Metodo para recuperar um QueuesManagerBean a partir de seu id.
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public UserBean selectFromId(int id)
+    public QueuesManagerBean selectFromId(int id)
     {
-        UserBean bean = new UserBean();
+        QueuesManagerBean bean = new QueuesManagerBean();
         try
         {
         // pegar a conexão com o banco
