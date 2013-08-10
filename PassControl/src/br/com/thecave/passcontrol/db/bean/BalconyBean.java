@@ -14,12 +14,20 @@ public class BalconyBean extends TableBean
      */
     private int number;
     /**
+     * Guarda o valor da variavel [INT_ID_BALCONY] da tabela TB_BALCONY
+     */
+    private int idBalconyType;
+    
+    
+    /**
      * @return the id
      */
+    
     public int getId() 
     {
         return id;
     }
+    
 
     /**
      * @param id the id to set
@@ -43,6 +51,20 @@ public class BalconyBean extends TableBean
     public void setNumber(int number) 
     {
         this.number = number;
+    }
+
+    /**
+     * @return the idBalconyType
+     */
+    public int getIdBalconyType() {
+        return idBalconyType;
+    }
+
+    /**
+     * @param idBalconyType the idBalconyType to set
+     */
+    public void setIdBalconyType(int idBalconyType) {
+        this.idBalconyType = idBalconyType;
     }
   
 }
