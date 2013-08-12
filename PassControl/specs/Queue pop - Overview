@@ -1,0 +1,13 @@
+Ao inicializar Queue pop:
+
+Carregará o arquivo de configuração (ou criará um default, caso não encontre)
+Perguntará ao server se já existem algumas filas criadas para hoje, se sim, exibe.
+
+Mensagens ao server:
+QueuePopInit //Verifica usuário-senha
+QueuePopInitResponse //Sim ou não (o Server garante que só um Popper pode ser executado!)
+QueuePopPopRecord //Olá, server, retire esse elemento da fila: "..."
+QueuePopPopRecordResponse //Ok
+
+Mensagens do server:
+QueuePopSetMainImage //arquivo de imagem

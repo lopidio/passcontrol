@@ -1,0 +1,14 @@
+Ao inicializar Queue pop:
+
+Carregará o arquivo de configuração (ou criará um default, caso não encontre)
+
+Mensagens ao server:
+BalconyInit //Verifica usuário-senha, número do balcão e tipo
+BalconyResponse //Sim ou não (o Server garante que o balcão não esteja em uso)
+
+BalconyPopQueue //Olá, server, estou livre, por favor, me envie um cliente...
+BalconyPopResponse //Olá, balcony, eis seu cliente "24-B Caminhão da casa"
+BalconyLastPoppedQueue //Olá, server, chama o último que eu chamei (ou o 24-B)(então o servidor repassará o chamado para o Viewer) aí, por favor.
+
+Mensagens do server:
+BalconySetMainImage //arquivo de imagem

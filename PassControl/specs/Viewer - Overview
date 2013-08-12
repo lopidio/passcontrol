@@ -10,6 +10,7 @@ ViewerInitResponse //Sim, há fila. Ei-la: (vários ViewerPopQueue, ver mensagen
 
 Mensagens do server:
 ViewerPopQueue //Olá viewer, esse novo cliente foi chamado: "Pass:25-R;Balcony:01;Service:Fila prioritária"
+ViewerRefreshLastPopQueue //Olá viewer, chame mais ua vez o último elemento chamado, por favor
 ViewerSetMainImage //arquivo de imagem
 ViewerAddSlideImage //arquivo de imagem
 ViewerRemoveSlideImage //nome do arquivo de imagem

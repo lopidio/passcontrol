@@ -1,7 +1,6 @@
 Ao inicializar Queue push:
 
 Carregará o arquivo de configuração (ou criará um default, caso não encontre)
-Perguntará ao server se já existe alguma fila criada para hoje, se sim, exibe.
 
 Mensagens ao server:
 QueuePushInit //Verifica usuário-senha
