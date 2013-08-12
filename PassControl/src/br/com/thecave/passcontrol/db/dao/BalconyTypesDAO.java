@@ -32,8 +32,8 @@ public class BalconyTypesDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_USER (TX_TYPE) " +
-                         "VALUES (" + bean.getType() +"' );";
+            String sql = "INSERT INTO TB_BALCONY_TYPES (TX_TYPE) " +
+                         "VALUES ('" + bean.getType() +"' );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -66,7 +66,7 @@ public class BalconyTypesDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "UPDATE TB_USER SET TX_TYPE = '"+ bean.getType() + 
+            String sql = "UPDATE TB_BALCONY_TYPES SET TX_TYPE = '"+ bean.getType() + 
                          "' WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
@@ -121,7 +121,7 @@ public class BalconyTypesDAO
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public BalconyTypesBean selectFromId(int id)
+    public static BalconyTypesBean selectFromId(int id)
     {
         BalconyTypesBean bean = new BalconyTypesBean();
         try
