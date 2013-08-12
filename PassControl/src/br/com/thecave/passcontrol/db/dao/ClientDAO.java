@@ -31,9 +31,9 @@ public class ClientDAO {
 
             stmt = conn.createStatement();
             String sql = "INSERT INTO TB_CLIENT (TX_NAME,TX_REGISTER,TX_TELEFONE) " +
-                         "VALUES ('" + bean.getName() + "', " + 
-                         bean.getRegister() + ", " + 
-                         "'" + bean.getTelefone() + "' );";
+                         "VALUES ('" + bean.getName() + 
+                         "', '" + bean.getRegister() + 
+                         "', '" + bean.getTelefone() + "' );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -67,8 +67,8 @@ public class ClientDAO {
 
             stmt = conn.createStatement();
             String sql = "UPDATE TB_CLIENT SET TX_REGISTER = '"+ bean.getRegister() + 
-                         "',TX_NAME = " + bean.getName() + 
-                         ",TX_TELEFONE = '"+ bean.getTelefone() +
+                         "',TX_NAME = '" + bean.getName() + 
+                         "',TX_TELEFONE = '"+ bean.getTelefone() +
                          "' WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
@@ -123,7 +123,7 @@ public class ClientDAO {
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public ClientBean selectFromId(int id)
+    public static ClientBean selectFromId(int id)
     {
         ClientBean bean = new ClientBean();
         try
@@ -145,7 +145,7 @@ public class ClientDAO {
             {
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setRegister(rs.getString("TX_REGISTER"));
-                bean.setName(rs.getString("INT_NAME"));
+                bean.setName(rs.getString("TX_NAME"));
                 bean.setTelefone(rs.getString("TX_TELEFONE"));
             }
             
