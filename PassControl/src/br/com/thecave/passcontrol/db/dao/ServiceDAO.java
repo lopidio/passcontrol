@@ -30,9 +30,9 @@ public class ServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_SERVICE (TX_NAME,TX_PRIORITY) " +
+            String sql = "INSERT INTO TB_SERVICE (TX_NAME,INT_PRIORITY) " +
                          "VALUES ('" + bean.getName() + "', " + 
-                         bean.getPriority() + "' );";
+                         bean.getPriority() + ");";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -65,10 +65,10 @@ public class ServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "UPDATE TB_SERVICE SET TX_NAME = '"+ bean.getName() + 
-                         "',TX_PRIORITY = " + bean.getPriority() +
-                         "' WHERE INT_ID=" + bean.getId() + ";";
-
+            String sql = "UPDATE TB_SERVICE SET TX_NAME = '"+ bean.getName() +
+                    "',INT_PRIORITY = " + bean.getPriority() +
+                    " WHERE INT_ID=" + bean.getId() + ";";           
+            
             stmt.executeUpdate(sql);
             conn.commit();          
             stmt.close();
@@ -121,7 +121,7 @@ public class ServiceDAO {
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public ServiceBean selectFromId(int id)
+    public static ServiceBean selectFromId(int id)
     {
         ServiceBean bean = new ServiceBean();
         try
@@ -142,8 +142,8 @@ public class ServiceDAO {
             while(rs.next())
             {
                 bean.setId(rs.getInt("INT_ID"));
-                bean.setName(rs.getString("INT_NAME"));
-                bean.setPriority(rs.getInt("TX_PRIORITY"));
+                bean.setName(rs.getString("TX_NAME"));
+                bean.setPriority(rs.getInt("INT_PRIORITY"));
             }
             
             stmt.close();

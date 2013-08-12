@@ -64,7 +64,5 @@ public class ServiceBean extends TableBean
     public void setPriority(int priority) 
     {
         this.priority = priority;
-    }
-   
-    
+    }   
 }
