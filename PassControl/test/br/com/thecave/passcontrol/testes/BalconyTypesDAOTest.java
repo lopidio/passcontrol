@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Classe de teste do BalconyDAO
+ * Classe de teste do BalconyTypesDAO
  * @author Glaylson Alves 
  */
 public class BalconyTypesDAOTest {

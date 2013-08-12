@@ -31,7 +31,7 @@ public class BalconyTypesServiceDAO {
 
             stmt = conn.createStatement();
             String sql = "INSERT INTO TB_BALCONY_TYPES_SERVICE (INT_ID_BALCONY,INT_ID_SERVICE) " +
-                         "VALUES ('" + bean.getIdBalcony() + "','"+ bean.getIdService()+"' );";
+                         "VALUES (" + bean.getIdBalcony() + ","+ bean.getIdService()+" );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -64,9 +64,9 @@ public class BalconyTypesServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "UPDATE TB_BALCONY_TYPES_SERVICE SET INT_ID_BALCONY = '"+ bean.getIdBalcony() + 
-                         "',INT_ID_SERVICE = " + bean.getIdService() +
-                         "' WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "UPDATE TB_BALCONY_TYPES_SERVICE SET INT_ID_BALCONY = "+ bean.getIdBalcony() + 
+                         ",INT_ID_SERVICE = " + bean.getIdService() +
+                         " WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          
@@ -120,7 +120,7 @@ public class BalconyTypesServiceDAO {
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public BalconyTypesServiceBean selectFromId(int id)
+    public static BalconyTypesServiceBean selectFromId(int id)
     {
         BalconyTypesServiceBean bean = new BalconyTypesServiceBean();
         try
