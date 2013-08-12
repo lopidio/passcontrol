@@ -42,20 +42,40 @@ public class UserDAOTest
     @Test
     public void UserDaoInsertTest()
     {
-        UserBean bean = new UserBean();
-        bean.setName("name");
-        bean.setType(1);
-        bean.setLogin("login");
-        bean.setPassword("senha");
-        
-        assertTrue(UserDAO.insert(bean));        
+//        UserBean bean = new UserBean();
+//        bean.setName("name");
+//        bean.setType(1);
+//        bean.setLogin("login");
+//        bean.setPassword("senha");
+//        
+//        assertTrue(UserDAO.insert(bean));        
     }
     @Test
     public void UserDaoUpdateTest()
     {
 //        UserBean bean = new UserBean();
 //        bean.setId(1);
+//        bean.setName("nameX");
+//        bean.setType(10);
+//        bean.setLogin("loginX");
+//        bean.setPassword("senhaX");
 //        
 //        assertTrue(UserDAO.update(bean));        
+    }
+    
+    @Test
+    public void UserDAODeleteTest() 
+    {
+//        UserBean bean = new UserBean();
+//        bean.setId(1);
+//        
+//        assertTrue( UserDAO.delete(bean));
+    }
+    
+    @Test
+    public void UserDAOSelectTest() 
+    {
+//       UserBean bean = UserDAO.selectFromId(1);
+//       assertNotNull(bean);
     }
 }

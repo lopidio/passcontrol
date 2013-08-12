@@ -127,7 +127,7 @@ public class UserDAO
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public UserBean selectFromId(int id)
+    public static UserBean selectFromId(int id)
     {
         UserBean bean = new UserBean();
         try
