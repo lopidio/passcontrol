@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Classe de teste do UserDAO
+ * Classe de teste do ServiceDAO
  * @author Glaylson Alves 
  */
 public class ServiceDAOTest {
@@ -38,7 +38,7 @@ public class ServiceDAOTest {
     public void ServiceDAOInsetTest() 
     {
 //        ServiceBean bean = new ServiceBean();
-//        bean.setName("test");
+//        bean.setName("test5");
 //        bean.setPriority(1);
 //        
 //        assertTrue( ServiceDAO.insert(bean) );
@@ -67,8 +67,11 @@ public class ServiceDAOTest {
     @Test
     public void ServiceDAOSelectTest() 
     {
-       ServiceBean bean = ServiceDAO.selectFromId(4);
-       assertNotNull(bean);
+//       ServiceBean bean = ServiceDAO.selectFromId(1);
+//       System.out.println(bean.getId());
+//       System.out.println(bean.getName());
+//       System.out.println(bean.getPriority());
+//       assertNotNull(bean);
     }
 
     

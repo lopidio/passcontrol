@@ -30,8 +30,8 @@ public class BalconyDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_BALCONY (TX_ID_NUMBER,INT_ID_BALCONY_TYPE) " +
-                         "VALUES ('" + bean.getNumber() +"' , '" + bean.getIdBalconyType()+ "' );";
+            String sql = "INSERT INTO TB_BALCONY (INT_NUMBER,INT_ID_BALCONY_TYPE) " +
+                         "VALUES (" + bean.getNumber() +" , " + bean.getIdBalconyType()+ " );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -64,9 +64,9 @@ public class BalconyDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "UPDATE TB_BALCONY SET INT_NUMBER = '"+ bean.getNumber() + 
-                    "',INT_ID_BALCONY_TYPE = '" + bean.getIdBalconyType() + 
-                    "' WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "UPDATE TB_BALCONY SET INT_NUMBER = "+ bean.getNumber() + 
+                    ",INT_ID_BALCONY_TYPE = " + bean.getIdBalconyType() + 
+                    " WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          
@@ -117,11 +117,11 @@ public class BalconyDAO {
      
     }
 /**
-     * Metodo para recuperar um UserBean a partir de seu id.
+     * Metodo para recuperar um BalconyBean a partir de seu id.
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public BalconyBean selectFromId(int id)
+    public static BalconyBean selectFromId(int id)
     {
         BalconyBean bean = new BalconyBean();
         try
@@ -141,7 +141,7 @@ public class BalconyDAO {
             
             while(rs.next())
             {
-                bean.setId(rs.getInt("INT_ID"));
+                bean.setId(rs.getInt("INT_ID"));    
                 bean.setNumber(rs.getInt("INT_NUMBER"));
                 bean.setIdBalconyType(rs.getInt("INT_ID_BALCONY_TYPE"));
 
