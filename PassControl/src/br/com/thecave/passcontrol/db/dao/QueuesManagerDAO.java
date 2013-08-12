@@ -37,8 +37,8 @@ public class QueuesManagerDAO
                                                         "INT_ID_USER_CHECKIN," + 
                                                         "INT_ID_USER_CHECKOUT," +
                                                         "INT_ID_CLIENT," +
-                                                        "DT_CHECKIN," + 
-                                                        "DT_CHECKOUT," + 
+//                                                        "DT_CHECKIN," + 
+//                                                        "DT_CHECKOUT," + 
                                                         "TX_PASS_NUMBER) " +
                                                         "VALUES (" + 
                                                         bean.getIdService() + ", " + 
