@@ -5,6 +5,7 @@ import br.com.thecave.passcontrol.db.bean.QueuesManagerBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.xml.crypto.Data;
 
 /**
  *
@@ -80,11 +81,15 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-//            String sql = "UPDATE TB_USER SET TX_NAME = '"+ bean.getName() + 
-//                         "',INT_TYPE = " + bean.getType() + 
-//                         ",TX_LOGIN = '"+ bean.getLogin() + 
-//                         "',TX_PASSWORD = '" + bean.getPassword() + 
-//                         "' WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "UPDATE TB_QUEUES_MANAGER SET INT_ID_SERVICE = '"+ bean.getIdService() + 
+                         "',INT_ID_BALCONY = " + bean.getIdBalcony() + 
+                         ",INT_ID_USER_CHECKIN = '"+ bean.getIdUserCheckin() + 
+                         "',INT_ID_USER_CHECKOUT = '" + bean.getIdUserCheckout() + 
+                         "',INT_ID_CLIENT = '"+ bean.getIdClient() +
+                         "',DT_CHECKIN = '" + bean.getCheckin() +
+                         "',DT_CHECKOUT = '" + bean.getCheckout() +
+                         "',TX_PASS_NUMBER = '" + bean.getPassNumber() +
+                         "' WHERE INT_ID=" + bean.getId() + ";";
 
             //stmt.executeUpdate(sql);
             conn.commit();          
@@ -100,7 +105,7 @@ public class QueuesManagerDAO
         }              
     }
     /**
-     * Metodo para deleção de um registro na tabela TB_USER com base no QueuesManagerBean, utilizando o seu id
+     * Metodo para deleção de um registro na tabela TB_QUEUES_MANAGER com base no QueuesManagerBean, utilizando o seu id
      * @param bean QueuesManagerBean a ser deletado.
      * @see QueuesManagerBean
      * @return True se deleção ocorrida com sucesso. false, caso contrario.
@@ -118,7 +123,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "DELETE FROM  TB_USER WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "DELETE FROM  TB_QUEUES_MANAGER WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          
@@ -152,17 +157,20 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_USER;";
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER;";
 
             ResultSet rs = stmt.executeQuery(sql);
             
             while(rs.next())
             {
-//                bean.setId(rs.getInt("INT_ID"));
-//                bean.setName(rs.getString("TX_NAME"));
-//                bean.setType(rs.getInt("INT_TYPE"));
-//                bean.setLogin(rs.getString("TX_LOGIN"));
-//                bean.setPassword(rs.getString("TX_PASSWORD"));
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
+                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
+                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
+                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
+                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
+                bean.setCheckin((Data) rs.getDate("DT_CHECKIN"));
+                bean.setCheckout((Data) rs.getDate("DT_CHECKOUT"));
             }
             
             stmt.close();
