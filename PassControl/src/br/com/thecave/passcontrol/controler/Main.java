@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.controler;
 
+import br.com.thecave.passcontrol.screens.AdministratorScreen;
 import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
 import br.com.thecave.passcontrol.screens.LoginScreen;
 import br.com.thecave.passcontrol.screens.LoginScreenResetPassword;
@@ -10,6 +11,7 @@ public class Main
     public static LoginScreen login;
     public static LoginScreenResetPassword reset;
     public static ChooseModulesScreen chooseModules;
+    public static AdministratorScreen adminScreen;
     
     public static void main(String args[]) 
     {
@@ -44,10 +46,12 @@ public class Main
                 login           = new LoginScreen();
                 reset           = new LoginScreenResetPassword();
                 chooseModules   = new ChooseModulesScreen();
+                adminScreen     = new AdministratorScreen();
                 
                 login.setExtendedState(login.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 reset.setExtendedState(reset.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 chooseModules.setExtendedState(chooseModules.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                adminScreen.setExtendedState(adminScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 login.setVisible(true);
             }
         });

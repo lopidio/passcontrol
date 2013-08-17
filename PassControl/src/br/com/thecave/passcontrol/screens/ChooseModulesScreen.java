@@ -7,7 +7,6 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -50,6 +49,8 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         jmInsert = new javax.swing.JMenuItem();
         jmRemove = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -224,6 +225,17 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         jmIniciar.add(jmRemove);
         jmIniciar.add(jSeparator1);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem1.setMnemonic('L');
+        jMenuItem1.setText("Log Out");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jmIniciar.add(jMenuItem1);
+        jmIniciar.add(jSeparator2);
+
         jmExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmExit.setMnemonic('S');
         jmExit.setText("Sair");
@@ -304,12 +316,18 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         performLogout();
     }//GEN-LAST:event_jlLogoutMouseClicked
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        performLogout();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JButton jbAdmin;
     private javax.swing.JButton jbBalcony;
     private javax.swing.JButton jbInsert;
@@ -328,8 +346,8 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
 
     private void openAdministrator()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "Admin");
+        this.setVisible(false);
+        Main.adminScreen.setVisible(true);
     }
     
     private void openBalcony()
@@ -355,7 +373,9 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         //TODO: implements
         JOptionPane.showMessageDialog(null, "QueueRemove");
     }
-    
+    /**
+     * Exibe uma caixa de seleção pra confirmar o logout do usuário
+     */
     private void performLogout()
     {
         int result = JOptionPane.showConfirmDialog(null, 

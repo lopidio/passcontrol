@@ -9,14 +9,13 @@ import br.com.thecave.passcontrol.controler.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author arleudo
  */
-public class LoginScreen extends javax.swing.JFrame {
+public final class LoginScreen extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginScreen
@@ -24,8 +23,7 @@ public class LoginScreen extends javax.swing.JFrame {
     public LoginScreen() 
     {
         initComponents();
-        setImageCenter();
-        
+        setImageCenter();        
     }
 
     /**

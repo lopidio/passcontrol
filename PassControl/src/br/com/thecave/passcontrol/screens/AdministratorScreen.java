@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.controler.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -12,16 +9,18 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author arleudo
+ * @author Antonio Arleudo da costa
  */
-public class LoginScreenResetPassword extends javax.swing.JFrame {
+public final class AdministratorScreen extends javax.swing.JFrame {
 
     /**
-     * Creates new form LoginScreen
+     * Creates new form AdministratorScreen
      */
-    public LoginScreenResetPassword() 
+    public AdministratorScreen() 
     {
         initComponents();
+        setImageCenter();
+        jlUser.setText("Usuário: " + Usuario.getInstance().getName());
     }
 
     /**
@@ -34,13 +33,23 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblUser = new javax.swing.JLabel();
-        tfUser = new javax.swing.JTextField();
-        jbEntrar = new javax.swing.JButton();
-        lblEmail = new javax.swing.JLabel();
-        lblFollow = new javax.swing.JLabel();
+        jlUser = new javax.swing.JLabel();
+        jlLogout = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lbImage = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jmBaseDados = new javax.swing.JMenu();
+        jmGuiche = new javax.swing.JMenu();
+        jmGuicheAdd = new javax.swing.JMenuItem();
+        jmGuicheListar = new javax.swing.JMenuItem();
+        jmGuicheDelet = new javax.swing.JMenuItem();
+        jmUsuario = new javax.swing.JMenu();
+        jmUserAdd = new javax.swing.JMenuItem();
+        jmUserList = new javax.swing.JMenuItem();
+        jmUserDelet = new javax.swing.JMenuItem();
+        jmImagem = new javax.swing.JMenu();
+        jmApresentacao = new javax.swing.JMenu();
+        jmGerenAuto = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Senhas");
@@ -51,59 +60,36 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 136, 219), 3));
         jPanel1.setAutoscrolls(true);
 
-        lblUser.setText("Usuário:");
+        jlUser.setText("User: ");
 
-        tfUser.setToolTipText("Insira o nome do usuário!");
-
-        jbEntrar.setText("OK");
-        jbEntrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEntrarActionPerformed(evt);
+        jlLogout.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        jlLogout.setForeground(new java.awt.Color(0, 0, 255));
+        jlLogout.setText("Log Out");
+        jlLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlLogoutMouseClicked(evt);
             }
         });
-
-        lblEmail.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(0, 0, 255));
-        lblEmail.setText("Um email será enviado ao usuário a seguir informado.");
-
-        lblFollow.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        lblFollow.setForeground(new java.awt.Color(0, 0, 255));
-        lblFollow.setText("Siga as instruções nele contidas.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblFollow)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 812, Short.MAX_VALUE)
-                        .addComponent(lblUser)
-                        .addGap(18, 18, 18)
-                        .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblEmail)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jlLogout, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlUser, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(lblEmail)
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jlUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUser)
-                    .addComponent(tfUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFollow))
-                .addGap(18, 18, 18)
-                .addComponent(jbEntrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jlLogout)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -118,16 +104,57 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                 .addGap(48, 48, 48))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
                 .addGap(48, 48, 48))
         );
+
+        jmBaseDados.setText("Base de Dados          ");
+
+        jmGuiche.setText("Guiches");
+
+        jmGuicheAdd.setText("Adicionar");
+        jmGuiche.add(jmGuicheAdd);
+
+        jmGuicheListar.setText("Listar");
+        jmGuiche.add(jmGuicheListar);
+
+        jmGuicheDelet.setText("Deletar");
+        jmGuiche.add(jmGuicheDelet);
+
+        jmBaseDados.add(jmGuiche);
+
+        jmUsuario.setText("Usuários");
+
+        jmUserAdd.setText("Adicionar");
+        jmUsuario.add(jmUserAdd);
+
+        jmUserList.setText("Listar");
+        jmUsuario.add(jmUserList);
+
+        jmUserDelet.setText("Deletar");
+        jmUsuario.add(jmUserDelet);
+
+        jmBaseDados.add(jmUsuario);
+
+        jMenuBar1.add(jmBaseDados);
+
+        jmImagem.setText("Imagem           ");
+        jMenuBar1.add(jmImagem);
+
+        jmApresentacao.setText("Apresentação            ");
+        jMenuBar1.add(jmApresentacao);
+
+        jmGerenAuto.setText("Gerenciamento Automático");
+        jMenuBar1.add(jmGerenAuto);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,41 +174,32 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEntrarActionPerformed
-        performReset();
-    }//GEN-LAST:event_jbEntrarActionPerformed
+    private void jlLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlLogoutMouseClicked
+        performLogout();
+    }//GEN-LAST:event_jlLogoutMouseClicked
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton jbEntrar;
+    private javax.swing.JLabel jlLogout;
+    private javax.swing.JLabel jlUser;
+    private javax.swing.JMenu jmApresentacao;
+    private javax.swing.JMenu jmBaseDados;
+    private javax.swing.JMenu jmGerenAuto;
+    private javax.swing.JMenu jmGuiche;
+    private javax.swing.JMenuItem jmGuicheAdd;
+    private javax.swing.JMenuItem jmGuicheDelet;
+    private javax.swing.JMenuItem jmGuicheListar;
+    private javax.swing.JMenu jmImagem;
+    private javax.swing.JMenuItem jmUserAdd;
+    private javax.swing.JMenuItem jmUserDelet;
+    private javax.swing.JMenuItem jmUserList;
+    private javax.swing.JMenu jmUsuario;
     private javax.swing.JLabel lbImage;
-    private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblFollow;
-    private javax.swing.JLabel lblUser;
-    private javax.swing.JTextField tfUser;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void performReset()
-    {
-        // TODO: implements
-        // 1 - mandar email com senha
-        // 2 - voltar pra tela de login
-        if(tfUser.getText().equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Campo usuário inválido!");
-            clearScreen();
-        }
-        else
-        {
-            this.setVisible(false);
-            clearScreen();
-            Main.login.setVisible(true);
-        }
-    }
-    
     public void setImageCenter()
     {
         //TODO: definir imagem atraves de arquivo de configuração
@@ -190,9 +208,29 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
         lbImage.setIcon(ic);
     }
     
-    private void clearScreen()
+    /**
+     * Exibe uma caixa de seleção pra confirmar o logout do usuário
+     */
+    private void performLogout()
     {
-        tfUser.setText("");
+        int result = JOptionPane.showConfirmDialog(null, 
+                    "Você deseja realmente sair? " 
+                       ,"Message", JOptionPane.WARNING_MESSAGE
+                    , JOptionPane.OK_CANCEL_OPTION);
+        
+        if( JOptionPane.CANCEL_OPTION == result )
+        {
+            // do nothing
+        }
+        else if( JOptionPane.OK_OPTION == result)
+        {
+            this.setVisible(false);
+            Main.login.setVisible(true);
+        }
+        else
+        {
+            // do nothing
+        }
     }
 }
 
