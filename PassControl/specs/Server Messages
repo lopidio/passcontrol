@@ -17,6 +17,9 @@ class Message implements Serializable
 From client:
 	ClientInit //User, senha
 	ClientInitResponse //Eis as permissões desse usuário: ..., ..., ...
+	ClientPasswordRecovery //User
+	ClientPasswordRecoveryResponse //Ok ou falso
+	ClientLogout //Falou!
 
 From server:
 	ServerSetMainImage //Bytes do arquivo da imagem principal e seu nome
@@ -69,9 +72,16 @@ From client:
 
 From client:
 	AdministratorAddUser //UserBean
+	AdministratorListUsers //List<UserBean>
+	AdministratorRemoveUser //UserBean
 	AdministratorAddService //ServiceBean
+	AdministratorListServices //List<ServiceBean>
+	AdministratorRemoveService //ServiceBean
 	AdministratorAddBalcony //BalconyBean
+	AdministratorListBalconys //List<BalconyBean>
+	AdministratorRemoveBalcony //BalconyBean
 	AdministratorAddSlideImage //ImageBytes ImageName
+	AdministratorListSlidesImage //List<ImageBytes ImageName>
 	AdministratorRemoveSlideImage //ImageName
 	AdministratorSetSlideShowTime //int
 	AdministratorSetAutoQueueManagement //bool
