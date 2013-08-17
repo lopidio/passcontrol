@@ -8,6 +8,7 @@ import br.com.thecave.passcontrol.controler.Main;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -170,9 +171,17 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
         // TODO: implements
         // 1 - mandar email com senha
         // 2 - voltar pra tela de login
-        this.setVisible(false);
-        clearScreen();
-        Main.login.setVisible(true);
+        if(tfUser.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Campo usuário inválido!");
+            clearScreen();
+        }
+        else
+        {
+            this.setVisible(false);
+            clearScreen();
+            Main.login.setVisible(true);
+        }
     }
     
     public void setImageCenter()

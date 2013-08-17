@@ -199,17 +199,20 @@ public class LoginScreen extends javax.swing.JFrame {
         {
             //TODO: vai pra tela seguinte
             clearScreen();
-            JOptionPane.showMessageDialog(null, "SuperUsuer");
+            //TODO: setar icon e tipo da mensagem
+            JOptionPane.showMessageDialog(null, "Bem vindo! " + usr );
+            Main.chooseModules.setVisible(true);
+            this.setVisible(false);
         }
         else
         {
+            //TODO: setar icon e tipo da mensagem
             JOptionPane.showMessageDialog(null, "Usuário não cadastrado, verifique se o usário existe ou se a senha foi digitada corrretamente!");
         }
     }
     
     public void performResetPassword()
     {
-       Main.reset.setExtendedState(Main.reset.getExtendedState() | JFrame.MAXIMIZED_BOTH);
        Main.reset.setVisible(true);
        this.setVisible(false);
     }
