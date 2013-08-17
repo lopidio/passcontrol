@@ -1,8 +1,5 @@
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.db.bean.UserBean;
-import br.com.thecave.passcontrol.db.dao.UserDAO;
-
 /**
  *
  * @author Antonio Arleudo da Costa
@@ -15,6 +12,11 @@ public class Usuario
     
     private Usuario()
     {
+    }
+    
+    public String getName()
+    {
+        return this.name;
     }
     
     public static Usuario getInstance()

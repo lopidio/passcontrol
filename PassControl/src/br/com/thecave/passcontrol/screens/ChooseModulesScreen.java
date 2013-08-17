@@ -4,7 +4,10 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.controler.Usuario;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -18,6 +21,7 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
     public ChooseModulesScreen() 
     {
         initComponents();
+        jlUser.setText("Usuário: " + Usuario.getInstance().getName());
     }
 
     /**
@@ -30,6 +34,8 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jlUser = new javax.swing.JLabel();
+        jlLogout = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jbAdmin = new javax.swing.JButton();
         jbBalcony = new javax.swing.JButton();
@@ -55,15 +61,36 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 136, 219), 3));
         jPanel1.setAutoscrolls(true);
 
+        jlUser.setText("User: ");
+
+        jlLogout.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        jlLogout.setForeground(new java.awt.Color(0, 0, 255));
+        jlLogout.setText("Log Out");
+        jlLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlLogoutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1345, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlLogout, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlUser, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 88, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jlUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlLogout)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -127,7 +154,7 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
                         .addComponent(jbInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,6 +300,10 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         openQueueRemove();
     }//GEN-LAST:event_jmRemoveActionPerformed
 
+    private void jlLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlLogoutMouseClicked
+        performLogout();
+    }//GEN-LAST:event_jlLogoutMouseClicked
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
@@ -284,6 +315,8 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
     private javax.swing.JButton jbInsert;
     private javax.swing.JButton jbRemove;
     private javax.swing.JButton jbViewer;
+    private javax.swing.JLabel jlLogout;
+    private javax.swing.JLabel jlUser;
     private javax.swing.JMenuItem jmAdmin;
     private javax.swing.JMenuItem jmBalcony;
     private javax.swing.JMenuItem jmExit;
@@ -322,6 +355,27 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         //TODO: implements
         JOptionPane.showMessageDialog(null, "QueueRemove");
     }
-
+    
+    private void performLogout()
+    {
+        int result = JOptionPane.showConfirmDialog(null, 
+                    "Você deseja realmente sair? " 
+                       ,"Message", JOptionPane.WARNING_MESSAGE
+                    , JOptionPane.OK_CANCEL_OPTION);
+        
+        if( JOptionPane.CANCEL_OPTION == result )
+        {
+            // do nothing
+        }
+        else if( JOptionPane.OK_OPTION == result)
+        {
+            this.setVisible(false);
+            Main.login.setVisible(true);
+        }
+        else
+        {
+            // do nothing
+        }
+    }
 }
 
