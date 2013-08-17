@@ -1,4 +1,5 @@
 package br.com.thecave.passcontrol.db.bean;
+
 /**
  * Classe que irá guardar os dados da tabela TB_BALCONY_TYPES no banco "queue_manager.db"
  * @author Glaylson Alves

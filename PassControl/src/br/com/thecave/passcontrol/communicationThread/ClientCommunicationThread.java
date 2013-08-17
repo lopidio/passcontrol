@@ -4,7 +4,10 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
+import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
+import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
+import br.com.thecave.passcontrol.messages.viewer.ViewerQueueRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -16,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author guilherme
  */
-public abstract class ClientCommunicationThread extends PassControlCommunicationThread {
+public class ClientCommunicationThread extends PassControlCommunicationThread {
 
     /**
      * Endereço de IP do servidor
@@ -30,31 +33,33 @@ public abstract class ClientCommunicationThread extends PassControlCommunication
      * Canal de comunicação
      */
     Socket socket;
-    
+
     /**
      * Construtor da comunicação do cliente
      *
      * @param serverIP
      * @param port
      */
-    public ClientCommunicationThread(String serverIP, int port) {
+    public ClientCommunicationThread(String serverIP, int port) throws UnknownHostException, IOException {
         this.port = port;
         this.serverIP = serverIP;
-        socket = null;
+        System.out.println("Cliente tentando estabelecer conexão");
+        socket = new Socket(serverIP, port);
+        System.out.println("Conexão estabelecida");
     }
 
     /**
      * Envia a mensagem ao servidor
-     * @param message 
+     *
+     * @param message
      */
     @Override
     public void sendMessage(PassControlMessage message) {
         super.sendMessage(socket, message);
-    }  
-    
+    }
+
     @Override
-    public void stop()
-    {
+    public void stop() {
         running = false;
         try {
             socket.close();
@@ -62,14 +67,34 @@ public abstract class ClientCommunicationThread extends PassControlCommunication
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public static void main(String[] args) {
+        try {
+            ClientCommunicationThread me = new ClientCommunicationThread("127.0.0.1", 23073);
+
+            new Thread(me).start();
+            ClientInitializationRequest message = new ClientInitializationRequest(MessageActors.ViewerActor, "guigui", "123456senha");
+
+            me.sendMessage(message);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @Override
+    void handleMessage(PassControlMessage message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
     public void run() {
         running = true;
         while (running) {
             try {
-                if (socket == null) 
-                {
+                if (socket == null) {
                     //Tenta estabelecer uma conexão
                     System.out.println("Cliente tentando estabelecer conexão");
                     socket = new Socket(serverIP, port);
@@ -89,11 +114,12 @@ public abstract class ClientCommunicationThread extends PassControlCommunication
                 System.err.println(unknownExc.getMessage());
             } catch (IOException ioExc) {
                 System.err.println(ioExc.getMessage());
+
+
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            finally
-            {
+                Logger.getLogger(PassControlCommunicationThread.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            } finally {
                 socket = null;
             }
         }

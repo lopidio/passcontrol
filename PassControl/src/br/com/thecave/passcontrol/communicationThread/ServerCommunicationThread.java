@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 public class ServerCommunicationThread extends PassControlCommunicationThread {
 
     ServerSocketListener serverSocketListener;
-    
     /**
      * Mapa de clientes identificados pelo ator
      */
@@ -37,12 +36,12 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
 
     @Override
     void handleMessage(PassControlMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(message.getFrom().toString());
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void stop()
-    {
+    public void stop() {
         running = false;
         try {
 
@@ -53,15 +52,22 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                     client.close();
                 }
             }
-            
+
             serverSocketListener.stop();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
+    public static void main(String[] args) {
+        try {
+            new Thread(new ServerCommunicationThread(23073)).start();
+        } catch (IOException ex) {
+            Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public void run() {
         running = true;
@@ -76,19 +82,28 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                         inputStream = client.getInputStream();
                         //Possui mensagem para ser lida
                         if (inputStream.available() > 0) {
-                            handleIncomingMessage(inputStream);
+                            PassControlMessage message = handleIncomingMessage(inputStream);
+                            MessageActors newActor = message.getFrom();
+                            if (newActor != currentActor) {
+                                removeClient(currentActor, client);
+                                addClient(newActor, client);
+                            }
                         }
                     } catch (IOException ex) {
+                        removeClient(currentActor, client);
                         Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                    } finally {
-                        try {
-                            inputStream.close();
-                        } catch (IOException ex) {
-                            Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
+                    } 
+//                    finally {
+//                        try {
+//                            if (inputStream != null) {
+////                                inputStream.close();
+//                            }
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    }
 
 
                 }
@@ -119,7 +134,11 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
 
     public void addClient(MessageActors messageActors, Socket newClient) {
         //Recupera a lista anterior
-        ArrayList<Socket> listaDeClientesDoMesmoTipo = clients.get(newClient);
+        ArrayList<Socket> listaDeClientesDoMesmoTipo;
+        listaDeClientesDoMesmoTipo = clients.get(newClient);
+        if (listaDeClientesDoMesmoTipo == null) {
+            listaDeClientesDoMesmoTipo = new ArrayList<>();
+        }
 
         //Adiciona mais um cliente
         listaDeClientesDoMesmoTipo.add(newClient);
@@ -131,6 +150,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     public void removeClient(MessageActors messageActors, Socket newClient) {
         //Recupera a lista anterior
         ArrayList<Socket> listaDeClientesDoMesmoTipo = clients.get(newClient);
+        if (listaDeClientesDoMesmoTipo == null) {
+            listaDeClientesDoMesmoTipo = new ArrayList<>();
+        }        
 
         //Remove um cliente
         listaDeClientesDoMesmoTipo.remove(newClient);

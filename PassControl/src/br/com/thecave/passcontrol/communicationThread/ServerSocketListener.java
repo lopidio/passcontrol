@@ -44,7 +44,7 @@ public class ServerSocketListener implements Runnable
         serverSocket = new ServerSocket(port);
 
     }
-
+    
     @Override
     public void run() 
     {
@@ -52,7 +52,9 @@ public class ServerSocketListener implements Runnable
         while (running)
         {
             try {
+                System.out.println("Server esperando conexão");
                 Socket newClient = serverSocket.accept();
+                System.out.println("Novo cliente aceito");
                 owner.addClient(MessageActors.NotIdentified, newClient);
             } catch (IOException ex) {
                 Logger.getLogger(ServerSocketListener.class.getName()).log(Level.SEVERE, null, ex);

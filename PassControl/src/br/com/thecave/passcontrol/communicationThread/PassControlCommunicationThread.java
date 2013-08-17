@@ -42,7 +42,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
             System.out.println("Mensagem será enviada");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectOutputStream.writeObject(message);
-            objectOutputStream.close();
+//            objectOutputStream.close();
             System.out.println("Mensagem enviada com sucesso");
             retorno = true;
         } catch (IOException ex) 
