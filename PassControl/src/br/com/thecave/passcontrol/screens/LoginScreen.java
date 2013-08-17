@@ -198,6 +198,7 @@ public class LoginScreen extends javax.swing.JFrame {
         if(user.isSuperUser() || user.checkPassword())
         {
             //TODO: vai pra tela seguinte
+            clearScreen();
             JOptionPane.showMessageDialog(null, "SuperUsuer");
         }
         else
@@ -219,6 +220,12 @@ public class LoginScreen extends javax.swing.JFrame {
         Image img= Toolkit.getDefaultToolkit().getImage("imgs/quadro.jpg");
         ImageIcon ic = new ImageIcon(img);
         lbImage.setIcon(ic);
-    }   
+    }
+    
+    private void clearScreen()
+    {
+        tfSenha.setText("");
+        tfUser.setText("");
+    }
 }
 

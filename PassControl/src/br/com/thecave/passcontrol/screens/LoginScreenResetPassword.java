@@ -171,12 +171,8 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
         // 1 - mandar email com senha
         // 2 - voltar pra tela de login
         this.setVisible(false);
+        clearScreen();
         Main.login.setVisible(true);
-    }
-    
-    public void performResetPassword()
-    {
-       // TODO: implements
     }
     
     public void setImageCenter()
@@ -185,6 +181,11 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
         Image img= Toolkit.getDefaultToolkit().getImage("imgs/quadro.jpg");
         ImageIcon ic = new ImageIcon(img);
         lbImage.setIcon(ic);
+    }
+    
+    private void clearScreen()
+    {
+        tfUser.setText("");
     }
 }
 

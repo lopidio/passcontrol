@@ -53,13 +53,7 @@ public class Usuario
      */
     public boolean checkPassword()
     {
-        UserBean bean = UserDAO.selectFromName(name);
-        if(bean.getName() == null)
-            return false;
-        if(bean.getPassword().equals(pass))
-        {
-            return true;
-        }
-        return false;
+        // TODO: invocar metodo send da thread de comunicação
+        return true;
     }
 }
