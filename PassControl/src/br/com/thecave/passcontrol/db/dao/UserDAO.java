@@ -165,4 +165,47 @@ public class UserDAO
           return null;
         }            
     }
+    /**
+     * Metodo para recuperar um UserBean a partir de seu id.
+     * @param name Nome do registro que se quer recuperar
+     * @return Bean com os dados ja preenchidos.
+     */
+    public static UserBean selectFromName(String name)
+    {
+        UserBean bean = new UserBean();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_USER WHERE TX_NAME='" + name + "';";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setName(rs.getString("TX_NAME"));
+                bean.setType(rs.getInt("INT_TYPE"));
+                bean.setLogin(rs.getString("TX_LOGIN"));
+                bean.setPassword(rs.getString("TX_PASSWORD"));
+            }
+            
+            stmt.close();
+            conn.close();
+            return bean;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }            
+    }
 }
