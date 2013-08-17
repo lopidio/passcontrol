@@ -15,6 +15,7 @@ public enum MessageActors {
     QueuePushActor,
     AdministratorActor,
     BalconyActor,
-    AllActors
+    AllActors,
+    NotIdentified
     
 }
