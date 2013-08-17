@@ -1,0 +1,81 @@
+~~~~~~  Pass Control Messages ~~~~
+
+package passcontrol.messages
+class Message implements Serializable
+{
+	EMessageType type; //Enumeração indicando a qual subclasse  pertence
+	EActor from; //Enumeração indicando o nome do ator remetente
+	EActor to; //Enumeração indicando o nome do ator destinatário
+
+	public Message(EMessageType type, EActor from, EActor to); //Único construtor
+	/*
+	* Getters dos atributos
+	*/
+}
+
+####################### Mensagens genéricas ######################
+From client:
+	ClientInit //User, senha
+	ClientInitResponse //Eis as permissões desse usuário: ..., ..., ...
+
+From server:
+	ServerSetMainImage //Bytes do arquivo da imagem principal e seu nome
+
+##################################################################
+####################### Viewer ###################################
+From client:
+	ViewerQueueRequest //Requisita os últimos números a ser chamado (a quantidade vai ser definida no próprio software) 
+	ViewerQueueRequestResponse //Sim, há fila. Ei-la: (List<QueueManager>)
+
+From server:
+	ViewerRefreshQueue// List<QueueManager>
+	ViewerPopQueue //Olá viewer, esse novo cliente foi chamado: "Pass:25-R;Balcony:01;Service:Fila prioritária"
+	ViewerRefreshLastPopQueue //Olá viewer, chame mais uma vez o último elemento chamado, por favor
+	ViewerAddSlideImage //ImageBytes, ImageName
+	ViewerRemoveSlideImage //ImageName
+	ViewrSetSlideShowPeriod //int, tempo de duração de um slide da apresentação
+
+##################################################################
+####################### Balcony ##################################
+
+From client:
+	BalconyInit //Verifica número do balcão e tipo
+	BalconyInitResponse //Sim ou não (o Server garante que o balcão não esteja em uso)
+	BalconyPopQueue //Olá, server, sou tal guichê, estou livre, por favor, me envie um cliente...
+	BalconyPopQueueResponse //Olá, balcony, eis seu cliente (QueueManagerBean)"24-B Caminhão da casa"
+	BalconyLastPoppedQueue //Olá, server, chama o último que eu chamei (ou o próprio Balcony já diz qual deseja rechamar.. Tipo: 24-B[QueueManagerBean])(então o servidor repassará o chamado para o Viewer) aí, por favor.
+
+##################################################################
+####################### Queue Pop ################################
+
+From client:
+	QueuePopPopQueue //Olá, server, retire esse elemento da fila: "..." (passCode, coluna da tabela QUEUE_MANAGER)
+	QueuePopPopRecordResponse //Ok (caso seja possível)
+
+From server:
+	QueuePopRefreshQueue //Atualiza toda a lista de filas (para caso haja mais de um QueuePop em funcionamento) List<Queue<QueueManageBean> >
+
+##################################################################
+####################### Queue Push ###############################
+
+From client:
+	QueuePushVerifyClientRecord //Olá, server, tal registro já está cadastrado no banco? (usado pra preencher automaticamente os outros campos do cliente)
+	QueuePushVerifyClientRecordResponse //Olá, cliente, sim, eis o nome e o telefone. (ClientBean)
+	QueuePushInserQueueElement //Olá, server, insira esse cliente na fila. (ClientBean)
+	QueuePushInserQueueElementResponse //Olá, cliente, cliente inserido com sucesso, eis o código dele: "23-B"
+
+##################################################################
+####################### Administrator ############################
+
+From client:
+	AdministratorAddUser //UserBean
+	AdministratorAddService //ServiceBean
+	AdministratorAddBalcony //BalconyBean
+	AdministratorAddSlideImage //ImageBytes ImageName
+	AdministratorRemoveSlideImage //ImageName
+	AdministratorSetSlideShowTime //int
+	AdministratorSetAutoQueueManagement //bool
+	AdministratorSetMainImage //ImageBytes
+
+#################################################################
+

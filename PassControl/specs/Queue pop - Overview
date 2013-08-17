@@ -5,9 +5,10 @@ Perguntará ao server se já existem algumas filas criadas para hoje, se sim, ex
 
 Mensagens ao server:
 QueuePopInit //Verifica usuário-senha
-QueuePopInitResponse //Sim ou não (o Server garante que só um Popper pode ser executado!)
+QueuePopInitResponse //Sim ou não
 QueuePopPopRecord //Olá, server, retire esse elemento da fila: "..."
 QueuePopPopRecordResponse //Ok
 
 Mensagens do server:
 QueuePopSetMainImage //arquivo de imagem
+QueuePopRefreshQueue //Atualiza toda a lista de filas (para caso haja mais de um QueuePop em funcionamento)
