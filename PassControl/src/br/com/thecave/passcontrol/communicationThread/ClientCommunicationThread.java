@@ -53,8 +53,20 @@ public abstract class ClientCommunicationThread extends PassControlCommunication
     }  
     
     @Override
+    public void stop()
+    {
+        running = false;
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
     public void run() {
-        while (true) {
+        running = true;
+        while (running) {
             try {
                 if (socket == null) 
                 {
