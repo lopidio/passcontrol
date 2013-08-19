@@ -15,11 +15,11 @@ public class ClientInitializationRequest extends PassControlMessage
     
     
     public ClientInitializationRequest(MessageActors from, String user, String password) {
-        super(from, MessageActors.ServerActor, "ClientInitialization");
+        super(from, MessageActors.ServerActor);
         this.user = user;
         this.password = password;
     }
-
+    
     public String getUser() {
         return user;
     }

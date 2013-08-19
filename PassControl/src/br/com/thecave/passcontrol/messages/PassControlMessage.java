@@ -32,10 +32,10 @@ public class PassControlMessage implements Serializable{
      * @param to Destinatário
      * @param type Sublclasse que ela instancia
      */
-    public PassControlMessage(MessageActors from, MessageActors to, String type) {
+    public PassControlMessage(MessageActors from, MessageActors to) {
         this.from = from;
         this.to = to;
-        this.type = type;
+        this.type = this.getClass().getSimpleName();
     }
 
     /**
@@ -56,7 +56,7 @@ public class PassControlMessage implements Serializable{
 
     /**
      * Getter do tipo.
-     * Uma String cujo valor é o mesmo do nome da subclasse a qual ela pertence
+     * Valor é o mesmo do nome da subclasse a qual ela pertence
      * @return tipo
      */
     public String getType() {

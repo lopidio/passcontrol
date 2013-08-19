@@ -19,7 +19,7 @@ public class ViewerQueueRequest extends PassControlMessage{
     int queueSize;
 
     public ViewerQueueRequest(int queueSize) {
-        super(MessageActors.ViewerActor, MessageActors.ServerActor, "ViewerQueueRequest");
+        super(MessageActors.ViewerActor, MessageActors.ServerActor);
         this.queueSize = queueSize;
     }
 

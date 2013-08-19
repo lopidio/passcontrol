@@ -22,11 +22,11 @@ public class MainImageSetter extends PassControlMessage{
     String imageName;
 
     public MainImageSetter(Image image, String imageName) {
-        super(MessageActors.ServerActor, MessageActors.AllActors, "MainImageSetter");
+        super(MessageActors.ServerActor, MessageActors.AllActors);
         this.image = image;
         this.imageName = imageName;
     }
-
+    
     /**
      * Getter da própria imagem
      * @return image

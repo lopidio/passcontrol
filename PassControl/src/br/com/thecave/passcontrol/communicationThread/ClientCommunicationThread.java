@@ -7,7 +7,7 @@ package br.com.thecave.passcontrol.communicationThread;
 import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.viewer.ViewerQueueRequest;
+import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -85,8 +85,15 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     }
 
     @Override
-    void handleMessage(PassControlMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void handleMessage(PassControlMessage message) 
+    {
+        //Class<?> act = Class.forName("com.bla.TestActivity");
+        //Filtra só para os escutadores do tipo recebido
+        for (PassControlMessageListener listener : passControlMessageListeners.get(message.getType())) 
+        {
+            listener.onMessageReceive(message);
+        }
+
     }
 
     @Override
