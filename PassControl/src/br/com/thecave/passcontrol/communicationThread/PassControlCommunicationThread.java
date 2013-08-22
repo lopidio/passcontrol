@@ -4,8 +4,10 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
+import br.com.thecave.passcontrol.messages.GenericPassControlMessageListener;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import br.com.thecave.passcontrol.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -32,7 +34,19 @@ public abstract class PassControlCommunicationThread implements Runnable {
         running = false;
     }
     
-    public void addMessageListener(PassControlMessageListener listener, String typeToListenTo)
+    synchronized public void removeListener(GenericPassControlMessageListener listener, String typeToListenTo) {
+        ArrayList<PassControlMessageListener> list = passControlMessageListeners.get(typeToListenTo);
+        if (list == null)
+        {
+            return;
+        }
+        list.remove(listener);
+        
+        passControlMessageListeners.put(typeToListenTo, list);
+    }
+    
+    
+    synchronized public void addMessageListener(PassControlMessageListener listener, String typeToListenTo)
     {
         ArrayList<PassControlMessageListener> list = passControlMessageListeners.get(typeToListenTo);
         if (list == null)
@@ -45,12 +59,43 @@ public abstract class PassControlCommunicationThread implements Runnable {
     }
 
     /**
+     * Envia a mensagem e espera a resposta ou timeout
+     * 
+     * @param message Mensagem a ser enviada
+     * @param typeToListenTo Tipo da resposta esperado
+     * @param timeout Tempo de espera (em milissegundos)
+     * @return Mensagem esperada ou null
+     */
+    public PassControlMessage sendMessageAndWaitForResponseOrTimeout(PassControlMessage message, String typeToListenTo, long timeout)
+    {
+        PassControlMessage retorno = null;
+        GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
+                
+        Watchdog watchdog = new Watchdog(timeout);
+        
+        addMessageListener(listener, typeToListenTo);
+        
+        while (!watchdog.hasTimedOut())
+        {
+            if (listener.hasReceivedMessage())
+            {
+                retorno = listener.getReceivedMessage();
+                break;
+            }
+        }
+        
+        removeListener(listener, typeToListenTo);
+        
+        return retorno;
+    }
+    
+    /**
      * Envia a mensagem
      *
      * @param message Mensagem a ser enviada
      * @return
      */
-    protected Boolean sendMessage(Socket socket, PassControlMessage message) {
+    synchronized protected Boolean sendMessage(Socket socket, PassControlMessage message) {
         boolean retorno = false;
         try {
             System.out.println("Mensagem será enviada");
@@ -92,4 +137,5 @@ public abstract class PassControlCommunicationThread implements Runnable {
     abstract void sendMessage(PassControlMessage message);
 
     abstract void stop();
+
 }
