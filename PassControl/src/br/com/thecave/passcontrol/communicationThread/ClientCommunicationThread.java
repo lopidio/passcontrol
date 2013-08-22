@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrol.communicationThread;
 
 import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
+import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
@@ -67,7 +68,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    //REGIÃO DE TESTES
     public static void main(String[] args) {
         try {
             ClientCommunicationThread me = new ClientCommunicationThread("127.0.0.1", 23073);
@@ -75,7 +76,13 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             new Thread(me).start();
             ClientInitializationRequest message = new ClientInitializationRequest(MessageActors.ViewerActor, "guigui", "123456senha");
 
-            me.sendMessage(message);
+            ClientInitializationResponse response = null;
+            response = (ClientInitializationResponse)me.sendMessageAndWaitForResponseOrTimeout
+                    (message, ClientInitializationResponse.class.getSimpleName(), 120*1000);
+            if (response != null)
+                System.out.println(response.getPermissionCode());
+            else
+                System.out.println("TIME OUT!");
         } catch (UnknownHostException ex) {
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -83,19 +90,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         }
 
     }
-
-    @Override
-    void handleMessage(PassControlMessage message) 
-    {
-        //Class<?> act = Class.forName("com.bla.TestActivity");
-        //Filtra só para os escutadores do tipo recebido
-        for (PassControlMessageListener listener : passControlMessageListeners.get(message.getType())) 
-        {
-            listener.onMessageReceive(message);
-        }
-
-    }
-
+    //FIM DA REGIÃO DE TESTES
     @Override
     public void run() {
         running = true;
@@ -113,7 +108,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                 while (true) {
                     //Possui mensagem para ser lida
                     if (inputStream.available() > 0) {
-                        handleIncomingMessage(inputStream);
+                        PassControlMessage message = handleIncomingMessage(inputStream);
+                        redirectMessage(message);
                     }
                 }
 

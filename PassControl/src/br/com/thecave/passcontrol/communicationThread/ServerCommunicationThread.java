@@ -4,8 +4,12 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
+import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
+import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
+import br.com.thecave.passcontrol.messages.GenericPassControlMessageListener;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
+import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -34,11 +38,6 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         clients = new ConcurrentHashMap<>();
     }
 
-    @Override
-    void handleMessage(PassControlMessage message) {
-        System.out.println(message.getFrom().toString());
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void stop() {
@@ -59,35 +58,66 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    //REGIÃO DE TESTES
+    static ServerCommunicationThread server;
 
     public static void main(String[] args) {
         try {
-            new Thread(new ServerCommunicationThread(23073)).start();
+            server = new ServerCommunicationThread(23073);
+
+            PassControlMessageListener initializationListener;
+            initializationListener = new PassControlMessageListener()
+            {
+
+                @Override
+                public void onMessageReceive(PassControlMessage message) {
+                    ClientInitializationResponse response = new ClientInitializationResponse(message.getFrom(), 15, null);
+                    server.sendMessage(response);
+                    
+                }
+                
+            };
+
+            server.addMessageListener(initializationListener, ClientInitializationRequest.class.getSimpleName());
+
+            new Thread(server).start();
+                        
         } catch (IOException ex) {
             Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    //FIM DA REGIÃO DE TESTES
+    
     @Override
     public void run() {
         running = true;
 
         while (running) {
+            //Itera por todos os atores de conexão
             for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) {
                 MessageActors currentActor = entry.getKey();
                 ArrayList<Socket> arrayList = entry.getValue();
+                //itera por todos os atores
                 for (Socket client : arrayList) {
                     InputStream inputStream = null;
                     try {
                         inputStream = client.getInputStream();
-                        //Possui mensagem para ser lida
+                        //Se possui mensagem para ser lida
                         if (inputStream.available() > 0) {
+                            //Recebe a mensagem
                             PassControlMessage message = handleIncomingMessage(inputStream);
                             MessageActors newActor = message.getFrom();
-                            if (newActor != currentActor) {
+                            //Só é necessário caso o ator ainda não tenha sido identificado
+                            if (newActor != currentActor) 
+                            {
                                 removeClient(currentActor, client);
                                 addClient(newActor, client);
                             }
+                            
+                            //Distribui a mensagem para os listener que querem essa mensagem
+                            redirectMessage(message);
                         }
                     } catch (IOException ex) {
                         removeClient(currentActor, client);
@@ -95,16 +125,6 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
                     } 
-//                    finally {
-//                        try {
-//                            if (inputStream != null) {
-////                                inputStream.close();
-//                            }
-//                        } catch (IOException ex) {
-//                            Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    }
-
 
                 }
             }
@@ -126,8 +146,12 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             }
         } else {
             //Filtra só para os clientes desejados
-            for (Socket client : clients.get(message.getTo())) {
-                sendMessage(client, message);
+            ArrayList<Socket> selectedClients = clients.get(message.getTo());
+            if (selectedClients != null)
+            {
+                for (Socket client : selectedClients) {
+                    sendMessage(client, message);
+                }                
             }
         }
     }

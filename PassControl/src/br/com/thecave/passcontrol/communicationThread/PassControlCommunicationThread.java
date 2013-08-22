@@ -30,7 +30,9 @@ public abstract class PassControlCommunicationThread implements Runnable {
     protected boolean running;
     HashMap<String, ArrayList<PassControlMessageListener>> passControlMessageListeners;
 
-    public PassControlCommunicationThread() {
+    public PassControlCommunicationThread() 
+    {
+        passControlMessageListeners = new HashMap<>();
         running = false;
     }
     
@@ -74,6 +76,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         Watchdog watchdog = new Watchdog(timeout);
         
         addMessageListener(listener, typeToListenTo);
+        sendMessage(message);
         
         while (!watchdog.hasTimedOut())
         {
@@ -126,14 +129,18 @@ public abstract class PassControlCommunicationThread implements Runnable {
 
         message = (PassControlMessage) input.readObject();
         System.out.println("Mensagem recebida com sucesso");
-        //Pede que a subclasse trate a mensagem corretamente
-        handleMessage(message);
-
         return message;
     }
-
-    abstract void handleMessage(PassControlMessage message);
-
+    
+    protected void redirectMessage(PassControlMessage message)
+    {
+        //Filtra só para os escutadores do tipo recebido
+        for (PassControlMessageListener listener : passControlMessageListeners.get(message.getType())) 
+        {
+            listener.onMessageReceive(message);
+        }        
+    }
+    
     abstract void sendMessage(PassControlMessage message);
 
     abstract void stop();
