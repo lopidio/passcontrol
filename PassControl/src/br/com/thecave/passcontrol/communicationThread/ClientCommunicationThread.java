@@ -54,7 +54,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param message
      */
     @Override
-    public void sendMessage(PassControlMessage message) {
+    public void sendMessage(PassControlMessage message) throws IOException {
         super.sendMessage(socket, message);
     }
 
@@ -77,11 +77,12 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
 
             ClientInitializationResponse response = null;
             response = (ClientInitializationResponse)me.sendMessageAndWaitForResponseOrTimeout
-                    (message, ClientInitializationResponse.class.getSimpleName(), 120*1000);
+                    (message, ClientInitializationResponse.class.getSimpleName(), 30*1000);
             if (response != null)
                 System.out.println(response.getPermissionCode());
             else
                 System.out.println("TIME OUT!");
+            me.stop();
         } catch (UnknownHostException ex) {
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

@@ -28,7 +28,7 @@ From server:
 ####################### Viewer ###################################
 From client:
 	ViewerQueueRequest //Requisita os últimos números a ser chamado (a quantidade vai ser definida no próprio software) 
-	ViewerQueueRequestResponse //Sim, há fila. Ei-la: (List<QueueManager>)
+	ViewerQueueRequestResponse //Sim, há fila. Ei-la: (List<QueueManagerBean>)
 
 From server:
 	ViewerRefreshQueue// List<QueueManager>

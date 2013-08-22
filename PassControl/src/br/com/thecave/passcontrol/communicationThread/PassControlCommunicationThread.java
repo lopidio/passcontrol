@@ -4,7 +4,6 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
-import br.com.thecave.passcontrol.messages.GenericPassControlMessageListener;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import br.com.thecave.passcontrol.util.Watchdog;
@@ -70,26 +69,31 @@ public abstract class PassControlCommunicationThread implements Runnable {
      */
     public PassControlMessage sendMessageAndWaitForResponseOrTimeout(PassControlMessage message, String typeToListenTo, long timeout)
     {
-        PassControlMessage retorno = null;
-        GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
-                
-        Watchdog watchdog = new Watchdog(timeout);
-        
-        addMessageListener(listener, typeToListenTo);
-        sendMessage(message);
-        
-        while (!watchdog.hasTimedOut())
-        {
-            if (listener.hasReceivedMessage())
+        try {
+            PassControlMessage retorno = null;
+            GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
+                    
+            Watchdog watchdog = new Watchdog(timeout);
+            
+            addMessageListener(listener, typeToListenTo);
+            sendMessage(message);
+            
+            while (!watchdog.hasTimedOut())
             {
-                retorno = listener.getReceivedMessage();
-                break;
+                if (listener.hasReceivedMessage())
+                {
+                    retorno = listener.getReceivedMessage();
+                    break;
+                }
             }
+            
+            removeListener(listener, typeToListenTo);
+            
+            return retorno;
+        } catch (IOException ex) {
+            Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        
-        removeListener(listener, typeToListenTo);
-        
-        return retorno;
     }
     
     /**
@@ -98,18 +102,18 @@ public abstract class PassControlCommunicationThread implements Runnable {
      * @param message Mensagem a ser enviada
      * @return
      */
-    synchronized protected Boolean sendMessage(Socket socket, PassControlMessage message) {
+    synchronized protected Boolean sendMessage(Socket socket, PassControlMessage message) throws IOException {
+        if (socket == null)
+            throw  new IOException("Null socket");
+
         boolean retorno = false;
-        try {
-            System.out.println("Mensagem será enviada");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            objectOutputStream.writeObject(message);
+        System.out.println("Mensagem será enviada");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectOutputStream.writeObject(message);
 //            objectOutputStream.close();
-            System.out.println("Mensagem enviada com sucesso");
-            retorno = true;
-        } catch (IOException ex) {
-            Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        System.out.println("Mensagem enviada com sucesso");
+        retorno = true;
+
 
         return retorno;
     }
@@ -141,7 +145,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         }        
     }
     
-    abstract void sendMessage(PassControlMessage message);
+    abstract void sendMessage(PassControlMessage message) throws IOException;
 
     abstract void stop();
 

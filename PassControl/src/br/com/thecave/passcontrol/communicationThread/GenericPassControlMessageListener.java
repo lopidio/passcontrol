@@ -2,7 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.thecave.passcontrol.messages;
+package br.com.thecave.passcontrol.communicationThread;
+
+import br.com.thecave.passcontrol.messages.PassControlMessage;
+import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 
 /**
  *
