@@ -8,7 +8,6 @@ import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
 import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
