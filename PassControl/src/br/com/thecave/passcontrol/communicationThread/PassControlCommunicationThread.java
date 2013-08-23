@@ -69,31 +69,26 @@ public abstract class PassControlCommunicationThread implements Runnable {
      */
     public PassControlMessage sendMessageAndWaitForResponseOrTimeout(PassControlMessage message, String typeToListenTo, long timeout)
     {
-        try {
-            PassControlMessage retorno = null;
-            GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
-                    
-            Watchdog watchdog = new Watchdog(timeout);
-            
-            addMessageListener(listener, typeToListenTo);
-            sendMessage(message);
-            
-            while (!watchdog.hasTimedOut())
+        PassControlMessage retorno = null;
+        GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
+
+        Watchdog watchdog = new Watchdog(timeout);
+
+        addMessageListener(listener, typeToListenTo);
+        sendMessage(message);
+
+        while (!watchdog.hasTimedOut())
+        {
+            if (listener.hasReceivedMessage())
             {
-                if (listener.hasReceivedMessage())
-                {
-                    retorno = listener.getReceivedMessage();
-                    break;
-                }
+                retorno = listener.getReceivedMessage();
+                break;
             }
-            
-            removeListener(listener, typeToListenTo);
-            
-            return retorno;
-        } catch (IOException ex) {
-            Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
+
+        removeListener(listener, typeToListenTo);
+
+        return retorno;
     }
     
     /**
@@ -145,7 +140,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         }        
     }
     
-    abstract void sendMessage(PassControlMessage message) throws IOException;
+    abstract void sendMessage(PassControlMessage message);
 
     abstract void stop();
 

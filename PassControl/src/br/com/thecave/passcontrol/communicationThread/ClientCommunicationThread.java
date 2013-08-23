@@ -33,7 +33,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     /**
      * Canal de comunicação
      */
-    Socket socket;
+    Socket socket = null;
     
     /**
      * Tempo periódico para manutenção da conexão
@@ -51,13 +51,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param serverIP
      * @param port
      */
-    public ClientCommunicationThread(MessageActors actor, String serverIP, int port) throws UnknownHostException, IOException {
+    public ClientCommunicationThread(MessageActors actor, String serverIP, int port){
         this.port = port;
         this.serverIP = serverIP;
         this.actor = actor;
-        System.out.println("Cliente tentando estabelecer conexão");
-        socket = new Socket(serverIP, port);
-        System.out.println("Conexão estabelecida");
     }
 
     /**
@@ -66,8 +63,15 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param message
      */
     @Override
-    public void sendMessage(PassControlMessage message) throws IOException {
-        super.sendMessage(socket, message);
+    public void sendMessage(PassControlMessage message){
+        try
+        {
+            super.sendMessage(socket, message);
+        }
+        catch (IOException exc)
+        {
+            finalizeConnection();
+        }
     }
 
     private MessageActors getActor() {
@@ -86,7 +90,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     }
     //REGIÃO DE TESTES
     public static void main(String[] args) {
-        try {
             ClientCommunicationThread me = new ClientCommunicationThread(MessageActors.ViewerActor, "127.0.0.1", 23073);
 
             new Thread(me).start();
@@ -100,12 +103,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             else
                 System.out.println("TIME OUT!");
             me.stop();
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
     //FIM DA REGIÃO DE TESTES
     @Override
@@ -145,35 +142,31 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                 }
 
             }
-            catch (UnknownHostException unknownExc) 
+            catch (ClassNotFoundException | IOException exc) 
             {
-                System.err.println(unknownExc.getMessage());
+                System.err.println(exc.getMessage());
             }
-            catch (IOException ioExc) 
-            {
-                System.err.println(ioExc.getMessage());
-            }
-            catch (ClassNotFoundException ex) 
-            {
-                Logger.getLogger(PassControlCommunicationThread.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            } 
             finally 
             {
-                try 
-                {
-                    System.out.println("Conexão do cliente encerrada");
-                    socket.close();
-                } catch (IOException ex) 
-                {
-                    Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                finally
-                {
-                    socket = null;
-                }
+                finalizeConnection();
             }
         }
 
+    }
+    
+    private void finalizeConnection()
+    {
+        try 
+        {
+            System.out.println("Conexão do cliente encerrada");
+            socket.close();
+        } catch (IOException ex) 
+        {
+            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            socket = null;
+        }        
     }
 }

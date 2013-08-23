@@ -12,9 +12,9 @@ import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -69,12 +69,8 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             initializationListener = new PassControlMessageListener() {
                 @Override
                 public void onMessageReceive(PassControlMessage message) {
-                    try {
                         ClientInitializationResponse response = new ClientInitializationResponse(message.getFrom(), 15, null);
                         server.sendMessage(response);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                    }
 
                 }
             };
@@ -137,16 +133,17 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     }
 
     @Override
-    void sendMessage(PassControlMessage message) throws IOException 
+    void sendMessage(PassControlMessage message)
     {
         HashMap<MessageActors, ArrayList<Socket>> markedToBeRemoved = new HashMap<>();
         //Se a mensagem for para todos...
         if (message.getTo() == MessageActors.AllActors) 
         {
+            //Percorro todas as listas
             for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
             {
-                ArrayList<Socket> arrayList = entry.getValue();
-                for (Socket client : arrayList) 
+                //Percorro todos os elementos de todas as listas
+                for (Socket client : entry.getValue()) 
                 {
                     try
                     {
@@ -155,18 +152,8 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                     }
                     catch (IOException exc)
                     {
-                        //Recupera a lista anterior
-                        ArrayList<Socket> listaDeClientesDoMesmoTipo;
-                        listaDeClientesDoMesmoTipo = markedToBeRemoved.get(entry.getKey());
-                        if (listaDeClientesDoMesmoTipo == null) {
-                            listaDeClientesDoMesmoTipo = new ArrayList<>();
-                        }
-
-                        //Adiciona mais um cliente
-                        listaDeClientesDoMesmoTipo.add(client);
-
-                        //insere a lista novamente
-                        markedToBeRemoved.put(entry.getKey(), listaDeClientesDoMesmoTipo);                        
+                        //Adiciona cliente na lista de futura remoção
+                        addClientToMap(markedToBeRemoved, entry.getKey(), client);
                     }
                 }
             }
@@ -174,7 +161,8 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         else
         {
             //Filtra só para os clientes desejados
-            ArrayList<Socket> selectedClients = clients.get(message.getTo());
+            MessageActors actorToReceive = message.getTo();
+            ArrayList<Socket> selectedClients = clients.get(actorToReceive);
             if (selectedClients != null) 
             {
                 for (Socket client : selectedClients) 
@@ -186,24 +174,14 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                     }
                     catch (IOException exc)
                     {
-                        //Recupera a lista anterior
-                        ArrayList<Socket> listaDeClientesDoMesmoTipo;
-                        listaDeClientesDoMesmoTipo = markedToBeRemoved.get(message.getTo());
-                        if (listaDeClientesDoMesmoTipo == null) {
-                            listaDeClientesDoMesmoTipo = new ArrayList<>();
-                        }
-
-                        //Adiciona mais um cliente
-                        listaDeClientesDoMesmoTipo.add(client);
-
-                        //insere a lista novamente
-                        markedToBeRemoved.put(message.getTo(), listaDeClientesDoMesmoTipo);                        
-                    }             
+                        //Adiciona cliente na lista de futura remoção
+                        addClientToMap(markedToBeRemoved, actorToReceive, client);
+                    }
                 }
             }
         }
         
-        //PAra todos os clientes a serem removidos
+        //Para todos os clientes a serem removidos
         for (Map.Entry<MessageActors, ArrayList<Socket>> entry : markedToBeRemoved.entrySet()) 
         {
             MessageActors messageActors = entry.getKey();
@@ -217,63 +195,66 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         
     }
 
-    public void addClient(MessageActors messageActors, Socket newClient) {
+    public void addClient(MessageActors messageActors, Socket newClient) 
+    {
+        addClientToMap(clients, messageActors, newClient);
+    }
+
+    public void removeClient(MessageActors messageActors, Socket newClient) 
+    {
+        removeClientFromMap(clients, messageActors, newClient);
+    }
+    
+    /**
+     * Insere um elemento no HashMap de um ArrayList
+     * @param map HashMap a se inserir
+     * @param actorKey Chave do HashMap
+     * @param clientValue Valor a ser inserido na lista do HashMap
+     */
+    private static void addClientToMap(AbstractMap<MessageActors, ArrayList<Socket>> map, MessageActors actorKey, Socket clientValue)
+    {
         //Recupera a lista anterior
         ArrayList<Socket> listaDeClientesDoMesmoTipo;
-        listaDeClientesDoMesmoTipo = clients.get(newClient);
+        listaDeClientesDoMesmoTipo = map.get(actorKey);
         if (listaDeClientesDoMesmoTipo == null) {
             listaDeClientesDoMesmoTipo = new ArrayList<>();
         }
 
         //Adiciona mais um cliente
-        listaDeClientesDoMesmoTipo.add(newClient);
+        listaDeClientesDoMesmoTipo.add(clientValue);
 
         //insere a lista novamente
-        clients.put(messageActors, listaDeClientesDoMesmoTipo);
+        map.put(actorKey, listaDeClientesDoMesmoTipo);
+        
     }
 
-    public void removeClient(MessageActors messageActors, Socket newClient) {
+    /**
+     * Remove um elemento no HashMap de um ArrayList
+     * @param map HashMap a se remover
+     * @param actorKey Chave do HashMap
+     * @param clientValue Valor a ser removido da lista do HashMap
+     */
+    private static void removeClientFromMap(AbstractMap<MessageActors, ArrayList<Socket>> map, MessageActors actorKey, Socket clientValue)
+    {
         //Recupera a lista anterior
-        ArrayList<Socket> listaDeClientesDoMesmoTipo = clients.get(newClient);
+        ArrayList<Socket> listaDeClientesDoMesmoTipo;
+        listaDeClientesDoMesmoTipo = map.get(actorKey);
         if (listaDeClientesDoMesmoTipo == null) {
             listaDeClientesDoMesmoTipo = new ArrayList<>();
         }
 
-        //Remove um cliente
-        listaDeClientesDoMesmoTipo.remove(newClient);
+        //Adiciona mais um cliente
+        listaDeClientesDoMesmoTipo.remove(clientValue);
 
         //insere a lista novamente
-        clients.put(messageActors, listaDeClientesDoMesmoTipo);
+        map.put(actorKey, listaDeClientesDoMesmoTipo);
+        
     }
-
+    
+    
     private void repositionClient(MessageActors currentActor, MessageActors newActor, Socket client) {
         //Remove da lista anterior e adiciona na nova lista
-
-        //Recupera a lista anterior
-        ArrayList<Socket> listaParaRemover = clients.get(currentActor);
-        if (listaParaRemover == null) {
-            listaParaRemover = new ArrayList<>();
-        }
-
-        //Remove um cliente
-        listaParaRemover.remove(client);
-
-        //insere a lista novamente
-        clients.put(currentActor, listaParaRemover);
-
-
-        //Recupera a lista para adicionar
-        ArrayList<Socket> listaParaAdd;
-        listaParaAdd = clients.get(newActor);
-        if (listaParaAdd == null) {
-            listaParaAdd = new ArrayList<>();
-        }
-
-        //Adiciona mais um cliente
-        listaParaAdd.add(client);
-
-        //insere a lista novamente
-        clients.put(newActor, listaParaAdd);
-
+        removeClientFromMap(clients, currentActor, client);
+        addClientToMap(clients, newActor, client);
     }
 }
