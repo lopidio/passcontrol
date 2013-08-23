@@ -12,7 +12,8 @@ import br.com.thecave.passcontrol.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +23,11 @@ import java.util.logging.Logger;
  */
 public class ClientCommunicationThread extends PassControlCommunicationThread {
 
+    /**
+     * Lista de escutadores de status da conexão
+     */
+    ArrayList<StatusConnectionListener> statusConnectionListeners;
+    
     /**
      * Endereço de IP do servidor
      */
@@ -55,6 +61,25 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         this.port = port;
         this.serverIP = serverIP;
         this.actor = actor;
+        statusConnectionListeners = new ArrayList<>();
+    }
+    
+    /**
+     * Adiciona um escutador de status da conexão
+     * @param newListener
+     */
+    public void addStatusConnectionListeners(StatusConnectionListener newListener)
+    {
+        statusConnectionListeners.add(newListener);
+    }
+    
+    /**
+     * Remove um escutador de status de conexão
+     * @param listener
+     */
+    public void removeStatusConnectionListener(StatusConnectionListener listener)
+    {
+        statusConnectionListeners.remove(listener);
     }
 
     /**
@@ -80,13 +105,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     
     
     @Override
-    public void stop() {
+    public void stop() 
+    {
         running = false;
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        finalizeConnection();
     }
     //REGIÃO DE TESTES
     public static void main(String[] args) {
@@ -116,7 +138,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                 {
                     //Tenta estabelecer uma conexão
                     System.out.println("Cliente tentando estabelecer conexão");
-                    socket = new Socket(serverIP, port);
+                    socket = new Socket(serverIP, port);      
+                    onChangeStatusConnection();                    
                     System.out.println("Conexão estabelecida");
                 }
                 InputStream inputStream = socket.getInputStream();
@@ -141,10 +164,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                         sendMessage(new PassControlMessage(actor, MessageActors.ServerActor));
                     }
                 }
-
             }
             catch (ClassNotFoundException | IOException exc) 
             {
+                onChangeStatusConnection();
                 System.err.println(exc.getMessage());
             }
             finally 
@@ -153,6 +176,15 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             }
         }
 
+    }
+    
+    private void onChangeStatusConnection()
+    {
+        boolean connectionOff = (socket != null && !socket.isClosed());
+        for (StatusConnectionListener statusConnectionListener : statusConnectionListeners) 
+        {
+            statusConnectionListener.onChangeConnection(connectionOff);
+        }
     }
     
     private void finalizeConnection()
