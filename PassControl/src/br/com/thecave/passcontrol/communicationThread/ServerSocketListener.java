@@ -49,10 +49,10 @@ public class ServerSocketListener implements Runnable
     public void run() 
     {
         running = true;
+        System.out.println("Server esperando conexão");
         while (running)
         {
             try {
-                System.out.println("Server esperando conexão");
                 Socket newClient = serverSocket.accept();
                 System.out.println("Novo cliente aceito");
                 owner.addClient(MessageActors.NotIdentified, newClient);

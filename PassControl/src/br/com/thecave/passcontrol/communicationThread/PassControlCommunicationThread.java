@@ -99,18 +99,11 @@ public abstract class PassControlCommunicationThread implements Runnable {
      */
     synchronized protected Boolean sendMessage(Socket socket, PassControlMessage message) throws IOException {
         if (socket == null)
-            throw  new IOException("Null socket");
+            throw new IOException("Null socket");
 
-        boolean retorno = false;
-        System.out.println("Mensagem será enviada");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectOutputStream.writeObject(message);
-//            objectOutputStream.close();
-        System.out.println("Mensagem enviada com sucesso");
-        retorno = true;
-
-
-        return retorno;
+        return true;
     }
 
     /**
@@ -122,17 +115,15 @@ public abstract class PassControlCommunicationThread implements Runnable {
      *
      */
     protected PassControlMessage handleIncomingMessage(InputStream inputStream) throws IOException, ClassNotFoundException {
-        PassControlMessage message = null;
-        System.out.println("Mensagem será recebida");
         ObjectInputStream input = new ObjectInputStream(inputStream);
-
-        message = (PassControlMessage) input.readObject();
-        System.out.println("Mensagem recebida com sucesso");
-        return message;
+        return (PassControlMessage) input.readObject();
     }
     
-    protected void redirectMessage(PassControlMessage message)
+    protected void redirectMessage(PassControlMessage message) throws NullPointerException
     {
+        if (message == null)
+            throw new NullPointerException("Null message");
+        
         //Filtra só para os escutadores do tipo recebido
         for (PassControlMessageListener listener : passControlMessageListeners.get(message.getType())) 
         {

@@ -38,7 +38,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     /**
      * Tempo periódico para manutenção da conexão
      */
-    private static final long HEART_BEAT_TIME = 10*1000;
+    private static final long HEART_BEAT_TIME = 10*1000; //10 segundos...
     
     /**
      * Quem é o cliente responsável pela minha manutenção
@@ -136,6 +136,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     //E ajuda o servidor a identificar os clientes que estão mortos e tal
                     if (watchdog.hasTimedOut())
                     {
+                        System.out.println("Heart beat");
                         watchdog = new Watchdog(HEART_BEAT_TIME);
                         sendMessage(new PassControlMessage(actor, MessageActors.ServerActor));
                     }
@@ -159,7 +160,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         try 
         {
             System.out.println("Conexão do cliente encerrada");
-            socket.close();
+            if (socket != null)
+                socket.close();
         } catch (IOException ex) 
         {
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);

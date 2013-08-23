@@ -121,7 +121,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                                 break CONECTIONS_CLIENT;
                             }
                         }
-                    } catch (IOException | ClassNotFoundException ex) {
+                    } catch (IOException | ClassNotFoundException | NullPointerException ex) {
                         System.out.println("Conexão perdida. Cliente será removido da lista de clientes");
                         removeClient(currentActor, client);
                         Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
