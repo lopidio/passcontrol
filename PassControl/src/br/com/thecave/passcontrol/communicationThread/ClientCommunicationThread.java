@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,6 +57,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param port
      */
     public ClientCommunicationThread(MessageActors actor, String serverIP, int port){
+        super(new HeartBeatMessage(actor, MessageActors.ServerActor));
         this.port = port;
         this.serverIP = serverIP;
         this.actor = actor;
@@ -125,6 +125,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             else
                 System.out.println("TIME OUT!");
             me.stop();
+            System.out.println("F");
     }
     //FIM DA REGIÃO DE TESTES
     @Override
@@ -143,8 +144,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     System.out.println("Conexão estabelecida");
                 }
                 InputStream inputStream = socket.getInputStream();
-
-                Watchdog watchdog = new Watchdog(HEART_BEAT_TIME);
                 
                 //O cliente está sempre escutando o socket
                 while (true) 
@@ -153,16 +152,9 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     if (inputStream.available() > 0) 
                     {
                         PassControlMessage message = handleIncomingMessage(inputStream);
-                        redirectMessage(message);
+                        redirectReceivedMessage(message);
                     }
-                    //Periodicamente, o cliente tenta enviar uma mensagem ao servidor, só para indicar que tá vivo
-                    //E ajuda o servidor a identificar os clientes que estão mortos e tal
-                    if (watchdog.hasTimedOut())
-                    {
-                        System.out.println("Heart beat");
-                        watchdog = new Watchdog(HEART_BEAT_TIME);
-                        sendMessage(new PassControlMessage(actor, MessageActors.ServerActor));
-                    }
+                    checkMessageProtocol();
                 }
             }
             catch (ClassNotFoundException | IOException exc) 

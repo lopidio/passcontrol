@@ -14,8 +14,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,15 +22,29 @@ import java.util.logging.Logger;
 public abstract class PassControlCommunicationThread implements Runnable {
 
     /**
+     * Atributo verificador de envio de mensagens de protocolo
+     */
+    private Watchdog watchdog;
+    
+    /**
+     * Mensagem de protocolo
+     */
+    private HeartBeatMessage heartBeatMessage;
+    /**
      * Artifício para encerrar thread
      */
     protected boolean running;
+    /**
+     * Escutadores de mensagens
+     */
     HashMap<String, ArrayList<PassControlMessageListener>> passControlMessageListeners;
 
-    public PassControlCommunicationThread() 
+    public PassControlCommunicationThread(HeartBeatMessage heartBeatMessage) 
     {
+        this.heartBeatMessage = heartBeatMessage;
         passControlMessageListeners = new HashMap<>();
         running = false;
+        watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);        
     }
     
     synchronized public void removeListener(GenericPassControlMessageListener listener, String typeToListenTo) {
@@ -119,16 +131,36 @@ public abstract class PassControlCommunicationThread implements Runnable {
         return (PassControlMessage) input.readObject();
     }
     
-    protected void redirectMessage(PassControlMessage message) throws NullPointerException
+    protected void redirectReceivedMessage(PassControlMessage message)
     {
-        if (message == null)
-            throw new NullPointerException("Null message");
+        ArrayList<PassControlMessageListener> listenersArray = passControlMessageListeners.get(message.getType());
+        //Não há escutador cadastradoI
+        if (listenersArray == null)
+            return;
         
         //Filtra só para os escutadores do tipo recebido
-        for (PassControlMessageListener listener : passControlMessageListeners.get(message.getType())) 
+        for (PassControlMessageListener listener : listenersArray)
         {
             listener.onMessageReceive(message);
         }        
+    }
+    
+    /**
+     * Periodicamente envia mensagens ao outro lado da conexão para verificar se ainda está ativo
+     * @return true caso tenha enviado a mensagem
+     */
+    protected boolean checkMessageProtocol()
+    {
+        //Periodicamente, o cliente tenta enviar uma mensagem ao servidor, só para indicar que tá vivo
+        //E ajuda o servidor a identificar os clientes que estão mortos e tal
+        if (watchdog.hasTimedOut())
+        {
+            System.out.println("Heart beat");
+            watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);
+            sendMessage(heartBeatMessage);
+            return true;
+        }
+        return false;
     }
     
     abstract void sendMessage(PassControlMessage message);

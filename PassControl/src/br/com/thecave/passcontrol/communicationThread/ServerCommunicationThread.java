@@ -32,7 +32,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      */
     ConcurrentHashMap<MessageActors, ArrayList<Socket>> clients;
 
-    public ServerCommunicationThread(int port) throws IOException {
+    public ServerCommunicationThread(int port) throws IOException
+    {
+        super(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
         serverSocketListener = new ServerSocketListener(port, this);
         //Executa a thread que escuta a porta
         new Thread(serverSocketListener).start();
@@ -86,50 +88,49 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
 
     //FIM DA REGIÃO DE TESTES
     @Override
-    public void run() {
+    public void run() 
+    {
         running = true;
-
-        while (running) {
+        int clientCount = -1;
+        
+        while (running) 
+        {
+            if (checkMessageProtocol())
+                clientCount = 0;
+            
             //Itera por todos os atores de conexão
             CONECTIONS_CLIENT:
-            for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) {
+            for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+            {
                 MessageActors currentActor = entry.getKey();
                 ArrayList<Socket> arrayList = entry.getValue();
                 //itera por todos os atores
-                for (Socket client : arrayList) {
-                    try {          
-                        InputStream inputStream = client.getInputStream();
-                        //Se possui mensagem para ser lida
-                        if (inputStream.available() > 0) 
-                        {
-                            boolean flagNeedsToStartOver = false;
-
-                            //Recebe a mensagem
-                            PassControlMessage message = handleIncomingMessage(inputStream);
-                            MessageActors newActor = message.getFrom();
-                            //Só é necessário caso o ator ainda não tenha sido identificado
-                            if (newActor != currentActor) {
-                                repositionClient(currentActor, newActor, client);
-                                flagNeedsToStartOver = true;
-                            }
-
-                            //Distribui a mensagem para os listener que querem essa mensagem
-                            redirectMessage(message);
-
-                            if (flagNeedsToStartOver) {
-                                //Espécie de goto ( :S ). Se o Gilvan vir isso, eu me lasco. :D
-                                break CONECTIONS_CLIENT;
-                            }
-                        }
-                    } catch (IOException | ClassNotFoundException | NullPointerException ex) {
+                for (Socket client : arrayList) 
+                {
+                    if (clientCount >= 0)
+                        ++clientCount;
+                    try 
+                    {         
+                        if (checkInputStream(currentActor, client))
+                            break CONECTIONS_CLIENT;
+                    } catch (IOException | ClassNotFoundException | NullPointerException ex) 
+                    {
                         System.out.println("Conexão perdida. Cliente será removido da lista de clientes");
                         removeClient(currentActor, client);
                         Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                        break CONECTIONS_CLIENT;
                     }
 
                 }
+            }            
+            if (clientCount >= 0)
+            {
+                System.out.println("Número de clientes conectados ao servidor: " + clientCount);
+                clientCount = -1;
             }
+
         }
+        
     }
 
     @Override
@@ -256,5 +257,29 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         //Remove da lista anterior e adiciona na nova lista
         removeClientFromMap(clients, currentActor, client);
         addClientToMap(clients, newActor, client);
+    }
+
+    //Retorna true caso tenha lido alguma coisa
+    private boolean checkInputStream(MessageActors currentActor, Socket client) throws IOException, ClassNotFoundException, NullPointerException
+    {
+        InputStream inputStream = client.getInputStream();
+        //Se possui mensagem para ser lida
+        if (inputStream.available() > 0) 
+        {
+
+            //Recebe a mensagem
+            PassControlMessage message = handleIncomingMessage(inputStream);
+            MessageActors newActor = message.getFrom();
+            //Só é necessário caso o ator ainda não tenha sido identificado
+            if (newActor != currentActor) {
+                repositionClient(currentActor, newActor, client);
+            }
+
+            //Distribui a mensagem para os listener que querem essa mensagem
+            redirectReceivedMessage(message);
+            return true;
+
+        }
+        return false;
     }
 }
