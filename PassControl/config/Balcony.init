@@ -1,7 +1,0 @@
-Pode ser um .xml, ou um .ini...
-
-ServerIP = "10.101.0.192"
-ServerPort = 23073
-LastBalconyNumber = 7
-LastBalconyType = 5 //TB_BALCONY_TYPE.ID :P
-MainImage = "C:/path/to/main/image.jpg"

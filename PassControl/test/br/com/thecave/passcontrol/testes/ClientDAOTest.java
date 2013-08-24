@@ -1,13 +1,10 @@
 package br.com.thecave.passcontrol.testes;
 
-import br.com.thecave.passcontrol.db.bean.ClientBean;
-import br.com.thecave.passcontrol.db.dao.ClientDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Classe de teste do ClientDAO
