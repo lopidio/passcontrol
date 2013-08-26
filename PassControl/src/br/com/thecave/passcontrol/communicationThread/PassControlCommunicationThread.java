@@ -84,12 +84,12 @@ public abstract class PassControlCommunicationThread implements Runnable {
         PassControlMessage retorno = null;
         GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
 
-        Watchdog watchdog = new Watchdog(timeout);
+        Watchdog timeOutWatcher = new Watchdog(timeout);
 
         addMessageListener(listener, typeToListenTo);
         sendMessage(message);
 
-        while (!watchdog.hasTimedOut())
+        while (!timeOutWatcher.hasTimedOut())
         {
             if (listener.hasReceivedMessage())
             {
@@ -113,8 +113,10 @@ public abstract class PassControlCommunicationThread implements Runnable {
         if (socket == null)
             throw new IOException("Null socket");
 
+        System.out.println("Mensagem será enviada");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectOutputStream.writeObject(message);
+        System.out.println("Mensagem enviada com sucesso " + message.getType());
         return true;
     }
 
@@ -127,8 +129,11 @@ public abstract class PassControlCommunicationThread implements Runnable {
      *
      */
     protected PassControlMessage handleIncomingMessage(InputStream inputStream) throws IOException, ClassNotFoundException {
+        System.out.println("Mensagem será recebida");
         ObjectInputStream input = new ObjectInputStream(inputStream);
-        return (PassControlMessage) input.readObject();
+        PassControlMessage message = (PassControlMessage) input.readObject();
+        System.out.println("Mensagem recebida com sucesso: " + message.getType());
+        return message;
     }
     
     protected void redirectReceivedMessage(PassControlMessage message)

@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,6 +27,11 @@ import java.util.logging.Logger;
  */
 public class ServerCommunicationThread extends PassControlCommunicationThread {
 
+    /**
+     * Flag que indica que a iteração dos loops deve ser reiniciada
+     */
+    boolean markToReset;
+    
     ServerSocketListener serverSocketListener;
     /**
      * Mapa de clientes identificados pelo ator
@@ -35,6 +41,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     public ServerCommunicationThread(int port) throws IOException
     {
         super(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
+        markToReset = false;
         serverSocketListener = new ServerSocketListener(port, this);
         //Executa a thread que escuta a porta
         new Thread(serverSocketListener).start();
@@ -99,30 +106,50 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                 clientCount = 0;
             
             //Itera por todos os atores de conexão
-            CONECTIONS_CLIENT:
             for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
             {
+                markToReset = false;
+                
                 MessageActors currentActor = entry.getKey();
                 ArrayList<Socket> arrayList = entry.getValue();
                 //itera por todos os atores
-                for (Socket client : arrayList) 
+                try
                 {
-                    if (clientCount >= 0)
-                        ++clientCount;
-                    try 
-                    {         
-                        if (checkInputStream(currentActor, client))
-                            break CONECTIONS_CLIENT;
-                    } catch (IOException | ClassNotFoundException | NullPointerException ex) 
+                    for (Socket client : arrayList) 
                     {
-                        System.out.println("Conexão perdida. Cliente será removido da lista de clientes");
-                        removeClient(currentActor, client);
-                        Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                        break CONECTIONS_CLIENT;
+                        if (clientCount >= 0)
+                            ++clientCount;
+                        try 
+                        {   
+                            if (client == null)
+                            {
+                                markToReset = true;
+                            }
+                            if (checkInputStream(currentActor, client))
+                                markToReset = true;;
+                        } 
+                        catch (IOException | ClassNotFoundException | NullPointerException ex) 
+                        {
+                            markToReset = true;
+                            System.out.println("Conexão perdida. Cliente será removido da lista de clientes");
+                            removeClient(currentActor, client);
+                            Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        if (markToReset)
+                        {
+                            break;
+                        }
                     }
-
                 }
-            }            
+                catch (ConcurrentModificationException exc)
+                {
+                    markToReset = true;;
+                }
+                if (markToReset)
+                {
+                    break;
+                }
+            }
             if (clientCount >= 0)
             {
                 System.out.println("Número de clientes conectados ao servidor: " + clientCount);
@@ -198,11 +225,13 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
 
     public void addClient(MessageActors messageActors, Socket newClient) 
     {
+        markToReset = true;
         addClientToMap(clients, messageActors, newClient);
     }
 
     public void removeClient(MessageActors messageActors, Socket newClient) 
     {
+        markToReset = true;
         removeClientFromMap(clients, messageActors, newClient);
     }
     
@@ -233,9 +262,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      * Remove um elemento no HashMap de um ArrayList
      * @param map HashMap a se remover
      * @param actorKey Chave do HashMap
-     * @param clientValue Valor a ser removido da lista do HashMap
+     * @param client Valor a ser removido da lista do HashMap
      */
-    private static void removeClientFromMap(AbstractMap<MessageActors, ArrayList<Socket>> map, MessageActors actorKey, Socket clientValue)
+    private static void removeClientFromMap(AbstractMap<MessageActors, ArrayList<Socket>> map, MessageActors actorKey, Socket client)
     {
         //Recupera a lista anterior
         ArrayList<Socket> listaDeClientesDoMesmoTipo;
@@ -245,7 +274,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         }
 
         //Adiciona mais um cliente
-        listaDeClientesDoMesmoTipo.remove(clientValue);
+        listaDeClientesDoMesmoTipo.remove(client);
 
         //insere a lista novamente
         map.put(actorKey, listaDeClientesDoMesmoTipo);
@@ -263,6 +292,8 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     private boolean checkInputStream(MessageActors currentActor, Socket client) throws IOException, ClassNotFoundException, NullPointerException
     {
         InputStream inputStream = client.getInputStream();
+        if (inputStream == null)
+            throw new NullPointerException();
         //Se possui mensagem para ser lida
         if (inputStream.available() > 0) 
         {

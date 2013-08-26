@@ -113,19 +113,29 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     //REGIÃO DE TESTES
     public static void main(String[] args) {
             ClientCommunicationThread me = new ClientCommunicationThread(MessageActors.ViewerActor, "127.0.0.1", 23073);
-
             new Thread(me).start();
+        
+            
+            //Espera a conexão ser fechada...
+            try 
+            {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) 
+            {
+                Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             ClientInitializationRequest message = new ClientInitializationRequest(me.getActor(), "guigui", "123456senha");
 
             ClientInitializationResponse response;
             response = (ClientInitializationResponse)me.sendMessageAndWaitForResponseOrTimeout
-                    (message, ClientInitializationResponse.class.getSimpleName(), 30*1000);
+                    (message, ClientInitializationResponse.class.getSimpleName(), 5*1000);
             if (response != null)
-                System.out.println(response.getPermissionCode());
+                System.out.println("PermissionCode: " + response.getPermissionCode());
             else
                 System.out.println("TIME OUT!");
             me.stop();
-            System.out.println("F");
+            System.out.println("Fim execução cliente");
     }
     //FIM DA REGIÃO DE TESTES
     @Override
