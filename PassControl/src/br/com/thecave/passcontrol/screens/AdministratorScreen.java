@@ -4,6 +4,8 @@ import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -20,7 +22,14 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     {
         initComponents();
         setImageCenter();
-        jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+        this.addComponentListener(new ComponentAdapter() 
+        {
+            @Override
+            public void componentShown(ComponentEvent e) 
+            {
+                jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+            }
+        });
     }
 
     /**
@@ -39,16 +48,16 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         lbImage = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmBaseDados = new javax.swing.JMenu();
-        jmGuiche = new javax.swing.JMenu();
-        jmGuicheAdd = new javax.swing.JMenuItem();
-        jmGuicheListar = new javax.swing.JMenuItem();
-        jmGuicheDelet = new javax.swing.JMenuItem();
-        jmUsuario = new javax.swing.JMenu();
-        jmUserAdd = new javax.swing.JMenuItem();
-        jmUserList = new javax.swing.JMenuItem();
-        jmUserDelet = new javax.swing.JMenuItem();
+        jmGuiche = new javax.swing.JMenuItem();
+        jmUser = new javax.swing.JMenuItem();
+        jmServicos = new javax.swing.JMenuItem();
         jmImagem = new javax.swing.JMenu();
+        jmAlterImage = new javax.swing.JMenuItem();
         jmApresentacao = new javax.swing.JMenu();
+        jmAddImage = new javax.swing.JMenuItem();
+        jmListImages = new javax.swing.JMenuItem();
+        jmRemoveImages = new javax.swing.JMenuItem();
+        jmAlterTime = new javax.swing.JMenuItem();
         jmGerenAuto = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -115,42 +124,82 @@ public final class AdministratorScreen extends javax.swing.JFrame {
                 .addGap(48, 48, 48))
         );
 
+        jmBaseDados.setMnemonic('B');
         jmBaseDados.setText("Base de Dados          ");
 
-        jmGuiche.setText("Guiches");
-
-        jmGuicheAdd.setText("Adicionar");
-        jmGuiche.add(jmGuicheAdd);
-
-        jmGuicheListar.setText("Listar");
-        jmGuiche.add(jmGuicheListar);
-
-        jmGuicheDelet.setText("Deletar");
-        jmGuiche.add(jmGuicheDelet);
-
+        jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
+        jmGuiche.setMnemonic('G');
+        jmGuiche.setText("Guichê");
+        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmGuicheActionPerformed(evt);
+            }
+        });
         jmBaseDados.add(jmGuiche);
 
-        jmUsuario.setText("Usuários");
+        jmUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        jmUser.setMnemonic('U');
+        jmUser.setText("Usuário");
+        jmUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUserActionPerformed(evt);
+            }
+        });
+        jmBaseDados.add(jmUser);
 
-        jmUserAdd.setText("Adicionar");
-        jmUsuario.add(jmUserAdd);
-
-        jmUserList.setText("Listar");
-        jmUsuario.add(jmUserList);
-
-        jmUserDelet.setText("Deletar");
-        jmUsuario.add(jmUserDelet);
-
-        jmBaseDados.add(jmUsuario);
+        jmServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        jmServicos.setMnemonic('s');
+        jmServicos.setText("Serviços");
+        jmServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmServicosActionPerformed(evt);
+            }
+        });
+        jmBaseDados.add(jmServicos);
 
         jMenuBar1.add(jmBaseDados);
 
+        jmImagem.setMnemonic('I');
         jmImagem.setText("Imagem           ");
+
+        jmAlterImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
+        jmAlterImage.setMnemonic('I');
+        jmAlterImage.setText("Alterar imagem principal");
+        jmImagem.add(jmAlterImage);
+
         jMenuBar1.add(jmImagem);
 
+        jmApresentacao.setMnemonic('A');
         jmApresentacao.setText("Apresentação            ");
+
+        jmAddImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAddImage.setMnemonic('d');
+        jmAddImage.setText("Adicionar imagem");
+        jmApresentacao.add(jmAddImage);
+
+        jmListImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmListImages.setMnemonic('L');
+        jmListImages.setText("Listar imagens");
+        jmListImages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmListImagesActionPerformed(evt);
+            }
+        });
+        jmApresentacao.add(jmListImages);
+
+        jmRemoveImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmRemoveImages.setMnemonic('R');
+        jmRemoveImages.setText("Remover imagem");
+        jmApresentacao.add(jmRemoveImages);
+
+        jmAlterTime.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAlterTime.setMnemonic('t');
+        jmAlterTime.setText("Alterar tempo da apresentação");
+        jmApresentacao.add(jmAlterTime);
+
         jMenuBar1.add(jmApresentacao);
 
+        jmGerenAuto.setMnemonic('G');
         jmGerenAuto.setText("Gerenciamento Automático");
         jMenuBar1.add(jmGerenAuto);
 
@@ -178,6 +227,22 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         performLogout();
     }//GEN-LAST:event_jlLogoutMouseClicked
 
+    private void jmListImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmListImagesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmListImagesActionPerformed
+
+    private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
+        openGuiche();
+    }//GEN-LAST:event_jmGuicheActionPerformed
+
+    private void jmUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserActionPerformed
+        openUser();
+    }//GEN-LAST:event_jmUserActionPerformed
+
+    private void jmServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmServicosActionPerformed
+        openServices();
+    }//GEN-LAST:event_jmServicosActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
@@ -185,18 +250,18 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jlLogout;
     private javax.swing.JLabel jlUser;
+    private javax.swing.JMenuItem jmAddImage;
+    private javax.swing.JMenuItem jmAlterImage;
+    private javax.swing.JMenuItem jmAlterTime;
     private javax.swing.JMenu jmApresentacao;
     private javax.swing.JMenu jmBaseDados;
     private javax.swing.JMenu jmGerenAuto;
-    private javax.swing.JMenu jmGuiche;
-    private javax.swing.JMenuItem jmGuicheAdd;
-    private javax.swing.JMenuItem jmGuicheDelet;
-    private javax.swing.JMenuItem jmGuicheListar;
+    private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmImagem;
-    private javax.swing.JMenuItem jmUserAdd;
-    private javax.swing.JMenuItem jmUserDelet;
-    private javax.swing.JMenuItem jmUserList;
-    private javax.swing.JMenu jmUsuario;
+    private javax.swing.JMenuItem jmListImages;
+    private javax.swing.JMenuItem jmRemoveImages;
+    private javax.swing.JMenuItem jmServicos;
+    private javax.swing.JMenuItem jmUser;
     private javax.swing.JLabel lbImage;
     // End of variables declaration//GEN-END:variables
 
@@ -231,6 +296,24 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         {
             // do nothing
         }
+    }
+    
+    public void openGuiche()
+    {
+        //TODO: implements
+        JOptionPane.showMessageDialog(null, "Open guiche");
+    }
+    
+    public void openUser()
+    {
+        //TODO: implements
+        JOptionPane.showMessageDialog(null, "open user");
+    }
+    
+    public void openServices()
+    {
+        //TODO: implements
+        JOptionPane.showMessageDialog(null, "open services");
     }
 }
 

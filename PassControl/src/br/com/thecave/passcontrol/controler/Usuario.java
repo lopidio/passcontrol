@@ -28,8 +28,8 @@ public class Usuario
     
     public void init(String name, String pass)
     {
-        this.name = name;
-        this.pass = pass;
+        getInstance().name = name;
+        getInstance().pass = pass;
     }
     
     /**

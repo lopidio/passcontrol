@@ -6,6 +6,8 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +22,14 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
     public ChooseModulesScreen() 
     {
         initComponents();
-        jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+        this.addComponentListener(new ComponentAdapter() 
+        {
+            @Override
+            public void componentShown(ComponentEvent e) 
+            {
+                jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+            }
+        });        
     }
 
     /**
@@ -396,6 +405,6 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         {
             // do nothing
         }
-    }
+    }  
 }
 
