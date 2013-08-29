@@ -300,14 +300,14 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     
     public void openGuiche()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "Open guiche");
+        this.setVisible(false);
+        //TODO:
     }
     
     public void openUser()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "open user");
+        this.setVisible(false);
+        Main.userScreen.setVisible(true);
     }
     
     public void openServices()
