@@ -3,6 +3,9 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
 import br.com.thecave.passcontrol.db.bean.UserBean;
+import br.com.thecave.passcontrol.messages.administrator.AdministratorAddUser;
+import br.com.thecave.passcontrol.util.Validation;
+import br.com.thecave.passcontrol.util.Validation.ErrorsField;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JOptionPane;
@@ -55,6 +58,9 @@ public final class UserScreen extends javax.swing.JFrame
         btDelete = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
         btCancel = new javax.swing.JButton();
+        elName = new javax.swing.JLabel();
+        elLogin = new javax.swing.JLabel();
+        elSenha = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
         jmNewUser = new javax.swing.JMenuItem();
@@ -119,6 +125,11 @@ public final class UserScreen extends javax.swing.JFrame
                 tfNameUserActionPerformed(evt);
             }
         });
+        tfNameUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfNameUserFocusLost(evt);
+            }
+        });
 
         jLabel1.setText("Código do usuário");
 
@@ -127,10 +138,20 @@ public final class UserScreen extends javax.swing.JFrame
         jLabel3.setText("Login do usuário");
 
         tfLoginUser.setBackground(new java.awt.Color(220, 240, 248));
+        tfLoginUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfLoginUserFocusLost(evt);
+            }
+        });
 
         jLabel4.setText("Senha do usuário");
 
         tfSenha.setBackground(new java.awt.Color(220, 240, 248));
+        tfSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfSenhaFocusLost(evt);
+            }
+        });
 
         jLabel5.setText("Tipo do usuário");
 
@@ -213,30 +234,44 @@ public final class UserScreen extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        elName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/thecave/passcontrol/screens/errovalid.png"))); // NOI18N
+
+        elLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/thecave/passcontrol/screens/errovalid.png"))); // NOI18N
+
+        elSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/thecave/passcontrol/screens/errovalid.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbCodUser, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addGap(53, 53, 53)
+                        .addGap(90, 90, 90)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(rbAdmin)
                             .addComponent(rbUser)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(tfLoginUser)
-                        .addComponent(jLabel4)
-                        .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)))
-                .addContainerGap(821, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(tfLoginUser)
+                            .addComponent(jLabel4)
+                            .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(elLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(elSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(tfNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(elName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(940, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,15 +295,21 @@ public final class UserScreen extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rbUser)))
                 .addGap(3, 3, 3)
-                .addComponent(tfNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(elName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfNameUser, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(elLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfLoginUser, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(elSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -399,6 +440,18 @@ public final class UserScreen extends javax.swing.JFrame
         cancelar();
     }//GEN-LAST:event_btCancelActionPerformed
 
+    private void tfNameUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNameUserFocusLost
+        validUserName();
+    }//GEN-LAST:event_tfNameUserFocusLost
+
+    private void tfLoginUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginUserFocusLost
+        validLogin();
+    }//GEN-LAST:event_tfLoginUserFocusLost
+
+    private void tfSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfSenhaFocusLost
+        validPassword();
+    }//GEN-LAST:event_tfSenhaFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipoUser;
     private javax.swing.JButton btCancel;
@@ -407,6 +460,9 @@ public final class UserScreen extends javax.swing.JFrame
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSave;
     private javax.swing.JComboBox cbCodUser;
+    private javax.swing.JLabel elLogin;
+    private javax.swing.JLabel elName;
+    private javax.swing.JLabel elSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -482,8 +538,13 @@ public final class UserScreen extends javax.swing.JFrame
     //==============================================================================
     public void saveUser()
     {
+        UserBean bean = writeBeanFromScreen();
         //TODO: implements
-        JOptionPane.showMessageDialog(null, "save usuario");
+        AdministratorAddUser addUser = new AdministratorAddUser();
+        addUser.setBean(bean);
+        
+        JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso");
+        resetScreen();
     }
     //==============================================================================
     public void deleteUser()
@@ -510,7 +571,11 @@ public final class UserScreen extends javax.swing.JFrame
         tfLoginUser.setText("");
         tfSenha.setText("");
         rbAdmin.setSelected(false);
-        rbUser.setSelected(false); 
+        rbUser.setSelected(false);
+        // desabilitando os errosLabel
+        elLogin.setVisible(false);
+        elName.setVisible(false);
+        elSenha.setVisible(false);
    }
     //==============================================================================
     public void resetScreen()
@@ -534,7 +599,7 @@ public final class UserScreen extends javax.swing.JFrame
         // habilita o comboBox, botao e menu
         cbCodUser.setEnabled(true);
         btNovo.setEnabled(true);
-        jmNewUser.setEnabled(true);
+        jmNewUser.setEnabled(true);        
     }
     //==============================================================================
     public void onVisible() 
@@ -571,15 +636,55 @@ public final class UserScreen extends javax.swing.JFrame
     //==============================================================================
     private boolean validScreen() 
     {
-        while(tfNameUser.getText().equals(""))
+        return ( validUserName() && validLogin() && validPassword() );
+    }
+    //==============================================================================
+    private boolean validUserName() 
+    {
+        ErrorsField ret = Validation.validStringSize(tfNameUser.getText(), 4, 25);
+        if( ret != Validation.ErrorsField.SUCCESS_VALIDATION)
         {
-            tfNameUser.setText(JOptionPane.showInputDialog("Campo nome não pode ser em branco!"));
+            elName.setVisible(true);
+            elName.setToolTipText(ret.toString());
+            return false;
         }
-        if(tfLoginUser.getText().equals(""))
+        else
+        {
+            elName.setVisible(false);
+            return true;
+        }        
+    }
+    //==============================================================================
+    private boolean validLogin() 
+    {
+        ErrorsField ret = Validation.validStringSize(tfLoginUser.getText(), 4, 25);
+        if( ret != Validation.ErrorsField.SUCCESS_VALIDATION)
+        {
+            elLogin.setVisible(true);
+            elLogin.setToolTipText(ret.toString());
             return false;
-        if(tfSenha.getPassword().length == 0)
+        }
+        else
+        {
+            elLogin.setVisible(false);
+            return true;
+        }
+    }
+    //==============================================================================
+    private boolean validPassword() 
+    {
+        ErrorsField ret = Validation.validStringSize(new String(tfSenha.getPassword()), 4, 25);
+        if( ret != Validation.ErrorsField.SUCCESS_VALIDATION)
+        {
+            elSenha.setVisible(true);
+            elSenha.setToolTipText(ret.toString());
             return false;
-        return true;
+        }
+        else
+        {
+            elSenha.setVisible(false);
+            return true;
+        }
     }
     //==============================================================================
 }
