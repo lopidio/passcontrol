@@ -79,7 +79,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                 @Override
                 public void onMessageReceive(PassControlMessage message) {
                         ClientInitializationResponse response = new ClientInitializationResponse(message.getFrom(), 15, null);
-                        server.sendMessage(response);
+                        server.addMessageToSend(response);
 
                 }
             };
