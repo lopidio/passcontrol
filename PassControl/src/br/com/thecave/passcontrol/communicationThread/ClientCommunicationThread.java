@@ -41,11 +41,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     Socket socket = null;
     
     /**
-     * Tempo periódico para manutenção da conexão
-     */
-    private static final long HEART_BEAT_TIME = 10*1000; //10 segundos...
-    
-    /**
      * Quem é o cliente responsável pela minha manutenção
      */
     MessageActors actor;
@@ -88,7 +83,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param message
      */
     @Override
-    public void sendMessage(PassControlMessage message){
+    protected void sendMessage(PassControlMessage message){
         try
         {
             super.sendMessage(socket, message);
@@ -165,6 +160,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                         redirectReceivedMessage(message);
                     }
                     checkMessageProtocol();
+                    sendMessagesOnBuffer();
                 }
             }
             catch (ClassNotFoundException | IOException exc) 

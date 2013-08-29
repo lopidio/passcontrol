@@ -37,14 +37,20 @@ public abstract class PassControlCommunicationThread implements Runnable {
     /**
      * Escutadores de mensagens
      */
-    HashMap<String, ArrayList<PassControlMessageListener>> passControlMessageListeners;
-
+    protected HashMap<String, ArrayList<PassControlMessageListener>> passControlMessageListeners;
+    
+    /**
+     * 
+     */
+    private final ArrayList<PassControlMessage> messagesToSend;
+            
     public PassControlCommunicationThread(HeartBeatMessage heartBeatMessage) 
     {
         this.heartBeatMessage = heartBeatMessage;
         passControlMessageListeners = new HashMap<>();
         running = false;
-        watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);        
+        watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);    
+        messagesToSend = new ArrayList<>();
     }
     
     synchronized public void removeListener(GenericPassControlMessageListener listener, String typeToListenTo) {
@@ -87,12 +93,19 @@ public abstract class PassControlCommunicationThread implements Runnable {
         Watchdog timeOutWatcher = new Watchdog(timeout);
 
         addMessageListener(listener, typeToListenTo);
-        sendMessage(message);
+        addMessageToSend(message);
 
         while (!timeOutWatcher.hasTimedOut())
         {
+            if (!isOutBufferEmpty())
+            {
+                System.out.println("Mensagem ainda não enviada");   
+                break;
+            }
+            System.out.println("Mensagem enviada e aguardando retorno");            
             if (listener.hasReceivedMessage())
             {
+                System.out.println("Retorno já foi recebido");
                 retorno = listener.getReceivedMessage();
                 break;
             }
@@ -162,13 +175,35 @@ public abstract class PassControlCommunicationThread implements Runnable {
         {
             System.out.println("Heart beat");
             watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);
-            sendMessage(heartBeatMessage);
+            addMessageToSend(heartBeatMessage);
             return true;
         }
         return false;
     }
     
-    abstract void sendMessage(PassControlMessage message);
+    synchronized public void addMessageToSend(PassControlMessage message)
+    {
+        messagesToSend.add(message);
+    }
+    
+    public synchronized boolean isOutBufferEmpty()
+    {
+        return messagesToSend.isEmpty();
+    }
+    
+    protected void sendMessagesOnBuffer()
+    {
+        synchronized(messagesToSend)
+        {
+            for (PassControlMessage passControlMessage : messagesToSend) 
+            {
+                sendMessage(passControlMessage);
+            }
+            messagesToSend.clear();
+        }
+    }
+    
+    protected abstract void sendMessage(PassControlMessage message);
 
     abstract void stop();
 

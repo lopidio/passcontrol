@@ -126,7 +126,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                                 markToReset = true;
                             }
                             if (checkInputStream(currentActor, client))
-                                markToReset = true;;
+                                markToReset = true;
                         } 
                         catch (IOException | ClassNotFoundException | NullPointerException ex) 
                         {
@@ -143,7 +143,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                 }
                 catch (ConcurrentModificationException exc)
                 {
-                    markToReset = true;;
+                    markToReset = true;
                 }
                 if (markToReset)
                 {
@@ -155,13 +155,16 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                 System.out.println("Número de clientes conectados ao servidor: " + clientCount);
                 clientCount = -1;
             }
+            
+            //Verifica se existe alguma mensagem para enviar. E envia.
+            sendMessagesOnBuffer();
 
         }
         
     }
 
     @Override
-    void sendMessage(PassControlMessage message)
+    protected void sendMessage(PassControlMessage message)
     {
         HashMap<MessageActors, ArrayList<Socket>> markedToBeRemoved = new HashMap<>();
         //Se a mensagem for para todos...
@@ -291,6 +294,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     //Retorna true caso tenha lido alguma coisa
     private boolean checkInputStream(MessageActors currentActor, Socket client) throws IOException, ClassNotFoundException, NullPointerException
     {
+        if (client == null)
+            throw new NullPointerException();
+            
         InputStream inputStream = client.getInputStream();
         if (inputStream == null)
             throw new NullPointerException();
