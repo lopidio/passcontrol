@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrol.messages;
 
 import java.awt.Image;
+import java.net.Socket;
 
 /**
  *
@@ -15,8 +16,8 @@ public class ClientInitializationResponse extends PassControlMessage
     int permissionCode;
     Image mainImage;
 
-    public ClientInitializationResponse(MessageActors to, int permissionCode, Image mainImage) {
-        super(MessageActors.ServerActor, to);
+    public ClientInitializationResponse(MessageActors to, int permissionCode, Image mainImage, Socket socket) {
+        super(MessageActors.ServerActor, to, socket);
         this.permissionCode = permissionCode;
         this.mainImage = mainImage;
     }

@@ -141,10 +141,12 @@ public abstract class PassControlCommunicationThread implements Runnable {
      * @throws ClassNotFoundException
      *
      */
-    protected PassControlMessage handleIncomingMessage(InputStream inputStream) throws IOException, ClassNotFoundException {
+    protected PassControlMessage handleIncomingMessage(Socket socket) throws IOException, ClassNotFoundException {
+        InputStream inputStream = socket.getInputStream();
         System.out.println("Mensagem será recebida");
         ObjectInputStream input = new ObjectInputStream(inputStream);
         PassControlMessage message = (PassControlMessage) input.readObject();
+        message.setSocket(socket);
         System.out.println("Mensagem recebida com sucesso: " + message.getType());
         return message;
     }

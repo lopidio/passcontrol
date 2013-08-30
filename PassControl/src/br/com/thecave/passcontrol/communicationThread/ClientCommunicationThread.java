@@ -156,7 +156,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     //Possui mensagem para ser lida
                     if (inputStream.available() > 0) 
                     {
-                        PassControlMessage message = handleIncomingMessage(inputStream);
+                        PassControlMessage message = handleIncomingMessage(socket);
                         redirectReceivedMessage(message);
                     }
                     checkMessageProtocol();

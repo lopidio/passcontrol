@@ -78,7 +78,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             initializationListener = new PassControlMessageListener() {
                 @Override
                 public void onMessageReceive(PassControlMessage message) {
-                        ClientInitializationResponse response = new ClientInitializationResponse(message.getFrom(), 15, null);
+                        ClientInitializationResponse response = new ClientInitializationResponse(message.getFrom(), 15, null, message.getSocket());
                         server.addMessageToSend(response);
 
                 }
@@ -163,33 +163,28 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         
     }
 
+    
     @Override
     protected void sendMessage(PassControlMessage message)
     {
-        HashMap<MessageActors, ArrayList<Socket>> markedToBeRemoved = new HashMap<>();
-        //Se a mensagem for para todos...
-        if (message.getTo() == MessageActors.AllActors) 
+        HashMap<MessageActors, ArrayList<Socket>> clientsMarkedToBeRemoved = new HashMap<>();
+        //A mensagem possui apenas um destinatário
+        Socket socketDest = message.getSocket();
+        if (socketDest != null)
         {
-            //Percorro todas as listas
-            for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+            try
             {
-                //Percorro todos os elementos de todas as listas
-                for (Socket client : entry.getValue()) 
-                {
-                    try
-                    {
-                        //Manda para todos
-                        sendMessage(client, message);
-                    }
-                    catch (IOException exc)
-                    {
-                        //Adiciona cliente na lista de futura remoção
-                        addClientToMap(markedToBeRemoved, entry.getKey(), client);
-                    }
-                }
+                //Manda para todos
+                sendMessage(socketDest, message);
             }
+            catch (IOException exc)
+            {
+                //Adiciona cliente na lista de futura remoção
+                addClientToMap(clientsMarkedToBeRemoved, message.getTo(), socketDest);
+            }            
         }
-        else
+        //Se a mensagem for para todos os clientes de um só tipo
+        else if (message.getTo() != MessageActors.AllActors) 
         {
             //Filtra só para os clientes desejados
             MessageActors actorToReceive = message.getTo();
@@ -206,14 +201,37 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                     catch (IOException exc)
                     {
                         //Adiciona cliente na lista de futura remoção
-                        addClientToMap(markedToBeRemoved, actorToReceive, client);
+                        addClientToMap(clientsMarkedToBeRemoved, actorToReceive, client);
+                    }
+                }
+            }
+        }        
+        //Se a mensagem for para todos, TODOS MESMO!!...
+        else // if (message.getTo() == MessageActors.AllActors) 
+        {
+            //Percorro todas as listas
+            for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+            {
+                //Percorro todos os elementos de todas as listas
+                for (Socket client : entry.getValue()) 
+                {
+                    try
+                    {
+                        //Manda para todos
+                        sendMessage(client, message);
+                    }
+                    catch (IOException exc)
+                    {
+                        //Adiciona cliente na lista de futura remoção
+                        addClientToMap(clientsMarkedToBeRemoved, entry.getKey(), client);
                     }
                 }
             }
         }
+
         
         //Para todos os clientes a serem removidos
-        for (Map.Entry<MessageActors, ArrayList<Socket>> entry : markedToBeRemoved.entrySet()) 
+        for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clientsMarkedToBeRemoved.entrySet()) 
         {
             MessageActors messageActors = entry.getKey();
             ArrayList<Socket> currentClient = clients.get(messageActors);
@@ -305,7 +323,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         {
 
             //Recebe a mensagem
-            PassControlMessage message = handleIncomingMessage(inputStream);
+            PassControlMessage message = handleIncomingMessage(client);
             MessageActors newActor = message.getFrom();
             //Só é necessário caso o ator ainda não tenha sido identificado
             if (newActor != currentActor) {

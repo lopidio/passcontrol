@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrol.messages;
 
 import java.io.Serializable;
+import java.net.Socket;
 
 /**
  *
@@ -23,10 +24,15 @@ public class PassControlMessage implements Serializable{
      * Indica o tipo da mensagem. (de qual subclasse ela é uma instância)
      */
     private String type; //Ou pode-se criar uma enumeração para isso.
+    
+    /**
+     * Socket que representa a conexão entre o remetente e o destinatário
+     */
+    private Socket socket;
 
     /**
      * 
-     * Construtor
+     * Construtor de mensagens do tipo broadcast
      * 
      * @param from Remetente
      * @param to Destinatário
@@ -36,7 +42,20 @@ public class PassControlMessage implements Serializable{
         this.from = from;
         this.to = to;
         this.type = this.getClass().getSimpleName();
+        this.socket = null;
     }
+
+    /**
+     * Construtor de mensagens de resposta
+     */
+    public PassControlMessage(MessageActors from, MessageActors to, Socket socket) {
+        this.from = from;
+        this.to = to;
+        this.socket = socket;
+        this.type = this.getClass().getSimpleName();        
+    }
+    
+    
 
     /**
      * Getter do remetente
@@ -59,9 +78,20 @@ public class PassControlMessage implements Serializable{
      * Valor é o mesmo do nome da subclasse a qual ela pertence
      * @return tipo
      */
-    public String getType() {
+    public String getType() 
+    {
         return type;
     }
+
+    public Socket getSocket() 
+    {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
         
+    
     
 }
