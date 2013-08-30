@@ -5,8 +5,10 @@
 package br.com.thecave.passcontrol.communicationThread;
 
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import br.com.thecave.passcontrol.messages.PassControlConnectionPacket;
+import br.com.thecave.passcontrol.messages.PassControlConnectionMessageListener;
 import br.com.thecave.passcontrol.util.Watchdog;
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -14,6 +16,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,24 +42,34 @@ public abstract class PassControlCommunicationThread implements Runnable {
     /**
      * Escutadores de mensagens
      */
-    protected HashMap<String, ArrayList<PassControlMessageListener>> passControlMessageListeners;
+    protected HashMap<String, ArrayList<PassControlConnectionMessageListener>> passControlMessageListeners;
     
     /**
      * 
      */
-    private final ArrayList<PassControlMessage> messagesToSend;
-            
+    private final ArrayBlockingQueue<PassControlMessage> messagesToSend;
+
+    /**
+     * 
+     */
+    private final ArrayBlockingQueue<PassControlConnectionPacket> responsesToSend;    
+    
+    /**
+     * 
+     * @param heartBeatMessage 
+     */            
     public PassControlCommunicationThread(HeartBeatMessage heartBeatMessage) 
     {
         this.heartBeatMessage = heartBeatMessage;
         passControlMessageListeners = new HashMap<>();
         running = false;
         watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);    
-        messagesToSend = new ArrayList<>();
+        messagesToSend = new ArrayBlockingQueue<>(50);
+        responsesToSend = new ArrayBlockingQueue<>(50);
     }
     
     synchronized public void removeListener(GenericPassControlMessageListener listener, String typeToListenTo) {
-        ArrayList<PassControlMessageListener> list = passControlMessageListeners.get(typeToListenTo);
+        ArrayList<PassControlConnectionMessageListener> list = passControlMessageListeners.get(typeToListenTo);
         if (list == null)
         {
             return;
@@ -65,9 +80,9 @@ public abstract class PassControlCommunicationThread implements Runnable {
     }
     
     
-    synchronized public void addMessageListener(PassControlMessageListener listener, String typeToListenTo)
+    synchronized public void addMessageListener(PassControlConnectionMessageListener listener, String typeToListenTo)
     {
-        ArrayList<PassControlMessageListener> list = passControlMessageListeners.get(typeToListenTo);
+        ArrayList<PassControlConnectionMessageListener> list = passControlMessageListeners.get(typeToListenTo);
         if (list == null)
         {
             list = new ArrayList<>();
@@ -85,9 +100,9 @@ public abstract class PassControlCommunicationThread implements Runnable {
      * @param timeout Tempo de espera (em milissegundos)
      * @return Mensagem esperada ou null
      */
-    public PassControlMessage sendMessageAndWaitForResponseOrTimeout(PassControlMessage message, String typeToListenTo, long timeout)
+    public PassControlConnectionPacket sendMessageAndWaitForResponseOrTimeout(PassControlMessage message, String typeToListenTo, long timeout)
     {
-        PassControlMessage retorno = null;
+        PassControlConnectionPacket retorno = null;
         GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
 
         Watchdog timeOutWatcher = new Watchdog(timeout);
@@ -141,27 +156,27 @@ public abstract class PassControlCommunicationThread implements Runnable {
      * @throws ClassNotFoundException
      *
      */
-    protected PassControlMessage handleIncomingMessage(Socket socket) throws IOException, ClassNotFoundException {
+    protected PassControlConnectionPacket handleIncomingMessage(Socket socket) throws IOException, ClassNotFoundException {
         InputStream inputStream = socket.getInputStream();
         System.out.println("Mensagem será recebida");
         ObjectInputStream input = new ObjectInputStream(inputStream);
         PassControlMessage message = (PassControlMessage) input.readObject();
-        message.setSocket(socket);
+        PassControlConnectionPacket receivedMessage = new PassControlConnectionPacket(message, socket);
         System.out.println("Mensagem recebida com sucesso: " + message.getType());
-        return message;
+        return receivedMessage;
     }
     
-    protected void redirectReceivedMessage(PassControlMessage message)
+    protected void redirectReceivedMessage(PassControlConnectionPacket receivedPacket)
     {
-        ArrayList<PassControlMessageListener> listenersArray = passControlMessageListeners.get(message.getType());
+        ArrayList<PassControlConnectionMessageListener> listenersArray = passControlMessageListeners.get(receivedPacket.getMessage().getType());
         //Não há escutador cadastradoI
         if (listenersArray == null)
             return;
         
         //Filtra só para os escutadores do tipo recebido
-        for (PassControlMessageListener listener : listenersArray)
+        for (PassControlConnectionMessageListener listener : listenersArray)
         {
-            listener.onMessageReceive(message);
+            listener.onMessageReceive(receivedPacket);
         }        
     }
     
@@ -187,26 +202,58 @@ public abstract class PassControlCommunicationThread implements Runnable {
     {
         messagesToSend.add(message);
     }
+        
+    synchronized public void addResponseToSend(PassControlConnectionPacket message)
+    {
+        responsesToSend.add(message);
+    }
     
     public synchronized boolean isOutBufferEmpty()
     {
-        return messagesToSend.isEmpty();
+        return messagesToSend.isEmpty() && responsesToSend.isEmpty();
     }
     
-    protected void sendMessagesOnBuffer()
+    private void sendMessagesOnBuffer()
     {
         synchronized(messagesToSend)
         {
             for (PassControlMessage passControlMessage : messagesToSend) 
             {
-                sendMessage(passControlMessage);
+                sendBroadcastMessage(passControlMessage);
+            }
+            messagesToSend.clear();
+        }
+    }    
+    private void sendResponsesOnBuffer()
+    {
+        synchronized(responsesToSend)
+        {
+            for (PassControlConnectionPacket passControlPacket : responsesToSend) 
+            {
+                sendResponseMessage(passControlPacket);
             }
             messagesToSend.clear();
         }
     }
     
-    protected abstract void sendMessage(PassControlMessage message);
+    protected void flushBuffer()
+    {
+        sendMessagesOnBuffer();
+        sendResponsesOnBuffer();
+    }
+    
+    protected abstract void sendBroadcastMessage(PassControlMessage message);
 
     abstract void stop();
+
+    private void sendResponseMessage(PassControlConnectionPacket passControlPacket)
+    {
+        try {
+            sendMessage(passControlPacket.getSocket(), passControlPacket.getMessage());       
+        } catch (IOException ex) {
+            //Cliente não existe mais.. Será deletado no futuro
+            Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);            
+        }
+    }
 
 }

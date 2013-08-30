@@ -4,23 +4,18 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
-import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import br.com.thecave.passcontrol.messages.PassControlConnectionPacket;
+import br.com.thecave.passcontrol.messages.PassControlConnectionMessageListener;
 
 /**
  *
  * @author lopidio
  */
-public class GenericPassControlMessageListener implements PassControlMessageListener{
+public class GenericPassControlMessageListener implements PassControlConnectionMessageListener{
 
-    PassControlMessage messageReceived = null;
+    PassControlConnectionPacket messageReceived = null;
     
-    @Override
-    public void onMessageReceive(PassControlMessage message) {
-        messageReceived = message;
-    }
-
-    public PassControlMessage getReceivedMessage()
+    public PassControlConnectionPacket getReceivedMessage()
     {
         return messageReceived;
     }
@@ -28,5 +23,10 @@ public class GenericPassControlMessageListener implements PassControlMessageList
     public boolean hasReceivedMessage()
     {
         return messageReceived != null;
+    }
+
+    @Override
+    public void onMessageReceive(PassControlConnectionPacket message) {
+        messageReceived = message;
     }
 }

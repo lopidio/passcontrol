@@ -8,12 +8,12 @@ package br.com.thecave.passcontrol.messages;
  *
  * @author guilherme
  */
-public interface PassControlMessageListener {
+public interface PassControlConnectionMessageListener {
     
     /**
      * Observer Design Pattern
      * @param message 
      */
-    void onMessageReceive(PassControlMessage message);
+    void onMessageReceive(PassControlConnectionPacket message);
     
 }

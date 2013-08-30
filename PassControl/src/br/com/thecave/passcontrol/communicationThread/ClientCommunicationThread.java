@@ -8,7 +8,7 @@ import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
 import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.util.Watchdog;
+import br.com.thecave.passcontrol.messages.PassControlConnectionPacket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -83,7 +83,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param message
      */
     @Override
-    protected void sendMessage(PassControlMessage message){
+    protected void sendBroadcastMessage(PassControlMessage message){
         try
         {
             super.sendMessage(socket, message);
@@ -124,7 +124,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
 
             ClientInitializationResponse response;
             response = (ClientInitializationResponse)me.sendMessageAndWaitForResponseOrTimeout
-                    (message, ClientInitializationResponse.class.getSimpleName(), 5*1000);
+                    (message, ClientInitializationResponse.class.getSimpleName(), 10*1000);
             if (response != null)
                 System.out.println("PermissionCode: " + response.getPermissionCode());
             else
@@ -156,11 +156,11 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     //Possui mensagem para ser lida
                     if (inputStream.available() > 0) 
                     {
-                        PassControlMessage message = handleIncomingMessage(socket);
+                        PassControlConnectionPacket message = handleIncomingMessage(socket);
                         redirectReceivedMessage(message);
                     }
                     checkMessageProtocol();
-                    sendMessagesOnBuffer();
+                    flushBuffer();
                 }
             }
             catch (ClassNotFoundException | IOException exc) 

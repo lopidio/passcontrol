@@ -11,16 +11,16 @@ import java.net.Socket;
  *
  * @author guilherme
  */
-public class ClientInitializationResponse extends PassControlMessage
+public class ClientInitializationResponse extends PassControlConnectionPacket
 {
     int permissionCode;
     Image mainImage;
 
-    public ClientInitializationResponse(MessageActors to, int permissionCode, Image mainImage, Socket socket) {
-        super(MessageActors.ServerActor, to, socket);
+    public ClientInitializationResponse(int permissionCode, Image mainImage, PassControlMessage message, Socket socket) {
+        super(message, socket);
         this.permissionCode = permissionCode;
         this.mainImage = mainImage;
-    }
+    }  
 
     public int getPermissionCode() {
         return permissionCode;

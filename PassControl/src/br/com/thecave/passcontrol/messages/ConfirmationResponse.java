@@ -10,14 +10,14 @@ import java.net.Socket;
  *
  * @author guilherme
  */
-public class ConfirmationResponse extends PassControlMessage
+public class ConfirmationResponse extends PassControlConnectionPacket
 {
     boolean statusOperation;
 
     String messageRequest;
 
-    public ConfirmationResponse(boolean statusOperation, String messageRequest, MessageActors from, MessageActors to, Socket socket) {
-        super(from, to, socket);
+    public ConfirmationResponse(boolean statusOperation, String messageRequest, PassControlMessage packet, Socket socket) {
+        super(packet, socket);
         this.statusOperation = statusOperation;
         this.messageRequest = messageRequest;
     }

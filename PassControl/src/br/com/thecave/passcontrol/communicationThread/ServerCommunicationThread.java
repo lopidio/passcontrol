@@ -8,7 +8,8 @@ import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
 import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import br.com.thecave.passcontrol.messages.PassControlConnectionPacket;
+import br.com.thecave.passcontrol.messages.PassControlConnectionMessageListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -37,7 +38,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      * Mapa de clientes identificados pelo ator
      */
     ConcurrentHashMap<MessageActors, ArrayList<Socket>> clients;
-
+    
     public ServerCommunicationThread(int port) throws IOException
     {
         super(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
@@ -74,12 +75,12 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         try {
             server = new ServerCommunicationThread(23073);
 
-            PassControlMessageListener initializationListener;
-            initializationListener = new PassControlMessageListener() {
+            PassControlConnectionMessageListener initializationListener;
+            initializationListener = new PassControlConnectionMessageListener() {
                 @Override
-                public void onMessageReceive(PassControlMessage message) {
-                        ClientInitializationResponse response = new ClientInitializationResponse(message.getFrom(), 15, null, message.getSocket());
-                        server.addMessageToSend(response);
+                public void onMessageReceive(PassControlConnectionPacket message) {
+                        ClientInitializationResponse response = new ClientInitializationResponse(15, null, message.getMessage(), message.getSocket());
+                        server.addResponseToSend(response);
 
                 }
             };
@@ -157,35 +158,20 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             }
             
             //Verifica se existe alguma mensagem para enviar. E envia.
-            sendMessagesOnBuffer();
-
+            flushBuffer();
         }
         
     }
 
     
     @Override
-    protected void sendMessage(PassControlMessage message)
+    protected void sendBroadcastMessage(PassControlMessage message)
     {
         HashMap<MessageActors, ArrayList<Socket>> clientsMarkedToBeRemoved = new HashMap<>();
-        //A mensagem possui apenas um destinatário
-        Socket socketDest = message.getSocket();
-        if (socketDest != null)
+        if (message.getTo() != MessageActors.AllActors) 
         {
-            try
-            {
-                //Manda para todos
-                sendMessage(socketDest, message);
-            }
-            catch (IOException exc)
-            {
-                //Adiciona cliente na lista de futura remoção
-                addClientToMap(clientsMarkedToBeRemoved, message.getTo(), socketDest);
-            }            
-        }
-        //Se a mensagem for para todos os clientes de um só tipo
-        else if (message.getTo() != MessageActors.AllActors) 
-        {
+            System.out.println("Mensagem enviada para todos os clientes do tipo " + message.getTo().name());            
+            
             //Filtra só para os clientes desejados
             MessageActors actorToReceive = message.getTo();
             ArrayList<Socket> selectedClients = clients.get(actorToReceive);
@@ -209,6 +195,8 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         //Se a mensagem for para todos, TODOS MESMO!!...
         else // if (message.getTo() == MessageActors.AllActors) 
         {
+            System.out.println("Mensagem enviada para todos os clientes do tipo " + message.getTo().name());            
+            
             //Percorro todas as listas
             for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
             {
@@ -323,15 +311,15 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         {
 
             //Recebe a mensagem
-            PassControlMessage message = handleIncomingMessage(client);
-            MessageActors newActor = message.getFrom();
-            //Só é necessário caso o ator ainda não tenha sido identificado
+            PassControlConnectionPacket receivedPacket = handleIncomingMessage(client);
+            MessageActors newActor = receivedPacket.getMessage().getFrom();
+            //Caso o ator tenha mudado de papel
             if (newActor != currentActor) {
                 repositionClient(currentActor, newActor, client);
             }
 
             //Distribui a mensagem para os listener que querem essa mensagem
-            redirectReceivedMessage(message);
+            redirectReceivedMessage(receivedPacket);
             return true;
 
         }
