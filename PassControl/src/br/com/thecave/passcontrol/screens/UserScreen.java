@@ -2,9 +2,15 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
+import br.com.thecave.passcontrol.util.Validation;
+import br.com.thecave.passcontrol.util.Validation.ErrorsField;
+import java.awt.Label;
+import java.awt.TextField;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * Classe que será utilizada como template para todas as outras telas que irão
@@ -50,6 +56,11 @@ public class UserScreen extends javax.swing.JFrame
         jLabel4 = new javax.swing.JLabel();
         rbAdmin = new javax.swing.JRadioButton();
         rbUser = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        tfLogin = new javax.swing.JTextField();
+        elName = new javax.swing.JLabel();
+        elLogin = new javax.swing.JLabel();
+        elSenha = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
         jmNew = new javax.swing.JMenuItem();
@@ -195,7 +206,19 @@ public class UserScreen extends javax.swing.JFrame
 
         jLabel2.setText("Nome do Usuário");
 
+        tfName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfNameFocusLost(evt);
+            }
+        });
+
         jLabel3.setText("Senha do Usuário");
+
+        tfSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfSenhaFocusLost(evt);
+            }
+        });
 
         jLabel4.setText("Tipo de Usuário");
 
@@ -204,6 +227,20 @@ public class UserScreen extends javax.swing.JFrame
 
         bgTipoUser.add(rbUser);
         rbUser.setText("Usuário");
+
+        jLabel5.setText("Login do Usuário");
+
+        tfLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfLoginFocusLost(evt);
+            }
+        });
+
+        elName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/errovalid.png"))); // NOI18N
+
+        elLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/errovalid.png"))); // NOI18N
+
+        elSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/errovalid.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -216,18 +253,33 @@ public class UserScreen extends javax.swing.JFrame
                         .addGap(0, 945, Short.MAX_VALUE)
                         .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(tfName)
-                            .addComponent(jLabel3)
-                            .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
-                        .addGap(122, 122, 122)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(rbAdmin)
-                            .addComponent(rbUser))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3)
+                                    .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(elSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(tfLogin, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbUser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(122, 122, 122)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(rbAdmin)
+                                            .addComponent(rbUser)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(elName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(elLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -248,12 +300,22 @@ public class UserScreen extends javax.swing.JFrame
                         .addComponent(jLabel2))
                     .addComponent(rbUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(elName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(elLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(tfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(elSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -425,6 +487,18 @@ public class UserScreen extends javax.swing.JFrame
         liberateFields();
     }//GEN-LAST:event_jmEditActionPerformed
 
+    private void tfNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNameFocusLost
+        validarNome();
+    }//GEN-LAST:event_tfNameFocusLost
+
+    private void tfLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginFocusLost
+        validarLogin();
+    }//GEN-LAST:event_tfLoginFocusLost
+
+    private void tfSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfSenhaFocusLost
+        validarSenha();
+    }//GEN-LAST:event_tfSenhaFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipoUser;
     private javax.swing.JButton btCancel;
@@ -434,10 +508,14 @@ public class UserScreen extends javax.swing.JFrame
     private javax.swing.JButton btNew;
     private javax.swing.JButton btSave;
     private javax.swing.JComboBox cbUser;
+    private javax.swing.JLabel elLogin;
+    private javax.swing.JLabel elName;
+    private javax.swing.JLabel elSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -457,6 +535,7 @@ public class UserScreen extends javax.swing.JFrame
     private javax.swing.JPanel pnButtons;
     private javax.swing.JRadioButton rbAdmin;
     private javax.swing.JRadioButton rbUser;
+    private javax.swing.JTextField tfLogin;
     private javax.swing.JTextField tfName;
     private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
@@ -478,6 +557,7 @@ public class UserScreen extends javax.swing.JFrame
         }
         else if( JOptionPane.OK_OPTION == result)
         {
+            resetScreen();
             this.setVisible(false);
             Main.login.setVisible(true);
         }
@@ -527,8 +607,14 @@ public class UserScreen extends javax.swing.JFrame
         // desabilita os campos
         tfName.setEnabled(false);
         tfSenha.setEnabled(false);
+        tfLogin.setEnabled(false);
         rbAdmin.setEnabled(false);
         rbUser.setEnabled(false);
+        
+        // escondendo os erros label
+        elLogin.setVisible(false);
+        elName.setVisible(false);
+        elSenha.setVisible(false);
         
         // limpando qualquer campo editado
         clearScreen();
@@ -582,6 +668,7 @@ public class UserScreen extends javax.swing.JFrame
         cbUser.setEnabled(false);
         tfName.setEnabled(true);
         tfSenha.setEnabled(true);
+        tfLogin.setEnabled(true);
         rbAdmin.setEnabled(true);
         rbUser.setEnabled(true);        
     }
@@ -593,6 +680,7 @@ public class UserScreen extends javax.swing.JFrame
     {
         tfName.setText("");
         tfSenha.setText("");
+        tfLogin.setText("");
         rbUser.setSelected(true);
     }
     //==============================================================================
@@ -613,6 +701,21 @@ public class UserScreen extends javax.swing.JFrame
     //==============================================================================
     public void saveBean()
     {
+    }
+    //==============================================================================
+    private boolean validarNome() 
+    {
+        return Validation.validarCampo(tfName, elName);
+    }
+    //==============================================================================
+    private boolean validarLogin() 
+    {
+        return Validation.validarCampo(tfLogin, elLogin);
+    }
+    //==============================================================================
+    private boolean validarSenha() 
+    {
+        return Validation.validarCampo(tfSenha, elSenha);
     }
     //==============================================================================
 }
