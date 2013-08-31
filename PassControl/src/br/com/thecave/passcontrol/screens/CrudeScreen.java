@@ -12,13 +12,13 @@ import javax.swing.JOptionPane;
  * 
  * @author Antonio Arleudo da costa
  */
-public class UserScreen extends javax.swing.JFrame 
+public class CrudeScreen extends javax.swing.JFrame 
 {
     //==============================================================================
     /**
      * Contrutor
      */
-    public UserScreen() 
+    public CrudeScreen() 
     {
         initComponents();
         onVisible();
@@ -41,15 +41,6 @@ public class UserScreen extends javax.swing.JFrame
         btDelete = new javax.swing.JButton();
         btCancel = new javax.swing.JButton();
         btEdit = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        cbUser = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        tfName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        tfSenha = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
-        rbAdmin = new javax.swing.JRadioButton();
-        rbUser = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmFile = new javax.swing.JMenu();
         jmNew = new javax.swing.JMenuItem();
@@ -189,71 +180,19 @@ public class UserScreen extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Id do Usuário");
-
-        cbUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel2.setText("Nome do Usuário");
-
-        jLabel3.setText("Senha do Usuário");
-
-        jLabel4.setText("Tipo de Usuário");
-
-        bgTipoUser.add(rbAdmin);
-        rbAdmin.setText("Administrador");
-
-        bgTipoUser.add(rbUser);
-        rbUser.setText("Usuário");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 945, Short.MAX_VALUE)
-                        .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(tfName)
-                            .addComponent(jLabel3)
-                            .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
-                        .addGap(122, 122, 122)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(rbAdmin)
-                            .addComponent(rbUser))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(955, Short.MAX_VALUE)
+                .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbAdmin))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2))
-                    .addComponent(rbUser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addContainerGap(318, Short.MAX_VALUE)
                 .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -433,11 +372,6 @@ public class UserScreen extends javax.swing.JFrame
     private javax.swing.JButton btEdit;
     private javax.swing.JButton btNew;
     private javax.swing.JButton btSave;
-    private javax.swing.JComboBox cbUser;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -455,10 +389,6 @@ public class UserScreen extends javax.swing.JFrame
     private javax.swing.JMenuItem jmSave;
     private javax.swing.JMenuItem jmVoltar;
     private javax.swing.JPanel pnButtons;
-    private javax.swing.JRadioButton rbAdmin;
-    private javax.swing.JRadioButton rbUser;
-    private javax.swing.JTextField tfName;
-    private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
 
     //==============================================================================   
@@ -524,12 +454,6 @@ public class UserScreen extends javax.swing.JFrame
         jmNew.setEnabled(true);
         jmEdit.setEnabled(true);
         
-        // desabilita os campos
-        tfName.setEnabled(false);
-        tfSenha.setEnabled(false);
-        rbAdmin.setEnabled(false);
-        rbUser.setEnabled(false);
-        
         // limpando qualquer campo editado
         clearScreen();
     }
@@ -578,12 +502,7 @@ public class UserScreen extends javax.swing.JFrame
      */
     public void liberateFields()
     {
-        cbUser.setSelectedItem(null);
-        cbUser.setEnabled(false);
-        tfName.setEnabled(true);
-        tfSenha.setEnabled(true);
-        rbAdmin.setEnabled(true);
-        rbUser.setEnabled(true);        
+        
     }
     //==============================================================================
     /**
@@ -591,9 +510,7 @@ public class UserScreen extends javax.swing.JFrame
      */
     public void clearScreen()
     {
-        tfName.setText("");
-        tfSenha.setText("");
-        rbUser.setSelected(true);
+        
     }
     //==============================================================================
     /**

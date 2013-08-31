@@ -15,9 +15,9 @@ public class Main
     public static LoginScreenResetPassword reset;
     public static ChooseModulesScreen chooseModules;
     public static AdministratorScreen adminScreen;
-    public static UserScreen userScreen;
     public static ClientCommunicationThread communicationThread;
-    
+    public static UserScreen userScreen;
+        
     public static void main(String args[]) 
     {
         /* Set the Nimbus look and feel */
