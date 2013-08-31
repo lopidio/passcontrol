@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
 import br.com.thecave.passcontrol.db.DataBaseManager;
 import br.com.thecave.passcontrol.db.bean.UserBean;
+import br.com.thecave.passcontrol.messages.ConfirmationResponse;
 import br.com.thecave.passcontrol.util.Validation;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -739,6 +740,42 @@ public class UserScreen extends javax.swing.JFrame
         if(nameValid && loginValid && passValid)
         {
             UserBean bean = writeBeanFromScreen();
+            /*
+             * Olá, caro Leudinho,
+             * Como exemplo para a operação desejada, eu escrevo esse pequeno código comentado abaixo
+             */
+            
+            /*
+            //Essa classe herdaria de PassControlMessage e teria um userBean como atributo...
+            AdministratorCreateUser administratorCreateUser = new AdministratorCreateUser(bean);
+            
+            //Essa variável armazenaria a resposta do server
+            //ConfirmationResponse é a classe default de resposta do servidor. (Caso uma resposta mais elaborada seja desejada, deve-se subclassear PassControMessage e tal...)
+            ConfirmationResponse response;
+            
+            //Este método envia a mensagem e aguarda até a mensagem que você está esperando (ConfirmationResponse, por isso o cast) chegar; ou até dar timeout (10 segundos, no exemplo)
+            response = (ConfirmationResponse)Main.getInstance().clientCommunicationThread().sendMessageAndWaitForResponseOrTimeout(administratorCreateUser, "ConfirmationResponse", 10*1000);
+
+            //Verifica se ocorreu timeout
+            if (response != null)
+                //Retorna o status da operação... :D
+                response.isStatusOperation();
+            else
+                System.out.println("TIMEOUT!!");
+            */
+
+            /*
+            Note que, NO SERVIDOR, um listener do tipo AdministratorCreateUser deve ser adicionado. E ele trata a operação com o BD.
+            Algo mais ou menos assim:
+            
+            //Simples assim
+            Main.getInstance().serverCommunicationThread().addListener(CreateUserListener, "AdministratorCreateUser");
+            
+            //E, no método sobrescrito da interface do listener, chamar os DAOS e BEANS
+            */
+            
+            
+            
             if(DataBaseManager.save(bean))
             {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
