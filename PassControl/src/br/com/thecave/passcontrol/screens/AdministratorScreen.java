@@ -51,6 +51,11 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         jmGuiche = new javax.swing.JMenuItem();
         jmUser = new javax.swing.JMenuItem();
         jmServicos = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jmVoltar = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jmLogOut = new javax.swing.JMenuItem();
+        jmSair = new javax.swing.JMenuItem();
         jmImagem = new javax.swing.JMenu();
         jmAlterImage = new javax.swing.JMenuItem();
         jmApresentacao = new javax.swing.JMenu();
@@ -156,6 +161,38 @@ public final class AdministratorScreen extends javax.swing.JFrame {
             }
         });
         jmBaseDados.add(jmServicos);
+        jmBaseDados.add(jSeparator1);
+
+        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmVoltar.setMnemonic('v');
+        jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVoltarActionPerformed(evt);
+            }
+        });
+        jmBaseDados.add(jmVoltar);
+        jmBaseDados.add(jSeparator2);
+
+        jmLogOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        jmLogOut.setMnemonic('l');
+        jmLogOut.setText("Log Out");
+        jmLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogOutActionPerformed(evt);
+            }
+        });
+        jmBaseDados.add(jmLogOut);
+
+        jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        jmSair.setMnemonic('s');
+        jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
+        jmBaseDados.add(jmSair);
 
         jMenuBar1.add(jmBaseDados);
 
@@ -243,11 +280,25 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         openServices();
     }//GEN-LAST:event_jmServicosActionPerformed
 
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
+       voltar();
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        sair();
+    }//GEN-LAST:event_jmSairActionPerformed
+
+    private void jmLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogOutActionPerformed
+        performLogout();
+    }//GEN-LAST:event_jmLogOutActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel jlLogout;
     private javax.swing.JLabel jlUser;
     private javax.swing.JMenuItem jmAddImage;
@@ -259,9 +310,12 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmImagem;
     private javax.swing.JMenuItem jmListImages;
+    private javax.swing.JMenuItem jmLogOut;
     private javax.swing.JMenuItem jmRemoveImages;
+    private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmServicos;
     private javax.swing.JMenuItem jmUser;
+    private javax.swing.JMenuItem jmVoltar;
     private javax.swing.JLabel lbImage;
     // End of variables declaration//GEN-END:variables
 
@@ -314,6 +368,17 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     {
         //TODO: implements
         JOptionPane.showMessageDialog(null, "open services");
+    }
+
+    private void voltar() 
+    {
+        this.setVisible(false);
+        Main.chooseModules.setVisible(true);
+    }
+
+    private void sair() 
+    {
+        System.exit(0);
     }
 }
 

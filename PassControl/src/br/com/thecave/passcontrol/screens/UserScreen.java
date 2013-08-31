@@ -73,6 +73,7 @@ public class UserScreen extends javax.swing.JFrame
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmVoltar = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jmLogOut = new javax.swing.JMenuItem();
         jmSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -410,6 +411,17 @@ public class UserScreen extends javax.swing.JFrame
         jmFile.add(jmVoltar);
         jmFile.add(jSeparator2);
 
+        jmLogOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
+        jmLogOut.setMnemonic('o');
+        jmLogOut.setText("Log Out");
+        jmLogOut.setToolTipText("");
+        jmLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogOutActionPerformed(evt);
+            }
+        });
+        jmFile.add(jmLogOut);
+
         jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         jmSair.setMnemonic('i');
         jmSair.setText("Sair");
@@ -518,6 +530,10 @@ public class UserScreen extends javax.swing.JFrame
         selectBean();
     }//GEN-LAST:event_cbUserItemStateChanged
 
+    private void jmLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogOutActionPerformed
+        performLogout();
+    }//GEN-LAST:event_jmLogOutActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipoUser;
     private javax.swing.JButton btCancel;
@@ -547,6 +563,7 @@ public class UserScreen extends javax.swing.JFrame
     private javax.swing.JMenuItem jmDelete;
     private javax.swing.JMenuItem jmEdit;
     private javax.swing.JMenu jmFile;
+    private javax.swing.JMenuItem jmLogOut;
     private javax.swing.JMenuItem jmNew;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmSave;
