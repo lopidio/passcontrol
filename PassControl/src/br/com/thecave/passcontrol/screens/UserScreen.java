@@ -208,7 +208,12 @@ public class UserScreen extends javax.swing.JFrame
 
         jLabel1.setText("Id do Usuário");
 
-        cbUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
+        cbUser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbUserItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Nome do Usuário");
 
@@ -508,6 +513,10 @@ public class UserScreen extends javax.swing.JFrame
         validarSenha();
     }//GEN-LAST:event_tfSenhaFocusLost
 
+    private void cbUserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbUserItemStateChanged
+        selectBean();
+    }//GEN-LAST:event_cbUserItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTipoUser;
     private javax.swing.JButton btCancel;
@@ -598,21 +607,22 @@ public class UserScreen extends javax.swing.JFrame
         btClean.setEnabled(false);
         btDelete.setEnabled(false);
         btSave.setEnabled(false);
+        btEdit.setEnabled(false);
         
         // trava os menus
         jmCancel.setEnabled(false);
         jmClean.setEnabled(false);
         jmDelete.setEnabled(false);
         jmSave.setEnabled(false);
+        jmEdit.setEnabled(false);
         
         // habilita os botoes iniciais
         btNew.setEnabled(true);
-        btEdit.setEnabled(true);
+        cbUser.setSelectedIndex(-1);
         cbUser.setEnabled(true);
         
         // habilita os menus iniciais
-        jmNew.setEnabled(true);
-        jmEdit.setEnabled(true);
+        jmNew.setEnabled(true);        
         
         // desabilita os campos
         tfName.setEnabled(false);
@@ -680,7 +690,9 @@ public class UserScreen extends javax.swing.JFrame
         tfSenha.setEnabled(true);
         tfLogin.setEnabled(true);
         rbAdmin.setEnabled(true);
-        rbUser.setEnabled(true);        
+        rbUser.setEnabled(true); 
+        
+        btNew.setEnabled(false);
     }
     //==============================================================================
     /**
@@ -707,6 +719,17 @@ public class UserScreen extends javax.swing.JFrame
     //==============================================================================
     public void deleteBean()
     {
+        UserBean bean = writeBeanFromScreen();
+        if(DataBaseManager.delete(bean))
+        {
+            JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+            resetScreen();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Registro não foi deletado!");
+            resetScreen();
+        }
     }
     //==============================================================================
     public void saveBean()
@@ -749,6 +772,12 @@ public class UserScreen extends javax.swing.JFrame
     public UserBean writeBeanFromScreen()
     {
         UserBean bean = new UserBean();
+        
+        if(cbUser.getSelectedItem() != null)
+        {
+            String id = cbUser.getSelectedItem().toString(); 
+            bean.setId(Integer.parseInt(id));
+        }
         bean.setName(tfName.getText());
         bean.setLogin(tfLogin.getText());
         bean.setPassword(new String(tfSenha.getPassword()));
@@ -760,6 +789,35 @@ public class UserScreen extends javax.swing.JFrame
             type = 0;            
         bean.setType(type);
         return bean;
+    }
+    //==============================================================================
+    private void selectBean() 
+    {
+        Object ret = cbUser.getSelectedItem();
+        UserBean bean = null;
+        if( ret != null)
+        {
+            String item = cbUser.getSelectedItem().toString();
+            int index = Integer.parseInt(item);
+            bean = DataBaseManager.select(index);
+        }
+        
+        writeScreenFromBean(bean);
+    }
+    //==============================================================================
+    public void writeScreenFromBean(UserBean bean)
+    {
+        if(bean != null)
+        {
+            tfName.setText(bean.getName());
+            tfLogin.setText(bean.getLogin());
+            tfSenha.setText(bean.getPassword());
+            int type = bean.getType();
+            if(type == 1)
+                rbAdmin.setSelected(true);
+            else
+                rbUser.setSelected(true);
+        }        
     }
     //==============================================================================
 }
