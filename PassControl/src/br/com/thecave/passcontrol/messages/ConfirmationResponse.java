@@ -4,23 +4,22 @@
  */
 package br.com.thecave.passcontrol.messages;
 
-import java.net.Socket;
-
 /**
  *
  * @author guilherme
  */
-public class ConfirmationResponse extends PassControlConnectionPacket
+public class ConfirmationResponse extends PassControlMessage
 {
     boolean statusOperation;
 
     String messageRequest;
 
-    public ConfirmationResponse(boolean statusOperation, String messageRequest, PassControlMessage packet, Socket socket) {
-        super(packet, socket);
+    public ConfirmationResponse(boolean statusOperation, String messageRequest, MessageActors to) {
+        super(MessageActors.ServerActor, to);
         this.statusOperation = statusOperation;
         this.messageRequest = messageRequest;
     }
+
 
     public boolean isStatusOperation() {
         return statusOperation;

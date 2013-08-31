@@ -5,22 +5,21 @@
 package br.com.thecave.passcontrol.messages;
 
 import java.awt.Image;
-import java.net.Socket;
 
 /**
  *
  * @author guilherme
  */
-public class ClientInitializationResponse extends PassControlConnectionPacket
+public class ClientInitializationResponse extends PassControlMessage
 {
     int permissionCode;
-    Image mainImage;
+    boolean loginStatus;
 
-    public ClientInitializationResponse(int permissionCode, Image mainImage, PassControlMessage message, Socket socket) {
-        super(message, socket);
+    public ClientInitializationResponse(int permissionCode, boolean loginStatus, MessageActors to) {
+        super(MessageActors.ServerActor, to);
         this.permissionCode = permissionCode;
-        this.mainImage = mainImage;
-    }  
+        this.loginStatus = loginStatus;
+    }
 
     public int getPermissionCode() {
         return permissionCode;
@@ -30,12 +29,14 @@ public class ClientInitializationResponse extends PassControlConnectionPacket
         this.permissionCode = permissionCode;
     }
 
-    public Image getMainImage() {
-        return mainImage;
+    public boolean isLoginStatus() {
+        return loginStatus;
     }
 
-    public void setMainImage(Image mainImage) {
-        this.mainImage = mainImage;
+    public void setLoginStatus(boolean loginStatus) {
+        this.loginStatus = loginStatus;
     }
     
+    
+
 }

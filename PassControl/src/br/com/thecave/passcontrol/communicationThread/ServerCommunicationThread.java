@@ -4,12 +4,14 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
+import br.com.thecave.passcontrol.db.bean.UserBean;
+import br.com.thecave.passcontrol.db.dao.UserDAO;
 import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
 import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlConnectionPacket;
-import br.com.thecave.passcontrol.messages.PassControlConnectionMessageListener;
+import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -75,12 +77,24 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         try {
             server = new ServerCommunicationThread(23073);
 
-            PassControlConnectionMessageListener initializationListener;
-            initializationListener = new PassControlConnectionMessageListener() {
+            PassControlMessageListener initializationListener;
+            initializationListener = new PassControlMessageListener() {
                 @Override
-                public void onMessageReceive(PassControlConnectionPacket message) {
-                        ClientInitializationResponse response = new ClientInitializationResponse(15, null, message.getMessage(), message.getSocket());
-                        server.addResponseToSend(response);
+                public void onMessageReceive(PassControlMessage message, Socket socket) {
+                        ClientInitializationRequest initRequest = (ClientInitializationRequest)message;
+                        UserBean bean = UserDAO.selectFromName(initRequest.getUser());
+                        ClientInitializationResponse response = 
+                                new ClientInitializationResponse(0, false , message.getFrom());
+
+                        if (bean != null)
+                        {
+                            if (bean.getPassword().equals(initRequest.getPassword()))
+                            {
+                                response = new ClientInitializationResponse(bean.getType(), false , message.getFrom());
+                            }
+                        }
+                                               
+                        server.addResponseToSend(socket, response);
 
                 }
             };
@@ -93,18 +107,37 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    public int getNumClients()
+    {
+        int retorno = 0;
+        for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+        {
+            ArrayList<Socket> arrayList = entry.getValue();
+            for (Socket socket : arrayList) 
+            {
+                ++retorno;
+            }
+
+        }
+        return retorno;
+    }
+    
 
     //FIM DA REGIÃO DE TESTES
     @Override
     public void run() 
     {
         running = true;
-        int clientCount = -1;
-        
+       
         while (running) 
         {
             if (checkMessageProtocol())
-                clientCount = 0;
+            {
+                System.out.println("Número de clientes conectados: " + getNumClients());
+            }
+                
             
             //Itera por todos os atores de conexão
             for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
@@ -118,8 +151,6 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                 {
                     for (Socket client : arrayList) 
                     {
-                        if (clientCount >= 0)
-                            ++clientCount;
                         try 
                         {   
                             if (client == null)
@@ -150,13 +181,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                 {
                     break;
                 }
-            }
-            if (clientCount >= 0)
-            {
-                System.out.println("Número de clientes conectados ao servidor: " + clientCount);
-                clientCount = -1;
-            }
-            
+            }            
             //Verifica se existe alguma mensagem para enviar. E envia.
             flushBuffer();
         }
@@ -301,25 +326,25 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     private boolean checkInputStream(MessageActors currentActor, Socket client) throws IOException, ClassNotFoundException, NullPointerException
     {
         if (client == null)
-            throw new NullPointerException();
+            return false;
             
         InputStream inputStream = client.getInputStream();
         if (inputStream == null)
-            throw new NullPointerException();
+            return false;
         //Se possui mensagem para ser lida
         if (inputStream.available() > 0) 
         {
 
             //Recebe a mensagem
-            PassControlConnectionPacket receivedPacket = handleIncomingMessage(client);
-            MessageActors newActor = receivedPacket.getMessage().getFrom();
+            PassControlMessage message = handleIncomingMessage(client);
+            MessageActors newActor = message.getFrom();
             //Caso o ator tenha mudado de papel
             if (newActor != currentActor) {
                 repositionClient(currentActor, newActor, client);
             }
 
             //Distribui a mensagem para os listener que querem essa mensagem
-            redirectReceivedMessage(receivedPacket);
+            redirectReceivedMessage(message, client);
             return true;
 
         }

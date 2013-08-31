@@ -4,16 +4,18 @@
  */
 package br.com.thecave.passcontrol.messages;
 
+import java.net.Socket;
+
 /**
  *
  * @author guilherme
  */
-public interface PassControlConnectionMessageListener {
+public interface PassControlMessageListener {
     
     /**
      * Observer Design Pattern
      * @param message 
      */
-    void onMessageReceive(PassControlConnectionPacket message);
+    void onMessageReceive(PassControlMessage message, Socket socket);
     
 }

@@ -8,7 +8,6 @@ import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
 import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlConnectionPacket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -110,23 +109,16 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             ClientCommunicationThread me = new ClientCommunicationThread(MessageActors.ViewerActor, "127.0.0.1", 23073);
             new Thread(me).start();
         
-            
-            //Espera a conexão ser fechada...
-            try 
-            {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) 
-            {
-                Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            ClientInitializationRequest message = new ClientInitializationRequest(me.getActor(), "guigui", "123456senha");
+            ClientInitializationRequest initRequest = new ClientInitializationRequest(me.getActor(), "guigui", "123456senha");
 
-            ClientInitializationResponse response;
-            response = (ClientInitializationResponse)me.sendMessageAndWaitForResponseOrTimeout
-                    (message, ClientInitializationResponse.class.getSimpleName(), 10*1000);
-            if (response != null)
-                System.out.println("PermissionCode: " + response.getPermissionCode());
+            ClientInitializationResponse initResponse = (ClientInitializationResponse)me.sendMessageAndWaitForResponseOrTimeout
+                    (initRequest, ClientInitializationResponse.class.getSimpleName(), 30*1000);
+
+            if (initResponse != null)
+            {
+                System.out.println("PermissionCode: " + initResponse.getPermissionCode());
+                System.out.println("Status login: " + initResponse.isLoginStatus());
+            }
             else
                 System.out.println("TIME OUT!");
             me.stop();
@@ -156,8 +148,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     //Possui mensagem para ser lida
                     if (inputStream.available() > 0) 
                     {
-                        PassControlConnectionPacket message = handleIncomingMessage(socket);
-                        redirectReceivedMessage(message);
+                        PassControlMessage message = handleIncomingMessage(socket);
+                        redirectReceivedMessage(message, socket);
                     }
                     checkMessageProtocol();
                     flushBuffer();

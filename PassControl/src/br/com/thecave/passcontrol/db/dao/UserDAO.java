@@ -172,7 +172,7 @@ public class UserDAO
      */
     public static UserBean selectFromName(String name)
     {
-        UserBean bean = new UserBean();
+        UserBean bean = null;
         try
         {
         // pegar a conexão com o banco
@@ -188,8 +188,9 @@ public class UserDAO
 
             ResultSet rs = stmt.executeQuery(sql);
             
-            while(rs.next())
+            if(rs.next())
             {
+                bean = new UserBean();
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setName(rs.getString("TX_NAME"));
                 bean.setType(rs.getInt("INT_TYPE"));

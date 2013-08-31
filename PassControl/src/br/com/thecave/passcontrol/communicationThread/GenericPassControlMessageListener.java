@@ -4,18 +4,25 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
-import br.com.thecave.passcontrol.messages.PassControlConnectionPacket;
-import br.com.thecave.passcontrol.messages.PassControlConnectionMessageListener;
+import br.com.thecave.passcontrol.messages.PassControlMessage;
+import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import java.net.Socket;
 
 /**
  *
  * @author lopidio
  */
-public class GenericPassControlMessageListener implements PassControlConnectionMessageListener{
+public class GenericPassControlMessageListener implements PassControlMessageListener{
 
-    PassControlConnectionPacket messageReceived = null;
+    PassControlMessage messageReceived = null;
     
-    public PassControlConnectionPacket getReceivedMessage()
+    Socket socket;
+
+    public GenericPassControlMessageListener() {
+        this.socket = null;
+    }
+    
+    public PassControlMessage getReceivedMessage()
     {
         return messageReceived;
     }
@@ -26,7 +33,9 @@ public class GenericPassControlMessageListener implements PassControlConnectionM
     }
 
     @Override
-    public void onMessageReceive(PassControlConnectionPacket message) {
+    public void onMessageReceive(PassControlMessage message, Socket socket) {
+        System.out.println("Retorno chegou no escutador genérico");
         messageReceived = message;
+        this.socket = socket;
     }
 }
