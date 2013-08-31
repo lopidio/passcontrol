@@ -330,7 +330,7 @@
                       <Component id="elSenha" pref="27" max="32767" attributes="0"/>
                       <Component id="tfSenha" pref="27" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="94" max="32767" attributes="0"/>
+                  <EmptySpace pref="265" max="32767" attributes="0"/>
                   <Component id="pnButtons" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -397,6 +397,7 @@
             <Component class="javax.swing.JButton" name="btSave">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para salvar o registro atual!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSaveActionPerformed"/>
@@ -405,6 +406,7 @@
             <Component class="javax.swing.JButton" name="btNew">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Novo"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para criar um novo registro!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNewActionPerformed"/>
@@ -413,6 +415,7 @@
             <Component class="javax.swing.JButton" name="btClean">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Limpar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para limpar o registro atual!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCleanActionPerformed"/>
@@ -421,6 +424,7 @@
             <Component class="javax.swing.JButton" name="btDelete">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Deletar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para deletar o registro selecionado!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDeleteActionPerformed"/>
@@ -429,6 +433,7 @@
             <Component class="javax.swing.JButton" name="btCancel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para cancelar!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCancelActionPerformed"/>
@@ -437,6 +442,7 @@
             <Component class="javax.swing.JButton" name="btEdit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para editar o registro selecionado!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEditActionPerformed"/>
@@ -467,6 +473,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfName">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Insira o nome do usu&#xe1;rio!"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfNameFocusLost"/>
           </Events>
@@ -477,6 +486,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="tfSenha">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Insira a senha do usu&#xe1;rio!"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfSenhaFocusLost"/>
           </Events>
@@ -508,6 +520,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfLogin">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Insira o login do usu&#xe1;rio!"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfLoginFocusLost"/>
           </Events>

@@ -316,6 +316,7 @@
             <Component class="javax.swing.JButton" name="btSave">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para salvar o registro atual!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSaveActionPerformed"/>
@@ -324,6 +325,7 @@
             <Component class="javax.swing.JButton" name="btNew">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Novo"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para criar um novo registro!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNewActionPerformed"/>
@@ -332,6 +334,7 @@
             <Component class="javax.swing.JButton" name="btClean">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Limpar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para limpar o registro atual!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCleanActionPerformed"/>
@@ -340,6 +343,7 @@
             <Component class="javax.swing.JButton" name="btDelete">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Deletar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para deletar o registro selecionado!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDeleteActionPerformed"/>
@@ -348,6 +352,7 @@
             <Component class="javax.swing.JButton" name="btCancel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para cancelar!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCancelActionPerformed"/>
@@ -356,6 +361,7 @@
             <Component class="javax.swing.JButton" name="btEdit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Clique para editar o registro selecionado!"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEditActionPerformed"/>

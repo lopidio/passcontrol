@@ -101,6 +101,7 @@ public class CrudeScreen extends javax.swing.JFrame
         pnButtons.setBackground(new java.awt.Color(255, 255, 255));
 
         btSave.setText("Salvar");
+        btSave.setToolTipText("Clique para salvar o registro atual!");
         btSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSaveActionPerformed(evt);
@@ -108,6 +109,7 @@ public class CrudeScreen extends javax.swing.JFrame
         });
 
         btNew.setText("Novo");
+        btNew.setToolTipText("Clique para criar um novo registro!");
         btNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNewActionPerformed(evt);
@@ -115,6 +117,7 @@ public class CrudeScreen extends javax.swing.JFrame
         });
 
         btClean.setText("Limpar");
+        btClean.setToolTipText("Clique para limpar o registro atual!");
         btClean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCleanActionPerformed(evt);
@@ -122,6 +125,7 @@ public class CrudeScreen extends javax.swing.JFrame
         });
 
         btDelete.setText("Deletar");
+        btDelete.setToolTipText("Clique para deletar o registro selecionado!");
         btDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDeleteActionPerformed(evt);
@@ -129,6 +133,7 @@ public class CrudeScreen extends javax.swing.JFrame
         });
 
         btCancel.setText("Cancelar");
+        btCancel.setToolTipText("Clique para cancelar!");
         btCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelActionPerformed(evt);
@@ -136,6 +141,7 @@ public class CrudeScreen extends javax.swing.JFrame
         });
 
         btEdit.setText("Editar");
+        btEdit.setToolTipText("Clique para editar o registro selecionado!");
         btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEditActionPerformed(evt);

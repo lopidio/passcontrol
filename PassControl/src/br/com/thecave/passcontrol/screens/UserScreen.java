@@ -3,14 +3,9 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
 import br.com.thecave.passcontrol.util.Validation;
-import br.com.thecave.passcontrol.util.Validation.ErrorsField;
-import java.awt.Label;
-import java.awt.TextField;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  * Classe que será utilizada como template para todas as outras telas que irão
@@ -121,6 +116,7 @@ public class UserScreen extends javax.swing.JFrame
         pnButtons.setBackground(new java.awt.Color(255, 255, 255));
 
         btSave.setText("Salvar");
+        btSave.setToolTipText("Clique para salvar o registro atual!");
         btSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSaveActionPerformed(evt);
@@ -128,6 +124,7 @@ public class UserScreen extends javax.swing.JFrame
         });
 
         btNew.setText("Novo");
+        btNew.setToolTipText("Clique para criar um novo registro!");
         btNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNewActionPerformed(evt);
@@ -135,6 +132,7 @@ public class UserScreen extends javax.swing.JFrame
         });
 
         btClean.setText("Limpar");
+        btClean.setToolTipText("Clique para limpar o registro atual!");
         btClean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCleanActionPerformed(evt);
@@ -142,6 +140,7 @@ public class UserScreen extends javax.swing.JFrame
         });
 
         btDelete.setText("Deletar");
+        btDelete.setToolTipText("Clique para deletar o registro selecionado!");
         btDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDeleteActionPerformed(evt);
@@ -149,6 +148,7 @@ public class UserScreen extends javax.swing.JFrame
         });
 
         btCancel.setText("Cancelar");
+        btCancel.setToolTipText("Clique para cancelar!");
         btCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelActionPerformed(evt);
@@ -156,6 +156,7 @@ public class UserScreen extends javax.swing.JFrame
         });
 
         btEdit.setText("Editar");
+        btEdit.setToolTipText("Clique para editar o registro selecionado!");
         btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEditActionPerformed(evt);
@@ -206,6 +207,7 @@ public class UserScreen extends javax.swing.JFrame
 
         jLabel2.setText("Nome do Usuário");
 
+        tfName.setToolTipText("Insira o nome do usuário!");
         tfName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfNameFocusLost(evt);
@@ -214,6 +216,7 @@ public class UserScreen extends javax.swing.JFrame
 
         jLabel3.setText("Senha do Usuário");
 
+        tfSenha.setToolTipText("Insira a senha do usuário!");
         tfSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfSenhaFocusLost(evt);
@@ -230,6 +233,7 @@ public class UserScreen extends javax.swing.JFrame
 
         jLabel5.setText("Login do Usuário");
 
+        tfLogin.setToolTipText("Insira o login do usuário!");
         tfLogin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfLoginFocusLost(evt);
@@ -315,7 +319,7 @@ public class UserScreen extends javax.swing.JFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(elSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                     .addComponent(tfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
                 .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -619,7 +623,7 @@ public class UserScreen extends javax.swing.JFrame
         // limpando qualquer campo editado
         clearScreen();
     }
-//==============================================================================
+    //==============================================================================
     /**
      * Irá voltar para a tela de administrador
      */
