@@ -693,6 +693,7 @@ public class UserScreen extends javax.swing.JFrame
         rbUser.setEnabled(true); 
         
         btNew.setEnabled(false);
+        btSave.setEnabled(true);
     }
     //==============================================================================
     /**
@@ -800,9 +801,10 @@ public class UserScreen extends javax.swing.JFrame
             String item = cbUser.getSelectedItem().toString();
             int index = Integer.parseInt(item);
             bean = DataBaseManager.select(index);
-        }
-        
-        writeScreenFromBean(bean);
+            
+            btEdit.setEnabled(true);
+            writeScreenFromBean(bean);  
+        }             
     }
     //==============================================================================
     public void writeScreenFromBean(UserBean bean)
