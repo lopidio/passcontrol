@@ -355,7 +355,7 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     public void openGuiche()
     {
         this.setVisible(false);
-        //TODO:
+        Main.balconyScreen.setVisible(true);
     }
     
     public void openUser()

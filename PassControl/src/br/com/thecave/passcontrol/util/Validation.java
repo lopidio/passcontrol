@@ -14,6 +14,7 @@ public class Validation
     {
         ERROR_MIN_SIZE("Tamanho mínimo não atingido!"),
         ERROR_MAX_SIZE("Tamanho máximo ultrapassado!"),
+        ERROR_NOT_DIGIT("Apenas dígitos são permitidos!"),
         SUCCESS_VALIDATION("Campo validado com sucesso!");
     
         private ErrorsField(final String text) 
@@ -73,6 +74,22 @@ public class Validation
             label.setToolTipText(ErrorsField.ERROR_MIN_SIZE.toString());
             return false;
         }
+    }
+    //==============================================================================
+    public static boolean validarNumero(JTextField field, JLabel label)
+    {
+        String numero = field.getText();
+        
+       // iterar na string e verificar se é um numero
+        for(int i = 0; i < numero.length(); i++)
+        {
+            if(!Character.isDigit(numero.toCharArray()[i]))
+            {
+                label.setToolTipText(ErrorsField.ERROR_NOT_DIGIT.toString());
+                return false;
+            }
+        }
+        return true;
     }
     //==============================================================================
 }
