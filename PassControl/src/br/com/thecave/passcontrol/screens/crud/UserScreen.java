@@ -1,4 +1,4 @@
-package br.com.thecave.passcontrol.screens;
+package br.com.thecave.passcontrol.screens.crud;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
@@ -806,6 +806,9 @@ public class UserScreen extends javax.swing.JFrame
         else
         {
             JOptionPane.showMessageDialog(null, "Existem campos inválidos!");
+            validarLogin();
+            validarNome();
+            validarSenha();
         }
     }
     //==============================================================================
@@ -854,7 +857,7 @@ public class UserScreen extends javax.swing.JFrame
         {
             String item = cbUser.getSelectedItem().toString();
             int index = Integer.parseInt(item);
-            bean = DataBaseManager.select(index);
+            bean = DataBaseManager.selectUser(index);
             
             btEdit.setEnabled(true);
             writeScreenFromBean(bean);  

@@ -366,8 +366,8 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     
     public void openServices()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "open services");
+        this.setVisible(false);
+        Main.serviceScreen.setVisible(true);
     }
 
     private void voltar() 

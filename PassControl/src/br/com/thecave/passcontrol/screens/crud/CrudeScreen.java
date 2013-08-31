@@ -1,4 +1,4 @@
-package br.com.thecave.passcontrol.screens;
+package br.com.thecave.passcontrol.screens.crud;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;

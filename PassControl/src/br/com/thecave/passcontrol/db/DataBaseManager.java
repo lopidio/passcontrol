@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.db;
 
+import br.com.thecave.passcontrol.db.bean.ServiceBean;
 import br.com.thecave.passcontrol.db.bean.TableBean;
 import br.com.thecave.passcontrol.db.bean.UserBean;
 
@@ -21,8 +22,13 @@ public class DataBaseManager
         return true;
     }
     
-    public static UserBean select(int index)
+    public static UserBean selectUser(int index)
     {
         return new UserBean();
+    }
+    
+    public static ServiceBean selectService(int index)
+    {
+        return new ServiceBean();
     }
 }
