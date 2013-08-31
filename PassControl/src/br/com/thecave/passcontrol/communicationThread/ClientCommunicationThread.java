@@ -151,7 +151,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                         PassControlMessage message = handleIncomingMessage(socket);
                         redirectReceivedMessage(message, socket);
                     }
-                    checkMessageProtocol();
+                    checkMessageHeartBeat();
                     flushBuffer();
                 }
             }

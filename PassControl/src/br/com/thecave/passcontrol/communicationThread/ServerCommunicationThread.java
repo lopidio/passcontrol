@@ -132,7 +132,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
        
         while (running) 
         {
-            if (checkMessageProtocol())
+            if (checkMessageHeartBeat())
             {
                 System.out.println("Número de clientes conectados: " + getNumClients());
             }

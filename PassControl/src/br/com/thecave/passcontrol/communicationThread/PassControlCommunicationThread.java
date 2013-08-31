@@ -171,9 +171,12 @@ public abstract class PassControlCommunicationThread implements Runnable {
     {
         ArrayList<PassControlMessageListener> listenersArray = passControlMessageListeners.get(message.getType());
         //Não há escutador cadastradoI
-        if (listenersArray == null)
+        if (listenersArray == null || listenersArray.isEmpty())
+        {
+            System.out.println("Nenhum escutador cadastrado para esse tipo de mensagem: " + message.getType());
             return;
-        
+        }
+       
         //Filtra só para os escutadores do tipo recebido
         for (PassControlMessageListener listener : listenersArray)
         {
@@ -185,7 +188,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
      * Periodicamente envia mensagens ao outro lado da conexão para verificar se ainda está ativo
      * @return true caso tenha enviado a mensagem
      */
-    protected boolean checkMessageProtocol()
+    protected boolean checkMessageHeartBeat()
     {
         //Periodicamente, o cliente tenta enviar uma mensagem ao servidor, só para indicar que tá vivo
         //E ajuda o servidor a identificar os clientes que estão mortos e tal

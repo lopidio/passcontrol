@@ -12,9 +12,9 @@ public class ConfirmationResponse extends PassControlMessage
 {
     boolean statusOperation;
 
-    String messageRequest;
+    PassControlMessage messageRequest;
 
-    public ConfirmationResponse(boolean statusOperation, String messageRequest, MessageActors to) {
+    public ConfirmationResponse(boolean statusOperation, PassControlMessage messageRequest, MessageActors to) {
         super(MessageActors.ServerActor, to);
         this.statusOperation = statusOperation;
         this.messageRequest = messageRequest;
@@ -29,11 +29,11 @@ public class ConfirmationResponse extends PassControlMessage
         this.statusOperation = statusOperation;
     }
 
-    public String getMessageRequest() {
+    public PassControlMessage getMessageRequest() {
         return messageRequest;
     }
 
-    public void setMessageRequest(String messageRequest) {
+    public void setMessageRequest(PassControlMessage messageRequest) {
         this.messageRequest = messageRequest;
     }
     

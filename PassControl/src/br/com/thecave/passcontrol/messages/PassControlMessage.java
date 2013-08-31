@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrol.messages;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -12,6 +13,15 @@ import java.io.Serializable;
  */
 public abstract class PassControlMessage implements Serializable
 {
+    /**
+     * Hora em que a mensagem foi CRIADA (e não enviada)
+     */
+    Date date;
+    
+    /**
+     * Algum comentário adicional
+     */
+    String comment;
     
     /**
      * Indica o remetente da mensagem
@@ -32,7 +42,18 @@ public abstract class PassControlMessage implements Serializable
         this.from = from;
         this.to = to;
         this.type = this.getClass().getSimpleName();
+        this.date = new java.util.Date();
+        this.comment = "";
     }
+    
+
+    public PassControlMessage(MessageActors from, MessageActors to, String comment) {
+        this.from = from;
+        this.to = to;
+        this.type = this.getClass().getSimpleName();
+        this.date = new java.util.Date();
+        this.comment = comment;
+    }    
     
 
     /**
@@ -62,6 +83,20 @@ public abstract class PassControlMessage implements Serializable
         this.to = to;
     }
 
-    
-    
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }   
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }  
+  
 }
