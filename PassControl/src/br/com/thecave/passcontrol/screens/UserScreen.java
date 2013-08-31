@@ -2,6 +2,8 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
+import br.com.thecave.passcontrol.db.DataBaseManager;
+import br.com.thecave.passcontrol.db.bean.UserBean;
 import br.com.thecave.passcontrol.util.Validation;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -15,6 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class UserScreen extends javax.swing.JFrame 
 {
+    private boolean nameValid;
+    private boolean loginValid;
+    private boolean passValid;
     //==============================================================================
     /**
      * Contrutor
@@ -603,6 +608,7 @@ public class UserScreen extends javax.swing.JFrame
         // habilita os botoes iniciais
         btNew.setEnabled(true);
         btEdit.setEnabled(true);
+        cbUser.setEnabled(true);
         
         // habilita os menus iniciais
         jmNew.setEnabled(true);
@@ -705,21 +711,55 @@ public class UserScreen extends javax.swing.JFrame
     //==============================================================================
     public void saveBean()
     {
+        // so segue se os campos forem validos
+        if(nameValid && loginValid && passValid)
+        {
+            UserBean bean = writeBeanFromScreen();
+            if(DataBaseManager.save(bean))
+            {
+                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+                resetScreen();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Registro não foi salvo!");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Existem campos inválidos!");
+        }
     }
     //==============================================================================
-    private boolean validarNome() 
+    private void validarNome() 
     {
-        return Validation.validarCampo(tfName, elName);
+        nameValid = Validation.validarCampo(tfName, elName);
     }
     //==============================================================================
-    private boolean validarLogin() 
+    private void validarLogin() 
     {
-        return Validation.validarCampo(tfLogin, elLogin);
+        loginValid = Validation.validarCampo(tfLogin, elLogin);
     }
     //==============================================================================
-    private boolean validarSenha() 
+    private void validarSenha() 
     {
-        return Validation.validarCampo(tfSenha, elSenha);
+        passValid = Validation.validarCampo(tfSenha, elSenha);
+    }
+    //==============================================================================
+    public UserBean writeBeanFromScreen()
+    {
+        UserBean bean = new UserBean();
+        bean.setName(tfName.getText());
+        bean.setLogin(tfLogin.getText());
+        bean.setPassword(new String(tfSenha.getPassword()));
+
+        int type;
+        if(rbAdmin.isSelected())
+            type = 1;
+        else
+            type = 0;            
+        bean.setType(type);
+        return bean;
     }
     //==============================================================================
 }
