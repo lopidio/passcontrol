@@ -2,3 +2,6 @@
 /PassControl/build/
 /POCS/
 /PassControl/dist/
+/PassControlServer/PassControlServer/nbproject/private/
+/PassControlServer/PassControlServer/build/
+/PassControlServer/PassControlServer/dist/

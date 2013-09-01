@@ -4,13 +4,8 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
-import br.com.thecave.passcontrol.db.bean.UserBean;
-import br.com.thecave.passcontrol.db.dao.UserDAO;
-import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
-import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -40,6 +35,11 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      */
     ConcurrentHashMap<MessageActors, ArrayList<Socket>> clients;
     
+    /**
+     * Construtor
+     * @param port porta do socket TCP
+     * @throws IOException 
+     */
     public ServerCommunicationThread(int port) throws IOException
     {
         super(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
@@ -50,6 +50,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         clients = new ConcurrentHashMap<>();
     }
 
+    /**
+     * Interrompe a thread
+     */
     @Override
     public void stop() {
         running = false;
@@ -69,62 +72,23 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //REGIÃO DE TESTES
-    static ServerCommunicationThread server;
-
-    public static void main(String[] args) {
-        try {
-            server = new ServerCommunicationThread(23073);
-
-            PassControlMessageListener initializationListener;
-            initializationListener = new PassControlMessageListener() {
-                @Override
-                public void onMessageReceive(PassControlMessage message, Socket socket) {
-                        ClientInitializationRequest initRequest = (ClientInitializationRequest)message;
-                        UserBean bean = UserDAO.selectFromName(initRequest.getUser());
-                        ClientInitializationResponse response = 
-                                new ClientInitializationResponse(0, false , message.getFrom());
-
-                        if (bean != null)
-                        {
-                            if (bean.getPassword().equals(initRequest.getPassword()))
-                            {
-                                response = new ClientInitializationResponse(bean.getType(), false , message.getFrom());
-                            }
-                        }
-                                               
-                        server.addResponseToSend(socket, response);
-
-                }
-            };
-
-            server.addMessageListener(initializationListener, ClientInitializationRequest.class.getSimpleName());
-
-            new Thread(server).start();
-
-        } catch (IOException ex) {
-            Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
-    
+    /**
+     * Retorna o número de clientes conectados no instante atual
+     */
     public int getNumClients()
     {
+        //Somatório
         int retorno = 0;
+        //Percorre todo o mapa
         for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
         {
             ArrayList<Socket> arrayList = entry.getValue();
-            for (Socket socket : arrayList) 
-            {
-                ++retorno;
-            }
-
+            retorno += arrayList.size();
         }
         return retorno;
     }
-    
 
-    //FIM DA REGIÃO DE TESTES
     @Override
     public void run() 
     {
@@ -132,6 +96,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
        
         while (running) 
         {
+            //Verifica a necessidade de mandar um heart beat
             if (checkMessageHeartBeat())
             {
                 System.out.println("Número de clientes conectados: " + getNumClients());
@@ -187,7 +152,10 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         
     }
 
-    
+    /**
+     * Envia a mensagem para TODOS os destinatários da mensagem. (Pesquisados por message.getTo()).
+     * @param message 
+     */
     @Override
     protected void sendBroadcastMessage(PassControlMessage message)
     {

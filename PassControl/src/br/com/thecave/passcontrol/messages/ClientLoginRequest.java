@@ -8,13 +8,13 @@ package br.com.thecave.passcontrol.messages;
  *
  * @author guilherme
  */
-public class ClientInitializationRequest extends PassControlMessage
+public class ClientLoginRequest extends PassControlMessage
 {
     String user;
     String password;
     
     
-    public ClientInitializationRequest(MessageActors from, String user, String password) {
+    public ClientLoginRequest(MessageActors from, String user, String password) {
         super(from, MessageActors.ServerActor);
         this.user = user;
         this.password = password;

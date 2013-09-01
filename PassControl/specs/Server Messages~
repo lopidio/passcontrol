@@ -18,6 +18,7 @@ From client:
 	ClientInit //User, senha
 	ClientInitResponse //Eis as permissões desse usuário: ..., ..., .... Eis a imagem principal do fundo...
 	ClientPasswordRecovery //User
+	ClientPasswordRecoveryResponse //Ok ou falso
 	ClientLogout //Falou!
 
 From server:

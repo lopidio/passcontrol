@@ -4,8 +4,8 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
-import br.com.thecave.passcontrol.messages.ClientInitializationRequest;
-import br.com.thecave.passcontrol.messages.ClientInitializationResponse;
+import br.com.thecave.passcontrol.messages.ClientLoginRequest;
+import br.com.thecave.passcontrol.messages.ClientLoginResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import java.io.IOException;
@@ -109,10 +109,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             ClientCommunicationThread me = new ClientCommunicationThread(MessageActors.ViewerActor, "127.0.0.1", 23073);
             new Thread(me).start();
         
-            ClientInitializationRequest initRequest = new ClientInitializationRequest(me.getActor(), "guigui", "123456senha");
+            ClientLoginRequest initRequest = new ClientLoginRequest(me.getActor(), "guigui", "123456senha");
 
-            ClientInitializationResponse initResponse = (ClientInitializationResponse)me.sendMessageAndWaitForResponseOrTimeout
-                    (initRequest, ClientInitializationResponse.class.getSimpleName(), 30*1000);
+            ClientLoginResponse initResponse = (ClientLoginResponse)me.sendMessageAndWaitForResponseOrTimeout
+                    (initRequest, ClientLoginResponse.class.getSimpleName(), 30*1000);
 
             if (initResponse != null)
             {
@@ -125,6 +125,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             System.out.println("Fim execução cliente");
     }
     //FIM DA REGIÃO DE TESTES
+    
     @Override
     public void run() {
         running = true;
@@ -151,7 +152,9 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                         PassControlMessage message = handleIncomingMessage(socket);
                         redirectReceivedMessage(message, socket);
                     }
+                    //Verifica a necessidade de envio do heart beat
                     checkMessageHeartBeat();
+                    //Envia as mensagens que estão no buffer
                     flushBuffer();
                 }
             }
@@ -168,6 +171,9 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
 
     }
     
+    /**
+     * Invocado quando quando a conexão muda de status
+     */
     private void onChangeStatusConnection()
     {
         boolean connectionOff = (socket != null && !socket.isClosed());
@@ -177,6 +183,9 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         }
     }
     
+    /**
+     * Encerra a conexão com o servidor
+     */
     private void finalizeConnection()
     {
         try 

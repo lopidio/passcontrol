@@ -10,12 +10,12 @@ import java.awt.Image;
  *
  * @author guilherme
  */
-public class ClientInitializationResponse extends PassControlMessage
+public class ClientLoginResponse extends PassControlMessage
 {
     int permissionCode;
     boolean loginStatus;
 
-    public ClientInitializationResponse(int permissionCode, boolean loginStatus, MessageActors to) {
+    public ClientLoginResponse(int permissionCode, boolean loginStatus, MessageActors to) {
         super(MessageActors.ServerActor, to);
         this.permissionCode = permissionCode;
         this.loginStatus = loginStatus;

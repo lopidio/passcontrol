@@ -107,7 +107,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         Watchdog timeOutWatcher = new Watchdog(timeout);
 
         addMessageListener(listener, typeToListenTo);
-        addMessageToSend(message);
+        addBroadcastToSend(message);
         int x = 0;
         while (!timeOutWatcher.hasTimedOut())
         {          
@@ -196,17 +196,25 @@ public abstract class PassControlCommunicationThread implements Runnable {
         {
             System.out.println("Heart beat");
             watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);
-            addMessageToSend(heartBeatMessage);
+            addBroadcastToSend(heartBeatMessage);
             return true;
         }
         return false;
     }
     
-    synchronized public void addMessageToSend(PassControlMessage message)
+    /**
+     * Adiciona a mensagem para TODOS os destinatários da mensagem. (Pesquisados por message.getTo()).
+     * @param message 
+     */    
+    synchronized public void addBroadcastToSend(PassControlMessage message)
     {
         messagesToSend.add(message);
     }
         
+    /**
+     * Adiciona a mensagem para o único destinatário da mensagem. (Pesquisados por socket).
+     * @param message 
+     */    
     synchronized public void addResponseToSend(Socket socket, PassControlMessage message)
     {
         ArrayList<PassControlMessage> list = responsesToSend.get(socket);
@@ -219,12 +227,16 @@ public abstract class PassControlCommunicationThread implements Runnable {
         responsesToSend.put(socket, list);       
     }
     
+    /**
+     * Retorna se existe alguma mensagem cadastrada e não enviada
+     * @return true, caso haja
+     */
     public synchronized boolean isOutBufferEmpty()
     {
         return messagesToSend.isEmpty() && responsesToSend.isEmpty();
     }
     
-    private void sendMessagesOnBuffer()
+    private void sendMessagesBroadcastOnBuffer()
     {
         synchronized(messagesToSend)
         {
@@ -257,12 +269,19 @@ public abstract class PassControlCommunicationThread implements Runnable {
         }
     }
     
+    /*
+     * Envia todas as mensagens de todos os tipos
+     */
     protected void flushBuffer()
     {
-        sendMessagesOnBuffer();
+        sendMessagesBroadcastOnBuffer();
         sendResponsesOnBuffer();
     }
     
+    /**
+     * Envia a mensagem para TODOS os destinatários da mensagem. (Pesquisados por message.getTo()).
+     * @param message 
+     */    
     protected abstract void sendBroadcastMessage(PassControlMessage message);
 
     abstract void stop();
