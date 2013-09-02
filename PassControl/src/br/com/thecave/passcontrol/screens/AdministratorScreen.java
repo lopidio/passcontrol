@@ -3,15 +3,10 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
-import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.TrayIcon;
-import java.awt.TrayIcon.MessageType;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.File;
-import java.io.FileFilter;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -59,6 +54,7 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         jmGuiche = new javax.swing.JMenuItem();
         jmUser = new javax.swing.JMenuItem();
         jmServicos = new javax.swing.JMenuItem();
+        jmTipos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmVoltar = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -72,6 +68,8 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         jmRemoveImages = new javax.swing.JMenuItem();
         jmAlterTime = new javax.swing.JMenuItem();
         jmGerenAuto = new javax.swing.JMenu();
+        jmAutomatic = new javax.swing.JMenuItem();
+        jmManual = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Senhas");
@@ -169,6 +167,16 @@ public final class AdministratorScreen extends javax.swing.JFrame {
             }
         });
         jmBaseDados.add(jmServicos);
+
+        jmTipos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        jmTipos.setMnemonic('t');
+        jmTipos.setText("Tipos de Guichê");
+        jmTipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTiposActionPerformed(evt);
+            }
+        });
+        jmBaseDados.add(jmTipos);
         jmBaseDados.add(jSeparator1);
 
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
@@ -265,7 +273,28 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         jMenuBar1.add(jmApresentacao);
 
         jmGerenAuto.setMnemonic('G');
-        jmGerenAuto.setText("Gerenciamento Automático");
+        jmGerenAuto.setText("Gerenciamento da Fila");
+
+        jmAutomatic.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAutomatic.setMnemonic('A');
+        jmAutomatic.setText("Gerenciamento Automático");
+        jmAutomatic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAutomaticActionPerformed(evt);
+            }
+        });
+        jmGerenAuto.add(jmAutomatic);
+
+        jmManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmManual.setMnemonic('M');
+        jmManual.setText("Gerenciamento Manual");
+        jmManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmManualActionPerformed(evt);
+            }
+        });
+        jmGerenAuto.add(jmManual);
+
         jMenuBar1.add(jmGerenAuto);
 
         setJMenuBar(jMenuBar1);
@@ -336,6 +365,18 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         removeImage();
     }//GEN-LAST:event_jmRemoveImagesActionPerformed
 
+    private void jmAutomaticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAutomaticActionPerformed
+        autoManagerQueue();
+    }//GEN-LAST:event_jmAutomaticActionPerformed
+
+    private void jmManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmManualActionPerformed
+        manualManagerQueue();
+    }//GEN-LAST:event_jmManualActionPerformed
+
+    private void jmTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTiposActionPerformed
+        openTiposGuiche();
+    }//GEN-LAST:event_jmTiposActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
@@ -349,15 +390,18 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmAlterImage;
     private javax.swing.JMenuItem jmAlterTime;
     private javax.swing.JMenu jmApresentacao;
+    private javax.swing.JMenuItem jmAutomatic;
     private javax.swing.JMenu jmBaseDados;
     private javax.swing.JMenu jmGerenAuto;
     private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmImagem;
     private javax.swing.JMenuItem jmListImages;
     private javax.swing.JMenuItem jmLogOut;
+    private javax.swing.JMenuItem jmManual;
     private javax.swing.JMenuItem jmRemoveImages;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmServicos;
+    private javax.swing.JMenuItem jmTipos;
     private javax.swing.JMenuItem jmUser;
     private javax.swing.JMenuItem jmVoltar;
     private javax.swing.JLabel lbImage;
@@ -400,6 +444,12 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     {
         this.setVisible(false);
         Main.balconyScreen.setVisible(true);
+    }
+    
+     private void openTiposGuiche() 
+    {
+        this.setVisible(false);
+        Main.typesScreen.setVisible(true);
     }
     
     public void openUser()
@@ -518,5 +568,17 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     {
         return lbImage;
     }
+
+    private void autoManagerQueue() 
+    {
+        JOptionPane.showMessageDialog(null, 
+                    "Gerenciamento automático(A FAZER)!");
+    }
+
+    private void manualManagerQueue() 
+    {
+        JOptionPane.showMessageDialog(null, 
+                    "Gerenciamento manual(A FAZER)!");
+    }   
 }
 

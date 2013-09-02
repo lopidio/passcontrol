@@ -1,6 +1,7 @@
 package br.com.thecave.passcontrol.db;
 
 import br.com.thecave.passcontrol.db.bean.BalconyBean;
+import br.com.thecave.passcontrol.db.bean.BalconyTypesBean;
 import br.com.thecave.passcontrol.db.bean.ServiceBean;
 import br.com.thecave.passcontrol.db.bean.TableBean;
 import br.com.thecave.passcontrol.db.bean.UserBean;
@@ -33,8 +34,13 @@ public class ServerComunication
         return new ServiceBean();
     }
     
-     public static BalconyBean selectBalcony(int index)
+    public static BalconyBean selectBalcony(int index)
     {
         return new BalconyBean();
+    }
+    
+    public static BalconyTypesBean selectBalconyTypes(int index)
+    {
+        return new BalconyTypesBean();
     }
 }

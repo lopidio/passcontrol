@@ -1,12 +1,14 @@
 package br.com.thecave.passcontrol.controler;
 
 import br.com.thecave.passcontrol.communicationThread.ClientCommunicationThread;
+import br.com.thecave.passcontrol.db.bean.BalconyTypesBean;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.screens.AdministratorScreen;
 import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
 import br.com.thecave.passcontrol.screens.LoginScreen;
 import br.com.thecave.passcontrol.screens.LoginScreenResetPassword;
 import br.com.thecave.passcontrol.screens.crud.BalconyScreen;
+import br.com.thecave.passcontrol.screens.crud.BalconyTypesScreen;
 import br.com.thecave.passcontrol.screens.crud.ServiceScreen;
 import br.com.thecave.passcontrol.screens.crud.UserScreen;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
@@ -22,6 +24,7 @@ public class Main
     public static UserScreen userScreen;
     public static ServiceScreen serviceScreen;
     public static BalconyScreen balconyScreen;
+    public static BalconyTypesScreen typesScreen;
         
     public static void main(String args[]) 
     {
@@ -60,6 +63,7 @@ public class Main
                 userScreen      = new UserScreen();
                 serviceScreen   = new ServiceScreen();
                 balconyScreen   = new BalconyScreen();
+                typesScreen     = new BalconyTypesScreen();
                 
                 communicationThread = new ClientCommunicationThread(
                         MessageActors.NotIdentified, 
@@ -76,6 +80,7 @@ public class Main
                 userScreen.setExtendedState(userScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 serviceScreen.setExtendedState(serviceScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 balconyScreen.setExtendedState(balconyScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                typesScreen.setExtendedState(typesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 login.setVisible(true);
             }
         });
