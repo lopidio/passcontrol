@@ -1,7 +1,7 @@
 package br.com.thecave.passcontrol.controler;
 
 import br.com.thecave.passcontrol.communicationThread.ClientCommunicationThread;
-import br.com.thecave.passcontrol.db.bean.BalconyTypesBean;
+import br.com.thecave.passcontrol.db.bean.UserBean;
 import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.screens.AdministratorScreen;
 import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
@@ -16,16 +16,58 @@ import javax.swing.JFrame;
 
 public class Main 
 {
-    public static LoginScreen login;
-    public static LoginScreenResetPassword reset;
-    public static ChooseModulesScreen chooseModules;
-    public static AdministratorScreen adminScreen;
-    public static ClientCommunicationThread communicationThread;
-    public static UserScreen userScreen;
-    public static ServiceScreen serviceScreen;
-    public static BalconyScreen balconyScreen;
-    public static BalconyTypesScreen typesScreen;
-        
+    /**
+     * Singleton instance and method
+     */
+    private static Main singletonInstance = null;
+    public static Main getInstance()
+    {
+        if (singletonInstance == null)
+            singletonInstance = new Main();
+        return singletonInstance;
+    }
+    
+    /**
+     * Private attributes
+     */
+    private LoginScreen loginScreen;
+    private LoginScreenResetPassword resetScreen;
+    private ChooseModulesScreen chooseModulesScreen;
+    private AdministratorScreen adminScreen;
+    private ClientCommunicationThread communicationThread;
+    private UserScreen userScreen;
+    private ServiceScreen serviceScreen;
+    private BalconyScreen balconyScreen;
+    private BalconyTypesScreen typesScreen;
+    private UserBean currentUser = null;
+
+    private Main()
+    {
+                loginScreen               = new LoginScreen();
+                resetScreen               = new LoginScreenResetPassword();
+                chooseModulesScreen       = new ChooseModulesScreen();
+                adminScreen               = new AdministratorScreen();
+                userScreen                = new UserScreen();
+                serviceScreen             = new ServiceScreen();
+                balconyScreen             = new BalconyScreen();
+                typesScreen               = new BalconyTypesScreen();
+                
+                communicationThread = new ClientCommunicationThread(
+                        "127.0.0.1", 
+                        23073);
+                
+                loginScreen.setExtendedState(loginScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                resetScreen.setExtendedState(resetScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                chooseModulesScreen.setExtendedState(chooseModulesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                adminScreen.setExtendedState(adminScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                userScreen.setExtendedState(userScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                serviceScreen.setExtendedState(serviceScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                balconyScreen.setExtendedState(balconyScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                typesScreen.setExtendedState(typesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                loginScreen.setVisible(true);        
+    }
+    
+    
     public static void main(String args[]) 
     {
         /* Set the Nimbus look and feel */
@@ -56,33 +98,66 @@ public class Main
             @Override
             public void run() 
             {
-                login           = new LoginScreen();
-                reset           = new LoginScreenResetPassword();
-                chooseModules   = new ChooseModulesScreen();
-                adminScreen     = new AdministratorScreen();
-                userScreen      = new UserScreen();
-                serviceScreen   = new ServiceScreen();
-                balconyScreen   = new BalconyScreen();
-                typesScreen     = new BalconyTypesScreen();
-                
-                communicationThread = new ClientCommunicationThread(
-                        MessageActors.NotIdentified, 
-                        "127.0.0.1", 
-                        23073);
-                new Thread(communicationThread).start();
+                //Creates
+                Main app = getInstance();
+                new Thread(app.communicationThread).start();
                 new Thread(PresentationControler.getInstance()).start();
-                PresentationControler.getInstance().setLabel(adminScreen.getLbImage());
-                
-                login.setExtendedState(login.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                reset.setExtendedState(reset.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                chooseModules.setExtendedState(chooseModules.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                adminScreen.setExtendedState(adminScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                userScreen.setExtendedState(userScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                serviceScreen.setExtendedState(serviceScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                balconyScreen.setExtendedState(balconyScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                typesScreen.setExtendedState(typesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                login.setVisible(true);
+                PresentationControler.getInstance().setLabel(getInstance().adminScreen.getLbImage());
             }
         });
-    }    
+    }   
+
+    /**
+     * Retorna um bean representando o usuário atual da aplicação
+     * @return 
+     */
+    public UserBean getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(UserBean currentUser) {
+        this.currentUser = currentUser;
+    }  
+    
+    /**
+     * GETTERS!!
+     */
+    public LoginScreen getLoginScreen() {
+        return loginScreen;
+    }
+
+    public LoginScreenResetPassword getResetScreen() {
+        return resetScreen;
+    }
+
+    public ChooseModulesScreen getChooseModulesScreen() {
+        return chooseModulesScreen;
+    }
+
+    public AdministratorScreen getAdminScreen() {
+        return adminScreen;
+    }
+
+    public ClientCommunicationThread getCommunicationThread() {
+        return communicationThread;
+    }
+
+    public UserScreen getUserScreen() {
+        return userScreen;
+    }
+
+    public ServiceScreen getServiceScreen() {
+        return serviceScreen;
+    }
+
+    public BalconyScreen getBalconyScreen() {
+        return balconyScreen;
+    }
+
+    public BalconyTypesScreen getTypesScreen() {
+        return typesScreen;
+    }
+    
+    
+    
 }

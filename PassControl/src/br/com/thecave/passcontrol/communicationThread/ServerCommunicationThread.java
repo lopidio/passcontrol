@@ -42,9 +42,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      */
     public ServerCommunicationThread(int port) throws IOException
     {
-        super(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
         markToReset = false;
         serverSocketListener = new ServerSocketListener(port, this);
+        setHeartBeat(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
         //Executa a thread que escuta a porta
         new Thread(serverSocketListener).start();
         clients = new ConcurrentHashMap<>();

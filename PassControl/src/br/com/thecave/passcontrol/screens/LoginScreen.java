@@ -5,7 +5,6 @@
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
-import br.com.thecave.passcontrol.controler.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -184,22 +183,20 @@ public final class LoginScreen extends javax.swing.JFrame {
 
     
     public void performLogin()
-    {
-        Usuario user = Usuario.getInstance();
-        
+    {       
         String usr = tfUser.getText();
         String pass = new String(tfSenha.getPassword());
         
-        user.init(usr, pass);
-        
         // Verifica se é um superUser ou se o usuário existe no banco
-        if(user.isSuperUser() || user.checkPassword())
+        if(/*TODO enviar uma mensagem ao server aquiuser.isSuperUser() || user.checkPassword()*/true)
         {
+        	//response.getUser() retornará nulo, caso o login tenha sido mal sucedido
+			//Main.getInstance.setCurrentUser(response.getUser());
             //TODO: vai pra tela seguinte
             clearScreen();
             //TODO: setar icon e tipo da mensagem
             JOptionPane.showMessageDialog(null, "Bem vindo! " + usr );
-            Main.chooseModules.setVisible(true);
+            Main.getInstance().getChooseModulesScreen().setVisible(true);
             this.setVisible(false);
         }
         else
@@ -211,7 +208,7 @@ public final class LoginScreen extends javax.swing.JFrame {
     
     public void performResetPassword()
     {
-       Main.reset.setVisible(true);
+       Main.getInstance().getResetScreen().setVisible(true);
        this.setVisible(false);
     }
     

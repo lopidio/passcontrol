@@ -289,7 +289,7 @@
                       <Component id="tfType" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="elType" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="446" max="32767" attributes="0"/>
+                  <EmptySpace pref="450" max="32767" attributes="0"/>
                   <Component id="pnButtons" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

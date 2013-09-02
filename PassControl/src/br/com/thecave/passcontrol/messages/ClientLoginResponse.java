@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.messages;
 
-import java.awt.Image;
+import br.com.thecave.passcontrol.db.bean.UserBean;
 
 /**
  *
@@ -12,31 +12,24 @@ import java.awt.Image;
  */
 public class ClientLoginResponse extends PassControlMessage
 {
-    int permissionCode;
-    boolean loginStatus;
+    UserBean user;
 
-    public ClientLoginResponse(int permissionCode, boolean loginStatus, MessageActors to) {
+    public ClientLoginResponse(UserBean user,MessageActors to) {
         super(MessageActors.ServerActor, to);
-        this.permissionCode = permissionCode;
-        this.loginStatus = loginStatus;
+        this.user = user;
     }
 
-    public int getPermissionCode() {
-        return permissionCode;
+    public ClientLoginResponse(UserBean user, MessageActors to, String comment) {
+        super(MessageActors.ServerActor, to, comment);
+        this.user = user;
     }
 
-    public void setPermissionCode(int permissionCode) {
-        this.permissionCode = permissionCode;
+    public UserBean getUser() {
+        return user;
     }
 
-    public boolean isLoginStatus() {
-        return loginStatus;
+    public void setUser(UserBean user) {
+        this.user = user;
     }
-
-    public void setLoginStatus(boolean loginStatus) {
-        this.loginStatus = loginStatus;
-    }
-    
-    
 
 }

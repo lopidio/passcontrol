@@ -178,7 +178,7 @@ public class LoginScreenResetPassword extends javax.swing.JFrame {
         {
             this.setVisible(false);
             clearScreen();
-            Main.login.setVisible(true);
+            Main.getInstance().getLoginScreen().setVisible(true);
         }
     }
     

@@ -5,7 +5,6 @@
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
-import br.com.thecave.passcontrol.controler.Usuario;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JOptionPane;
@@ -27,7 +26,7 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
             @Override
             public void componentShown(ComponentEvent e) 
             {
-                jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+                jlUser.setText("Usuário: " + Main.getInstance().getCurrentUser().getName());
             }
         });        
     }
@@ -356,7 +355,7 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
     private void openAdministrator()
     {
         this.setVisible(false);
-        Main.adminScreen.setVisible(true);
+        Main.getInstance().getAdminScreen().setVisible(true);
     }
     
     private void openBalcony()
@@ -399,7 +398,7 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         else if( JOptionPane.OK_OPTION == result)
         {
             this.setVisible(false);
-            Main.login.setVisible(true);
+            Main.getInstance().getLoginScreen().setVisible(true);
         }
         else
         {

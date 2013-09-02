@@ -38,11 +38,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * Canal de comunicação
      */
     Socket socket = null;
-    
-    /**
-     * Quem é o cliente responsável pela minha manutenção
-     */
-    MessageActors actor;
 
     /**
      * Construtor da comunicação do cliente
@@ -50,13 +45,12 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param serverIP
      * @param port
      */
-    public ClientCommunicationThread(MessageActors actor, String serverIP, int port){
-        super(new HeartBeatMessage(actor, MessageActors.ServerActor));
+    public ClientCommunicationThread(String serverIP, int port){
         this.port = port;
         this.serverIP = serverIP;
-        this.actor = actor;
         statusConnectionListeners = new ArrayList<>();
-    }
+        setHeartBeat(new HeartBeatMessage(MessageActors.NotIdentified, MessageActors.ServerActor));
+    }   
     
     /**
      * Adiciona um escutador de status da conexão
@@ -93,10 +87,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         }
     }
 
-    private MessageActors getActor() {
-        return actor;
-    }
-    
     
     @Override
     public void stop() 
@@ -106,10 +96,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     }
     //REGIÃO DE TESTES
     public static void main(String[] args) {
-            ClientCommunicationThread me = new ClientCommunicationThread(MessageActors.ViewerActor, "127.0.0.1", 23073);
+            ClientCommunicationThread me = new ClientCommunicationThread("127.0.0.1", 23073);
             new Thread(me).start();
         
-            ClientLoginRequest initRequest = new ClientLoginRequest(me.getActor(), "guigui", "123456senha");
+            ClientLoginRequest initRequest = new ClientLoginRequest(MessageActors.AdministratorActor, "guigui", "123456senha");
 
             ClientLoginResponse initResponse = (ClientLoginResponse)me.sendMessageAndWaitForResponseOrTimeout
                     (initRequest, ClientLoginResponse.class.getSimpleName(), 30*1000);
@@ -129,6 +119,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     @Override
     public void run() {
         running = true;
+        System.out.println("Cliente tentando estabelecer conexão");
+        
         while (running) 
         {
             try 
@@ -136,7 +128,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                 if (socket == null || socket.isClosed()) 
                 {
                     //Tenta estabelecer uma conexão
-                    System.out.println("Cliente tentando estabelecer conexão");
                     socket = new Socket(serverIP, port);      
                     onChangeStatusConnection();                    
                     System.out.println("Conexão estabelecida");
@@ -190,7 +181,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     {
         try 
         {
-            System.out.println("Conexão do cliente encerrada");
+            //System.out.println("Conexão do cliente encerrada");
             if (socket != null)
                 socket.close();
         } catch (IOException ex) 

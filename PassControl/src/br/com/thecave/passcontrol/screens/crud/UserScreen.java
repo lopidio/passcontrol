@@ -1,10 +1,8 @@
 package br.com.thecave.passcontrol.screens.crud;
 
 import br.com.thecave.passcontrol.controler.Main;
-import br.com.thecave.passcontrol.controler.Usuario;
 import br.com.thecave.passcontrol.db.ServerComunication;
 import br.com.thecave.passcontrol.db.bean.UserBean;
-import br.com.thecave.passcontrol.messages.ConfirmationResponse;
 import br.com.thecave.passcontrol.util.Validation;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -595,7 +593,7 @@ public class UserScreen extends javax.swing.JFrame
         {
             resetScreen();
             this.setVisible(false);
-            Main.login.setVisible(true);
+            Main.getInstance().getLoginScreen().setVisible(true);
         }
         else
         {
@@ -610,7 +608,7 @@ public class UserScreen extends javax.swing.JFrame
             @Override
             public void componentShown(ComponentEvent e) 
             {
-                jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+                jlUser.setText("Usuário: " + Main.getInstance().getCurrentUser().getName());
             }
         });
     }
@@ -665,7 +663,7 @@ public class UserScreen extends javax.swing.JFrame
     {
         resetScreen();
         this.setVisible(false);
-        Main.adminScreen.setVisible(true);        
+        Main.getInstance().getAdminScreen().setVisible(true);        
     }
     //==============================================================================
     /**

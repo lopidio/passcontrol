@@ -1,7 +1,6 @@
 package br.com.thecave.passcontrol.screens.crud;
 
 import br.com.thecave.passcontrol.controler.Main;
-import br.com.thecave.passcontrol.controler.Usuario;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JOptionPane;
@@ -12,13 +11,13 @@ import javax.swing.JOptionPane;
  * 
  * @author Antonio Arleudo da costa
  */
-public class CrudeScreen extends javax.swing.JFrame 
+public class CrudScreen extends javax.swing.JFrame 
 {
     //==============================================================================
     /**
      * Contrutor
      */
-    public CrudeScreen() 
+    public CrudScreen() 
     {
         initComponents();
         onVisible();
@@ -198,7 +197,7 @@ public class CrudeScreen extends javax.swing.JFrame
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(318, Short.MAX_VALUE)
+                .addContainerGap(322, Short.MAX_VALUE)
                 .addComponent(pnButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -415,7 +414,7 @@ public class CrudeScreen extends javax.swing.JFrame
         else if( JOptionPane.OK_OPTION == result)
         {
             this.setVisible(false);
-            Main.login.setVisible(true);
+            Main.getInstance().getLoginScreen().setVisible(true);
         }
         else
         {
@@ -430,7 +429,7 @@ public class CrudeScreen extends javax.swing.JFrame
             @Override
             public void componentShown(ComponentEvent e) 
             {
-                jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+                jlUser.setText("Usuário: " + Main.getInstance().getCurrentUser().getName());
             }
         });
     }
@@ -471,7 +470,7 @@ public class CrudeScreen extends javax.swing.JFrame
     {
         resetScreen();
         this.setVisible(false);
-        Main.adminScreen.setVisible(true);        
+        Main.getInstance().getAdminScreen().setVisible(true);        
     }
     //==============================================================================
     /**

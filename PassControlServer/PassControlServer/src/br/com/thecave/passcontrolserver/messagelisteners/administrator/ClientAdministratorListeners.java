@@ -73,7 +73,7 @@ public class ClientAdministratorListeners
                 if (UserDAO.delete(bean))
                 {
                     response.setStatusOperation(true);
-                    response.setComment("Comentário deletado com sucesso");
+                    response.setComment("Usuário deletado com sucesso");
                 }
             }
            

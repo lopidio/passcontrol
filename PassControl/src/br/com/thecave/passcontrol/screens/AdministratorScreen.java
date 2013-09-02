@@ -1,7 +1,6 @@
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
-import br.com.thecave.passcontrol.controler.Usuario;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -30,7 +29,7 @@ public final class AdministratorScreen extends javax.swing.JFrame {
             @Override
             public void componentShown(ComponentEvent e) 
             {
-                jlUser.setText("Usuário: " + Usuario.getInstance().getName());
+                jlUser.setText("Usuário: " + Main.getInstance().getCurrentUser().getName());
             }
         });
     }
@@ -432,7 +431,7 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         else if( JOptionPane.OK_OPTION == result)
         {
             this.setVisible(false);
-            Main.login.setVisible(true);
+            Main.getInstance().getLoginScreen().setVisible(true);
         }
         else
         {
@@ -443,31 +442,31 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     public void openGuiche()
     {
         this.setVisible(false);
-        Main.balconyScreen.setVisible(true);
+        Main.getInstance().getBalconyScreen().setVisible(true);
     }
     
      private void openTiposGuiche() 
     {
         this.setVisible(false);
-        Main.typesScreen.setVisible(true);
+        Main.getInstance().getTypesScreen().setVisible(true);
     }
     
     public void openUser()
     {
         this.setVisible(false);
-        Main.userScreen.setVisible(true);
+        Main.getInstance().getUserScreen().setVisible(true);
     }
     
     public void openServices()
     {
         this.setVisible(false);
-        Main.serviceScreen.setVisible(true);
+        Main.getInstance().getServiceScreen().setVisible(true);
     }
 
     private void voltar() 
     {
         this.setVisible(false);
-        Main.chooseModules.setVisible(true);
+        Main.getInstance().getChooseModulesScreen().setVisible(true);
     }
 
     private void sair() 

@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrol.communicationThread;
 
+import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import br.com.thecave.passcontrol.util.Watchdog;
@@ -57,9 +58,9 @@ public abstract class PassControlCommunicationThread implements Runnable {
      * 
      * @param heartBeatMessage 
      */            
-    public PassControlCommunicationThread(HeartBeatMessage heartBeatMessage) 
+    public PassControlCommunicationThread() 
     {
-        this.heartBeatMessage = heartBeatMessage;
+        this.heartBeatMessage = new HeartBeatMessage(MessageActors.NotIdentified, MessageActors.NotIdentified);
         passControlMessageListeners = new ConcurrentHashMap<>();
         running = false;
         watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);    
@@ -142,12 +143,32 @@ public abstract class PassControlCommunicationThread implements Runnable {
     synchronized protected Boolean sendMessage(Socket socket, PassControlMessage message) throws IOException {
         if (socket == null)
             throw new IOException("Null socket");
-
+        
+        refreshHeartbeat(message.getFrom());
         System.out.println("Mensagem será enviada " + message.getType());
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectOutputStream.writeObject(message);
         System.out.println("Mensagem enviada com sucesso");
         return true;
+    }
+    
+    /**
+     * Atualiza as propriedades do heart beat
+     */
+    private void refreshHeartbeat(MessageActors actorSender)
+    {
+        if (actorSender != heartBeatMessage.getFrom())
+        {
+            //Se o remetente for o servidor
+            if (actorSender != MessageActors.ServerActor)
+            {
+                setHeartBeat(new HeartBeatMessage(actorSender, MessageActors.AllActors));                                
+            }
+            else
+            {
+                setHeartBeat(new HeartBeatMessage(actorSender, MessageActors.ServerActor));                
+            }
+        }        
     }
 
     /**
@@ -269,6 +290,10 @@ public abstract class PassControlCommunicationThread implements Runnable {
         }
     }
     
+    protected void setHeartBeat(HeartBeatMessage heartBeatMessage) {
+        this.heartBeatMessage = heartBeatMessage;
+    }   
+    
     /*
      * Envia todas as mensagens de todos os tipos
      */
@@ -285,5 +310,6 @@ public abstract class PassControlCommunicationThread implements Runnable {
     protected abstract void sendBroadcastMessage(PassControlMessage message);
 
     abstract void stop();
+
 }
 
