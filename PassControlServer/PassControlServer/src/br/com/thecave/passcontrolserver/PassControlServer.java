@@ -6,6 +6,7 @@ package br.com.thecave.passcontrolserver;
 
 import br.com.thecave.passcontrol.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrol.messages.ClientLoginRequest;
+import br.com.thecave.passcontrolserver.messagelisteners.administrator.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientLoginMessageListener;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -22,7 +23,7 @@ public class PassControlServer {
      */
     private static PassControlServer singletonInstance = null;
     
-    public static PassControlServer getInstance()
+    public synchronized static PassControlServer getInstance()
     {
         if (singletonInstance == null)
             singletonInstance = new PassControlServer();
@@ -40,6 +41,8 @@ public class PassControlServer {
     public static void main(String[] args) 
     {
         ServerCommunicationThread server = getInstance().server;
+        // Cadastra os listeners relativos às mensagens do administrador
+        ClientAdministratorListeners.addListenersCallback();
         server.addMessageListener(new ClientLoginMessageListener(), "ClientLoginRequest");
         new Thread(server).start();
     }
@@ -59,7 +62,7 @@ public class PassControlServer {
         }
     }
 
-    public ServerCommunicationThread getServer() 
+    public synchronized ServerCommunicationThread getServer() 
     {
         return server;
     }

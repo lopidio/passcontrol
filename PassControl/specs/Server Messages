@@ -70,9 +70,9 @@ From client:
 ####################### Administrator ############################
 
 From client:
-	AdministratorAddUser //UserBean
-	AdministratorListUsers //List<UserBean>
-	AdministratorRemoveUser //UserBean
+	-AdministratorAddUser //UserBean
+	-AdministratorListUsers //List<UserBean>
+	-AdministratorRemoveUser //UserBean
 	AdministratorAddService //ServiceBean
 	AdministratorListServices //List<ServiceBean>
 	AdministratorRemoveService //ServiceBean

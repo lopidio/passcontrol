@@ -5,6 +5,7 @@ import br.com.thecave.passcontrol.db.bean.UserBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * Classe para persistencia na tabela TB_USER utilizando a classe UserBean
@@ -129,7 +130,7 @@ public class UserDAO
      */
     public static UserBean selectFromId(int id)
     {
-        UserBean bean = new UserBean();
+        UserBean bean = null;
         try
         {
         // pegar a conexão com o banco
@@ -147,6 +148,7 @@ public class UserDAO
             
             while(rs.next())
             {
+                bean = new UserBean();
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setName(rs.getString("TX_NAME"));
                 bean.setType(rs.getInt("INT_TYPE"));
@@ -209,4 +211,48 @@ public class UserDAO
           return null;
         }            
     }
+    /**
+     * Metodo para recuperar um UserBean a partir de seu id.
+     * @return Lista de beans (vazia, caso não haja nada).
+     */
+    public static ArrayList<UserBean> selectAll()
+    {
+        ArrayList<UserBean> beanList = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_USER;";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            if(rs.next())
+            {
+                UserBean bean = new UserBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setName(rs.getString("TX_NAME"));
+                bean.setType(rs.getInt("INT_TYPE"));
+                bean.setLogin(rs.getString("TX_LOGIN"));
+                bean.setPassword(rs.getString("TX_PASSWORD"));
+                beanList.add(bean);
+            }
+            
+            stmt.close();
+            conn.close();
+            return beanList;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }            
+    }    
 }
