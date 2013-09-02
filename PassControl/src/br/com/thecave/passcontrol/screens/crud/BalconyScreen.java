@@ -2,7 +2,7 @@ package br.com.thecave.passcontrol.screens.crud;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
-import br.com.thecave.passcontrol.db.DataBaseManager;
+import br.com.thecave.passcontrol.db.ServerComunication;
 import br.com.thecave.passcontrol.db.bean.BalconyBean;
 import br.com.thecave.passcontrol.db.bean.UserBean;
 import br.com.thecave.passcontrol.util.Validation;
@@ -658,7 +658,7 @@ public class BalconyScreen extends javax.swing.JFrame
     public void deleteBean()
     {
         BalconyBean bean = writeBeanFromScreen();
-        if(DataBaseManager.delete(bean))
+        if(ServerComunication.delete(bean))
         {
             JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
             resetScreen();
@@ -676,7 +676,7 @@ public class BalconyScreen extends javax.swing.JFrame
         if(numberValid && typeValid)
         {
             BalconyBean bean = writeBeanFromScreen();
-            if(DataBaseManager.save(bean))
+            if(ServerComunication.save(bean))
             {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
                 resetScreen();
@@ -730,7 +730,7 @@ public class BalconyScreen extends javax.swing.JFrame
         {
             String item = cbIdGuiche.getSelectedItem().toString();
             int index = Integer.parseInt(item);
-            bean = DataBaseManager.selectBalcony(index);
+            bean = ServerComunication.selectBalcony(index);
             
             btEdit.setEnabled(true);
             writeScreenFromBean(bean);  

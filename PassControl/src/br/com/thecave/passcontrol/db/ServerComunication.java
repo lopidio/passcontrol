@@ -11,7 +11,7 @@ import br.com.thecave.passcontrol.db.bean.UserBean;
  * basta apenas saber que alguem salva as informações
  * @author Arleudo
  */
-public class DataBaseManager 
+public class ServerComunication 
 {
     public static boolean save(TableBean bean)
     {

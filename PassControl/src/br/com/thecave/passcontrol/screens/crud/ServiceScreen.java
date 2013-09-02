@@ -2,7 +2,7 @@ package br.com.thecave.passcontrol.screens.crud;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
-import br.com.thecave.passcontrol.db.DataBaseManager;
+import br.com.thecave.passcontrol.db.ServerComunication;
 import br.com.thecave.passcontrol.db.bean.ServiceBean;
 import br.com.thecave.passcontrol.util.Validation;
 import java.awt.event.ComponentAdapter;
@@ -647,7 +647,7 @@ public class ServiceScreen extends javax.swing.JFrame
     public void deleteBean()
     {
         ServiceBean bean = writeBeanFromScreen();
-        if(DataBaseManager.delete(bean))
+        if(ServerComunication.delete(bean))
         {
             JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
             resetScreen();
@@ -665,7 +665,7 @@ public class ServiceScreen extends javax.swing.JFrame
         if(nameValid)
         {
             ServiceBean bean = writeBeanFromScreen();
-            if(DataBaseManager.save(bean))
+            if(ServerComunication.save(bean))
             {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
                 resetScreen();
@@ -710,7 +710,7 @@ public class ServiceScreen extends javax.swing.JFrame
         {
             String item = cbUser.getSelectedItem().toString();
             int index = Integer.parseInt(item);
-            bean = DataBaseManager.selectService(index);
+            bean = ServerComunication.selectService(index);
             
             btEdit.setEnabled(true);
             writeScreenFromBean(bean);  

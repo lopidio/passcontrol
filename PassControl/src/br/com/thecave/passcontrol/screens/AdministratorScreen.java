@@ -2,9 +2,12 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
+import br.com.thecave.passcontrol.viewer.PresentationControler;
 import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -219,12 +222,17 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         jmApresentacao.setMnemonic('A');
         jmApresentacao.setText("Apresentação            ");
 
-        jmAddImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAddImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jmAddImage.setMnemonic('d');
         jmAddImage.setText("Adicionar imagem");
+        jmAddImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAddImageActionPerformed(evt);
+            }
+        });
         jmApresentacao.add(jmAddImage);
 
-        jmListImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmListImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jmListImages.setMnemonic('L');
         jmListImages.setText("Listar imagens");
         jmListImages.addActionListener(new java.awt.event.ActionListener() {
@@ -234,14 +242,24 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         });
         jmApresentacao.add(jmListImages);
 
-        jmRemoveImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmRemoveImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jmRemoveImages.setMnemonic('R');
         jmRemoveImages.setText("Remover imagem");
+        jmRemoveImages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmRemoveImagesActionPerformed(evt);
+            }
+        });
         jmApresentacao.add(jmRemoveImages);
 
-        jmAlterTime.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAlterTime.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jmAlterTime.setMnemonic('t');
         jmAlterTime.setText("Alterar tempo da apresentação");
+        jmAlterTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAlterTimeActionPerformed(evt);
+            }
+        });
         jmApresentacao.add(jmAlterTime);
 
         jMenuBar1.add(jmApresentacao);
@@ -306,6 +324,18 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         alterMainImage();
     }//GEN-LAST:event_jmAlterImageActionPerformed
 
+    private void jmAlterTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterTimeActionPerformed
+        alterTimePresentation();
+    }//GEN-LAST:event_jmAlterTimeActionPerformed
+
+    private void jmAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAddImageActionPerformed
+        addImage();
+    }//GEN-LAST:event_jmAddImageActionPerformed
+
+    private void jmRemoveImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRemoveImagesActionPerformed
+        removeImage();
+    }//GEN-LAST:event_jmRemoveImagesActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
@@ -338,7 +368,7 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         //TODO: definir imagem atraves de arquivo de configuração
         Image img= Toolkit.getDefaultToolkit().getImage("imgs/quadro.jpg");
         ImageIcon ic = new ImageIcon(img);
-        lbImage.setIcon(ic);
+        getLbImage().setIcon(ic);
     }
     
     /**
@@ -410,8 +440,83 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         {
             Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().toString());
             ImageIcon ic = new ImageIcon(img);
-            lbImage.setIcon(ic);
+            getLbImage().setIcon(ic);
         }
+    }
+    /**
+     * Adiciona uma imagem na fila de apresentação 
+     */
+    private void addImage() 
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Files", "jpg", "png");
+        chooser.addChoosableFileFilter(filter);
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Escolha uma imagem!");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) 
+        {
+            // salva a imagem escolhida no diretório de apresentação e adiciona
+            // esta imagem na fila de apresentação
+            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().toString());
+            PresentationControler controler = PresentationControler.getInstance();
+            controler.addImage(img);
+        }
+    }
+    /**
+     * Remove uma imagem na fila de apresentação 
+     */
+    private void removeImage() 
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File(".\\imgs\\presentation"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Files", "jpg", "png");
+        chooser.addChoosableFileFilter(filter);
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Escolha uma imagem!");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) 
+        {
+            // remove a imagem da lista de apresentação
+            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().toString());
+            PresentationControler controler = PresentationControler.getInstance();
+            controler.remove(img);
+        }
+    }
+    /**
+     * Altera o tempo da apresentação das imagens
+     */
+    private void alterTimePresentation() 
+    {
+        long newTime;
+        try
+        {
+            newTime = Long.parseLong(JOptionPane.showInputDialog
+                ("Insira o novo tempo de apresentação em segundos"));
+            PresentationControler.getInstance().setTime(newTime);
+            JOptionPane.showMessageDialog(null, 
+                    "Tempo alterado com sucesso!");
+        }
+        catch(NumberFormatException ex)
+        {
+            JOptionPane.showMessageDialog(null, 
+                    "Tempo deve ser somente números!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * @return the lbImage
+     */
+    public javax.swing.JLabel getLbImage() 
+    {
+        return lbImage;
     }
 }
 

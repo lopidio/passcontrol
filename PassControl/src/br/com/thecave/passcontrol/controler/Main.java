@@ -9,6 +9,7 @@ import br.com.thecave.passcontrol.screens.LoginScreenResetPassword;
 import br.com.thecave.passcontrol.screens.crud.BalconyScreen;
 import br.com.thecave.passcontrol.screens.crud.ServiceScreen;
 import br.com.thecave.passcontrol.screens.crud.UserScreen;
+import br.com.thecave.passcontrol.viewer.PresentationControler;
 import javax.swing.JFrame;
 
 public class Main 
@@ -65,6 +66,8 @@ public class Main
                         "127.0.0.1", 
                         23073);
                 new Thread(communicationThread).start();
+                new Thread(PresentationControler.getInstance()).start();
+                PresentationControler.getInstance().setLabel(adminScreen.getLbImage());
                 
                 login.setExtendedState(login.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 reset.setExtendedState(reset.getExtendedState() | JFrame.MAXIMIZED_BOTH);
