@@ -2,12 +2,17 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.Usuario;
+import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
+import java.io.FileFilter;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -202,6 +207,11 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         jmAlterImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         jmAlterImage.setMnemonic('I');
         jmAlterImage.setText("Alterar imagem principal");
+        jmAlterImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAlterImageActionPerformed(evt);
+            }
+        });
         jmImagem.add(jmAlterImage);
 
         jMenuBar1.add(jmImagem);
@@ -292,6 +302,10 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         performLogout();
     }//GEN-LAST:event_jmLogOutActionPerformed
 
+    private void jmAlterImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterImageActionPerformed
+        alterMainImage();
+    }//GEN-LAST:event_jmAlterImageActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
@@ -379,6 +393,25 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     private void sair() 
     {
         System.exit(0);
+    }
+
+    private void alterMainImage() 
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Files", "jpg", "png");
+        chooser.addChoosableFileFilter(filter);
+        chooser.setFileFilter(filter);
+        chooser.setDialogTitle("Escolha uma imagem!");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) 
+        {
+            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().toString());
+            ImageIcon ic = new ImageIcon(img);
+            lbImage.setIcon(ic);
+        }
     }
 }
 
