@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.viewer;
 
+import br.com.thecave.passcontrol.util.Watchdog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -17,14 +18,13 @@ public class PresentationControler implements Runnable
     private long timePresentation;
     private static PresentationControler instance;
     private int index;
-    private Image currentImage;
     private JLabel label;
     //----------------------------------------------------------------------------
     // Construtor
     //----------------------------------------------------------------------------
     private PresentationControler()
     {
-        images = new ArrayList<Image>();
+        images = new ArrayList<>();
         index = 0;
         timePresentation = 5000;
         Image img = Toolkit.getDefaultToolkit().getImage("imgs/presentation/quadro.jpg");
@@ -124,24 +124,10 @@ public class PresentationControler implements Runnable
     public void run() 
     {
         // inicia o contador
-        long initTime = System.currentTimeMillis();
+        Watchdog watchdog = new Watchdog(timePresentation);
         while(true)
-        {
-            // pega o tempo atual
-            long currentTime = System.currentTimeMillis();
-            long diffTime;
-            try 
-            {
-                Thread.sleep(getTime());
-            } 
-            catch (InterruptedException ex) 
-            {
-                
-            }
-            diffTime = currentTime - initTime;
-            initTime = currentTime;
-            // se a diferença for maior que o tempo estipulado....
-            if(diffTime >= getTime())
+        {         
+            if(watchdog.hasTimedOut())
             {
                 index++;
                 Image img = getCurrentImage();
@@ -150,6 +136,7 @@ public class PresentationControler implements Runnable
                     ImageIcon ic = new ImageIcon(img);
                     label.setIcon(ic);
                 }
+                watchdog = new Watchdog(timePresentation);
            }
         }
     }

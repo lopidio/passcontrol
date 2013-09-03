@@ -106,8 +106,15 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
 
             if (initResponse != null)
             {
-                System.out.println("PermissionCode: " + initResponse.getPermissionCode());
-                System.out.println("Status login: " + initResponse.isLoginStatus());
+                if (initResponse.getUser() != null)
+                {
+                    System.out.println("PermissionCode: " + initResponse.getUser().getType());
+                    System.out.println("Status login: true");
+                }
+                else
+                {
+                    System.out.println("Usuário e senha incompatíveis");
+                }
             }
             else
                 System.out.println("TIME OUT!");
