@@ -33,14 +33,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="topMenu" max="32767" attributes="0"/>
+          <Component id="topBar" max="32767" attributes="0"/>
           <Component id="passControlPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="topMenu" min="-2" max="-2" attributes="0"/>
+              <Component id="topBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="passControlPanel" max="32767" attributes="0"/>
           </Group>
@@ -48,7 +48,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="topMenu">
+    <Container class="javax.swing.JPanel" name="topBar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f8" green="d7" red="bb" type="rgb"/>

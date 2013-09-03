@@ -3,8 +3,6 @@ Ao inicializar Administrator:
 Carregará o arquivo de configuração (ou criará um default, caso não encontre)
 
 Mensagens ao server:
-AdministratorInit //Verifica usuário-senha
-AdministratorResponse //Sim ou não
 AdministratorAddUser
 AdministratorAddService
 AdministratorAddBalcony
