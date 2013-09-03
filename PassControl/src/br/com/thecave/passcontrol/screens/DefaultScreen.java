@@ -4,16 +4,20 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import javax.swing.JMenuBar;
+
 /**
  *
  * @author Arleudo
  */
-public class DefaultScreen extends javax.swing.JPanel {
+public class DefaultScreen extends PassControlPanel 
+{
 
     /**
      * Creates new form DefaultScreen
      */
-    public DefaultScreen() {
+    public DefaultScreen() 
+    {
         initComponents();
     }
 
@@ -50,4 +54,12 @@ public class DefaultScreen extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlImageCenter;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public JMenuBar getMenu() 
+    {
+        JMenuBar menuBar = new JMenuBar();
+        
+        
+    }
 }

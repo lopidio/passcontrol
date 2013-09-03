@@ -4,7 +4,6 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import java.awt.LayoutManager;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
