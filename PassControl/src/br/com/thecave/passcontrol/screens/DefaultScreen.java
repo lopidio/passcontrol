@@ -18,6 +18,7 @@ public class DefaultScreen extends PassControlPanel
      */
     public DefaultScreen() 
     {
+        super("Sistema Gerenciador de Filas");
         initComponents();
     }
 
@@ -56,10 +57,8 @@ public class DefaultScreen extends PassControlPanel
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public JMenuBar getMenu() 
+    public JMenuBar createMenu() 
     {
-        JMenuBar menuBar = new JMenuBar();
-        
-        
+        return null;
     }
 }
