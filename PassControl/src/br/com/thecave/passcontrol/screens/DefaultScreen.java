@@ -18,7 +18,8 @@ public class DefaultScreen extends PassControlPanel
      */
     public DefaultScreen() 
     {
-        super("Sistema Gerenciador de Filas");
+        //Acho que não preciso de controller
+        super("Sistema Gerenciador de Filas", null);
         initComponents();
     }
 

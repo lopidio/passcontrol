@@ -4,6 +4,8 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.PassControlController;
+import javax.swing.BoxLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
@@ -13,12 +15,17 @@ import javax.swing.JPanel;
  */
 public abstract class PassControlPanel extends JPanel{
     
+    private PassControlController panelController;
     private String passControlPanelTitle;
     private JMenuBar menu;
 
-    public PassControlPanel(String passControlPanelTitle) {
+    public PassControlPanel(String passControlPanelTitle, PassControlController panelController) {
+        this.panelController = panelController;
         this.passControlPanelTitle = passControlPanelTitle;
         this.menu = null;
+        
+        BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        this.setLayout(layout);        
     }
 
     public String getPassControlPanelTitle() {
@@ -29,6 +36,10 @@ public abstract class PassControlPanel extends JPanel{
         this.passControlPanelTitle = passControlPanelTitle;
     }
     
+    /**
+     * Retornar nulo caso seja um TopBar. :D
+     * @return 
+     */
     public abstract JMenuBar createMenu();
 
     public JMenuBar getMenu()
@@ -39,6 +50,13 @@ public abstract class PassControlPanel extends JPanel{
     public void setMenu(JMenuBar menu) {
         this.menu = menu;
     }
+
+    public PassControlController getPanelController() {
+        return panelController;
+    }
+
+    public void setPanelController(PassControlController panelController) {
+        this.panelController = panelController;
+    }
             
-    
 }

@@ -29,6 +29,7 @@ public class PresentationControler implements Runnable
         timePresentation = 5000;
         Image img = Toolkit.getDefaultToolkit().getImage("imgs/presentation/quadro.jpg");
         images.add(img);
+        //Não preciso instanciar Label aqui? Oo
     }
     /**
      * 

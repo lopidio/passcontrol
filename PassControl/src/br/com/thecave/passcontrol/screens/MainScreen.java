@@ -17,20 +17,32 @@ public final class MainScreen extends javax.swing.JFrame {
         initComponents();
 
         activatePassControlPanel(new DefaultScreen());
-        //setTopBar(new TopLoginBar());
+        setTopBar(new LoginTopBar());
         
     }
     
+    //ISSO AQUI DEVE FICAR NO CONTROLLER!
     public void activatePassControlPanel(PassControlPanel newPassControlPanel)
     {
         //Remove o atual
-        //passControlPanel. removeAll();
+        passControlPanel.removeAll();
         //Adiciona o novo
-        //passControlPanel.add(newPassControlPanel);
+        passControlPanel.add(newPassControlPanel);
         //Seta o título atual
         setTitle(newPassControlPanel.getName());
         //Seta o menuBar atual
-        setJMenuBar(newPassControlPanel.getMenu());
+        if (newPassControlPanel.createMenu() != null)
+        {
+            setJMenuBar(newPassControlPanel.getMenu());
+        }
+        
+        passControlPanel.getController.addMessageListeners();
+        
+        passControlPanel.setVisible(true);
+        passControlPanel.revalidate();
+        passControlPanel.repaint();
+        getContentPane().revalidate();
+        getContentPane().repaint();
         
         //Mais ou menos assim
     }
@@ -46,6 +58,11 @@ public final class MainScreen extends javax.swing.JFrame {
         //Mais ou menos assim
         
         //E águas paradas
+        passControlPanel.revalidate();
+        passControlPanel.repaint();
+        getContentPane().revalidate();  
+        getContentPane().repaint();
+
     }
 
     /**
@@ -57,23 +74,50 @@ public final class MainScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menuBar = new javax.swing.JMenuBar();
+        topBar = new javax.swing.JPanel();
+            private javax.swing.JPanel passControlPanel;
+        passControlPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Senhas");
         setBackground(new java.awt.Color(255, 255, 255));
         setName("frmScreenLogin"); // NOI18N
-        setJMenuBar(menuBar);
+
+        javax.swing.GroupLayout topBarLayout = new javax.swing.GroupLayout(topBar);
+        topBar.setLayout(topBarLayout);
+        topBarLayout.setHorizontalGroup(
+            topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1351, Short.MAX_VALUE)
+        );
+        topBarLayout.setVerticalGroup(
+            topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 95, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout passControlPanelLayout = new javax.swing.GroupLayout(passControlPanel);
+        passControlPanel.setLayout(passControlPanelLayout);
+        passControlPanelLayout.setHorizontalGroup(
+            passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        passControlPanelLayout.setVerticalGroup(
+            passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 572, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1351, Short.MAX_VALUE)
+            .addComponent(topBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(passControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 683, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(passControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -82,6 +126,8 @@ public final class MainScreen extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JPanel passControlPanel;    
+    private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
 
 

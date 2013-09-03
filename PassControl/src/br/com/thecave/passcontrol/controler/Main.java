@@ -30,44 +30,20 @@ public class Main
     /**
      * Private attributes
      */
-    private LoginScreen loginScreen;
-    private LoginScreenResetPassword resetScreen;
-    private ChooseModulesScreen chooseModulesScreen;
-    private AdministratorScreen adminScreen;
     private ClientCommunicationThread communicationThread;
-    private UserScreen userScreen;
-    private ServiceScreen serviceScreen;
-    private BalconyScreen balconyScreen;
-    private BalconyTypesScreen typesScreen;
     private UserBean currentUser = null;
     private MainScreen mainScreen;
 
     private Main()
     {
-                loginScreen               = new LoginScreen();
-                resetScreen               = new LoginScreenResetPassword();
-                chooseModulesScreen       = new ChooseModulesScreen();
-                adminScreen               = new AdministratorScreen();
-                userScreen                = new UserScreen();
-                serviceScreen             = new ServiceScreen();
-                balconyScreen             = new BalconyScreen();
-                typesScreen               = new BalconyTypesScreen();
+
                 mainScreen                = new MainScreen();
                 
                 communicationThread = new ClientCommunicationThread(
                         "127.0.0.1", 
                         23073);
-                
-                loginScreen.setExtendedState(loginScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                resetScreen.setExtendedState(resetScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                chooseModulesScreen.setExtendedState(chooseModulesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                adminScreen.setExtendedState(adminScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                userScreen.setExtendedState(userScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                serviceScreen.setExtendedState(serviceScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                balconyScreen.setExtendedState(balconyScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                typesScreen.setExtendedState(typesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                mainScreen.setExtendedState(typesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                loginScreen.setVisible(true);        
+                mainScreen.setExtendedState(mainScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                mainScreen.setVisible(true);        
     }
     
     
@@ -105,7 +81,7 @@ public class Main
                 Main app = getInstance();
                 new Thread(app.communicationThread).start();
                 new Thread(PresentationControler.getInstance()).start();
-                PresentationControler.getInstance().setLabel(getInstance().adminScreen.getLbImage());
+//                PresentationControler.getInstance().setLabel(getInstance().adminScreen.getLbImage());
             }
         });
     }   
@@ -126,19 +102,19 @@ public class Main
      * GETTERS!!
      */
     public LoginScreen getLoginScreen() {
-        return loginScreen;
+        return null;
     }
 
     public LoginScreenResetPassword getResetScreen() {
-        return resetScreen;
+        return null;
     }
 
     public ChooseModulesScreen getChooseModulesScreen() {
-        return chooseModulesScreen;
+        return null;
     }
 
     public AdministratorScreen getAdminScreen() {
-        return adminScreen;
+        return null;
     }
 
     public ClientCommunicationThread getCommunicationThread() {
@@ -146,19 +122,19 @@ public class Main
     }
 
     public UserScreen getUserScreen() {
-        return userScreen;
+        return null;
     }
 
     public ServiceScreen getServiceScreen() {
-        return serviceScreen;
+        return null;
     }
 
     public BalconyScreen getBalconyScreen() {
-        return balconyScreen;
+        return null;
     }
 
     public BalconyTypesScreen getTypesScreen() {
-        return typesScreen;
+        return null;
     }
     
     
