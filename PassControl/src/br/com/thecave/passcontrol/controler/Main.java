@@ -6,6 +6,7 @@ import br.com.thecave.passcontrol.screens.AdministratorScreen;
 import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
 import br.com.thecave.passcontrol.screens.LoginScreen;
 import br.com.thecave.passcontrol.screens.LoginScreenResetPassword;
+import br.com.thecave.passcontrol.screens.MainScreen;
 import br.com.thecave.passcontrol.screens.crud.BalconyScreen;
 import br.com.thecave.passcontrol.screens.crud.BalconyTypesScreen;
 import br.com.thecave.passcontrol.screens.crud.ServiceScreen;
@@ -39,6 +40,7 @@ public class Main
     private BalconyScreen balconyScreen;
     private BalconyTypesScreen typesScreen;
     private UserBean currentUser = null;
+    private MainScreen mainScreen;
 
     private Main()
     {
@@ -50,6 +52,7 @@ public class Main
                 serviceScreen             = new ServiceScreen();
                 balconyScreen             = new BalconyScreen();
                 typesScreen               = new BalconyTypesScreen();
+                mainScreen                = new MainScreen();
                 
                 communicationThread = new ClientCommunicationThread(
                         "127.0.0.1", 
@@ -63,6 +66,7 @@ public class Main
                 serviceScreen.setExtendedState(serviceScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 balconyScreen.setExtendedState(balconyScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 typesScreen.setExtendedState(typesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                mainScreen.setExtendedState(typesScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 loginScreen.setVisible(true);        
     }
     

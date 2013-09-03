@@ -30,7 +30,7 @@ public final class MainScreen extends javax.swing.JFrame {
         //Seta o título atual
         setTitle(newPassControlPanel.getName());
         //Seta o menuBar atual
-        setMenuBar(newPassControlPanel.getMenu());
+        setJMenuBar(newPassControlPanel.getMenu());
         
         //Mais ou menos assim
     }
@@ -46,15 +46,6 @@ public final class MainScreen extends javax.swing.JFrame {
         //Mais ou menos assim
         
         //E águas paradas
-    }
-
-    private void setMenuBar(JMenuBar newMenuBar)
-    {
-        //Talvez seja só isso
-        this.remove(menuBar);
-        this.add(newMenuBar);
-        //Ou isso.. Sei lá.
-        menuBar = newMenuBar;
     }
 
     /**

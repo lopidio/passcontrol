@@ -29,8 +29,13 @@ public abstract class PassControlPanel extends JPanel{
     public void setPassControlPanelTitle(String passControlPanelTitle) {
         this.passControlPanelTitle = passControlPanelTitle;
     }
+    
+    public abstract JMenuBar createMenu();
 
-    public abstract JMenuBar getMenu();
+    public JMenuBar getMenu()
+    {
+        return menu;
+    }
 
     public void setMenu(JMenuBar menu) {
         this.menu = menu;
