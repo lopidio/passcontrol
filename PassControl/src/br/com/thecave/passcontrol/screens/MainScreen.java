@@ -24,9 +24,9 @@ public final class MainScreen extends javax.swing.JFrame {
     public void activatePassControlPanel(PassControlPanel newPassControlPanel)
     {
         //Remove o atual
-        passControlPanel. removeAll();
+        //passControlPanel. removeAll();
         //Adiciona o novo
-        passControlPanel.add(newPassControlPanel);
+        //passControlPanel.add(newPassControlPanel);
         //Seta o título atual
         setTitle(newPassControlPanel.getName());
         //Seta o menuBar atual
@@ -38,7 +38,7 @@ public final class MainScreen extends javax.swing.JFrame {
     public void setTopBar(JPanel newTopBar)
     {
         //Deve ser coisa parecida com isso...
-        topBar = newTopBar;
+        //topBar = newTopBar;
         
         //Remove o atual
         //Adiciona o novo
@@ -57,59 +57,23 @@ public final class MainScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        topBar = new javax.swing.JPanel();
-        passControlPanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Senhas");
         setBackground(new java.awt.Color(255, 255, 255));
         setName("frmScreenLogin"); // NOI18N
-
-        topBar.setBackground(new java.awt.Color(187, 215, 248));
-        topBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 136, 219), 3));
-        topBar.setAutoscrolls(true);
-
-        javax.swing.GroupLayout topBarLayout = new javax.swing.GroupLayout(topBar);
-        topBar.setLayout(topBarLayout);
-        topBarLayout.setHorizontalGroup(
-            topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1345, Short.MAX_VALUE)
-        );
-        topBarLayout.setVerticalGroup(
-            topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 93, Short.MAX_VALUE)
-        );
-
-        passControlPanel.setBackground(new java.awt.Color(255, 255, 255));
-        passControlPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
-
-        javax.swing.GroupLayout passControlPanelLayout = new javax.swing.GroupLayout(passControlPanel);
-        passControlPanel.setLayout(passControlPanelLayout);
-        passControlPanelLayout.setHorizontalGroup(
-            passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1345, Short.MAX_VALUE)
-        );
-        passControlPanelLayout.setVerticalGroup(
-            passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 572, Short.MAX_VALUE)
-        );
-
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(topBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(passControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 1351, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 683, Short.MAX_VALUE)
         );
 
         pack();
@@ -118,8 +82,6 @@ public final class MainScreen extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JPanel passControlPanel;
-    private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
 
 
