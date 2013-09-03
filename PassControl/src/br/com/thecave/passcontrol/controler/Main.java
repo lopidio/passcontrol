@@ -2,7 +2,6 @@ package br.com.thecave.passcontrol.controler;
 
 import br.com.thecave.passcontrol.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrol.db.bean.UserBean;
-import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.screens.AdministratorScreen;
 import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
 import br.com.thecave.passcontrol.screens.LoginScreen;
