@@ -8,7 +8,6 @@ import br.com.thecave.passcontrol.db.bean.UserBean;
 import br.com.thecave.passcontrol.db.dao.UserDAO;
 import br.com.thecave.passcontrol.messages.ClientLoginRequest;
 import br.com.thecave.passcontrol.messages.ClientLoginResponse;
-import br.com.thecave.passcontrol.messages.MessageActors;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import br.com.thecave.passcontrolserver.PassControlServer;
@@ -24,28 +23,35 @@ public class ClientLoginMessageListener implements PassControlMessageListener
     public void onMessageReceive(PassControlMessage message, Socket socket) 
     {
         ClientLoginRequest initRequest = (ClientLoginRequest)message;
-        UserBean bean = UserDAO.selectFromName(initRequest.getUser());
 
         //Inicializa com uma mensagem default
         ClientLoginResponse response = new ClientLoginResponse(null, message.getFrom());
 
-        //Verifica se existe o usuário no banco
-        if (bean != null)
+            
+            //Verifica se é super usuário
+        if (isSuperUser(initRequest.getUser(), initRequest.getPassword()))
         {
-            if (bean.getPassword().equals(initRequest.getPassword()))
-            {
-                response.setUser(bean);
-            }
+            UserBean superBean = new UserBean();
+            superBean.setLogin(initRequest.getUser());
+            superBean.setName("Super Usuário");
+            superBean.setType(0);
+            response.setUser(superBean);
         }
         else
         {
-            if (isSuperUser(initRequest.getUser(), initRequest.getPassword()))
+            UserBean bean = UserDAO.selectFromName(initRequest.getUser());
+            //Verifica se existe o usuário no banco
+            if (bean != null)
             {
-                response.setUser(bean);
+                if (bean.getPassword().equals(initRequest.getPassword()))
+                {
+                    response.setUser(bean);
+                }
             }
+            
         }
         //Devolve a mensagem para o servidor
-        PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
+        PassControlServer.getInstance().getServer().addResponseToSend(socket, response);        
     }
     
     
