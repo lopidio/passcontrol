@@ -5,7 +5,7 @@
 package br.com.thecave.passcontrol.controler;
 
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
-import br.com.thecave.passcontrol.screens.PassControlPanel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -13,13 +13,21 @@ import br.com.thecave.passcontrol.screens.PassControlPanel;
  */
 public abstract class PassControlController implements PassControlMessageListener
 {
-    /**
-     * Panel que representa o view desse controller
-     */
-    PassControlPanel passControlPanel;
 
-    public PassControlController(PassControlPanel passControlPanel) {
-        this.passControlPanel = passControlPanel;
+    JPanel passControlView;
+    
+    public abstract void addMessageListeners();
+
+    public abstract void removeMessageListeners();
+
+    public JPanel getPassControlView() {
+        return passControlView;
     }
+
+    public void setPassControlView(JPanel passControlView) {
+        this.passControlView = passControlView;
+    }
+    
+    
     
 }

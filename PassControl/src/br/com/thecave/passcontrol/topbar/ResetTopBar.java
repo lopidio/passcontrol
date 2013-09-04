@@ -1,4 +1,4 @@
-package br.com.thecave.passcontrol.screens;
+package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.ResetTopBarControler;
 
@@ -6,7 +6,7 @@ import br.com.thecave.passcontrol.controler.ResetTopBarControler;
  *
  * @author Arleudo
  */
-public class ResetTopBar extends javax.swing.JPanel 
+public class ResetTopBar extends PassControlTopBar
 {
     private ResetTopBarControler resetTopBarControler;
 
@@ -15,8 +15,10 @@ public class ResetTopBar extends javax.swing.JPanel
      */
     public ResetTopBar() 
     {
+        super(new ResetTopBarControler());
         initComponents();
-        resetTopBarControler = new ResetTopBarControler(this);
+        resetTopBarControler = (ResetTopBarControler) getPanelController();
+        resetTopBarControler.setPassControlView(this);
     }
 
     /**
@@ -37,12 +39,6 @@ public class ResetTopBar extends javax.swing.JPanel
         jlLogin = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 191));
-
-        jlIcon.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\icon_medium.png")); // NOI18N
-
-        jlBarra.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\barra.png")); // NOI18N
-
-        jlName.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\name_system.png")); // NOI18N
 
         jbOk.setText("OK");
         jbOk.addActionListener(new java.awt.event.ActionListener() {

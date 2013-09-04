@@ -1,4 +1,4 @@
-package br.com.thecave.passcontrol.screens;
+package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.MainTopBarController;
 
@@ -6,7 +6,7 @@ import br.com.thecave.passcontrol.controler.MainTopBarController;
  *
  * @author Arleudo
  */
-public class MainTopBar extends javax.swing.JPanel 
+public class MainTopBar extends PassControlTopBar
 {
     private MainTopBarController mainTopBarController;
 
@@ -15,8 +15,10 @@ public class MainTopBar extends javax.swing.JPanel
      */
     public MainTopBar() 
     {
+        super(new MainTopBarController());
         initComponents();
-        mainTopBarController = new MainTopBarController(this);
+        mainTopBarController = (MainTopBarController) getPanelController();
+        mainTopBarController.setPassControlView(this);
     }
 
     /**
@@ -38,12 +40,6 @@ public class MainTopBar extends javax.swing.JPanel
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 191));
 
-        jlIcon.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\icon_medium.png")); // NOI18N
-
-        jlBarra.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\barra.png")); // NOI18N
-
-        jlName.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\name_system.png")); // NOI18N
-
         lblUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lblUser.setForeground(new java.awt.Color(255, 255, 255));
         lblUser.setText("Usuário:");
@@ -54,7 +50,6 @@ public class MainTopBar extends javax.swing.JPanel
 
         lbLogout.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbLogout.setForeground(new java.awt.Color(255, 255, 255));
-        lbLogout.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\logout.png")); // NOI18N
         lbLogout.setText("Sair");
         lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

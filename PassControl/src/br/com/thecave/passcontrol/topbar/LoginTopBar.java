@@ -1,22 +1,24 @@
-package br.com.thecave.passcontrol.screens;
+package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controler.LoginTopBarControler;
+import br.com.thecave.passcontrol.controler.LoginTopBarController;
 
 /**
  *
  * @author Arleudo
  */
-public class LoginTopBar extends javax.swing.JPanel 
+public class LoginTopBar extends PassControlTopBar
 {
-    private LoginTopBarControler loginTopBarControler;
+    private LoginTopBarController loginTopBarControler;
 
     /**
      * Creates new form TopBar
      */
     public LoginTopBar() 
-    {
+    {        
+        super(new LoginTopBarController());
+        loginTopBarControler = (LoginTopBarController) getPanelController();
+        loginTopBarControler.setPassControlView(this);
         initComponents();
-        loginTopBarControler = new LoginTopBarControler(this);
     }
 
     /**
@@ -40,12 +42,6 @@ public class LoginTopBar extends javax.swing.JPanel
         lbForgottPassword = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 191));
-
-        jlIcon.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\icon_medium.png")); // NOI18N
-
-        jlBarra.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\barra.png")); // NOI18N
-
-        jlName.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\name_system.png")); // NOI18N
 
         jbOk.setText("OK");
         jbOk.addActionListener(new java.awt.event.ActionListener() {
@@ -82,13 +78,10 @@ public class LoginTopBar extends javax.swing.JPanel
                 .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 686, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 692, Short.MAX_VALUE)
-                        .addComponent(jlLogin))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(285, 685, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
+                    .addComponent(jlLogin)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -155,4 +148,5 @@ public class LoginTopBar extends javax.swing.JPanel
     private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JLabel lbForgottPassword;
     // End of variables declaration//GEN-END:variables
+
 }

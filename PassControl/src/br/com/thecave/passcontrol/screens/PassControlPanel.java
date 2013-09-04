@@ -13,7 +13,8 @@ import javax.swing.JPanel;
  *
  * @author guilherme
  */
-public abstract class PassControlPanel extends JPanel{
+public abstract class PassControlPanel extends JPanel
+{
     
     private PassControlController panelController;
     private String passControlPanelTitle;
@@ -58,5 +59,5 @@ public abstract class PassControlPanel extends JPanel{
     public void setPanelController(PassControlController panelController) {
         this.panelController = panelController;
     }
-            
+    
 }
