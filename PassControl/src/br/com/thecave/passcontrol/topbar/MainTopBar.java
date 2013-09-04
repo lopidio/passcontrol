@@ -18,7 +18,6 @@ public class MainTopBar extends PassControlTopBar
         super(new MainTopBarController());
         initComponents();
         mainTopBarController = (MainTopBarController) getPanelController();
-        mainTopBarController.setPassControlView(this);
     }
 
     /**
@@ -38,7 +37,10 @@ public class MainTopBar extends PassControlTopBar
         lbNameUser = new javax.swing.JLabel();
         lbLogout = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(1376, 128));
+
         jPanel1.setBackground(new java.awt.Color(0, 153, 191));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1376, 128));
 
         lblUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lblUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -50,7 +52,7 @@ public class MainTopBar extends PassControlTopBar
 
         lbLogout.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbLogout.setForeground(new java.awt.Color(255, 255, 255));
-        lbLogout.setText("Sair");
+        lbLogout.setText("Logout");
         lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbLogoutMouseClicked(evt);
@@ -68,11 +70,11 @@ public class MainTopBar extends PassControlTopBar
                 .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 871, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 877, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbNameUser, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblUser, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbLogout, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lbLogout, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUser))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -89,7 +91,9 @@ public class MainTopBar extends PassControlTopBar
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbLogout)
                         .addContainerGap())
-                    .addComponent(jlName, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

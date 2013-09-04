@@ -1,32 +1,40 @@
 package br.com.thecave.passcontrol.controler;
 
+import br.com.thecave.passcontrol.communicationThread.ClientCommunicationThread;
+import br.com.thecave.passcontrol.communicationThread.StatusConnectionListener;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
+import br.com.thecave.passcontrol.screens.DefaultScreen;
+import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import java.net.Socket;
 
 /**
  *
  * @author Arleudo
  */
-public class MainTopBarController extends PassControlController
+public class MainTopBarController extends PassControlController implements StatusConnectionListener
 {
 
     @Override
     public void addMessageListeners() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeMessageListeners() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Main.getInstance().getCommunicationThread().addStatusConnectionListeners(this);
     }
 
     @Override
     public void onMessageReceive(PassControlMessage message, Socket socket) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Main.getInstance().getCommunicationThread().removeStatusConnectionListener(this);
     }
 
-    public void performlogout() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    
+    @Override
+    public void onChangeConnection(boolean connectionStatus) {
+//        
+    }
+    
+    public void performlogout() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new DefaultScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
     }
     
 }

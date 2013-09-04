@@ -18,7 +18,6 @@ public class ResetTopBar extends PassControlTopBar
         super(new ResetTopBarControler());
         initComponents();
         resetTopBarControler = (ResetTopBarControler) getPanelController();
-        resetTopBarControler.setPassControlView(this);
     }
 
     /**
@@ -37,8 +36,12 @@ public class ResetTopBar extends PassControlTopBar
         jtfLogin = new javax.swing.JTextField();
         jbOk = new javax.swing.JButton();
         jlLogin = new javax.swing.JLabel();
+        jbCancel = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(1376, 128));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 191));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1376, 128));
 
         jbOk.setText("OK");
         jbOk.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +53,13 @@ public class ResetTopBar extends PassControlTopBar
         jlLogin.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         jlLogin.setForeground(new java.awt.Color(255, 255, 255));
         jlLogin.setText("Login:");
+
+        jbCancel.setText("Cancelar");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,8 +75,11 @@ public class ResetTopBar extends PassControlTopBar
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 692, Short.MAX_VALUE)
                 .addComponent(jlLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbOk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbOk, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jtfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -83,8 +96,10 @@ public class ResetTopBar extends PassControlTopBar
                             .addComponent(jtfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlLogin))
                         .addGap(18, 18, 18)
-                        .addComponent(jbOk)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbOk)
+                            .addComponent(jbCancel))
+                        .addContainerGap(23, Short.MAX_VALUE))
                     .addComponent(jlName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -101,11 +116,16 @@ public class ResetTopBar extends PassControlTopBar
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOkActionPerformed
-        resetTopBarControler.performLogin();
+        resetTopBarControler.performReset();
     }//GEN-LAST:event_jbOkActionPerformed
+
+    private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
+        resetTopBarControler.backToLoginTopbar();
+    }//GEN-LAST:event_jbCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbCancel;
     private javax.swing.JButton jbOk;
     private javax.swing.JLabel jlBarra;
     private javax.swing.JLabel jlIcon;

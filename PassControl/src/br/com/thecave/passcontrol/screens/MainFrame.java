@@ -10,12 +10,12 @@ import javax.swing.BoxLayout;
  *
  * @author Antonio Arleudo da costa
  */
-public final class MainScreen extends javax.swing.JFrame {
+public final class MainFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form AdministratorScreen
      */
-    public MainScreen() 
+    public MainFrame() 
     {
         initComponents();
 
@@ -23,7 +23,7 @@ public final class MainScreen extends javax.swing.JFrame {
         passControlPanel.setLayout(new BoxLayout(passControlPanel, BoxLayout.Y_AXIS));
         
         activatePassControlPanel(new DefaultScreen());
-        activatePassControlMenu(new LoginTopBar());
+        activatePassControlTopBar(new LoginTopBar());
         
     }
     
@@ -34,7 +34,11 @@ public final class MainScreen extends javax.swing.JFrame {
             try
             {
                 PassControlPanel castPrevPassControl = (PassControlPanel)component;
-                castPrevPassControl.getPanelController().removeMessageListeners();
+                PassControlController passControlController = castPrevPassControl.getPanelController();
+                if (passControlController != null)
+                {
+                    passControlController.removeMessageListeners();
+                }
             }catch (ClassCastException exc)
             {
                 //do nothing
@@ -71,7 +75,7 @@ public final class MainScreen extends javax.swing.JFrame {
         passControlPanel.setEnabled(enabled);
     }
     
-    public void activatePassControlMenu(PassControlTopBar passControlTopBar)
+    public void activatePassControlTopBar(PassControlTopBar passControlTopBar)
     {
         for (Component component : topBar.getComponents())
         {

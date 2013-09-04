@@ -8,7 +8,7 @@ import br.com.thecave.passcontrol.controler.LoginTopBarController;
  */
 public class LoginTopBar extends PassControlTopBar
 {
-    private LoginTopBarController loginTopBarControler;
+    private LoginTopBarController loginTopBarControler;  
 
     /**
      * Creates new form TopBar
@@ -17,8 +17,17 @@ public class LoginTopBar extends PassControlTopBar
     {        
         super(new LoginTopBarController());
         loginTopBarControler = (LoginTopBarController) getPanelController();
-        loginTopBarControler.setPassControlView(this);
         initComponents();
+    }
+    
+    public String getUserName()
+    {
+        return jtfLogin.getText();
+    }
+
+    public String getUserPassword()
+    {
+        return jtfSenha.getText();
     }
 
     /**
@@ -124,7 +133,7 @@ public class LoginTopBar extends PassControlTopBar
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -133,7 +142,7 @@ public class LoginTopBar extends PassControlTopBar
     }//GEN-LAST:event_lbForgottPasswordMouseClicked
 
     private void jbOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOkActionPerformed
-        loginTopBarControler.performLogin();
+        loginTopBarControler.performLogin(this);
     }//GEN-LAST:event_jbOkActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

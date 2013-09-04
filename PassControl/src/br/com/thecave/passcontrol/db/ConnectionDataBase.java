@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ConnectionDataBase 
 {
     // Variavel que guarda a conexão com o banco de dados
-    private static Connection c;
+    private static Connection connection;
     // Variavel de instancia da classe
     private static ConnectionDataBase instance;
     
@@ -21,7 +21,7 @@ public class ConnectionDataBase
      */
     private ConnectionDataBase()
     {
-        c = null;
+        connection = null;
     }
     /**
      * Metodo para pegar a instancia única da classe.
@@ -43,8 +43,8 @@ public class ConnectionDataBase
         try 
         {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:database/queue_manager.db");
-            return c;
+            connection = DriverManager.getConnection("jdbc:sqlite:database/queue_manager.db");
+            return connection;
         } 
         catch ( ClassNotFoundException e ) 
         {
@@ -65,7 +65,7 @@ public class ConnectionDataBase
     {
         try 
         {
-            c.close();
+            connection.close();
         } catch (SQLException ex) 
         {
             System.err.println( ex.getClass().getName() + ": " + ex.getMessage() );

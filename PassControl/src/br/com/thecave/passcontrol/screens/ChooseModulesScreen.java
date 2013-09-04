@@ -4,31 +4,22 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controler.Main;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import javax.swing.JOptionPane;
+import javax.swing.JMenuBar;
 
 /**
  *
  * @author arleudo
  */
-public class ChooseModulesScreen extends javax.swing.JFrame {
+public class ChooseModulesScreen extends PassControlPanel
+{
 
     /**
      * Creates new form LoginScreen
      */
     public ChooseModulesScreen() 
     {
+        super("Sistema Gerenciador de Filas", null);
         initComponents();
-        this.addComponentListener(new ComponentAdapter() 
-        {
-            @Override
-            public void componentShown(ComponentEvent e) 
-            {
-                jlUser.setText("Usuário: " + Main.getInstance().getCurrentUser().getName());
-            }
-        });        
     }
 
     /**
@@ -40,67 +31,24 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jlUser = new javax.swing.JLabel();
-        jlLogout = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jbAdmin = new javax.swing.JButton();
-        jbBalcony = new javax.swing.JButton();
+        jbGuiche = new javax.swing.JButton();
         jbViewer = new javax.swing.JButton();
         jbInsert = new javax.swing.JButton();
         jbRemove = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuBar = new javax.swing.JMenuBar();
         jmIniciar = new javax.swing.JMenu();
         jmAdmin = new javax.swing.JMenuItem();
-        jmBalcony = new javax.swing.JMenuItem();
+        jmGuiche = new javax.swing.JMenuItem();
         jmViewer = new javax.swing.JMenuItem();
         jmInsert = new javax.swing.JMenuItem();
         jmRemove = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmExit = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Controle de Senhas");
         setBackground(new java.awt.Color(255, 255, 255));
         setName("frmScreenLogin"); // NOI18N
-
-        jPanel1.setBackground(new java.awt.Color(187, 215, 248));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 136, 219), 3));
-        jPanel1.setAutoscrolls(true);
-
-        jlUser.setText("User: ");
-
-        jlLogout.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        jlLogout.setForeground(new java.awt.Color(0, 0, 255));
-        jlLogout.setText("Log Out");
-        jlLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlLogoutMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlLogout, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlUser, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jlUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlLogout)
-                .addContainerGap())
-        );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
@@ -113,11 +61,11 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
             }
         });
 
-        jbBalcony.setText("Balcony");
-        jbBalcony.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 136, 219), 5, true));
-        jbBalcony.addActionListener(new java.awt.event.ActionListener() {
+        jbGuiche.setText("Guichê");
+        jbGuiche.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(35, 136, 219), 5, true));
+        jbGuiche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBalconyActionPerformed(evt);
+                jbGuicheActionPerformed(evt);
             }
         });
 
@@ -150,34 +98,34 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(242, 242, 242)
                         .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbGuiche, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(386, 386, 386)
+                        .addGap(144, 144, 144)
                         .addComponent(jbInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbGuiche, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jmIniciar.setText("Iniciar");
@@ -192,15 +140,15 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         });
         jmIniciar.add(jmAdmin);
 
-        jmBalcony.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK));
-        jmBalcony.setMnemonic('B');
-        jmBalcony.setText("Balcony");
-        jmBalcony.addActionListener(new java.awt.event.ActionListener() {
+        jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK));
+        jmGuiche.setMnemonic('B');
+        jmGuiche.setText("Guichê");
+        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmBalconyActionPerformed(evt);
+                jmGuicheActionPerformed(evt);
             }
         });
-        jmIniciar.add(jmBalcony);
+        jmIniciar.add(jmGuiche);
 
         jmViewer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmViewer.setMnemonic('V');
@@ -233,17 +181,6 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         jmIniciar.add(jmRemove);
         jmIniciar.add(jSeparator1);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setMnemonic('L');
-        jMenuItem1.setText("Log Out");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jmIniciar.add(jMenuItem1);
-        jmIniciar.add(jSeparator2);
-
         jmExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmExit.setMnemonic('S');
         jmExit.setText("Sair");
@@ -254,26 +191,24 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         });
         jmIniciar.add(jmExit);
 
-        jMenuBar1.add(jmIniciar);
+        menuBar.add(jmIniciar);
 
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(235, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(180, 180, 180))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(102, 102, 102)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(166, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmExitActionPerformed
@@ -288,13 +223,13 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         openAdministrator();
     }//GEN-LAST:event_jmAdminActionPerformed
 
-    private void jbBalconyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBalconyActionPerformed
+    private void jbGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuicheActionPerformed
         openBalcony();
-    }//GEN-LAST:event_jbBalconyActionPerformed
+    }//GEN-LAST:event_jbGuicheActionPerformed
 
-    private void jmBalconyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmBalconyActionPerformed
+    private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
         openBalcony();
-    }//GEN-LAST:event_jmBalconyActionPerformed
+    }//GEN-LAST:event_jmGuicheActionPerformed
 
     private void jbViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbViewerActionPerformed
         openViewer();
@@ -320,90 +255,59 @@ public class ChooseModulesScreen extends javax.swing.JFrame {
         openQueueRemove();
     }//GEN-LAST:event_jmRemoveActionPerformed
 
-    private void jlLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlLogoutMouseClicked
-        performLogout();
-    }//GEN-LAST:event_jlLogoutMouseClicked
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        performLogout();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JButton jbAdmin;
-    private javax.swing.JButton jbBalcony;
+    private javax.swing.JButton jbGuiche;
     private javax.swing.JButton jbInsert;
     private javax.swing.JButton jbRemove;
     private javax.swing.JButton jbViewer;
-    private javax.swing.JLabel jlLogout;
-    private javax.swing.JLabel jlUser;
     private javax.swing.JMenuItem jmAdmin;
-    private javax.swing.JMenuItem jmBalcony;
     private javax.swing.JMenuItem jmExit;
+    private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmIniciar;
     private javax.swing.JMenuItem jmInsert;
     private javax.swing.JMenuItem jmRemove;
     private javax.swing.JMenuItem jmViewer;
+    private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
     private void openAdministrator()
     {
-        this.setVisible(false);
-        Main.getInstance().getAdminScreen().setVisible(true);
+//        this.setVisible(false);
+//        Main.getInstance().getAdminScreen().setVisible(true);
     }
     
     private void openBalcony()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "Balcony");
+//        //TODO: implements
+//        JOptionPane.showMessageDialog(null, "Balcony");
     }
     
     private void openViewer()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "Viewer");
+//        //TODO: implements
+//        JOptionPane.showMessageDialog(null, "Viewer");
     }
     
     private void openQueueInsert()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "QueueInsert");
+//        //TODO: implements
+//        JOptionPane.showMessageDialog(null, "QueueInsert");
     }
     
     private void openQueueRemove()
     {
-        //TODO: implements
-        JOptionPane.showMessageDialog(null, "QueueRemove");
+//        //TODO: implements
+//        JOptionPane.showMessageDialog(null, "QueueRemove");
     }
-    /**
-     * Exibe uma caixa de seleção pra confirmar o logout do usuário
-     */
-    private void performLogout()
-    {
-        int result = JOptionPane.showConfirmDialog(null, 
-                    "Você deseja realmente sair? " 
-                       ,"Message", JOptionPane.WARNING_MESSAGE
-                    , JOptionPane.OK_CANCEL_OPTION);
-        
-        if( JOptionPane.CANCEL_OPTION == result )
-        {
-            // do nothing
-        }
-        else if( JOptionPane.OK_OPTION == result)
-        {
-            this.setVisible(false);
-            Main.getInstance().getLoginScreen().setVisible(true);
-        }
-        else
-        {
-            // do nothing
-        }
-    }  
+
+    @Override
+    public JMenuBar createMenu() {
+        return menuBar;
+    }
+
 }
 

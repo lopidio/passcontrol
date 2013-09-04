@@ -4,43 +4,60 @@
  */
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.messages.PassControlMessage;
-import java.net.Socket;
+import br.com.thecave.passcontrol.messages.ClientLoginRequest;
+import br.com.thecave.passcontrol.messages.ClientLoginResponse;
+import br.com.thecave.passcontrol.messages.MessageActors;
+import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
+import br.com.thecave.passcontrol.screens.MainFrame;
+import br.com.thecave.passcontrol.topbar.LoginTopBar;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
+import br.com.thecave.passcontrol.topbar.ResetTopBar;
 
 /**
  *
  * @author Arleudo
  */
-public class LoginTopBarController extends PassControlController
+public class LoginTopBarController extends PassControlController 
 {
-
-    public void performLogin() 
+    
+    
+    public void performLogin(LoginTopBar loginTopBar) 
     {
-        //TODO: implement
-        //Main.getInstance().getMainScreen().activatePassControl(new ChooseModulesScreen());
-        //Main.getInstance().getMainScreen().setTopBar(new MainTopBar());
+//        Main main2 = Main.getInstance();
+//                MainFrame mainFrame2 = main2.getMainFrame();
+//                mainFrame2.activatePassControlPanel(new ChooseModulesScreen());
+//                mainFrame2.activatePassControlTopBar(new MainTopBar());
+
+        Main main = Main.getInstance();
+        ClientLoginRequest initRequest = new 
+                ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
+        ClientLoginResponse clientLoginResponse = (ClientLoginResponse)main.getCommunicationThread().sendMessageAndWaitForResponseOrTimeout(initRequest, "ClientLoginResponse", 100000);
+        if (clientLoginResponse != null)
+        {
+            if (clientLoginResponse.getUser() != null)
+            {
+                MainFrame mainFrame = main.getMainFrame();
+                mainFrame.activatePassControlPanel(new ChooseModulesScreen());
+                mainFrame.activatePassControlTopBar(new MainTopBar());
+                System.out.println("DEU CERTO, NEGADA!");
+                
+            }
+            else
+            {
+                System.out.println("Usuário não identificado.");
+            }
+        }
+        else
+        {
+            System.out.println("TIME OUT!");
+        }
+        
     }
 
     public void resetPassword() 
     {
-        //Main.getInstance().getMainScreen().setTopBar(new ResetTopBar());
-        //TODO: implements
+        //Simples assim
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new ResetTopBar());
     }
-
-    @Override
-    public void addMessageListeners() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void removeMessageListeners() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void onMessageReceive(PassControlMessage message, Socket socket) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
 }

@@ -14,8 +14,7 @@ import javax.swing.JPanel;
  * @author guilherme
  */
 public abstract class PassControlPanel extends JPanel
-{
-    
+{   
     private PassControlController panelController;
     private String passControlPanelTitle;
     private JMenuBar menu;

@@ -40,6 +40,19 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jlImageCenter">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ubuntu" size="36" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="86" green="93" red="1b" type="rgb"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/icon_medium.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Sistema gerenciador de filas"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -4,8 +4,9 @@
  */
 package br.com.thecave.passcontrol.controler;
 
+import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
-import javax.swing.JPanel;
+import java.net.Socket;
 
 /**
  *
@@ -13,21 +14,20 @@ import javax.swing.JPanel;
  */
 public abstract class PassControlController implements PassControlMessageListener
 {
-
-    JPanel passControlView;
-    
-    public abstract void addMessageListeners();
-
-    public abstract void removeMessageListeners();
-
-    public JPanel getPassControlView() {
-        return passControlView;
+   
+    public void addMessageListeners()
+    {
+        //hook
     }
 
-    public void setPassControlView(JPanel passControlView) {
-        this.passControlView = passControlView;
+    public void removeMessageListeners()
+    {
+        //hook
     }
-    
-    
+
+    @Override
+    public void onMessageReceive(PassControlMessage message, Socket socket) {
+        //hook
+    }
     
 }

@@ -4,9 +4,7 @@
  */
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.topbar.ResetTopBar;
-import java.net.Socket;
+import br.com.thecave.passcontrol.topbar.LoginTopBar;
 
 /**
  *
@@ -15,26 +13,16 @@ import java.net.Socket;
 public class ResetTopBarControler extends PassControlController
 {
 
-    public void performLogin() 
+    public void performReset() 
     {
-        //TODO: implements
-    }
+        //TODO: Mandar um email e tal
+        
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
+    } 
 
-    @Override
-    public void addMessageListeners() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void backToLoginTopbar() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
     }
-
-    @Override
-    public void removeMessageListeners() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void onMessageReceive(PassControlMessage message, Socket socket) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
     
 }

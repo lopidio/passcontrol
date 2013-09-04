@@ -6,7 +6,7 @@ import br.com.thecave.passcontrol.screens.AdministratorScreen;
 import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
 import br.com.thecave.passcontrol.screens.LoginScreen;
 import br.com.thecave.passcontrol.screens.LoginScreenResetPassword;
-import br.com.thecave.passcontrol.screens.MainScreen;
+import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.screens.crud.BalconyScreen;
 import br.com.thecave.passcontrol.screens.crud.BalconyTypesScreen;
 import br.com.thecave.passcontrol.screens.crud.ServiceScreen;
@@ -32,18 +32,18 @@ public class Main
      */
     private ClientCommunicationThread communicationThread;
     private UserBean currentUser = null;
-    private MainScreen mainScreen;
+    private MainFrame mainFrame;
 
     private Main()
     {
 
-                mainScreen                = new MainScreen();
+                mainFrame                = new MainFrame();
                 
                 communicationThread = new ClientCommunicationThread(
                         "127.0.0.1", 
                         23073);
-                mainScreen.setExtendedState(mainScreen.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                mainScreen.setVisible(true);        
+                mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+                mainFrame.setVisible(true);        
     }
     
     
@@ -97,6 +97,11 @@ public class Main
     public void setCurrentUser(UserBean currentUser) {
         this.currentUser = currentUser;
     }  
+    
+    public MainFrame getMainFrame()
+    {
+        return mainFrame;
+    }
     
     /**
      * GETTERS!!

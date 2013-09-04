@@ -8,7 +8,7 @@ package br.com.thecave.passcontrol.communicationThread;
  *
  * @author guilherme
  */
-interface StatusConnectionListener 
+public interface StatusConnectionListener 
 {
     /**
      * Método chamado sempre que o status da conexão for alterado
