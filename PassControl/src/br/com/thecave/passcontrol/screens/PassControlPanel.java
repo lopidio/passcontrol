@@ -38,7 +38,7 @@ public abstract class PassControlPanel extends JPanel
     }
     
     /**
-     * Retornar nulo caso seja um TopBar. :D
+     * Cria-se um menu aqui
      * @return 
      */
     public abstract JMenuBar createMenu();

@@ -47,12 +47,8 @@ public final class MainScreen extends javax.swing.JFrame {
         //Adiciona o novo
         passControlPanel.add(newPassControlPanel);
         //Seta o título atual
-        setTitle(newPassControlPanel.getName());
-        //Seta o menuBar atual
-        if (newPassControlPanel.createMenu() != null)
-        {
-            setJMenuBar(newPassControlPanel.getMenu());
-        }
+        setTitle(newPassControlPanel.getPassControlPanelTitle());
+        setJMenuBar(newPassControlPanel.createMenu());
         
         //Adiciona aos escutadores de eventos
         PassControlController newController = newPassControlPanel.getPanelController();
@@ -68,6 +64,11 @@ public final class MainScreen extends javax.swing.JFrame {
         getContentPane().repaint();
         
         //Mais ou menos assim
+    }
+    
+    public void setPassControlPanelEnabled(boolean enabled)
+    {
+        passControlPanel.setEnabled(enabled);
     }
     
     public void activatePassControlMenu(PassControlTopBar passControlTopBar)

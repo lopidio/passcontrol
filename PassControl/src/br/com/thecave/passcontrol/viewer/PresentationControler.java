@@ -132,7 +132,7 @@ public class PresentationControler implements Runnable
             {
                 index++;
                 Image img = getCurrentImage();
-                if(img != null)
+                if(img != null && label != null)
                 {
                     ImageIcon ic = new ImageIcon(img);
                     label.setIcon(ic);
