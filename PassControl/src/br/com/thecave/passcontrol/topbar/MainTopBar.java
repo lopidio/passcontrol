@@ -128,8 +128,8 @@ public class MainTopBar extends PassControlTopBar
     {
         //Altero a cor do ícone de conexão
         if (connectionStatus)
-            jlConnection.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/online.png")); // NOI18N
+            jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
         else
-            jlConnection.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/offline.png")); // NOI18N        
+            jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/offline.png"))); // NOI18N        
     }
 }
