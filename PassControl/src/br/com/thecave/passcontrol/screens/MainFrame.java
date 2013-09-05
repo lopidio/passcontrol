@@ -119,7 +119,6 @@ public final class MainFrame extends javax.swing.JFrame {
         //Mais ou menos assim
     }
     
-
     public void disableControlPanel()
     {
         passControlPanel.setEnabled(false);
@@ -140,6 +139,15 @@ public final class MainFrame extends javax.swing.JFrame {
         }        
     }
         
+    public PassControlPanel getCurrentPassControlPanel()
+    {
+        return (PassControlPanel)passControlPanel.getComponent(0);        
+    }
+    
+    public PassControlTopBar getCurrentPassControlTopBar()
+    {
+        return (PassControlTopBar)topBar.getComponent(0);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

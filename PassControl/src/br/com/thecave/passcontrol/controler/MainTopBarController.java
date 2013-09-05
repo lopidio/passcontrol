@@ -29,13 +29,20 @@ public class MainTopBarController extends PassControlController implements Statu
     @Override
     public void onMessageReceive(PassControlMessage message, Socket socket) {
         Main.getInstance().getCommunicationThread().removeStatusConnectionListener(this);
-    }
-
-    
+    }    
     
     @Override
-    public void onChangeConnection(boolean connectionStatus) {
-//        
+    public void onChangeConnection(boolean connectionStatus) 
+    {
+        mainTopBar.setConnectionIcon(connectionStatus);
+        if (connectionStatus)
+        {
+            Main.getInstance().getMainFrame().enableControlPanel();
+        }
+        else
+        {
+            Main.getInstance().getMainFrame().disableControlPanel();            
+        }
     }
     
     public void performlogout() 

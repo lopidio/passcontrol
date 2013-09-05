@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.topbar;
 
+import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.MainTopBarController;
 
 /**
@@ -18,6 +19,8 @@ public class MainTopBar extends PassControlTopBar
         super(new MainTopBarController());
         initComponents();
         mainTopBarController = (MainTopBarController) getPanelController();
+        jlName.setText(Main.getInstance().getCurrentUser().getName());
+        
     }
 
     /**
@@ -29,19 +32,19 @@ public class MainTopBar extends PassControlTopBar
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
         jlName = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
         lbNameUser = new javax.swing.JLabel();
         lbLogout = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jlConnection = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(0, 153, 191));
+        setForeground(new java.awt.Color(0, 153, 191));
         setPreferredSize(new java.awt.Dimension(1376, 128));
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 191));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1376, 128));
+        jlIcon.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/icon_medium.png")); // NOI18N
 
         lblUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lblUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -53,7 +56,7 @@ public class MainTopBar extends PassControlTopBar
 
         lbLogout.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbLogout.setForeground(new java.awt.Color(255, 255, 255));
-        lbLogout.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\logout.png")); // NOI18N
+        lbLogout.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/logout.png")); // NOI18N
         lbLogout.setText("Logout");
         lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -61,58 +64,45 @@ public class MainTopBar extends PassControlTopBar
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\online.png")); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jlIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 852, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNameUser, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbLogout, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblUser))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUser)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbNameUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbLogout)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
+        jlConnection.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/online.png")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jlIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 849, Short.MAX_VALUE)
+                .addComponent(jlConnection)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbNameUser, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbLogout, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUser))
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbNameUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbLogout))
+                    .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -121,13 +111,21 @@ public class MainTopBar extends PassControlTopBar
     }//GEN-LAST:event_lbLogoutMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlBarra;
+    private javax.swing.JLabel jlConnection;
     private javax.swing.JLabel jlIcon;
     private javax.swing.JLabel jlName;
     private javax.swing.JLabel lbLogout;
     private javax.swing.JLabel lbNameUser;
     private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
+
+    public void setConnectionIcon(boolean connectionStatus) 
+    {
+        //Altero a cor do ícone de conexão
+        if (connectionStatus)
+            jlConnection.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/online.png")); // NOI18N
+        else
+            jlConnection.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/offline.png")); // NOI18N        
+    }
 }
