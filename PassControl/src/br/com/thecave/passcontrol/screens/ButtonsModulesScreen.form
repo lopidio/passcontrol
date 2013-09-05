@@ -21,25 +21,88 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jlImageCenter" pref="1347" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="255" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jbAdmin" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
+                  <Component id="jbAdd" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jbBalcony" min="-2" pref="251" max="-2" attributes="0"/>
+                  <Component id="jbRemove" min="-2" pref="251" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jbConfig" min="-2" pref="251" max="-2" attributes="0"/>
+                  <Component id="jbViewer" min="-2" pref="251" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jlImageCenter" pref="778" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jbViewer" min="-2" pref="151" max="-2" attributes="0"/>
+                  <Component id="jbBalcony" min="-2" pref="151" max="-2" attributes="0"/>
+                  <Component id="jbAdmin" min="-2" pref="151" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jbAdd" min="-2" pref="151" max="-2" attributes="0"/>
+                  <Component id="jbConfig" min="-2" pref="151" max="-2" attributes="0"/>
+                  <Component id="jbRemove" min="-2" pref="151" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="307" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jlImageCenter">
+    <Component class="javax.swing.JButton" name="jbBalcony">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="E:\Developer\Repositorio\PassControl\PassControl\imgs\resources\balcony_button.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbViewer">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="E:\Developer\Repositorio\PassControl\PassControl\imgs\resources\viewer_button.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbAdd">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="E:\Developer\Repositorio\PassControl\PassControl\imgs\resources\queue_push_button.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbConfig">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="E:\Developer\Repositorio\PassControl\PassControl\imgs\resources\config_button.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbAdmin">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="E:\Developer\Repositorio\PassControl\PassControl\imgs\resources\admin_button.png"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbRemove">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="E:\Developer\Repositorio\PassControl\PassControl\imgs\resources\queue_pop_button.png"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
