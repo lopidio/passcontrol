@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.viewer;
 
-import br.com.thecave.passcontrol.util.Watchdog;
+import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;

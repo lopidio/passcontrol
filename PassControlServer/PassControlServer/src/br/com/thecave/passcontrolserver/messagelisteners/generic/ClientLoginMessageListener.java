@@ -4,12 +4,12 @@
  */
 package br.com.thecave.passcontrolserver.messagelisteners.generic;
 
-import br.com.thecave.passcontrol.db.bean.UserBean;
-import br.com.thecave.passcontrol.db.dao.UserDAO;
-import br.com.thecave.passcontrol.messages.ClientLoginRequest;
-import br.com.thecave.passcontrol.messages.ClientLoginResponse;
-import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.db.dao.UserDAO;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLoginRequest;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLoginResponse;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import br.com.thecave.passcontrolserver.PassControlServer;
 import java.net.Socket;
 

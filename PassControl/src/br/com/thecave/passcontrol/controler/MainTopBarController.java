@@ -1,7 +1,7 @@
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.communicationThread.StatusConnectionListener;
-import br.com.thecave.passcontrol.messages.PassControlMessage;
+import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrol.screens.DefaultScreen;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;

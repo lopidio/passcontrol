@@ -4,9 +4,9 @@
  */
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.messages.ClientLoginRequest;
-import br.com.thecave.passcontrol.messages.ClientLoginResponse;
-import br.com.thecave.passcontrol.messages.MessageActors;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLoginRequest;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLoginResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;

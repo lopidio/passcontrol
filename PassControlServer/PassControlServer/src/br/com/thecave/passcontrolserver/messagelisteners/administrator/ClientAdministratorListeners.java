@@ -4,17 +4,17 @@
  */
 package br.com.thecave.passcontrolserver.messagelisteners.administrator;
 
-import br.com.thecave.passcontrol.communicationThread.ServerCommunicationThread;
-import br.com.thecave.passcontrol.db.bean.UserBean;
-import br.com.thecave.passcontrol.db.dao.UserDAO;
-import br.com.thecave.passcontrol.messages.ConfirmationResponse;
-import br.com.thecave.passcontrol.messages.MessageActors;
-import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
-import br.com.thecave.passcontrol.messages.administrator.AdministratorAddUser;
-import br.com.thecave.passcontrol.messages.administrator.AdministratorListUser;
-import br.com.thecave.passcontrol.messages.administrator.AdministratorListUserResponse;
-import br.com.thecave.passcontrol.messages.administrator.AdministratorRemoveUser;
+import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.db.dao.UserDAO;
+import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddUser;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListUser;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListUserResponse;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveUser;
 import br.com.thecave.passcontrolserver.PassControlServer;
 import java.net.Socket;
 import java.util.ArrayList;

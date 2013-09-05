@@ -1,9 +1,9 @@
 package br.com.thecave.passcontrol.screens.crud;
 
 import br.com.thecave.passcontrol.controler.Main;
-import br.com.thecave.passcontrol.db.ServerComunication;
-import br.com.thecave.passcontrol.db.bean.BalconyBean;
-import br.com.thecave.passcontrol.util.Validation;
+import br.com.thecave.passcontrolserver.db.ServerComunication;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.util.Validation;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JOptionPane;

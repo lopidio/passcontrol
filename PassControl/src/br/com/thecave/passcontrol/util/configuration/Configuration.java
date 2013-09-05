@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.util.configuration;
 
-import br.com.thecave.passcontrol.util.FileUtils;
+import br.com.thecave.passcontrolserver.util.FileUtils;
 import com.thoughtworks.xstream.XStream;
 
 /**

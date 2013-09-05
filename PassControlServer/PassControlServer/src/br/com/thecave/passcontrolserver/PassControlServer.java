@@ -4,8 +4,8 @@
  */
 package br.com.thecave.passcontrolserver;
 
-import br.com.thecave.passcontrol.communicationThread.ServerCommunicationThread;
-import br.com.thecave.passcontrol.messages.ClientLoginRequest;
+import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLoginRequest;
 import br.com.thecave.passcontrolserver.messagelisteners.administrator.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientLoginMessageListener;
 import java.io.IOException;

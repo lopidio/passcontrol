@@ -4,8 +4,8 @@
  */
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.messages.PassControlMessage;
-import br.com.thecave.passcontrol.messages.PassControlMessageListener;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import java.net.Socket;
 import javax.swing.JPanel;
 

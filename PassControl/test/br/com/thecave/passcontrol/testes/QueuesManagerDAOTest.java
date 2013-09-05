@@ -1,7 +1,7 @@
 package br.com.thecave.passcontrol.testes;
 
-import br.com.thecave.passcontrol.db.bean.QueuesManagerBean;
-import br.com.thecave.passcontrol.db.dao.QueuesManagerDAO;
+import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
+import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

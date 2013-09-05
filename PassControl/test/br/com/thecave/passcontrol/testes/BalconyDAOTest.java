@@ -1,7 +1,7 @@
 package br.com.thecave.passcontrol.testes;
 
-import br.com.thecave.passcontrol.db.bean.BalconyBean;
-import br.com.thecave.passcontrol.db.dao.BalconyDAO;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
