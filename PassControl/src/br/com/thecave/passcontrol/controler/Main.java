@@ -3,16 +3,12 @@ package br.com.thecave.passcontrol.controler;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.AdministratorScreen;
-import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
-import br.com.thecave.passcontrol.screens.LoginScreen;
-import br.com.thecave.passcontrol.screens.LoginScreenResetPassword;
 import br.com.thecave.passcontrol.screens.MainFrame;
-import br.com.thecave.passcontrol.screens.crud.BalconyScreen;
-import br.com.thecave.passcontrol.screens.crud.BalconyTypesScreen;
-import br.com.thecave.passcontrol.screens.crud.ServiceScreen;
-import br.com.thecave.passcontrol.screens.crud.UserScreen;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main 
 {
@@ -40,7 +36,7 @@ public class Main
                 mainFrame                = new MainFrame();
                 
                 communicationThread = new ClientCommunicationThread(
-                        "127.0.0.1", 
+                        "192.168.0.194", 
                         23073);
                 mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 mainFrame.setVisible(true);        
@@ -54,22 +50,23 @@ public class Main
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    try {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InstantiationException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedLookAndFeelException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+  
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() 
@@ -103,21 +100,6 @@ public class Main
         return mainFrame;
     }
     
-    /**
-     * GETTERS!!
-     */
-    public LoginScreen getLoginScreen() {
-        return null;
-    }
-
-    public LoginScreenResetPassword getResetScreen() {
-        return null;
-    }
-
-    public ChooseModulesScreen getChooseModulesScreen() {
-        return null;
-    }
-
     public AdministratorScreen getAdminScreen() {
         return null;
     }
@@ -125,23 +107,4 @@ public class Main
     public ClientCommunicationThread getCommunicationThread() {
         return communicationThread;
     }
-
-    public UserScreen getUserScreen() {
-        return null;
-    }
-
-    public ServiceScreen getServiceScreen() {
-        return null;
-    }
-
-    public BalconyScreen getBalconyScreen() {
-        return null;
-    }
-
-    public BalconyTypesScreen getTypesScreen() {
-        return null;
-    }
-    
-    
-    
 }

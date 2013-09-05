@@ -431,7 +431,6 @@ public final class AdministratorScreen extends javax.swing.JFrame {
         else if( JOptionPane.OK_OPTION == result)
         {
             this.setVisible(false);
-            Main.getInstance().getLoginScreen().setVisible(true);
         }
         else
         {
@@ -442,31 +441,26 @@ public final class AdministratorScreen extends javax.swing.JFrame {
     public void openGuiche()
     {
         this.setVisible(false);
-        Main.getInstance().getBalconyScreen().setVisible(true);
     }
     
      private void openTiposGuiche() 
     {
         this.setVisible(false);
-        Main.getInstance().getTypesScreen().setVisible(true);
     }
     
     public void openUser()
     {
         this.setVisible(false);
-        Main.getInstance().getUserScreen().setVisible(true);
     }
     
     public void openServices()
     {
         this.setVisible(false);
-        Main.getInstance().getServiceScreen().setVisible(true);
     }
 
     private void voltar() 
     {
         this.setVisible(false);
-        Main.getInstance().getChooseModulesScreen().setVisible(true);
     }
 
     private void sair() 
