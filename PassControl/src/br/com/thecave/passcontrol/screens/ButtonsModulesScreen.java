@@ -59,6 +59,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         jbConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/config_button.png"))); // NOI18N
 
         jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
+        jbAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAdminActionPerformed(evt);
+            }
+        });
 
         jbRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
 
@@ -97,6 +102,11 @@ public class ButtonsModulesScreen extends PassControlPanel
                 .addContainerGap(307, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbAdminActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAdd;
     private javax.swing.JButton jbAdmin;

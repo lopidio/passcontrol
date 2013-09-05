@@ -96,6 +96,9 @@
           <Image iconType="3" name="/resources/admin_button_1.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbAdminActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbRemove">
       <Properties>
