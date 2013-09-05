@@ -19,7 +19,7 @@ public class MainTopBar extends PassControlTopBar
         super(new MainTopBarController());
         initComponents();
         mainTopBarController = (MainTopBarController) getPanelController();
-        jlName.setText(Main.getInstance().getCurrentUser().getName());
+        lbNameUser.setText(Main.getInstance().getCurrentUser().getName());
         
     }
 
