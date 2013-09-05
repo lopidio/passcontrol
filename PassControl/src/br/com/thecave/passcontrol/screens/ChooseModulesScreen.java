@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.PassControlController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -289,6 +290,6 @@ public class ChooseModulesScreen extends PassControlPanel
 //        //TODO: implements
 //        JOptionPane.showMessageDialog(null, "QueueRemove");
     }
-
+    
 }
 

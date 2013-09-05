@@ -6,9 +6,7 @@ package br.com.thecave.passcontrol.screens;
 
 import java.util.ArrayList;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 
 /**
  *
@@ -36,14 +34,13 @@ public class DefaultScreen extends PassControlPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jlImageCenter = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jlImageCenter.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jlImageCenter.setForeground(new java.awt.Color(27, 147, 134));
         jlImageCenter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImageCenter.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/icon_medium.png")); // NOI18N
         jlImageCenter.setText("Sistema gerenciador de filas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -52,19 +49,19 @@ public class DefaultScreen extends PassControlPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1347, Short.MAX_VALUE)
+                .addComponent(jlImageCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 1347, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
+                .addComponent(jlImageCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jlImageCenter;
     // End of variables declaration//GEN-END:variables
 
     
@@ -102,6 +99,5 @@ public class DefaultScreen extends PassControlPanel
         retorno.add(jmServerConfig);
         return retorno;
     }
-
     
 }

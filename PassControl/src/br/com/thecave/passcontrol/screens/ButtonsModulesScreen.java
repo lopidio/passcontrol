@@ -4,7 +4,8 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import javax.swing.JMenuBar;
+import java.util.ArrayList;
+import javax.swing.JMenu;
 
 /**
  *
@@ -13,6 +14,14 @@ import javax.swing.JMenuBar;
 public class ButtonsModulesScreen extends PassControlPanel 
 {
 
+    @Override
+    public ArrayList<JMenu> createMenuItems() 
+    {
+        return new ArrayList<>();
+    }
+
+    
+    
     /**
      * Creates new form DefaultScreen
      */
@@ -96,12 +105,6 @@ public class ButtonsModulesScreen extends PassControlPanel
     private javax.swing.JButton jbRemove;
     private javax.swing.JButton jbViewer;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public JMenuBar createMenu() 
-    {
-        return null;
-    }
 
     
 }

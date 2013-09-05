@@ -17,14 +17,12 @@ import javax.swing.JPanel;
  */
 public abstract class PassControlPanel extends JPanel
 {   
-    private PassControlController panelController;
+    protected PassControlController panelController;
     private String passControlPanelTitle;
-    private JMenuBar menu;
 
     public PassControlPanel(String passControlPanelTitle, PassControlController panelController) {
         this.panelController = panelController;
         this.passControlPanelTitle = passControlPanelTitle;
-        this.menu = null;
         
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(layout);        
@@ -51,5 +49,17 @@ public abstract class PassControlPanel extends JPanel
     public void setPanelController(PassControlController panelController) {
         this.panelController = panelController;
     }
-    
+
+    /**
+     * Retorna true caso possua um controlador
+     */
+    public boolean initializeController()
+    {
+        if (panelController != null)
+        {
+            panelController.setPassControlPanel(this);
+            return true;
+        }
+        return false;
+    }
 }

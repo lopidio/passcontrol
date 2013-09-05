@@ -5,6 +5,8 @@
 package br.com.thecave.passcontrol.controler;
 
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
+import br.com.thecave.passcontrol.topbar.ResetTopBar;
+import javax.swing.JPanel;
 
 /**
  *
@@ -13,6 +15,14 @@ import br.com.thecave.passcontrol.topbar.LoginTopBar;
 public class ResetTopBarControler extends PassControlController
 {
 
+    ResetTopBar resetTopBar = null;
+
+    @Override
+    public void setPassControlPanel(JPanel passControlPanel) {
+        resetTopBar = (ResetTopBar)passControlPanel;
+    }
+    
+    
     public void performReset() 
     {
         //TODO: Mandar um email e tal

@@ -12,6 +12,7 @@ import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.ResetTopBar;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,6 +20,13 @@ import br.com.thecave.passcontrol.topbar.ResetTopBar;
  */
 public class LoginTopBarController extends PassControlController 
 {
+    LoginTopBar loginTopBar = null;
+
+    @Override
+    public void setPassControlPanel(JPanel passControlPanel) {
+        loginTopBar = (LoginTopBar)passControlPanel;
+    }
+    
     
     
     public void performLogin(LoginTopBar loginTopBar) 

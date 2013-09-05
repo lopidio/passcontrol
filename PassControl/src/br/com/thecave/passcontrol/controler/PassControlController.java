@@ -7,14 +7,14 @@ package br.com.thecave.passcontrol.controler;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.messages.PassControlMessageListener;
 import java.net.Socket;
+import javax.swing.JPanel;
 
 /**
  *
  * @author guilherme
  */
 public abstract class PassControlController implements PassControlMessageListener
-{
-   
+{  
     public void addMessageListeners()
     {
         //hook
@@ -29,5 +29,7 @@ public abstract class PassControlController implements PassControlMessageListene
     public void onMessageReceive(PassControlMessage message, Socket socket) {
         //hook
     }
+
+    public abstract void setPassControlPanel(JPanel passControlPanel);
     
 }

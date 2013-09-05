@@ -32,5 +32,17 @@ public class PassControlTopBar  extends JPanel
         this.panelController = panelController;
     }
     
-    
+    /**
+     * Retorna true caso possua um controlador
+     */
+    public boolean initializeController()
+    {
+        if (panelController != null)
+        {
+            panelController.setPassControlPanel(this);
+            return true;
+        }
+        return false;
+    }    
+
 }

@@ -67,10 +67,10 @@ public final class MainFrame extends javax.swing.JFrame {
             menuBar.add(novoMenu, 0);
         }
         
-        //Adiciona aos escutadores de eventos
-        PassControlController newController = newPassControlPanel.getPanelController();
-        if (newController != null)
+        //Verifica se tem controller, caso tenha, inicializa e cadastra os escutadores de eventos
+        if (newPassControlPanel.initializeController())
         {
+            //Adiciona aos escutadores de eventos
             newPassControlPanel.getPanelController().addMessageListeners();
         }
         
@@ -83,6 +83,43 @@ public final class MainFrame extends javax.swing.JFrame {
         //Mais ou menos assim
     }
     
+    public void activatePassControlTopBar(PassControlTopBar newPassControlTopBar)
+    {
+        for (Component component : topBar.getComponents())
+        {
+            try
+            {
+                PassControlPanel castPrevPassControl = (PassControlPanel)component;
+                castPrevPassControl.getPanelController().removeMessageListeners();
+            }catch (ClassCastException exc)
+            {
+                //do nothing
+            }
+        }
+
+
+        //Remove o atual
+        topBar.removeAll();
+        //Adiciona o novo
+        topBar.add(newPassControlTopBar);
+        
+        //Verifica se tem controller, caso tenha, inicializa e cadastra os escutadores de eventos
+        if (newPassControlTopBar.initializeController())
+        {
+            //Adiciona aos escutadores de eventos
+            newPassControlTopBar.getPanelController().addMessageListeners();
+        }        
+        
+        topBar.setVisible(true);
+        topBar.revalidate();
+        topBar.repaint();
+        getContentPane().revalidate();
+        getContentPane().repaint();
+        
+        //Mais ou menos assim
+    }
+    
+
     public void disableControlPanel()
     {
         passControlPanel.setEnabled(false);
@@ -102,44 +139,8 @@ public final class MainFrame extends javax.swing.JFrame {
             menuBar.setEnabled(true);
         }        
     }
+        
     
-    public void activatePassControlTopBar(PassControlTopBar passControlTopBar)
-    {
-        for (Component component : topBar.getComponents())
-        {
-            try
-            {
-                PassControlPanel castPrevPassControl = (PassControlPanel)component;
-                castPrevPassControl.getPanelController().removeMessageListeners();
-            }catch (ClassCastException exc)
-            {
-                //do nothing
-            }
-        }
-
-
-        //Remove o atual
-        topBar.removeAll();
-        //Adiciona o novo
-        topBar.add(passControlTopBar);
-        
-        //Adiciona aos escutadores de eventos
-        PassControlController newController = passControlTopBar.getPanelController();
-        if (newController != null)
-        {
-            passControlTopBar.getPanelController().addMessageListeners();
-        }
-        
-        topBar.setVisible(true);
-        topBar.revalidate();
-        topBar.repaint();
-        getContentPane().revalidate();
-        getContentPane().repaint();
-        
-        //Mais ou menos assim
-    }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -1,11 +1,12 @@
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrol.communicationThread.StatusConnectionListener;
 import br.com.thecave.passcontrol.messages.PassControlMessage;
 import br.com.thecave.passcontrol.screens.DefaultScreen;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import java.net.Socket;
+import javax.swing.JPanel;
 
 /**
  *
@@ -13,7 +14,13 @@ import java.net.Socket;
  */
 public class MainTopBarController extends PassControlController implements StatusConnectionListener
 {
+    MainTopBar mainTopBar = null;
 
+    @Override
+    public void setPassControlPanel(JPanel passControlPanel) {
+        mainTopBar = (MainTopBar)passControlPanel;
+    }
+    
     @Override
     public void addMessageListeners() {
         Main.getInstance().getCommunicationThread().addStatusConnectionListeners(this);
