@@ -7,12 +7,14 @@ package br.com.thecave.passcontrol.controler;
 import br.com.thecave.passcontrol.messages.ClientLoginRequest;
 import br.com.thecave.passcontrol.messages.ClientLoginResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
-import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
+import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.ResetTopBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 /**
  *
@@ -29,7 +31,7 @@ public class LoginTopBarController extends PassControlController
     
     
     
-    public void performLogin(LoginTopBar loginTopBar) 
+    public void performLogin() 
     {
 //        Main main2 = Main.getInstance();
 //                MainFrame mainFrame2 = main2.getMainFrame();
@@ -46,7 +48,7 @@ public class LoginTopBarController extends PassControlController
             {
                 MainFrame mainFrame = main.getMainFrame();
                 main.setCurrentUser(clientLoginResponse.getUser());
-                mainFrame.activatePassControlPanel(new ChooseModulesScreen());
+                mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
                 mainFrame.activatePassControlTopBar(new MainTopBar());
                 
             }
@@ -58,8 +60,7 @@ public class LoginTopBarController extends PassControlController
         else
         {
 
-            //TODO criar popup aqui
-            System.out.println("TIME OUT!");
+            JOptionPane.showMessageDialog(null, "Tempo de conexão expirada!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         
     }

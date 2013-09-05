@@ -153,7 +153,7 @@ public class LoginTopBar extends PassControlTopBar
     }//GEN-LAST:event_lbForgottPasswordMouseClicked
 
     private void jbOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOkActionPerformed
-        loginTopBarControler.performLogin(this);
+        loginTopBarControler.performLogin();
     }//GEN-LAST:event_jbOkActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

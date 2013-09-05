@@ -41,7 +41,7 @@ public class DefaultScreen extends PassControlPanel
         jlImageCenter.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jlImageCenter.setForeground(new java.awt.Color(27, 147, 134));
         jlImageCenter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImageCenter.setText("Sistema gerenciador de filas");
+        jlImageCenter.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\splash.png")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

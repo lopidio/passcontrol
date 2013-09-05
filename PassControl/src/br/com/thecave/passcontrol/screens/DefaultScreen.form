@@ -48,7 +48,9 @@
           <Color blue="86" green="93" red="1b" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Sistema gerenciador de filas"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="E:\Developer\Repositorio\PassControl\PassControl\imgs\resources\splash.png"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>
