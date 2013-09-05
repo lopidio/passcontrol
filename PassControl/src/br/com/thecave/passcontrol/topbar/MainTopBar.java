@@ -44,7 +44,11 @@ public class MainTopBar extends PassControlTopBar
         setForeground(new java.awt.Color(0, 153, 191));
         setPreferredSize(new java.awt.Dimension(1376, 128));
 
-        jlIcon.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/icon_medium.png")); // NOI18N
+        jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+
+        jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
+
+        jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
 
         lblUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lblUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -56,7 +60,7 @@ public class MainTopBar extends PassControlTopBar
 
         lbLogout.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbLogout.setForeground(new java.awt.Color(255, 255, 255));
-        lbLogout.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/logout.png")); // NOI18N
+        lbLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
         lbLogout.setText("Logout");
         lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -64,7 +68,7 @@ public class MainTopBar extends PassControlTopBar
             }
         });
 
-        jlConnection.setIcon(new javax.swing.ImageIcon("/home/guilherme/developer/repositories/passcontrol/PassControl/imgs/resources/online.png")); // NOI18N
+        jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -77,7 +81,7 @@ public class MainTopBar extends PassControlTopBar
                 .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 849, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 850, Short.MAX_VALUE)
                 .addComponent(jlConnection)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
