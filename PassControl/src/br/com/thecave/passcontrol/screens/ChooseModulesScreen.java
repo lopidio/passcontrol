@@ -4,7 +4,11 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import java.util.ArrayList;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu.Separator;
 
 /**
  *
@@ -22,6 +26,95 @@ public class ChooseModulesScreen extends PassControlPanel
         initComponents();
     }
 
+    @Override
+    public ArrayList<JMenu> createMenuItems()
+    {
+        ArrayList<JMenu> retorno = new ArrayList<>();
+        
+        JMenu jmIniciar = new javax.swing.JMenu();
+        JMenuItem jmAdmin = new javax.swing.JMenuItem();
+        JMenuItem jmGuiche = new javax.swing.JMenuItem();
+        JMenuItem jmViewer = new javax.swing.JMenuItem();
+        JMenuItem jmInsert = new javax.swing.JMenuItem();
+        JMenuItem jmRemove = new javax.swing.JMenuItem();
+        Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        JMenuItem jmExit = new javax.swing.JMenuItem();    
+        
+       jmIniciar.setText("Iniciar");
+
+        jmAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jmAdmin.setMnemonic('A');
+        jmAdmin.setText("Administrador");
+        jmAdmin.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmAdminActionPerformed(evt);
+            }
+        });
+        jmIniciar.add(jmAdmin);
+
+        jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK));
+        jmGuiche.setMnemonic('B');
+        jmGuiche.setText("Guichê");
+        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmGuicheActionPerformed(evt);
+            }
+        });
+        jmIniciar.add(jmGuiche);
+
+        jmViewer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmViewer.setMnemonic('V');
+        jmViewer.setText("Visualizador");
+        jmViewer.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmViewerActionPerformed(evt);
+            }
+        });
+        jmIniciar.add(jmViewer);
+
+        jmInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
+        jmInsert.setMnemonic('I');
+        jmInsert.setText("Inserir");
+        jmInsert.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmInsertActionPerformed(evt);
+            }
+        });
+        jmIniciar.add(jmInsert);
+
+        jmRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        jmRemove.setMnemonic('R');
+        jmRemove.setText("Remover");
+        jmRemove.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmRemoveActionPerformed(evt);
+            }
+        });
+        jmIniciar.add(jmRemove);
+        jmIniciar.add(jSeparator1);
+
+        jmExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        jmExit.setMnemonic('S');
+        jmExit.setText("Sair");
+        jmExit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmExitActionPerformed(evt);
+            }
+        });
+        jmIniciar.add(jmExit);
+
+        retorno.add(jmIniciar);
+        return retorno;
+    }
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,15 +130,6 @@ public class ChooseModulesScreen extends PassControlPanel
         jbViewer = new javax.swing.JButton();
         jbInsert = new javax.swing.JButton();
         jbRemove = new javax.swing.JButton();
-        menuBar = new javax.swing.JMenuBar();
-        jmIniciar = new javax.swing.JMenu();
-        jmAdmin = new javax.swing.JMenuItem();
-        jmGuiche = new javax.swing.JMenuItem();
-        jmViewer = new javax.swing.JMenuItem();
-        jmInsert = new javax.swing.JMenuItem();
-        jmRemove = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jmExit = new javax.swing.JMenuItem();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("frmScreenLogin"); // NOI18N
@@ -128,71 +212,6 @@ public class ChooseModulesScreen extends PassControlPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jmIniciar.setText("Iniciar");
-
-        jmAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
-        jmAdmin.setMnemonic('A');
-        jmAdmin.setText("Administrador");
-        jmAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmAdminActionPerformed(evt);
-            }
-        });
-        jmIniciar.add(jmAdmin);
-
-        jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK));
-        jmGuiche.setMnemonic('B');
-        jmGuiche.setText("Guichê");
-        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmGuicheActionPerformed(evt);
-            }
-        });
-        jmIniciar.add(jmGuiche);
-
-        jmViewer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jmViewer.setMnemonic('V');
-        jmViewer.setText("Visualizador");
-        jmViewer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmViewerActionPerformed(evt);
-            }
-        });
-        jmIniciar.add(jmViewer);
-
-        jmInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
-        jmInsert.setMnemonic('I');
-        jmInsert.setText("Inserir");
-        jmInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmInsertActionPerformed(evt);
-            }
-        });
-        jmIniciar.add(jmInsert);
-
-        jmRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
-        jmRemove.setMnemonic('R');
-        jmRemove.setText("Remover");
-        jmRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmRemoveActionPerformed(evt);
-            }
-        });
-        jmIniciar.add(jmRemove);
-        jmIniciar.add(jSeparator1);
-
-        jmExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jmExit.setMnemonic('S');
-        jmExit.setText("Sair");
-        jmExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmExitActionPerformed(evt);
-            }
-        });
-        jmIniciar.add(jmExit);
-
-        menuBar.add(jmIniciar);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,33 +230,17 @@ public class ChooseModulesScreen extends PassControlPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmExitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jmExitActionPerformed
-
     private void jbAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdminActionPerformed
         openAdministrator();
     }//GEN-LAST:event_jbAdminActionPerformed
-
-    private void jmAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAdminActionPerformed
-        openAdministrator();
-    }//GEN-LAST:event_jmAdminActionPerformed
 
     private void jbGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuicheActionPerformed
         openBalcony();
     }//GEN-LAST:event_jbGuicheActionPerformed
 
-    private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
-        openBalcony();
-    }//GEN-LAST:event_jmGuicheActionPerformed
-
     private void jbViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbViewerActionPerformed
         openViewer();
     }//GEN-LAST:event_jbViewerActionPerformed
-
-    private void jmViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewerActionPerformed
-       openViewer();
-    }//GEN-LAST:event_jmViewerActionPerformed
 
     private void jbInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInsertActionPerformed
         openQueueInsert();
@@ -247,31 +250,14 @@ public class ChooseModulesScreen extends PassControlPanel
        openQueueRemove();
     }//GEN-LAST:event_jbRemoveActionPerformed
 
-    private void jmInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInsertActionPerformed
-        openQueueInsert();
-    }//GEN-LAST:event_jmInsertActionPerformed
-
-    private void jmRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRemoveActionPerformed
-        openQueueRemove();
-    }//GEN-LAST:event_jmRemoveActionPerformed
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton jbAdmin;
     private javax.swing.JButton jbGuiche;
     private javax.swing.JButton jbInsert;
     private javax.swing.JButton jbRemove;
     private javax.swing.JButton jbViewer;
-    private javax.swing.JMenuItem jmAdmin;
-    private javax.swing.JMenuItem jmExit;
-    private javax.swing.JMenuItem jmGuiche;
-    private javax.swing.JMenu jmIniciar;
-    private javax.swing.JMenuItem jmInsert;
-    private javax.swing.JMenuItem jmRemove;
-    private javax.swing.JMenuItem jmViewer;
-    private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
     private void openAdministrator()
@@ -302,11 +288,6 @@ public class ChooseModulesScreen extends PassControlPanel
     {
 //        //TODO: implements
 //        JOptionPane.showMessageDialog(null, "QueueRemove");
-    }
-
-    @Override
-    public JMenuBar createMenu() {
-        return menuBar;
     }
 
 }

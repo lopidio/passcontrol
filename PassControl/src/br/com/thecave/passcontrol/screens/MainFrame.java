@@ -5,6 +5,7 @@ import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.PassControlTopBar;
 import java.awt.Component;
 import javax.swing.BoxLayout;
+import javax.swing.JMenu;
 
 /**
  *
@@ -50,9 +51,19 @@ public final class MainFrame extends javax.swing.JFrame {
         passControlPanel.removeAll();
         //Adiciona o novo
         passControlPanel.add(newPassControlPanel);
+        
+        //Removo os ítens antigos do menu
+        for (int i = 0; i < menuBar.getMenuCount() - 2 ; ++i)//2 pq sempre existem dois valores
+        {
+            getMenuBar().remove(null);
+        }
+        
         //Seta o título atual
         setTitle(newPassControlPanel.getPassControlPanelTitle());
-        setJMenuBar(newPassControlPanel.createMenu());
+        for (JMenu novoMenu : newPassControlPanel.createMenuItems())
+        {
+            menuBar.add(novoMenu, 0);
+        }
         
         //Adiciona aos escutadores de eventos
         PassControlController newController = newPassControlPanel.getPanelController();
@@ -123,11 +134,15 @@ public final class MainFrame extends javax.swing.JFrame {
 
         topBar = new javax.swing.JPanel();
         passControlPanel = new javax.swing.JPanel();
+        menuBar = new javax.swing.JMenuBar();
+        jmSobre = new javax.swing.JMenu();
+        jmAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Senhas");
         setBackground(new java.awt.Color(255, 255, 255));
         setName("frmScreenLogin"); // NOI18N
+        setResizable(false);
 
         javax.swing.GroupLayout topBarLayout = new javax.swing.GroupLayout(topBar);
         topBar.setLayout(topBarLayout);
@@ -150,8 +165,16 @@ public final class MainFrame extends javax.swing.JFrame {
         );
         passControlPanelLayout.setVerticalGroup(
             passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
+            .addGap(0, 565, Short.MAX_VALUE)
         );
+
+        jmSobre.setText("Sobre");
+        menuBar.add(jmSobre);
+
+        jmAjuda.setText("Ajuda");
+        menuBar.add(jmAjuda);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,6 +196,9 @@ public final class MainFrame extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jmAjuda;
+    private javax.swing.JMenu jmSobre;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel passControlPanel;
     private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables

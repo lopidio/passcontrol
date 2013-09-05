@@ -31,7 +31,7 @@ public class LoginTopBarController extends PassControlController
         Main main = Main.getInstance();
         ClientLoginRequest initRequest = new 
                 ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
-        ClientLoginResponse clientLoginResponse = (ClientLoginResponse)main.getCommunicationThread().sendMessageAndWaitForResponseOrTimeout(initRequest, "ClientLoginResponse", 100000);
+        ClientLoginResponse clientLoginResponse = (ClientLoginResponse)main.getCommunicationThread().sendMessageAndWaitForResponseOrTimeout(initRequest, "ClientLoginResponse", 1000);
         if (clientLoginResponse != null)
         {
             if (clientLoginResponse.getUser() != null)
@@ -39,16 +39,17 @@ public class LoginTopBarController extends PassControlController
                 MainFrame mainFrame = main.getMainFrame();
                 mainFrame.activatePassControlPanel(new ChooseModulesScreen());
                 mainFrame.activatePassControlTopBar(new MainTopBar());
-                System.out.println("DEU CERTO, NEGADA!");
                 
             }
             else
             {
-                System.out.println("Usuário não identificado.");
+                loginTopBar.incorrectUser();
             }
         }
         else
         {
+
+            //TODO criar popup aqui
             System.out.println("TIME OUT!");
         }
         

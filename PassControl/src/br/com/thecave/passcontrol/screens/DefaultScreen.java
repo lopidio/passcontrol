@@ -4,7 +4,11 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import java.util.ArrayList;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -63,10 +67,40 @@ public class DefaultScreen extends PassControlPanel
     private javax.swing.JLabel jlImageCenter;
     // End of variables declaration//GEN-END:variables
 
+    
     @Override
-    public JMenuBar createMenu() 
+    public ArrayList<JMenu> createMenuItems()
     {
-        return null;
+        ArrayList<JMenu> retorno = new ArrayList<>();
+        JMenu jmServerConfig = new javax.swing.JMenu();
+        JMenuItem jmIP = new javax.swing.JMenuItem();
+        JMenuItem jmPort = new javax.swing.JMenuItem();
+        
+        jmServerConfig.setText("Configurações do servidor");
+
+        jmIP.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
+        jmIP.setMnemonic('I');
+        jmIP.setText("IP");
+        jmIP.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmAdminActionPerformed(evt);
+            }
+        });
+        jmServerConfig.add(jmIP);
+
+        jmPort.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
+        jmPort.setMnemonic('P');
+        jmPort.setText("Porta");
+        jmPort.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jmGuicheActionPerformed(evt);
+            }
+        });
+        jmServerConfig.add(jmPort);
+        retorno.add(jmServerConfig);
+        return retorno;
     }
 
     
