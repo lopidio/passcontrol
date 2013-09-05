@@ -31,12 +31,13 @@ public class LoginTopBarController extends PassControlController
         Main main = Main.getInstance();
         ClientLoginRequest initRequest = new 
                 ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
-        ClientLoginResponse clientLoginResponse = (ClientLoginResponse)main.getCommunicationThread().sendMessageAndWaitForResponseOrTimeout(initRequest, "ClientLoginResponse", 1000);
+        ClientLoginResponse clientLoginResponse = (ClientLoginResponse)main.getCommunicationThread().sendMessageAndWaitForResponseOrTimeout(initRequest, "ClientLoginResponse", 3000);
         if (clientLoginResponse != null)
         {
             if (clientLoginResponse.getUser() != null)
             {
                 MainFrame mainFrame = main.getMainFrame();
+                main.setCurrentUser(clientLoginResponse.getUser());
                 mainFrame.activatePassControlPanel(new ChooseModulesScreen());
                 mainFrame.activatePassControlTopBar(new MainTopBar());
                 

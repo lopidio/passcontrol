@@ -55,11 +55,13 @@ public final class MainFrame extends javax.swing.JFrame {
         //Removo os ítens antigos do menu
         for (int i = 0; i < menuBar.getMenuCount() - 2 ; ++i)//2 pq sempre existem dois valores
         {
-            getMenuBar().remove(null);
+            menuBar.remove(i);
         }
         
         //Seta o título atual
         setTitle(newPassControlPanel.getPassControlPanelTitle());
+        
+        //Adiciono os novos menus do ítem
         for (JMenu novoMenu : newPassControlPanel.createMenuItems())
         {
             menuBar.add(novoMenu, 0);
@@ -81,9 +83,24 @@ public final class MainFrame extends javax.swing.JFrame {
         //Mais ou menos assim
     }
     
-    public void setPassControlPanelEnabled(boolean enabled)
+    public void disableControlPanel()
     {
-        passControlPanel.setEnabled(enabled);
+        passControlPanel.setEnabled(false);
+        //ítens do menu
+        for (int i = 0; i < menuBar.getMenuCount() - 2 ; ++i)//2 pq sempre existem dois valores
+        {
+            menuBar.setEnabled(false);
+        }        
+    }
+    
+    public void enableControlPanel()
+    {
+        passControlPanel.setEnabled(true);
+        //ítens do menu
+        for (int i = 0; i < menuBar.getMenuCount() - 2 ; ++i)//2 pq sempre existem dois valores
+        {
+            menuBar.setEnabled(true);
+        }        
     }
     
     public void activatePassControlTopBar(PassControlTopBar passControlTopBar)
