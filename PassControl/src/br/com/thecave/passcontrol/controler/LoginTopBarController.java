@@ -7,6 +7,7 @@ package br.com.thecave.passcontrol.controler;
 import br.com.thecave.passcontrol.messages.ClientLoginRequest;
 import br.com.thecave.passcontrol.messages.ClientLoginResponse;
 import br.com.thecave.passcontrol.messages.MessageActors;
+import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
 import br.com.thecave.passcontrol.screens.ChooseModulesScreen;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
@@ -38,7 +39,7 @@ public class LoginTopBarController extends PassControlController
             {
                 MainFrame mainFrame = main.getMainFrame();
                 main.setCurrentUser(clientLoginResponse.getUser());
-                mainFrame.activatePassControlPanel(new ChooseModulesScreen());
+                mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
                 mainFrame.activatePassControlTopBar(new MainTopBar());
                 
             }
