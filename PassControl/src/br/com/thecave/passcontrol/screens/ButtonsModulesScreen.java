@@ -4,6 +4,8 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -51,6 +53,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         setBackground(new java.awt.Color(255, 255, 255));
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
+        jbBalcony.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBalconyActionPerformed(evt);
+            }
+        });
 
         jbViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/viewer_button.png"))); // NOI18N
 
@@ -104,8 +111,13 @@ public class ButtonsModulesScreen extends PassControlPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdminActionPerformed
-        // TODO add your handling code here:
+       Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
     }//GEN-LAST:event_jbAdminActionPerformed
+
+    private void jbBalconyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBalconyActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreenIntro());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
+    }//GEN-LAST:event_jbBalconyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAdd;

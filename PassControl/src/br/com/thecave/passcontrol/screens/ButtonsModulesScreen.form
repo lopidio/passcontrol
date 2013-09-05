@@ -68,6 +68,9 @@
           <Image iconType="3" name="/resources/balcony_button.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbBalconyActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbViewer">
       <Properties>

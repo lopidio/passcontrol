@@ -11,15 +11,15 @@ import javax.swing.JMenu;
  *
  * @author Arleudo
  */
-public class AdminScreen extends PassControlPanel 
+public class BalconyScreenIntro extends PassControlPanel 
 {
 
     /**
      * Creates new form AdminScreen
      */
-    public AdminScreen() 
+    public BalconyScreenIntro() 
     {
-        super("Administrador", null);
+        super("Guichê", null);
         initComponents();
     }
 
