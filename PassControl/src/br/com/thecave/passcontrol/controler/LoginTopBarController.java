@@ -13,6 +13,7 @@ import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.ResetTopBar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,8 +52,7 @@ public class LoginTopBarController extends PassControlController
         else
         {
 
-            //TODO criar popup aqui
-            System.out.println("TIME OUT!");
+            JOptionPane.showMessageDialog(null, "Tempo de conexão expirada!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         
     }
