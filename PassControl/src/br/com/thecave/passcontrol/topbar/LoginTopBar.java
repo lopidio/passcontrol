@@ -1,7 +1,6 @@
 package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.LoginTopBarController;
-import br.com.thecave.passcontrol.controler.Main;
 
 /**
  *
@@ -19,6 +18,8 @@ public class LoginTopBar extends PassControlTopBar
         super(new LoginTopBarController());
         loginTopBarControler = (LoginTopBarController) getPanelController();
         initComponents();
+        jlbErrorSenha.setVisible(false);
+        jlErrorLogin.setVisible(false);
     }
     
     public void incorrectUser()
@@ -56,7 +57,8 @@ public class LoginTopBar extends PassControlTopBar
         jlLogin = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lbForgottPassword = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jlErrorLogin = new javax.swing.JLabel();
+        jlbErrorSenha = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 153, 191));
         setForeground(new java.awt.Color(0, 153, 191));
@@ -106,7 +108,9 @@ public class LoginTopBar extends PassControlTopBar
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/errovalid.png"))); // NOI18N
+        jlErrorLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+
+        jlbErrorSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,23 +123,27 @@ public class LoginTopBar extends PassControlTopBar
                 .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 691, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 684, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlLogin)
-                    .addComponent(jLabel2))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(lbForgottPassword)
+                        .addComponent(jlErrorLogin)
                         .addGap(18, 18, 18)
-                        .addComponent(jbOk, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jlLogin))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlbErrorSenha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtfLogin)
                             .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                        .addGap(1, 1, 1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lbForgottPassword)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbOk, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -151,10 +159,12 @@ public class LoginTopBar extends PassControlTopBar
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlLogin)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                            .addComponent(jlErrorLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlbErrorSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jtfSenha)
+                                .addComponent(jLabel2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbOk)
@@ -173,10 +183,28 @@ public class LoginTopBar extends PassControlTopBar
 
     private void jtfLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfLoginKeyTyped
         verifyOkButton();
+        if(getUserName().length() >= 4)
+        {
+            jlErrorLogin.setVisible(false);
+        }
+        else
+        {
+            jlErrorLogin.setVisible(true);
+            jlErrorLogin.setToolTipText("Login Inválido!");
+        }
     }//GEN-LAST:event_jtfLoginKeyTyped
 
     private void jtfSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSenhaKeyTyped
         verifyOkButton();
+        if(getUserPassword().length() >= 5)
+        {
+            jlbErrorSenha.setVisible(false);
+        }
+        else
+        {
+            jlbErrorSenha.setVisible(true);
+            jlbErrorSenha.setToolTipText("Senha Inválida!");
+        }
     }//GEN-LAST:event_jtfSenhaKeyTyped
 
     private void verifyOkButton()
@@ -193,13 +221,14 @@ public class LoginTopBar extends PassControlTopBar
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbOk;
     private javax.swing.JLabel jlBarra;
+    private javax.swing.JLabel jlErrorLogin;
     private javax.swing.JLabel jlIcon;
     private javax.swing.JLabel jlLogin;
     private javax.swing.JLabel jlName;
+    private javax.swing.JLabel jlbErrorSenha;
     private javax.swing.JTextField jtfLogin;
     private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JLabel lbForgottPassword;
