@@ -25,6 +25,7 @@ public class LoginTopBar extends PassControlTopBar
     {
         jtfLogin.setText("");
         jtfSenha.setText("");
+        verifyOkButton();
     }
     
     public String getUserName()
@@ -61,13 +62,26 @@ public class LoginTopBar extends PassControlTopBar
         setMaximumSize(new java.awt.Dimension(1376, 128));
         setPreferredSize(new java.awt.Dimension(1376, 128));
 
+        jtfLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfLoginKeyTyped(evt);
+            }
+        });
+
+        jtfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfSenhaKeyTyped(evt);
+            }
+        });
+
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
 
         jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
 
-        jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
+        jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N        
 
         jbOk.setText("OK");
+        jbOk.setEnabled(false);
         jbOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbOkActionPerformed(evt);
@@ -151,6 +165,27 @@ public class LoginTopBar extends PassControlTopBar
         loginTopBarControler.performLogin();
     }//GEN-LAST:event_jbOkActionPerformed
 
+    private void jtfLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfLoginKeyTyped
+        verifyOkButton();
+    }//GEN-LAST:event_jtfLoginKeyTyped
+
+    private void jtfSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSenhaKeyTyped
+        verifyOkButton();
+    }//GEN-LAST:event_jtfSenhaKeyTyped
+
+    private void verifyOkButton()
+    {
+        System.err.println(getUserName() + " ; " + getUserPassword());
+        if (getUserName().length() >= 4 && getUserPassword().length() >= 5)
+        {
+            jbOk.setEnabled(true);
+        }
+        else
+        {
+            jbOk.setEnabled(false);            
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbOk;
