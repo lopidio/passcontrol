@@ -21,6 +21,8 @@ public class BalconyScreenIntro extends PassControlPanel
     {
         super("Guichê", null);
         initComponents();
+        jbGuicheLivre.setVisible(false);
+        jbRepetir.setVisible(false);
     }
 
     /**
@@ -32,40 +34,66 @@ public class BalconyScreenIntro extends PassControlPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jmBalcony = new javax.swing.JMenu();
+        jmVoltar = new javax.swing.JMenuItem();
+        jmLogout = new javax.swing.JMenuItem();
+        jmSair = new javax.swing.JMenuItem();
+        jbGuicheLivre = new javax.swing.JButton();
+        jbRepetir = new javax.swing.JButton();
         jlImage = new javax.swing.JLabel();
 
+        jmBalcony.setText("Guichê");
+
+        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmVoltar.setMnemonic('v');
+        jmVoltar.setText("Voltar");
+        jmBalcony.add(jmVoltar);
+
+        jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        jmLogout.setMnemonic('l');
+        jmLogout.setText("Logout");
+        jmBalcony.add(jmLogout);
+
+        jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        jmSair.setMnemonic('s');
+        jmSair.setText("Sair");
+        jmBalcony.add(jmSair);
+
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
+
+        jbGuicheLivre.setFont(new java.awt.Font("Square721 BT", 0, 18)); // NOI18N
+        jbGuicheLivre.setText("Guichê Livre");
+        add(jbGuicheLivre);
+        jbGuicheLivre.setBounds(950, 410, 260, 120);
+
+        jbRepetir.setFont(new java.awt.Font("Square721 BT", 0, 18)); // NOI18N
+        jbRepetir.setText("Repetir Chamada");
+        add(jbRepetir);
+        jbRepetir.setBounds(150, 410, 260, 120);
 
         jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_big.png"))); // NOI18N
         jlImage.setToolTipText("");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1347, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        add(jlImage);
+        jlImage.setBounds(10, 11, 1347, 778);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbGuicheLivre;
+    private javax.swing.JButton jbRepetir;
     private javax.swing.JLabel jlImage;
+    private javax.swing.JMenu jmBalcony;
+    private javax.swing.JMenuItem jmLogout;
+    private javax.swing.JMenuItem jmSair;
+    private javax.swing.JMenuItem jmVoltar;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public ArrayList<JMenu> createMenuItems() 
     {
         ArrayList<JMenu> retorno = new ArrayList<>();
+        retorno.add(jmBalcony);
                
         return retorno;
     }
