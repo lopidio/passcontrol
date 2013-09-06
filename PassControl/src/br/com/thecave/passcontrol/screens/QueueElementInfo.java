@@ -4,16 +4,70 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author lopidio
  */
-public class QueueElementInfo extends JPanel 
+public class QueueElementInfo extends JPanel
 {
 
+    private static class FadeInOutAction implements ActionListener
+    {
+        Timer timer = new Timer(0, this);   
+        private float DELTA;
+        private float alpha;
+        private JPanel jPanel;
+        
+        FadeInOutAction(JPanel jPanel, float DELTA) throws Exception
+        {
+            this.DELTA = DELTA;
+            this.jPanel = jPanel;
+            
+            if (DELTA < 0)
+                alpha = 1f;
+            else if (DELTA > 0)
+                alpha = 0;
+            else
+                throw new Exception("Delta inválido");
+            timer.start();
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            alpha += DELTA;
+            if (alpha < 0 || alpha > 1) 
+            {
+                timer.restart();
+                if (DELTA < 0)
+                    alpha = 1f;
+                else if (DELTA > 0)
+                    alpha = 0;                
+            }
+            jPanel.repaint();   
+        }
 
+        public float getAlpha() {
+            return alpha;
+        }
+        
+        public boolean isRunning()
+        {
+            return timer.isRunning();
+        }
+        
+    }
+
+    FadeInOutAction fader = null;
+    
     public QueueElementInfo(String clientName, String queueName, String userPass) {
         
         initComponents();
@@ -21,9 +75,26 @@ public class QueueElementInfo extends JPanel
         txtFila.setText(queueName);
         txtNome.setText(clientName);
         txtSenha.setText(userPass);
-        
+                
     }
     
+    public void fadeIn(float DELTA) throws Exception
+    {
+        fader = new FadeInOutAction(this, Math.abs(DELTA));
+                 
+    }
+    
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        if (false && fader != null && fader.isRunning())
+        {
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setColor(new Color(g2d.getColor().getRed(), g2d.getColor().getGreen(), g2d.getColor().getBlue(), fader.getAlpha()*255));
+        }
+    }    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,43 +116,47 @@ public class QueueElementInfo extends JPanel
         setBackground(new java.awt.Color(255, 232, 29));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         setForeground(new java.awt.Color(255, 100, 60));
-        setMaximumSize(new java.awt.Dimension(841, 403));
-        setMinimumSize(new java.awt.Dimension(841, 403));
+        setMaximumSize(new java.awt.Dimension(250, 150));
+        setMinimumSize(new java.awt.Dimension(250, 150));
+        setPreferredSize(new java.awt.Dimension(250, 150));
         setLayout(null);
 
         jSeparator1.setToolTipText("");
         add(jSeparator1);
-        jSeparator1.setBounds(30, 120, 350, 14);
+        jSeparator1.setBounds(10, 50, 230, 14);
 
+        lblSenha.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblSenha.setText("Senha:");
         add(lblSenha);
-        lblSenha.setBounds(10, 20, 47, 18);
+        lblSenha.setBounds(10, 10, 36, 15);
 
+        lblFila.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblFila.setText("Fila:");
         add(lblFila);
-        lblFila.setBounds(10, 140, 27, 18);
+        lblFila.setBounds(10, 50, 27, 18);
 
+        lblNome.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblNome.setText("Nome do cliente:");
         add(lblNome);
-        lblNome.setBounds(10, 240, 118, 18);
+        lblNome.setBounds(10, 90, 118, 18);
 
         txtNome.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         txtNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtNome.setText("Leudinho");
         add(txtNome);
-        txtNome.setBounds(0, 280, 400, 19);
+        txtNome.setBounds(0, 120, 250, 19);
 
-        txtFila.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        txtFila.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         txtFila.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtFila.setText("Prioritária");
         add(txtFila);
-        txtFila.setBounds(11, 160, 390, 56);
+        txtFila.setBounds(0, 60, 250, 29);
 
-        txtSenha.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        txtSenha.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtSenha.setText("43");
         add(txtSenha);
-        txtSenha.setBounds(10, 50, 380, 70);
+        txtSenha.setBounds(0, 10, 250, 40);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;

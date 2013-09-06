@@ -5,6 +5,7 @@ import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.PassControlTopBar;
 import java.awt.Component;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 
 /**
@@ -25,6 +26,19 @@ public final class MainFrame extends javax.swing.JFrame {
         
         activatePassControlPanel(new DefaultScreen());
         activatePassControlTopBar(new LoginTopBar());
+        
+//        JFrame desktopPane = new JFrame();
+//        QueueElementInfo queueElementInfo = new QueueElementInfo("sasas", "dsfsdfsdf", "rtgrtgrt");
+////        try {
+////            queueElementInfo.fadeIn(0.01f);
+////        } catch (Exception ex) {
+////            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+////        }
+//        desktopPane.add(queueElementInfo);
+//        desktopPane.setSize(800, 600);
+////        desktopPane.repaint();
+////        desktopPane.revalidate();
+//        desktopPane.setVisible(true);
         
     }
     

@@ -12,38 +12,14 @@ import javax.swing.JPanel;
  *
  * @author Arleudo
  */
-public class MainTopBarController extends PassControlController implements StatusConnectionListener
+public class MainTopBarController extends PassControlController
 {
     MainTopBar mainTopBar = null;
 
     @Override
     public void setPassControlPanel(JPanel passControlPanel) {
         mainTopBar = (MainTopBar)passControlPanel;
-    }
-    
-    @Override
-    public void addMessageListeners() {
-        Main.getInstance().getCommunicationThread().addStatusConnectionListeners(this);
-    }
-
-    @Override
-    public void onMessageReceive(PassControlMessage message, Socket socket) {
-        Main.getInstance().getCommunicationThread().removeStatusConnectionListener(this);
-    }    
-    
-    @Override
-    public void onChangeConnection(boolean connectionStatus) 
-    {
-        mainTopBar.setConnectionIcon(connectionStatus);
-        if (connectionStatus)
-        {
-            Main.getInstance().getMainFrame().enableControlPanel();
-        }
-        else
-        {
-            Main.getInstance().getMainFrame().disableControlPanel();            
-        }
-    }
+    }  
     
     public void performlogout() 
     {

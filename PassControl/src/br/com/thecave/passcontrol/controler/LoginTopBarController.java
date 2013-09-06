@@ -4,16 +4,12 @@
  */
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrolserver.messages.generic.ClientLoginRequest;
-import br.com.thecave.passcontrolserver.messages.generic.ClientLoginResponse;
-import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.ResetTopBar;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
