@@ -2,7 +2,6 @@ package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.LoginTopBarController;
 import br.com.thecave.passcontrol.screens.PanelConnectionInfo;
-import java.awt.ComponentOrientation;
 import java.awt.Point;
 
 /**
@@ -23,10 +22,6 @@ public class LoginTopBar extends PassControlTopBar
         initComponents();
         jlbErrorSenha.setVisible(false);
         jlErrorLogin.setVisible(false);
-        
-        PanelConnectionInfo panelConnectionInfo = new PanelConnectionInfo();
-        panelConnectionInfo.setLocation(new Point(20,20));
-        this.add(panelConnectionInfo);
     }
     
     public void incorrectUser()
