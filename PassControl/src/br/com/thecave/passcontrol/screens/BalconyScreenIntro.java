@@ -23,6 +23,8 @@ public class BalconyScreenIntro extends PassControlPanel
         initComponents();
         jbGuicheLivre.setVisible(false);
         jbRepetir.setVisible(false);
+        jpSenha.setVisible(false);
+        
     }
 
     /**
@@ -40,6 +42,7 @@ public class BalconyScreenIntro extends PassControlPanel
         jmSair = new javax.swing.JMenuItem();
         jbGuicheLivre = new javax.swing.JButton();
         jbRepetir = new javax.swing.JButton();
+        jpSenha = new javax.swing.JPanel();
         jlImage = new javax.swing.JLabel();
 
         jmBalcony.setText("Guichê");
@@ -71,6 +74,8 @@ public class BalconyScreenIntro extends PassControlPanel
         jbRepetir.setText("Repetir Chamada");
         add(jbRepetir);
         jbRepetir.setBounds(150, 410, 260, 120);
+        add(jpSenha);
+        jpSenha.setBounds(500, 100, 370, 240);
 
         jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_big.png"))); // NOI18N
@@ -87,6 +92,7 @@ public class BalconyScreenIntro extends PassControlPanel
     private javax.swing.JMenuItem jmLogout;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmVoltar;
+    private javax.swing.JPanel jpSenha;
     // End of variables declaration//GEN-END:variables
 
     @Override
