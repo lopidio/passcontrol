@@ -60,6 +60,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/viewer_button.png"))); // NOI18N
+        jbViewer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbViewerActionPerformed(evt);
+            }
+        });
 
         jbAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
 
@@ -118,6 +123,10 @@ public class ButtonsModulesScreen extends PassControlPanel
         Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreenIntro());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
     }//GEN-LAST:event_jbBalconyActionPerformed
+
+    private void jbViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbViewerActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new ViewerScreen());
+    }//GEN-LAST:event_jbViewerActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAdd;

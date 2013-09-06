@@ -78,6 +78,9 @@
           <Image iconType="3" name="/resources/viewer_button.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbViewerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbAdd">
       <Properties>

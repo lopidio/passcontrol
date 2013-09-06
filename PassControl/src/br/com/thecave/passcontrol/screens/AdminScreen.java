@@ -243,8 +243,8 @@ public class AdminScreen extends PassControlPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(ifGuiche, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138)
-                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1614, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1748, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
