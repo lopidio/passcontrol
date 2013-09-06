@@ -5,7 +5,6 @@ import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.PassControlTopBar;
 import java.awt.Component;
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 
 /**
@@ -60,9 +59,16 @@ public final class MainFrame extends javax.swing.JFrame {
             }
         }
 
+        //Verifica se tem controller, caso tenha, inicializa e cadastra os escutadores de eventos
+        if (newPassControlPanel.initializeController())
+        {
+            //Adiciona aos escutadores de eventos
+            newPassControlPanel.getPanelController().addMessageListeners();
+        }        
 
         //Remove o atual
         passControlPanel.removeAll();
+        
         //Adiciona o novo
         passControlPanel.add(newPassControlPanel);
         
@@ -79,13 +85,6 @@ public final class MainFrame extends javax.swing.JFrame {
         for (JMenu novoMenu : newPassControlPanel.createMenuItems())
         {
             menuBar.add(novoMenu, 0);
-        }
-        
-        //Verifica se tem controller, caso tenha, inicializa e cadastra os escutadores de eventos
-        if (newPassControlPanel.initializeController())
-        {
-            //Adiciona aos escutadores de eventos
-            newPassControlPanel.getPanelController().addMessageListeners();
         }
         
         passControlPanel.setVisible(true);
@@ -111,19 +110,20 @@ public final class MainFrame extends javax.swing.JFrame {
             }
         }
 
-
-        //Remove o atual
-        topBar.removeAll();
-        //Adiciona o novo
-        topBar.add(newPassControlTopBar);
-        
         //Verifica se tem controller, caso tenha, inicializa e cadastra os escutadores de eventos
         if (newPassControlTopBar.initializeController())
         {
             //Adiciona aos escutadores de eventos
             newPassControlTopBar.getPanelController().addMessageListeners();
         }        
+                
+
+        //Remove o atual
+        topBar.removeAll();
+        //Adiciona o novo
+        topBar.add(newPassControlTopBar);
         
+
         topBar.setVisible(true);
         topBar.revalidate();
         topBar.repaint();
