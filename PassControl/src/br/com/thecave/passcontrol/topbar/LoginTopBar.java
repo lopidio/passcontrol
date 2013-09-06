@@ -210,7 +210,6 @@ public class LoginTopBar extends PassControlTopBar
 
     private void verifyOkButton()
     {
-        System.err.println(getUserName() + " ; " + getUserPassword());
         if (getUserName().length() >= 4 && getUserPassword().length() >= 5)
         {
             jbOk.setEnabled(true);

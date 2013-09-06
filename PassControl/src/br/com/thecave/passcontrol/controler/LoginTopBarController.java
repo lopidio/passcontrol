@@ -12,6 +12,7 @@ import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.ResetTopBar;
+import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -33,35 +34,41 @@ public class LoginTopBarController extends PassControlController
     
     public void performLogin() 
     {
-//        Main main2 = Main.getInstance();
-//                MainFrame mainFrame2 = main2.getMainFrame();
-//                mainFrame2.activatePassControlPanel(new ChooseModulesScreen());
-//                mainFrame2.activatePassControlTopBar(new MainTopBar());
-
         Main main = Main.getInstance();
-        ClientLoginRequest initRequest = new 
-                ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
-        ClientLoginResponse clientLoginResponse = (ClientLoginResponse)main.getCommunicationThread().sendMessageAndWaitForResponseOrTimeout(initRequest, "ClientLoginResponse", 3000);
-        if (clientLoginResponse != null)
-        {
-            if (clientLoginResponse.getUser() != null)
-            {
+        
                 MainFrame mainFrame = main.getMainFrame();
-                main.setCurrentUser(clientLoginResponse.getUser());
+                UserBean bean = new UserBean();
+                bean.setName("Guigui");
+                bean.setType(0);
+                main.setCurrentUser(bean);
                 mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
                 mainFrame.activatePassControlTopBar(new MainTopBar());
                 
-            }
-            else
-            {
-                loginTopBar.incorrectUser();
-            }
-        }
-        else
-        {
-
-            JOptionPane.showMessageDialog(null, "Tempo de conexão expirada!", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+//        
+//        Main main = Main.getInstance();
+//        ClientLoginRequest initRequest = new 
+//                ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
+//        ClientLoginResponse clientLoginResponse = (ClientLoginResponse)main.getCommunicationThread().sendMessageAndWaitForResponseOrTimeout(initRequest, "ClientLoginResponse", 3000);
+//        if (clientLoginResponse != null)
+//        {
+//            if (clientLoginResponse.getUser() != null)
+//            {
+//                MainFrame mainFrame = main.getMainFrame();
+//                main.setCurrentUser(clientLoginResponse.getUser());
+//                mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
+//                mainFrame.activatePassControlTopBar(new MainTopBar());
+//                
+//            }
+//            else
+//            {
+//                loginTopBar.incorrectUser();
+//            }
+//        }
+//        else
+//        {
+//
+//            JOptionPane.showMessageDialog(null, "Tempo de conexão expirada!", "Erro", JOptionPane.ERROR_MESSAGE);
+//        }
         
     }
 
