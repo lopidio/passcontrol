@@ -53,6 +53,8 @@ public class AdminScreen extends PassControlPanel
         jmAutomatic = new javax.swing.JMenuItem();
         jmManual = new javax.swing.JMenuItem();
         jlImage = new javax.swing.JLabel();
+        ifGuiche = new javax.swing.JInternalFrame();
+        jLabel1 = new javax.swing.JLabel();
 
         jmBaseDados.setMnemonic('B');
         jmBaseDados.setText("Base de Dados          ");
@@ -214,13 +216,35 @@ public class AdminScreen extends PassControlPanel
         jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_big.png"))); // NOI18N
         jlImage.setToolTipText("");
 
+        ifGuiche.setVisible(true);
+
+        jLabel1.setText("Guichê");
+
+        javax.swing.GroupLayout ifGuicheLayout = new javax.swing.GroupLayout(ifGuiche.getContentPane());
+        ifGuiche.getContentPane().setLayout(ifGuicheLayout);
+        ifGuicheLayout.setHorizontalGroup(
+            ifGuicheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ifGuicheLayout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        ifGuicheLayout.setVerticalGroup(
+            ifGuicheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ifGuicheLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1347, Short.MAX_VALUE)
+                .addComponent(ifGuiche, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138)
+                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1614, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -229,10 +253,14 @@ public class AdminScreen extends PassControlPanel
                 .addContainerGap()
                 .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(ifGuiche, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
+
     }//GEN-LAST:event_jmGuicheActionPerformed
 
     private void jmUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserActionPerformed
@@ -276,6 +304,8 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmManualActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JInternalFrame ifGuiche;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel jlImage;

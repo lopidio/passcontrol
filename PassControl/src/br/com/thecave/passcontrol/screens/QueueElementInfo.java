@@ -4,24 +4,23 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
+import javax.swing.JPanel;
 
 /**
  *
  * @author lopidio
  */
-public class QueueElementInfo extends javax.swing.JPanel {
-    
-    String clientName;
-    String queueName;
-    String userPass;    
+public class QueueElementInfo extends JPanel 
+{
+
 
     public QueueElementInfo(String clientName, String queueName, String userPass) {
-        this.clientName = clientName;
-        this.queueName = queueName;
-        this.userPass = userPass;
         
         initComponents();
+        
+        txtFila.setText(queueName);
+        txtNome.setText(clientName);
+        txtSenha.setText(userPass);
         
     }
     
@@ -36,98 +35,61 @@ public class QueueElementInfo extends javax.swing.JPanel {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
+        lblFila = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
+        txtNome = new javax.swing.JLabel();
+        txtFila = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 166, 0));
+        setBackground(new java.awt.Color(255, 232, 29));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         setForeground(new java.awt.Color(255, 100, 60));
+        setMaximumSize(new java.awt.Dimension(841, 403));
+        setMinimumSize(new java.awt.Dimension(841, 403));
+        setLayout(null);
 
         jSeparator1.setToolTipText("");
+        add(jSeparator1);
+        jSeparator1.setBounds(30, 120, 350, 14);
 
-        jLabel1.setText("Senha:");
+        lblSenha.setText("Senha:");
+        add(lblSenha);
+        lblSenha.setBounds(10, 20, 47, 18);
 
-        jLabel2.setText("Fila:");
+        lblFila.setText("Fila:");
+        add(lblFila);
+        lblFila.setBounds(10, 140, 27, 18);
 
-        jLabel3.setText("Nome do cliente:");
+        lblNome.setText("Nome do cliente:");
+        add(lblNome);
+        lblNome.setBounds(10, 240, 118, 18);
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("43");
+        txtNome.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        txtNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNome.setText("Leudinho");
+        add(txtNome);
+        txtNome.setBounds(0, 280, 400, 19);
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Leudinho");
+        txtFila.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        txtFila.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtFila.setText("Prioritária");
+        add(txtFila);
+        txtFila.setBounds(11, 160, 390, 56);
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Prioritária");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(82, 82, 82)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(102, 102, 102))))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(101, Short.MAX_VALUE)
-                    .addComponent(jLabel6)
-                    .addGap(54, 54, 54)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(33, 33, 33)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(19, 19, 19)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(141, Short.MAX_VALUE)
-                    .addComponent(jLabel6)
-                    .addGap(88, 88, 88)))
-        );
+        txtSenha.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtSenha.setText("43");
+        add(txtSenha);
+        txtSenha.setBounds(10, 50, 380, 70);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblFila;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel txtFila;
+    private javax.swing.JLabel txtNome;
+    private javax.swing.JLabel txtSenha;
     // End of variables declaration//GEN-END:variables
 }
