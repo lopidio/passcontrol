@@ -151,6 +151,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
+        jbRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRemoveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -204,6 +209,10 @@ public class ButtonsModulesScreen extends PassControlPanel
     private void jbAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAddActionPerformed
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
     }//GEN-LAST:event_jbAddActionPerformed
+
+    private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoveActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
+    }//GEN-LAST:event_jbRemoveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu.Separator jSeparator1;

@@ -213,6 +213,9 @@
           <Image iconType="3" name="/resources/queue_pop_button.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbRemoveActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
