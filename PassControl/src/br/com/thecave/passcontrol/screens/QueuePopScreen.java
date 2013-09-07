@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.QueuePopController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -13,13 +14,15 @@ import javax.swing.JMenu;
  */
 public class QueuePopScreen extends PassControlPanel 
 {
-
+    QueuePopController controller = null;
+    
     /**
      * Creates new form AdminScreen
      */
     public QueuePopScreen() 
     {
-        super("Controle de Fila", null);
+        super("Controle de Fila", new QueuePopController());
+        this.controller = (QueuePopController) getPanelController();
         initComponents();
     }
 
@@ -32,28 +35,43 @@ public class QueuePopScreen extends PassControlPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jmBalcony = new javax.swing.JMenu();
+        jmQueuePop = new javax.swing.JMenu();
         jmVoltar = new javax.swing.JMenuItem();
         jmLogout = new javax.swing.JMenuItem();
         jmSair = new javax.swing.JMenuItem();
         jlImage = new javax.swing.JLabel();
 
-        jmBalcony.setText("Guichê");
+        jmQueuePop.setText("Gerenciador de Fila");
 
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
-        jmBalcony.add(jmVoltar);
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVoltarActionPerformed(evt);
+            }
+        });
+        jmQueuePop.add(jmVoltar);
 
         jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         jmLogout.setMnemonic('l');
         jmLogout.setText("Logout");
-        jmBalcony.add(jmLogout);
+        jmLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogoutActionPerformed(evt);
+            }
+        });
+        jmQueuePop.add(jmLogout);
 
         jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmSair.setMnemonic('s');
         jmSair.setText("Sair");
-        jmBalcony.add(jmSair);
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
+        jmQueuePop.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
@@ -65,10 +83,22 @@ public class QueuePopScreen extends PassControlPanel
         jlImage.setBounds(10, 11, 1347, 778);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
+        controller.performBack();
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
+    private void jmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoutActionPerformed
+        controller.performLogout();
+    }//GEN-LAST:event_jmLogoutActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+       controller.performExit();
+    }//GEN-LAST:event_jmSairActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlImage;
-    private javax.swing.JMenu jmBalcony;
     private javax.swing.JMenuItem jmLogout;
+    private javax.swing.JMenu jmQueuePop;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmVoltar;
     // End of variables declaration//GEN-END:variables
@@ -77,7 +107,7 @@ public class QueuePopScreen extends PassControlPanel
     public ArrayList<JMenu> createMenuItems() 
     {
         ArrayList<JMenu> retorno = new ArrayList<>();
-        retorno.add(jmBalcony);
+        retorno.add(jmQueuePop);
                
         return retorno;
     }

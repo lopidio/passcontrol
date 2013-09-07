@@ -2,9 +2,9 @@
 
 <Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
-    <Container class="javax.swing.JMenu" name="jmBalcony">
+    <Container class="javax.swing.JMenu" name="jmQueuePop">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Guich&#xea;"/>
+        <Property name="text" type="java.lang.String" value="Gerenciador de Fila"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -19,6 +19,9 @@
             <Property name="mnemonic" type="int" value="118"/>
             <Property name="text" type="java.lang.String" value="Voltar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmVoltarActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jmLogout">
           <Properties>
@@ -28,6 +31,9 @@
             <Property name="mnemonic" type="int" value="108"/>
             <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmLogoutActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jmSair">
           <Properties>
@@ -37,6 +43,9 @@
             <Property name="mnemonic" type="int" value="115"/>
             <Property name="text" type="java.lang.String" value="Sair"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmSairActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
