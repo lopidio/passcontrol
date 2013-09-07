@@ -59,7 +59,7 @@ public class ConfigScreen extends PassControlPanel
         setLayout(null);
 
         jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_big.png"))); // NOI18N
+        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/config_big.png"))); // NOI18N
         jlImage.setToolTipText("");
         add(jlImage);
         jlImage.setBounds(10, 11, 1347, 778);

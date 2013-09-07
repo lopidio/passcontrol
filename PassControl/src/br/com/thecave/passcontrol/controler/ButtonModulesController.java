@@ -5,6 +5,8 @@
 package br.com.thecave.passcontrol.controler;
 
 import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
+import br.com.thecave.passcontrol.screens.DefaultScreen;
+import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import javax.swing.JPanel;
 
 /**
@@ -20,4 +22,15 @@ public class ButtonModulesController extends PassControlController
     {
         this.modulesScreen = (ButtonsModulesScreen)passControlPanel;
     }    
+
+    public void performBack() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new DefaultScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
+    }
+
+    public void performLogout() 
+    {
+        performBack();
+    }
 }

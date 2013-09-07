@@ -74,48 +74,93 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         jmAdmin.setMnemonic('a');
         jmAdmin.setText("Administrador");
+        jmAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAdminActionPerformed(evt);
+            }
+        });
         jmModules.add(jmAdmin);
 
         jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
         jmGuiche.setMnemonic('g');
         jmGuiche.setText("Guichês");
+        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmGuicheActionPerformed(evt);
+            }
+        });
         jmModules.add(jmGuiche);
 
         jmViewer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmViewer.setMnemonic('v');
         jmViewer.setText("Visualizador");
+        jmViewer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmViewerActionPerformed(evt);
+            }
+        });
         jmModules.add(jmViewer);
 
         jmQueuePush.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
         jmQueuePush.setMnemonic('d');
         jmQueuePush.setText("Adicionar");
+        jmQueuePush.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmQueuePushActionPerformed(evt);
+            }
+        });
         jmModules.add(jmQueuePush);
 
         jmQueuePop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
         jmQueuePop.setMnemonic('r');
         jmQueuePop.setText("Remover");
+        jmQueuePop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmQueuePopActionPerformed(evt);
+            }
+        });
         jmModules.add(jmQueuePop);
 
         jmConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         jmConfig.setMnemonic('c');
         jmConfig.setText("Configurações");
+        jmConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmConfigActionPerformed(evt);
+            }
+        });
         jmModules.add(jmConfig);
         jmModules.add(jSeparator1);
 
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVoltarActionPerformed(evt);
+            }
+        });
         jmModules.add(jmVoltar);
 
         jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         jmLogout.setMnemonic('l');
         jmLogout.setText("Log Out");
+        jmLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogoutActionPerformed(evt);
+            }
+        });
         jmModules.add(jmLogout);
         jmModules.add(jSeparator2);
 
         jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmSair.setMnemonic('s');
         jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
         jmModules.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -199,29 +244,64 @@ public class ButtonsModulesScreen extends PassControlPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdminActionPerformed
-       Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
+        openAdmin();
     }//GEN-LAST:event_jbAdminActionPerformed
 
     private void jbBalconyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBalconyActionPerformed
-        Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreenIntro());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
+        openBalcony();
     }//GEN-LAST:event_jbBalconyActionPerformed
 
     private void jbViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbViewerActionPerformed
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ViewerScreen());
+        openViewer();
     }//GEN-LAST:event_jbViewerActionPerformed
 
     private void jbAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAddActionPerformed
-        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+        openQueuePush();
     }//GEN-LAST:event_jbAddActionPerformed
 
     private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoveActionPerformed
-        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
+        openQueuePop();
     }//GEN-LAST:event_jbRemoveActionPerformed
 
     private void jbConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfigActionPerformed
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ConfigScreen());
+        openConfig();
     }//GEN-LAST:event_jbConfigActionPerformed
+
+    private void jmAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAdminActionPerformed
+       openAdmin();
+    }//GEN-LAST:event_jmAdminActionPerformed
+
+    private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
+        openBalcony();
+    }//GEN-LAST:event_jmGuicheActionPerformed
+
+    private void jmViewerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmViewerActionPerformed
+        openViewer();
+    }//GEN-LAST:event_jmViewerActionPerformed
+
+    private void jmQueuePushActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmQueuePushActionPerformed
+        openQueuePush();
+    }//GEN-LAST:event_jmQueuePushActionPerformed
+
+    private void jmQueuePopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmQueuePopActionPerformed
+        openQueuePop();
+    }//GEN-LAST:event_jmQueuePopActionPerformed
+
+    private void jmConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConfigActionPerformed
+        openConfig();
+    }//GEN-LAST:event_jmConfigActionPerformed
+
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
+        modulesController.performBack();
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
+    private void jmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoutActionPerformed
+       modulesController.performLogout();
+    }//GEN-LAST:event_jmLogoutActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jmSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -243,6 +323,37 @@ public class ButtonsModulesScreen extends PassControlPanel
     private javax.swing.JMenuItem jmViewer;
     private javax.swing.JMenuItem jmVoltar;
     // End of variables declaration//GEN-END:variables
+
+    private void openAdmin() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
+    }
+
+    private void openBalcony() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreenIntro());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
+    }
+
+    private void openViewer() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new ViewerScreen());
+    }
+
+    private void openQueuePush() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+    }
+
+    private void openQueuePop() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
+    }
+
+    private void openConfig() 
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new ConfigScreen());
+    }
 
     
 }
