@@ -142,6 +142,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/config_button.png"))); // NOI18N
+        jbConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfigActionPerformed(evt);
+            }
+        });
 
         jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
         jbAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +218,10 @@ public class ButtonsModulesScreen extends PassControlPanel
     private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoveActionPerformed
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
     }//GEN-LAST:event_jbRemoveActionPerformed
+
+    private void jbConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfigActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new ConfigScreen());
+    }//GEN-LAST:event_jbConfigActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu.Separator jSeparator1;

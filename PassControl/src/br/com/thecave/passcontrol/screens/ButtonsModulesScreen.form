@@ -196,6 +196,9 @@
           <Image iconType="3" name="/resources/config_button.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbConfigActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbAdmin">
       <Properties>
