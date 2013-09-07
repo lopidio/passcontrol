@@ -7,7 +7,9 @@ package br.com.thecave.passcontrol.screens.admin;
 import br.com.thecave.passcontrol.controler.AdminController;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import java.util.ArrayList;
+import javax.swing.GroupLayout;
 import javax.swing.JMenu;
 
 /**
@@ -350,8 +352,6 @@ public class AdminScreen extends PassControlPanel
 
     private void openBalconyCrud() 
     {
-        Main.getInstance().getMainFrame().setEnabled(false);
-        Main.getInstance().getMainFrame().setVisible(false);
         new BalconyCrud().setVisible(true);
     }
 }

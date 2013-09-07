@@ -32,7 +32,7 @@ public class BalconyCrud extends JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jmBalcony = new javax.swing.JMenu();
+        jmBalconyCrud = new javax.swing.JMenu();
         jmVoltar = new javax.swing.JMenuItem();
         jmLogout = new javax.swing.JMenuItem();
         jmSair = new javax.swing.JMenuItem();
@@ -43,22 +43,22 @@ public class BalconyCrud extends JFrame
         jLabel3 = new javax.swing.JLabel();
         tfNumero = new javax.swing.JTextField();
 
-        jmBalcony.setText("Guichê");
+        jmBalconyCrud.setText("Cadastro");
 
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
-        jmBalcony.add(jmVoltar);
+        jmBalconyCrud.add(jmVoltar);
 
         jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         jmLogout.setMnemonic('l');
         jmLogout.setText("Logout");
-        jmBalcony.add(jmLogout);
+        jmBalconyCrud.add(jmLogout);
 
         jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmSair.setMnemonic('s');
         jmSair.setText("Sair");
-        jmBalcony.add(jmSair);
+        jmBalconyCrud.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -112,7 +112,7 @@ public class BalconyCrud extends JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jmBalcony;
+    private javax.swing.JMenu jmBalconyCrud;
     private javax.swing.JMenuItem jmLogout;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmVoltar;
