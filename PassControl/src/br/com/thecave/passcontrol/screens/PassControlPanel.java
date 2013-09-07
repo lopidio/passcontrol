@@ -8,7 +8,6 @@ import br.com.thecave.passcontrol.controler.PassControlController;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 /**
