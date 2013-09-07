@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens.admin;
 
+import br.com.thecave.passcontrol.controler.AdminController;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import java.util.ArrayList;
@@ -15,13 +16,14 @@ import javax.swing.JMenu;
  */
 public class AdminScreen extends PassControlPanel 
 {
-
+    AdminController controller = null;
     /**
      * Creates new form AdminScreen
      */
     public AdminScreen() 
     {
-        super("Administrador", null);
+        super("Administrador", new AdminController());
+        controller = (AdminController) getPanelController();
         initComponents();
     }
 
@@ -59,7 +61,7 @@ public class AdminScreen extends PassControlPanel
         jLabel1 = new javax.swing.JLabel();
 
         jmBaseDados.setMnemonic('B');
-        jmBaseDados.setText("Base de Dados          ");
+        jmBaseDados.setText("Administrar      ");
 
         jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
         jmGuiche.setMnemonic('G');
@@ -190,7 +192,7 @@ public class AdminScreen extends PassControlPanel
         jmApresentacao.add(jmAlterTime);
 
         jmGerenAuto.setMnemonic('G');
-        jmGerenAuto.setText("Gerenciamento da Fila");
+        jmGerenAuto.setText("Gerenciamento da Fila      ");
 
         jmAutomatic.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jmAutomatic.setMnemonic('A');
@@ -275,12 +277,15 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmTiposActionPerformed
 
     private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
+        controller.performBack();
     }//GEN-LAST:event_jmVoltarActionPerformed
 
     private void jmLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogOutActionPerformed
+        controller.performLogout();
     }//GEN-LAST:event_jmLogOutActionPerformed
 
     private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        System.exit(0);
     }//GEN-LAST:event_jmSairActionPerformed
 
     private void jmAlterImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterImageActionPerformed

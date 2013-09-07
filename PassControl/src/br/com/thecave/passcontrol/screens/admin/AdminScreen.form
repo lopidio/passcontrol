@@ -5,7 +5,7 @@
     <Container class="javax.swing.JMenu" name="jmBaseDados">
       <Properties>
         <Property name="mnemonic" type="int" value="66"/>
-        <Property name="text" type="java.lang.String" value="Base de Dados          "/>
+        <Property name="text" type="java.lang.String" value="Administrar      "/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -189,7 +189,7 @@
     <Container class="javax.swing.JMenu" name="jmGerenAuto">
       <Properties>
         <Property name="mnemonic" type="int" value="71"/>
-        <Property name="text" type="java.lang.String" value="Gerenciamento da Fila"/>
+        <Property name="text" type="java.lang.String" value="Gerenciamento da Fila      "/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
