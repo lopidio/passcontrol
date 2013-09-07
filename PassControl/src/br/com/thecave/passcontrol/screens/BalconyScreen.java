@@ -4,6 +4,8 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.AdminController;
+import br.com.thecave.passcontrol.controler.BalconyController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -11,16 +13,19 @@ import javax.swing.JMenu;
  *
  * @author Arleudo
  */
-public class BalconyScreenIntro extends PassControlPanel 
+public class BalconyScreen extends PassControlPanel 
 {
+    BalconyController controller = null;
 
     /**
      * Creates new form AdminScreen
      */
-    public BalconyScreenIntro() 
+    public BalconyScreen() 
     {
-        super("Guichê", null);
+        super("Guichê", new BalconyController());
+        controller = (BalconyController) getPanelController();
         initComponents();
+        
         jbGuicheLivre.setVisible(false);
         jbRepetir.setVisible(false);
         jpSenha.setVisible(false);
@@ -50,16 +55,31 @@ public class BalconyScreenIntro extends PassControlPanel
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVoltarActionPerformed(evt);
+            }
+        });
         jmBalcony.add(jmVoltar);
 
         jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         jmLogout.setMnemonic('l');
         jmLogout.setText("Logout");
+        jmLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogoutActionPerformed(evt);
+            }
+        });
         jmBalcony.add(jmLogout);
 
         jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmSair.setMnemonic('s');
         jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
         jmBalcony.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -83,6 +103,18 @@ public class BalconyScreenIntro extends PassControlPanel
         add(jlImage);
         jlImage.setBounds(10, 11, 1347, 778);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
+        controller.performBack();
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
+    private void jmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoutActionPerformed
+        controller.performLogout();
+    }//GEN-LAST:event_jmLogoutActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        controller.performExit();
+    }//GEN-LAST:event_jmSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbGuicheLivre;

@@ -331,7 +331,7 @@ public class ButtonsModulesScreen extends PassControlPanel
 
     private void openBalcony() 
     {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreenIntro());
+        Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreen());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
     }
 
