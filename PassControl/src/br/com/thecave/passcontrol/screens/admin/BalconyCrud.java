@@ -4,13 +4,15 @@
  */
 package br.com.thecave.passcontrol.screens.admin;
 
-import javax.swing.JFrame;
+import br.com.thecave.passcontrol.screens.PassControlPanel;
+import java.util.ArrayList;
+import javax.swing.JMenu;
 
 /**
  *
  * @author Arleudo
  */
-public class BalconyCrud extends JFrame 
+public class BalconyCrud extends PassControlPanel 
 {
 
     /**
@@ -118,5 +120,13 @@ public class BalconyCrud extends JFrame
     private javax.swing.JMenuItem jmVoltar;
     private javax.swing.JTextField tfNumero;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public ArrayList<JMenu> createMenuItems() 
+    {
+        ArrayList<JMenu> ret = new ArrayList<JMenu>();
+        ret.add(jmBalconyCrud);
+        return ret;
+    }
 
 }

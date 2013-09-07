@@ -2,6 +2,7 @@ package br.com.thecave.passcontrol.controler;
 
 import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
 import br.com.thecave.passcontrol.screens.admin.AdminScreen;
+import br.com.thecave.passcontrol.screens.admin.BalconyCrud;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import javax.swing.JPanel;
 
@@ -24,5 +25,11 @@ public class AdminController extends PassControlController
     {
         Main.getInstance().getMainFrame().activatePassControlPanel(new ButtonsModulesScreen());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }
+
+    public void openBalconyCrud() 
+    {
+         Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyCrud());
+         Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
     }
 }

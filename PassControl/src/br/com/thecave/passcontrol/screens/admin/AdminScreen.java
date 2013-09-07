@@ -352,6 +352,6 @@ public class AdminScreen extends PassControlPanel
 
     private void openBalconyCrud() 
     {
-        new BalconyCrud().setVisible(true);
+        controller.openBalconyCrud();
     }
 }
