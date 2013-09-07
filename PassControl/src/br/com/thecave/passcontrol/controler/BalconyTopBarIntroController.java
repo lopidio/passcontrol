@@ -7,8 +7,6 @@ package br.com.thecave.passcontrol.controler;
 import br.com.thecave.passcontrol.screens.DefaultScreen;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
-import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
-import java.net.Socket;
 import javax.swing.JPanel;
 
 /**
@@ -25,10 +23,9 @@ public class BalconyTopBarIntroController extends PassControlController
         topBarIntro = (BalconyTopBarIntro)passControlPanel;
     }   
 
-    public void performlogout() 
+    @Override
+    public void performBack() 
     {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new DefaultScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
     }
 
     //Fluxo:

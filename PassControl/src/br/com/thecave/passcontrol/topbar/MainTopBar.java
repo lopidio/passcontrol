@@ -112,7 +112,7 @@ public class MainTopBar extends PassControlTopBar
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoutMouseClicked
-        mainTopBarController.performlogout();
+        mainTopBarController.performLogout();
     }//GEN-LAST:event_lbLogoutMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
