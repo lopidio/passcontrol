@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.ConfigController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -13,13 +10,15 @@ import javax.swing.JMenu;
  */
 public class ConfigScreen extends PassControlPanel 
 {
+    ConfigController controller = null;
 
     /**
      * Creates new form AdminScreen
      */
     public ConfigScreen() 
     {
-        super("Configurações", null);
+        super("Configurações", new ConfigController());
+        this.controller = (ConfigController) getPanelController();
         initComponents();
     }
 
@@ -43,16 +42,31 @@ public class ConfigScreen extends PassControlPanel
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVoltarActionPerformed(evt);
+            }
+        });
         jmConfig.add(jmVoltar);
 
         jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         jmLogout.setMnemonic('l');
         jmLogout.setText("Logout");
+        jmLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogoutActionPerformed(evt);
+            }
+        });
         jmConfig.add(jmLogout);
 
         jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmSair.setMnemonic('s');
         jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
         jmConfig.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -64,6 +78,18 @@ public class ConfigScreen extends PassControlPanel
         add(jlImage);
         jlImage.setBounds(10, 11, 1347, 778);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
+        controller.performBack();
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
+    private void jmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoutActionPerformed
+        controller.performLogout();
+    }//GEN-LAST:event_jmLogoutActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        controller.performExit();
+    }//GEN-LAST:event_jmSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlImage;
