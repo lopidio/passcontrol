@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.QueuePushController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -13,13 +14,15 @@ import javax.swing.JMenu;
  */
 public class QueuePushScreen extends PassControlPanel 
 {
+    QueuePushController controller = null;
 
     /**
      * Creates new form AdminScreen
      */
     public QueuePushScreen() 
     {
-        super("Escolha de Serviços", null);
+        super("Escolha de Serviços", new QueuePushController());
+        this.controller = (QueuePushController) getPanelController();
         initComponents(); 
         jpSenha.setVisible(false);
     }
@@ -34,7 +37,7 @@ public class QueuePushScreen extends PassControlPanel
     private void initComponents() {
 
         jmChooseService = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmInsert = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmVoltar = new javax.swing.JMenuItem();
         jmLogout = new javax.swing.JMenuItem();
@@ -56,26 +59,46 @@ public class QueuePushScreen extends PassControlPanel
         jmChooseService.setMnemonic('e');
         jmChooseService.setText("Escolha de Serviço");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setMnemonic('i');
-        jMenuItem1.setText("Inserir");
-        jmChooseService.add(jMenuItem1);
+        jmInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
+        jmInsert.setMnemonic('i');
+        jmInsert.setText("Inserir");
+        jmInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmInsertActionPerformed(evt);
+            }
+        });
+        jmChooseService.add(jmInsert);
         jmChooseService.add(jSeparator1);
 
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVoltarActionPerformed(evt);
+            }
+        });
         jmChooseService.add(jmVoltar);
 
         jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         jmLogout.setMnemonic('l');
         jmLogout.setText("Logout");
+        jmLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogoutActionPerformed(evt);
+            }
+        });
         jmChooseService.add(jmLogout);
         jmChooseService.add(jSeparator2);
 
         jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jmSair.setMnemonic('s');
         jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
         jmChooseService.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -184,17 +207,33 @@ public class QueuePushScreen extends PassControlPanel
         jpServicos.setBounds(10, 256, 1347, 352);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jmInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInsertActionPerformed
+        controller.insert();
+    }//GEN-LAST:event_jmInsertActionPerformed
+
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
+       controller.performBack();
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
+    private void jmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoutActionPerformed
+        controller.performLogout();
+    }//GEN-LAST:event_jmLogoutActionPerformed
+
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+       controller.performExit();
+    }//GEN-LAST:event_jmSairActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbServices;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JButton jbInsert;
     private javax.swing.JButton jbLoad;
     private javax.swing.JMenu jmChooseService;
+    private javax.swing.JMenuItem jmInsert;
     private javax.swing.JMenuItem jmLogout;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmVoltar;
