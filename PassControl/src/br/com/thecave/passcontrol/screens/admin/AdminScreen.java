@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.thecave.passcontrol.screens;
+package br.com.thecave.passcontrol.screens.admin;
 
+import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.screens.PassControlPanel;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -260,7 +262,7 @@ public class AdminScreen extends PassControlPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
-
+        openBalconyCrud();
     }//GEN-LAST:event_jmGuicheActionPerformed
 
     private void jmUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserActionPerformed
@@ -339,5 +341,12 @@ public class AdminScreen extends PassControlPanel
         retorno.add(jmBaseDados);
         
         return retorno;
+    }
+
+    private void openBalconyCrud() 
+    {
+        Main.getInstance().getMainFrame().setEnabled(false);
+        Main.getInstance().getMainFrame().setVisible(false);
+        new BalconyCrud().setVisible(true);
     }
 }

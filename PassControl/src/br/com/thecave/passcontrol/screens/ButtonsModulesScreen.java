@@ -4,6 +4,8 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.ButtonModulesController;
+import br.com.thecave.passcontrol.screens.admin.AdminScreen;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import java.util.ArrayList;
@@ -15,7 +17,8 @@ import javax.swing.JMenu;
  */
 public class ButtonsModulesScreen extends PassControlPanel 
 {
-
+    ButtonModulesController modulesController = null;
+    
     @Override
     public ArrayList<JMenu> createMenuItems() 
     {
@@ -30,7 +33,8 @@ public class ButtonsModulesScreen extends PassControlPanel
     public ButtonsModulesScreen() 
     {
         //Acho que não preciso de controller
-        super("Sistema Gerenciador de Filas", null);
+        super("Sistema Gerenciador de Filas", new ButtonModulesController());
+        modulesController = (ButtonModulesController) getPanelController();
         initComponents();
     }
 

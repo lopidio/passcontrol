@@ -35,7 +35,7 @@ public class Main
                 mainFrame                = new MainFrame();
                 
                 communicationThread = new ClientCommunicationThread(
-                        "192.168.0.194", 
+                        "localhost", 
                         23073);
                 mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
                 mainFrame.setVisible(true);        
