@@ -1,6 +1,8 @@
 package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.LoginTopBarController;
+import br.com.thecave.passcontrol.screens.PanelConnectionInfo;
+import java.awt.Point;
 
 /**
  *
@@ -20,6 +22,9 @@ public class LoginTopBar extends PassControlTopBar
         initComponents();
         jlbErrorSenha.setVisible(false);
         jlErrorLogin.setVisible(false);
+        
+        PanelConnectionInfo panelConnectionInfo = new PanelConnectionInfo();
+        add(panelConnectionInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(new Point(0,0)));
     }
     
     public void incorrectUser()
@@ -64,24 +69,30 @@ public class LoginTopBar extends PassControlTopBar
         setForeground(new java.awt.Color(0, 153, 191));
         setMaximumSize(new java.awt.Dimension(1376, 128));
         setPreferredSize(new java.awt.Dimension(1376, 128));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+        add(jlIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 6, 106, 116));
 
         jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
+        add(jlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 6, -1, 116));
 
         jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
+        add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 6, 222, 116));
 
         jtfLogin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfLoginKeyTyped(evt);
             }
         });
+        add(jtfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1127, 9, 236, -1));
 
         jtfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfSenhaKeyTyped(evt);
             }
         });
+        add(jtfSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1127, 37, 236, -1));
 
         jbOk.setText("OK");
         jbOk.setEnabled(false);
@@ -90,14 +101,17 @@ public class LoginTopBar extends PassControlTopBar
                 jbOkActionPerformed(evt);
             }
         });
+        add(jbOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(1294, 71, 70, -1));
 
         jlLogin.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         jlLogin.setForeground(new java.awt.Color(255, 255, 255));
         jlLogin.setText("Login:");
+        add(jlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1073, 15, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Senha:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1067, 37, -1, -1));
 
         lbForgottPassword.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbForgottPassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,70 +122,13 @@ public class LoginTopBar extends PassControlTopBar
                 lbForgottPasswordMouseClicked(evt);
             }
         });
+        add(lbForgottPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(1124, 78, -1, -1));
 
         jlErrorLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        add(jlErrorLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 9, -1, 20));
 
         jlbErrorSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jlIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 672, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlErrorLogin)
-                        .addGap(18, 18, 18)
-                        .addComponent(jlLogin))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlbErrorSenha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfLogin)
-                            .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(lbForgottPassword)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbOk, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlBarra, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addComponent(jlIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlErrorLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jtfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlLogin)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jlbErrorSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtfSenha)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbOk)
-                            .addComponent(lbForgottPassword))))
-                .addGap(6, 6, 6))
-        );
+        add(jlbErrorSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 37, -1, 28));
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbForgottPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgottPasswordMouseClicked

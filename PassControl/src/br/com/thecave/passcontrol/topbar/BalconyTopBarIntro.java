@@ -2,6 +2,7 @@ package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.BalconyTopBarIntroController;
 import br.com.thecave.passcontrol.controler.Main;
+import java.awt.Component;
 import java.util.ArrayList;
 
 /**
@@ -217,4 +218,21 @@ public class BalconyTopBarIntro extends PassControlTopBar
         strCast = balconyNumbers.toArray(strCast);
         cbNumero.setModel(new javax.swing.DefaultComboBoxModel(strCast));
     }
+
+    @Override
+    public void blockPassControlTopBar() 
+    {
+        cbNumero.setEnabled(false);
+        cbTipo.setEnabled(false);
+        jbConfirm.setEnabled(false);
+    }
+
+    @Override
+    public void unblockPassControlTopBar() 
+    {
+        cbNumero.setEnabled(true);
+        cbTipo.setEnabled(true);
+        jbConfirm.setEnabled(true);
+    }
+    
 }

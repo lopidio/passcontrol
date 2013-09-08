@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.BalconyController;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientResponse;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -14,6 +15,7 @@ import javax.swing.JMenu;
  */
 public class BalconyScreen extends PassControlPanel 
 {
+    
     BalconyController controller = null;
 
     /**
@@ -86,15 +88,25 @@ public class BalconyScreen extends PassControlPanel
 
         jbGuicheLivre.setFont(new java.awt.Font("Square721 BT", 0, 18)); // NOI18N
         jbGuicheLivre.setText("Guichê Livre");
+        jbGuicheLivre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuicheLivreActionPerformed(evt);
+            }
+        });
         add(jbGuicheLivre);
         jbGuicheLivre.setBounds(950, 410, 260, 120);
 
         jbRepetir.setFont(new java.awt.Font("Square721 BT", 0, 18)); // NOI18N
         jbRepetir.setText("Repetir Chamada");
+        jbRepetir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRepetirActionPerformed(evt);
+            }
+        });
         add(jbRepetir);
         jbRepetir.setBounds(150, 410, 260, 120);
         add(jpSenha);
-        jpSenha.setBounds(500, 100, 370, 240);
+        jpSenha.setBounds(510, 100, 350, 210);
 
         jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_big.png"))); // NOI18N
@@ -114,6 +126,15 @@ public class BalconyScreen extends PassControlPanel
     private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
         controller.performExit();
     }//GEN-LAST:event_jmSairActionPerformed
+
+    private void jbGuicheLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuicheLivreActionPerformed
+        controller.callNextClient();
+        jbRepetir.setEnabled(true);
+    }//GEN-LAST:event_jbGuicheLivreActionPerformed
+
+    private void jbRepetirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRepetirActionPerformed
+        controller.recallNextClient();
+    }//GEN-LAST:event_jbRepetirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbGuicheLivre;
@@ -135,10 +156,18 @@ public class BalconyScreen extends PassControlPanel
         return retorno;
     }
     
-    public void initialize()
+    public void initialize(String balconyID)
     {
         jbRepetir.setVisible(true);
         jbRepetir.setEnabled(false);
         jbGuicheLivre.setVisible(true);        
+        controller.setBalconyID(balconyID);
+    }
+
+    public void showPanelQueueInfo(BalconyCallNextClientResponse response) 
+    {
+        QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getPassNumber());
+        jpSenha.add(queueElementInfoBig);
+        jpSenha.setVisible(true);
     }
 }

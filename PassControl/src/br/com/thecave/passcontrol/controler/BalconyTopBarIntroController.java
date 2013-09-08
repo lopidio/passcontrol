@@ -56,9 +56,9 @@ public class BalconyTopBarIntroController extends PassControlController
         {
             if (response.getStatusOperation())
             {
-                topBarIntro.setEnabled(false);
+                topBarIntro.blockPassControlTopBar();
                 BalconyScreen balconyScreen = (BalconyScreen)Main.getInstance().getMainFrame().getCurrentPassControlPanel();
-                balconyScreen.initialize();
+                balconyScreen.initialize(number);
             }
         }
     }

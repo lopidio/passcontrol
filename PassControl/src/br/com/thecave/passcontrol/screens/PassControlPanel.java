@@ -8,6 +8,7 @@ import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.PassControlController;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
@@ -111,4 +112,15 @@ public abstract class PassControlPanel extends JPanel
         });        
         return jSairMenu;      
     }
+    
+    public void blockPassControlPanel()
+    {
+        //hook
+    }
+
+    public void unblockPassControlPanel()
+    {
+        //hook
+    }
+
 }

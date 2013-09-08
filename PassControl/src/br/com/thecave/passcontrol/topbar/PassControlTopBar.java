@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.PassControlController;
+import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -46,4 +47,15 @@ public class PassControlTopBar  extends JPanel
         return false;
     }    
 
+    
+    
+    public void blockPassControlTopBar()
+    {
+        //hook
+    }
+
+    public void unblockPassControlTopBar()
+    {
+        //hook
+    }    
 }
