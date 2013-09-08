@@ -96,6 +96,7 @@ public class DefaultScreen extends PassControlPanel
             }
         });
         jmServerConfig.add(jmPort);
+        
         retorno.add(jmServerConfig);
         return retorno;
     }

@@ -46,4 +46,9 @@ public abstract class PassControlController implements PassControlMessageListene
     public abstract void setPassControlPanel(JPanel passControlPanel);
     
     public abstract void performBack();
+
+    public void initialize() //Hook
+    {
+        
+    }
 }

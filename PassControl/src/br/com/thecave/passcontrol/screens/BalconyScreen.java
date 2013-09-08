@@ -4,7 +4,6 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controler.AdminController;
 import br.com.thecave.passcontrol.controler.BalconyController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
@@ -134,5 +133,12 @@ public class BalconyScreen extends PassControlPanel
         retorno.add(jmBalcony);
                
         return retorno;
+    }
+    
+    public void initialize()
+    {
+        jbRepetir.setVisible(true);
+        jbRepetir.setEnabled(false);
+        jbGuicheLivre.setVisible(true);        
     }
 }

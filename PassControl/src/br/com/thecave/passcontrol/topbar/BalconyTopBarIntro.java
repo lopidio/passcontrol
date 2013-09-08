@@ -2,6 +2,7 @@ package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.BalconyTopBarIntroController;
 import br.com.thecave.passcontrol.controler.Main;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +21,12 @@ public class BalconyTopBarIntro extends PassControlTopBar
         initComponents();
         balconyTopBarIntroController = (BalconyTopBarIntroController) getPanelController();
         lbNameUser.setText(Main.getInstance().getCurrentUser().getName());
-        
+        jbConfirm.setEnabled(false);
+    }
+    
+    public void enableConfirmButton()
+    {
+        jbConfirm.setEnabled(true);        
     }
 
     /**
@@ -89,6 +95,11 @@ public class BalconyTopBarIntro extends PassControlTopBar
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4" }));
 
         jbConfirm.setText("OK");
+        jbConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConfirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,7 +126,7 @@ public class BalconyTopBarIntro extends PassControlTopBar
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jbConfirm, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 430, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
                 .addComponent(jlConnection)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,6 +178,10 @@ public class BalconyTopBarIntro extends PassControlTopBar
         balconyTopBarIntroController.performLogout();
     }//GEN-LAST:event_lbLogoutMouseClicked
 
+    private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
+        balconyTopBarIntroController.confirmButtonPressed((String)cbNumero.getModel().getSelectedItem(), (String)cbTipo.getModel().getSelectedItem());
+    }//GEN-LAST:event_jbConfirmActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbNumero;
     private javax.swing.JComboBox cbTipo;
@@ -189,5 +204,17 @@ public class BalconyTopBarIntro extends PassControlTopBar
             jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
         else
             jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/offline.png"))); // NOI18N        
+    }
+
+    public void setBalconyTypes(ArrayList<String> balconyTypes) {
+        String[] strCast = new String[balconyTypes.size()];
+        strCast = balconyTypes.toArray(strCast);
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(strCast));
+    }
+
+    public void setBalconyNumbers(ArrayList<String> balconyNumbers) {
+        String[] strCast = new String[balconyNumbers.size()];
+        strCast = balconyNumbers.toArray(strCast);
+        cbNumero.setModel(new javax.swing.DefaultComboBoxModel(strCast));
     }
 }

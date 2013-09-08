@@ -16,24 +16,40 @@ public class BalconyLogin extends PassControlMessage
     /**
      * Número do guichê
      */
-    int selectedBalconyNumber;
+    String number;
     
     /**
      * Índice do tipo de guichê selecionado do array de tipos
      */
-    int selectedBalconyTypeIndex;
+    String balconyType;
 
-    public BalconyLogin(int selectedBalconyNumber, int selectedBalconyTypeIndex) 
+    public BalconyLogin(String number, String balconyType) 
     {
         super(MessageActors.BalconyActor, MessageActors.ServerActor);
-        this.selectedBalconyNumber = selectedBalconyNumber;
-        this.selectedBalconyTypeIndex = selectedBalconyTypeIndex;
+        this.number = number;
+        this.balconyType = balconyType;
     }
 
-    public BalconyLogin(int selectedBalconyNumber, int selectedBalconyTypeIndex, String comment) {
+    public BalconyLogin(String number, String balconyType, String comment) {
         super(MessageActors.BalconyActor, MessageActors.ServerActor, comment);
-        this.selectedBalconyNumber = selectedBalconyNumber;
-        this.selectedBalconyTypeIndex = selectedBalconyTypeIndex;
+        this.number = number;
+        this.balconyType = balconyType;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+    
+    public String getBalconyType() {
+        return balconyType;
+    }
+
+    public void setBalconyType(String balconyType) {
+        this.balconyType = balconyType;
     }
     
     

@@ -88,6 +88,20 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         }
         return retorno;
     }
+    
+    private void displayClientsList()
+    {
+        System.out.println("Número de clientes conectados: " + getNumClients());
+        for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+        {
+            ArrayList<Socket> arrayList = entry.getValue();
+            if (arrayList.size() > 0)
+            {
+                System.out.println(arrayList.size() + " do tipo " + entry.getKey().name());
+            }
+        }        
+        
+    }
 
     @Override
     public void run() 
@@ -99,10 +113,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             //Verifica a necessidade de mandar um heart beat
             if (checkMessageHeartBeat())
             {
-                System.out.println("Número de clientes conectados: " + getNumClients());
+                displayClientsList();
             }
                 
-            
             //Itera por todos os atores de conexão
             for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
             {

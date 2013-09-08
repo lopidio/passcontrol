@@ -22,19 +22,28 @@ public class BalconyInitResponse extends PassControlMessage
     /**
      * números disponíveis para o balcão
      */
-    ArrayList<Integer> balconyNumbers;
+    ArrayList<String> balconyNumbers;
 
-    public BalconyInitResponse(ArrayList<String> balconyTypes, ArrayList<Integer> balconyNumbers) {
+    public BalconyInitResponse(ArrayList<String> balconyTypes, ArrayList<String> balconyNumbers) {
         super(MessageActors.ServerActor, MessageActors.BalconyActor);
         this.balconyTypes = balconyTypes;
         this.balconyNumbers = balconyNumbers;
     }
     
-    public BalconyInitResponse(ArrayList<String> balconyTypes, ArrayList<Integer> balconyNumbers, String comment) {
+    public BalconyInitResponse(ArrayList<String> balconyTypes, ArrayList<String> balconyNumbers, String comment) {
         super(MessageActors.ServerActor, MessageActors.BalconyActor, comment);
         this.balconyTypes = balconyTypes;
         this.balconyNumbers = balconyNumbers;
     }
+
+    public ArrayList<String> getBalconyTypes() {
+        return balconyTypes;
+    }
+
+    public ArrayList<String> getBalconyNumbers() {
+        return balconyNumbers;
+    }
+    
     
     
 }

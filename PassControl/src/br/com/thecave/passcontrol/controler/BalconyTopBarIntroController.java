@@ -4,9 +4,12 @@
  */
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.screens.DefaultScreen;
+import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
-import br.com.thecave.passcontrol.topbar.LoginTopBar;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
+import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import javax.swing.JPanel;
 
 /**
@@ -17,6 +20,21 @@ public class BalconyTopBarIntroController extends PassControlController
 {
     BalconyTopBarIntro topBarIntro = null;
 
+
+    @Override
+    public void initialize() {
+        BalconyInitRequest balconyInitRequest = new BalconyInitRequest();
+        BalconyInitResponse balconyInitResponse = (BalconyInitResponse)Main.getInstance().getCommunicationThread().
+                    sendMessageAndWaitForResponseOrTimeout(balconyInitRequest, "BalconyInitResponse", 1000);
+        
+        if (balconyInitResponse != null)
+        {
+            topBarIntro.setBalconyTypes(balconyInitResponse.getBalconyTypes());
+            topBarIntro.setBalconyNumbers(balconyInitResponse.getBalconyNumbers());
+            topBarIntro.enableConfirmButton();
+        }
+    }
+    
     @Override
     public void setPassControlPanel(JPanel passControlPanel) 
     {
@@ -26,6 +44,23 @@ public class BalconyTopBarIntroController extends PassControlController
     @Override
     public void performBack() 
     {
+    }
+
+    public void confirmButtonPressed(String number, String type) 
+    {
+        BalconyLogin balconyLogin = new BalconyLogin(number, type);
+        ConfirmationResponse response = (ConfirmationResponse)Main.getInstance().getCommunicationThread().
+                    sendMessageAndWaitForResponseOrTimeout(balconyLogin, "ConfirmationResponse", 1000);
+        
+        if (response != null)
+        {
+            if (response.getStatusOperation())
+            {
+                topBarIntro.setEnabled(false);
+                BalconyScreen balconyScreen = (BalconyScreen)Main.getInstance().getMainFrame().getCurrentPassControlPanel();
+                balconyScreen.initialize();
+            }
+        }
     }
 
     //Fluxo:

@@ -114,7 +114,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         {          
             if (listener.hasReceivedMessage())
             {
-                System.out.println("Retorno já foi recebido");
+//                System.out.println("Retorno já foi recebido");
                 retorno = listener.getReceivedMessage();
                 break;
             }
@@ -148,7 +148,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         System.out.println("Mensagem será enviada " + message.getType());
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectOutputStream.writeObject(message);
-        System.out.println("Mensagem enviada com sucesso");
+//        System.out.println("Mensagem enviada com sucesso");
         return true;
     }
     
@@ -181,10 +181,10 @@ public abstract class PassControlCommunicationThread implements Runnable {
      */
     protected PassControlMessage handleIncomingMessage(Socket socket) throws IOException, ClassNotFoundException {
         InputStream inputStream = socket.getInputStream();
-        System.out.println("Mensagem será recebida");
+//        System.out.println("Mensagem será recebida");
         ObjectInputStream input = new ObjectInputStream(inputStream);
         PassControlMessage message = (PassControlMessage) input.readObject();
-        System.out.println("Mensagem recebida com sucesso" + message.getType());
+        System.out.println("Mensagem recebida com sucesso " + message.getType());
         return message;
     }
     

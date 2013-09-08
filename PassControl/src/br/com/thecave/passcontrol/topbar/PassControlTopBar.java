@@ -40,6 +40,7 @@ public class PassControlTopBar  extends JPanel
         if (panelController != null)
         {
             panelController.setPassControlPanel(this);
+            panelController.initialize();            
             return true;
         }
         return false;

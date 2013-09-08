@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.thecave.passcontrolserver.messagelisteners.administrator;
+package br.com.thecave.passcontrolserver.messagelisteners.nongeneric;
 
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;

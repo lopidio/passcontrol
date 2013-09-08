@@ -6,8 +6,9 @@ package br.com.thecave.passcontrolserver;
 
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLoginRequest;
-import br.com.thecave.passcontrolserver.messagelisteners.administrator.ClientAdministratorListeners;
+import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientLoginMessageListener;
+import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,7 @@ public class PassControlServer {
         ServerCommunicationThread server = getInstance().server;
         // Cadastra os listeners relativos às mensagens do administrador
         ClientAdministratorListeners.addListenersCallback();
+        ClientBalconyListeners.addListenersCallback();
         server.addMessageListener(new ClientLoginMessageListener(), "ClientLoginRequest");
         new Thread(server).start();
     }

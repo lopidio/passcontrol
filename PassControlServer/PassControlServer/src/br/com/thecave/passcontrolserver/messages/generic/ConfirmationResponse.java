@@ -21,7 +21,7 @@ public class ConfirmationResponse extends PassControlMessage
     }
 
 
-    public boolean isStatusOperation() {
+    public boolean getStatusOperation() {
         return statusOperation;
     }
 
