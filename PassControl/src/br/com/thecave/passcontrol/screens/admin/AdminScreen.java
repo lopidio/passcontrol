@@ -267,9 +267,11 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmGuicheActionPerformed
 
     private void jmUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserActionPerformed
+        controller.openUserCrud();
     }//GEN-LAST:event_jmUserActionPerformed
 
     private void jmServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmServicosActionPerformed
+        controller.openServiceCrud();
     }//GEN-LAST:event_jmServicosActionPerformed
 
     private void jmTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTiposActionPerformed
