@@ -39,6 +39,10 @@ public class ButtonsModulesScreen extends PassControlPanel
         super("Sistema Gerenciador de Filas", new ButtonModulesController());
         modulesController = (ButtonModulesController) getPanelController();
         initComponents();
+        
+        verifyPermissions();
+        
+
     }
 
     /**
@@ -74,6 +78,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         jmAdmin.setMnemonic('a');
         jmAdmin.setText("Administrador");
+        jmAdmin.setEnabled(false);
         jmAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmAdminActionPerformed(evt);
@@ -84,6 +89,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
         jmGuiche.setMnemonic('g');
         jmGuiche.setText("Guichês");
+        jmGuiche.setEnabled(false);
         jmGuiche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmGuicheActionPerformed(evt);
@@ -94,6 +100,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmViewer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmViewer.setMnemonic('v');
         jmViewer.setText("Visualizador");
+        jmViewer.setEnabled(false);
         jmViewer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmViewerActionPerformed(evt);
@@ -104,6 +111,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmQueuePush.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
         jmQueuePush.setMnemonic('d');
         jmQueuePush.setText("Adicionar");
+        jmQueuePush.setEnabled(false);
         jmQueuePush.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmQueuePushActionPerformed(evt);
@@ -114,6 +122,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmQueuePop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
         jmQueuePop.setMnemonic('r');
         jmQueuePop.setText("Remover");
+        jmQueuePop.setEnabled(false);
         jmQueuePop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmQueuePopActionPerformed(evt);
@@ -124,6 +133,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         jmConfig.setMnemonic('c');
         jmConfig.setText("Configurações");
+        jmConfig.setEnabled(false);
         jmConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmConfigActionPerformed(evt);
@@ -166,6 +176,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         setBackground(new java.awt.Color(255, 255, 255));
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
+        jbBalcony.setEnabled(false);
         jbBalcony.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBalconyActionPerformed(evt);
@@ -173,6 +184,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/viewer_button.png"))); // NOI18N
+        jbViewer.setEnabled(false);
         jbViewer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbViewerActionPerformed(evt);
@@ -180,6 +192,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
+        jbAdd.setEnabled(false);
         jbAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAddActionPerformed(evt);
@@ -187,6 +200,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/config_button.png"))); // NOI18N
+        jbConfig.setEnabled(false);
         jbConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbConfigActionPerformed(evt);
@@ -194,6 +208,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
+        jbAdmin.setEnabled(false);
         jbAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAdminActionPerformed(evt);
@@ -201,6 +216,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
+        jbRemove.setEnabled(false);
         jbRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRemoveActionPerformed(evt);
@@ -353,6 +369,41 @@ public class ButtonsModulesScreen extends PassControlPanel
     private void openConfig() 
     {
         Main.getInstance().getMainFrame().activatePassControlPanel(new ConfigScreen());
+    }
+
+    private void verifyPermissions() 
+    {
+        int permissionCode = Main.getInstance().getCurrentUser().getType();
+        if ((permissionCode & 1) == 1)// É capaz de entrar na opção jbAdmin
+        {
+            jbAdmin.setEnabled(true);
+            jmAdmin.setEnabled(true);
+        }
+        if ((permissionCode & 2) == 2)// É capaz de entrar na opção jbBalcony
+        {
+            jbBalcony.setEnabled(true);
+            jmGuiche.setEnabled(true);
+        }
+        if ((permissionCode & 4) == 4)// É capaz de entrar na opção jbViewer
+        {
+            jbViewer.setEnabled(true);
+            jmViewer.setEnabled(true);
+        }
+        if ((permissionCode & 8) == 8)// É capaz de entrar na opção jbAdd
+        {
+            jbAdd.setEnabled(true);
+            jmQueuePush.setEnabled(true);
+        }
+        if ((permissionCode & 16) == 16)// É capaz de entrar na opção jbRemove
+        {
+            jbRemove.setEnabled(true);
+            jmQueuePop.setEnabled(true);
+        }
+        if ((permissionCode & 32) == 32)// É capaz de entrar na opção jbConfig
+        {
+            jbConfig.setEnabled(true);
+            jmConfig.setEnabled(true);
+        }
     }
 
     

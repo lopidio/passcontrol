@@ -97,32 +97,32 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         finalizeConnection();
     }
     //REGIÃO DE TESTES
-    public static void main(String[] args) {
-            ClientCommunicationThread me = new ClientCommunicationThread("127.0.0.1", 23073);
-            new Thread(me).start();
-        
-            ClientLoginRequest initRequest = new ClientLoginRequest(MessageActors.AdministratorActor, "guigui", "123456senha");
-
-            ClientLoginResponse initResponse = (ClientLoginResponse)me.sendMessageAndWaitForResponseOrTimeout
-                    (initRequest, ClientLoginResponse.class.getSimpleName(), 30*1000);
-
-            if (initResponse != null)
-            {
-                if (initResponse.getUser() != null)
-                {
-                    System.out.println("PermissionCode: " + initResponse.getUser().getType());
-                    System.out.println("Status login: true");
-                }
-                else
-                {
-                    System.out.println("Usuário e senha incompatíveis");
-                }
-            }
-            else
-                System.out.println("TIME OUT!");
-            me.stop();
-            System.out.println("Fim execução cliente");
-    }
+//    public static void main(String[] args) {
+//            ClientCommunicationThread me = new ClientCommunicationThread("127.0.0.1", 23073);
+//            new Thread(me).start();
+//        
+//            ClientLoginRequest initRequest = new ClientLoginRequest(MessageActors.AdministratorActor, "guigui", "123456senha");
+//
+//            ClientLoginResponse initResponse = (ClientLoginResponse)me.sendMessageAndWaitForResponseOrTimeout
+//                    (initRequest, ClientLoginResponse.class.getSimpleName(), 30*1000);
+//
+//            if (initResponse != null)
+//            {
+//                if (initResponse.getUser() != null)
+//                {
+//                    System.out.println("PermissionCode: " + initResponse.getUser().getType());
+//                    System.out.println("Status login: true");
+//                }
+//                else
+//                {
+//                    System.out.println("Usuário e senha incompatíveis");
+//                }
+//            }
+//            else
+//                System.out.println("TIME OUT!");
+//            me.stop();
+//            System.out.println("Fim execução cliente");
+//    }
     //FIM DA REGIÃO DE TESTES
     
     @Override
@@ -141,6 +141,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     onChangeStatusConnection();                                                        
                     System.out.println("Conexão estabelecida");
                 }
+                onChangeStatusConnection();                                                        
+                
                 InputStream inputStream = socket.getInputStream();
                 
                 //O cliente está sempre escutando o socket

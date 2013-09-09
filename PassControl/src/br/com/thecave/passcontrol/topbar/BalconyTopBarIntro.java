@@ -46,7 +46,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lblUser = new javax.swing.JLabel();
         lbNameUser = new javax.swing.JLabel();
         lbLogout = new javax.swing.JLabel();
-        jlConnection = new javax.swing.JLabel();
         lbTipo = new javax.swing.JLabel();
         lbNumero = new javax.swing.JLabel();
         cbNumero = new javax.swing.JComboBox();
@@ -89,9 +88,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
         });
         add(lbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1288, 108, -1, -1));
 
-        jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
-        add(jlConnection, new org.netbeans.lib.awtextra.AbsoluteConstraints(1217, 3, -1, -1));
-
         lbTipo.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbTipo.setForeground(new java.awt.Color(255, 255, 255));
         lbTipo.setText("Tipo do Guichê:");
@@ -130,7 +126,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
     private javax.swing.JComboBox cbTipo;
     private javax.swing.JButton jbConfirm;
     private javax.swing.JLabel jlBarra;
-    private javax.swing.JLabel jlConnection;
     private javax.swing.JLabel jlIcon;
     private javax.swing.JLabel jlName;
     private javax.swing.JLabel lbLogout;
@@ -139,15 +134,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
     private javax.swing.JLabel lbTipo;
     private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
-
-    public void setConnectionIcon(boolean connectionStatus) 
-    {
-        //Altero a cor do ícone de conexão
-        if (connectionStatus)
-            jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
-        else
-            jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/offline.png"))); // NOI18N        
-    }
 
     public void setBalconyTypes(ArrayList<String> balconyTypes) {
         String[] strCast = new String[balconyTypes.size()];
