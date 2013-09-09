@@ -5,7 +5,8 @@
 package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controler.PassControlController;
-import java.awt.Component;
+import br.com.thecave.passcontrol.screens.PanelConnectionInfo;
+import java.awt.Point;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -58,4 +59,14 @@ public class PassControlTopBar  extends JPanel
     {
         //hook
     }    
+    
+    /**
+     * Atentar para que o layout seja o ABSOLUTO
+     */
+    protected void addPanelConnectionInfo()
+    {
+        
+        PanelConnectionInfo panelConnectionInfo = new PanelConnectionInfo();
+        add(panelConnectionInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(new Point(0,0)));        
+    }
 }

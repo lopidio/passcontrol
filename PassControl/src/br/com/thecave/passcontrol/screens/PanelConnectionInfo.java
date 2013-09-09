@@ -6,6 +6,7 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;
+import java.net.URL;
 
 /**
  *
@@ -13,19 +14,38 @@ import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionList
  */
 public class PanelConnectionInfo extends javax.swing.JLabel implements StatusConnectionListener{
 
+    private static boolean lastStatusConnection = false;
+    private static URL offlineIcon = null;
+    private static URL onlineIcon = null;
+    
+    private void changePicture() 
+    {
+        //Altero a cor do ícone de conexão
+        if (lastStatusConnection)
+        {
+            setIcon(new javax.swing.ImageIcon(onlineIcon)); // NOI18N
+        }
+        else
+        {
+            setIcon(new javax.swing.ImageIcon(offlineIcon)); // NOI18N        
+        }
+    }
+
     @Override
     public void onChangeConnection(boolean connectionStatus) 
     {
         //Altero a cor do ícone de conexão
         if (connectionStatus)
         {
+            lastStatusConnection = true;
             Main.getInstance().getMainFrame().enableControlPanel();
-            setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
+            changePicture();
         }
         else
         {
+            lastStatusConnection = false;
             Main.getInstance().getMainFrame().disableControlPanel();            
-            setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/offline.png"))); // NOI18N        
+            changePicture();
         }
     }
 
@@ -34,6 +54,12 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
      */
     public PanelConnectionInfo() {
         initComponents();
+
+        if (offlineIcon == null)
+            offlineIcon = getClass().getResource("/resources/offline.png");
+        if (onlineIcon == null)
+            onlineIcon = getClass().getResource("/resources/online.png");
+        changePicture();        
     }
 
     /**

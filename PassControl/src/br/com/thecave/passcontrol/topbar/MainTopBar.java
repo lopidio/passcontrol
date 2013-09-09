@@ -20,6 +20,7 @@ public class MainTopBar extends PassControlTopBar
         initComponents();
         mainTopBarController = (MainTopBarController) getPanelController();
         lbNameUser.setText(Main.getInstance().getCurrentUser().getName());
+        addPanelConnectionInfo();
         
     }
 
@@ -38,77 +39,42 @@ public class MainTopBar extends PassControlTopBar
         lblUser = new javax.swing.JLabel();
         lbNameUser = new javax.swing.JLabel();
         lbLogout = new javax.swing.JLabel();
-        jlConnection = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 153, 191));
         setForeground(new java.awt.Color(0, 153, 191));
         setPreferredSize(new java.awt.Dimension(1376, 128));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+        add(jlIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 3, 106, 122));
 
         jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
+        add(jlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 3, -1, 122));
 
         jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
+        add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 3, 222, 122));
 
         lblUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lblUser.setForeground(new java.awt.Color(255, 255, 255));
         lblUser.setText("Usuário:");
+        add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(1245, 3, -1, 22));
 
         lbNameUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbNameUser.setForeground(new java.awt.Color(255, 255, 255));
         lbNameUser.setText("Isso ira mudar");
+        add(lbNameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(1245, 31, -1, -1));
 
         lbLogout.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbLogout.setForeground(new java.awt.Color(255, 255, 255));
         lbLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
         lbLogout.setText("Logout");
-        lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbLogoutMouseClicked(evt);
             }
         });
-
-        jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jlIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 849, Short.MAX_VALUE)
-                .addComponent(jlConnection)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNameUser, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbLogout, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblUser))
-                .addGap(19, 19, 19))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jlConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbNameUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbLogout))
-                    .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
-        );
+        add(lbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1288, 108, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoutMouseClicked
@@ -117,7 +83,6 @@ public class MainTopBar extends PassControlTopBar
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlBarra;
-    private javax.swing.JLabel jlConnection;
     private javax.swing.JLabel jlIcon;
     private javax.swing.JLabel jlName;
     private javax.swing.JLabel lbLogout;
@@ -125,12 +90,5 @@ public class MainTopBar extends PassControlTopBar
     private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
 
-    public void setConnectionIcon(boolean connectionStatus) 
-    {
-        //Altero a cor do ícone de conexão
-        if (connectionStatus)
-            jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/online.png"))); // NOI18N
-        else
-            jlConnection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/offline.png"))); // NOI18N        
-    }
+
 }

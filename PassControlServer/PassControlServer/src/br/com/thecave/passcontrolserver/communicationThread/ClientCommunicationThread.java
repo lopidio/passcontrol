@@ -21,6 +21,8 @@ import java.util.logging.Logger;
  */
 public class ClientCommunicationThread extends PassControlCommunicationThread {
 
+    boolean connectionStatus = false;
+    
     /**
      * Lista de escutadores de status da conexão
      */
@@ -135,8 +137,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                 if (socket == null || socket.isClosed()) 
                 {
                     //Tenta estabelecer uma conexão
-                    socket = new Socket(serverIP, port);      
-                    onChangeStatusConnection();                    
+                    socket = new Socket(serverIP, port);   
+                    onChangeStatusConnection();                                                        
                     System.out.println("Conexão estabelecida");
                 }
                 InputStream inputStream = socket.getInputStream();
@@ -175,9 +177,13 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     private void onChangeStatusConnection()
     {
         boolean connectionOff = (socket != null && !socket.isClosed());
-        for (StatusConnectionListener statusConnectionListener : statusConnectionListeners) 
+        if (connectionOff != connectionStatus)
         {
-            statusConnectionListener.onChangeConnection(connectionOff);
+            for (StatusConnectionListener statusConnectionListener : statusConnectionListeners) 
+            {
+                statusConnectionListener.onChangeConnection(connectionOff);
+            }
+            connectionStatus = connectionOff;
         }
     }
     

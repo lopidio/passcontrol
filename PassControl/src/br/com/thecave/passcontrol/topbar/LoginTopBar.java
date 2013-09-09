@@ -22,9 +22,7 @@ public class LoginTopBar extends PassControlTopBar
         initComponents();
         jlbErrorSenha.setVisible(false);
         jlErrorLogin.setVisible(false);
-        
-        PanelConnectionInfo panelConnectionInfo = new PanelConnectionInfo();
-        add(panelConnectionInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(new Point(0,0)));
+        addPanelConnectionInfo();
     }
     
     public void incorrectUser()
