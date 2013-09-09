@@ -8,6 +8,7 @@ import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.PassControlController;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
@@ -72,7 +73,7 @@ public abstract class PassControlPanel extends JPanel
         JMenuItem jVoltarMenu = new JMenuItem();
         jVoltarMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_BACK_SPACE, java.awt.event.InputEvent.ALT_MASK));
         jVoltarMenu.setMnemonic('\b');
-        jVoltarMenu.setText("Porta");        
+        jVoltarMenu.setText("Voltar");        
         jVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +95,8 @@ public abstract class PassControlPanel extends JPanel
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Main.getInstance().getMainFrame().activatePassControlPanel(new DefaultScreen());
                 Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
+                //Informa ao servidor que o usuário realizou logoff
+                Main.getInstance().getCommunicationThread().addBroadcastToSend(new ClientLogoff());
             }
         });        
         return jLogoffMenu;      

@@ -330,4 +330,8 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         }
         return false;
     }
+
+    private int getNextClientID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

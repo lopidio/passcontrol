@@ -14,7 +14,7 @@ public class ClientLoginResponse extends PassControlMessage
 {
     UserBean user;
 
-    public ClientLoginResponse(UserBean user,MessageActors to) {
+    public ClientLoginResponse(UserBean user, MessageActors to) {
         super(MessageActors.ServerActor, to);
         this.user = user;
     }

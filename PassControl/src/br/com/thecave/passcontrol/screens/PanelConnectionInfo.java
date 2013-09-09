@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;
 import java.net.URL;
 
@@ -33,17 +34,16 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
 
     @Override
     public void onChangeConnection(boolean connectionStatus) 
-    {
+    {       
         //Altero a cor do ícone de conexão
+        lastStatusConnection = connectionStatus;
         if (connectionStatus)
         {
-            lastStatusConnection = true;
             Main.getInstance().getMainFrame().enableControlPanel();
             changePicture();
         }
         else
         {
-            lastStatusConnection = false;
             Main.getInstance().getMainFrame().disableControlPanel();            
             changePicture();
         }
@@ -52,7 +52,9 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     /**
      * Creates new form PanelConnectionInfo
      */
-    public PanelConnectionInfo() {
+    public PanelConnectionInfo() 
+    {
+       
         initComponents();
 
         if (offlineIcon == null)
@@ -90,7 +92,11 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     }// </editor-fold>//GEN-END:initComponents
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
-        Main.getInstance().getCommunicationThread().addStatusConnectionListeners(this);
+    
+        ClientCommunicationThread clientCommunicationThread = Main.getInstance().getCommunicationThread();
+        clientCommunicationThread.addStatusConnectionListeners(this);
+        lastStatusConnection = clientCommunicationThread.getConnectionStatus();
+        changePicture();
     }//GEN-LAST:event_formAncestorAdded
 
     private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved

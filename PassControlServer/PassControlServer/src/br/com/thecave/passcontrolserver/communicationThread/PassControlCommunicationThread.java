@@ -97,7 +97,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
      * 
      * @param message Mensagem a ser enviada
      * @param typeToListenTo Tipo da resposta esperado
-     * @param timeout Tempo de espera (em milissegundos)
+     * @param timeout Tempo de espera (em milissegundos) (se não positivo, espera infinitamente)
      * @return Mensagem esperada ou null
      */
     public PassControlMessage sendMessageAndWaitForResponseOrTimeout(PassControlMessage message, String typeToListenTo, long timeout)
@@ -105,12 +105,14 @@ public abstract class PassControlCommunicationThread implements Runnable {
         PassControlMessage retorno = null;
         GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
 
-        Watchdog timeOutWatcher = new Watchdog(timeout);
+        Watchdog timeOutWatcher = null;
+        if (timeout > 0)
+            timeOutWatcher = new Watchdog(timeout);
 
         addMessageListener(listener, typeToListenTo);
         addBroadcastToSend(message);
-        int x = 0;
-        while (!timeOutWatcher.hasTimedOut())
+        while (timeOutWatcher == null || //Espera infinitamente (Curto-circiuto)
+                !timeOutWatcher.hasTimedOut()) //Se a espera não for infinita...
         {          
             if (listener.hasReceivedMessage())
             {

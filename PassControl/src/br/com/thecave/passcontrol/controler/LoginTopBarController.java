@@ -40,6 +40,8 @@ public class LoginTopBarController extends PassControlController
                 mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
                 mainFrame.activatePassControlTopBar(new MainTopBar());
                 
+          //TODO: remover SQL injection
+                
 //        
 //        Main main = Main.getInstance();
 //        ClientLoginRequest initRequest = new 

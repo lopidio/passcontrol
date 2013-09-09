@@ -4,8 +4,6 @@
  */
 package br.com.thecave.passcontrolserver.communicationThread;
 
-import br.com.thecave.passcontrolserver.messages.generic.ClientLoginRequest;
-import br.com.thecave.passcontrolserver.messages.generic.ClientLoginResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.io.IOException;
@@ -136,12 +134,12 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             {
                 if (socket == null || socket.isClosed()) 
                 {
+                    connectionStatus = false;
                     //Tenta estabelecer uma conexão
-                    socket = new Socket(serverIP, port);   
-                    onChangeStatusConnection();                                                        
+                    socket = new Socket(serverIP, port); 
                     System.out.println("Conexão estabelecida");
+                    onChangeStatusConnection();                                                        
                 }
-                onChangeStatusConnection();                                                        
                 
                 InputStream inputStream = socket.getInputStream();
                 
@@ -196,6 +194,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     {
         try 
         {
+            connectionStatus = false;
             //System.out.println("Conexão do cliente encerrada");
             if (socket != null)
                 socket.close();
@@ -208,4 +207,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             socket = null;
         }        
     }
+
+    public boolean getConnectionStatus() {
+        return connectionStatus;
+    }
+    
+    
 }

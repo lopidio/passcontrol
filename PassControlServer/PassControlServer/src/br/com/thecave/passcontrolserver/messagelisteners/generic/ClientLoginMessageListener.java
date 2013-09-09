@@ -23,7 +23,7 @@ public class ClientLoginMessageListener implements PassControlMessageListener
     public void onMessageReceive(PassControlMessage message, Socket socket) 
     {
         ClientLoginRequest initRequest = (ClientLoginRequest)message;
-
+      
         //Inicializa com uma mensagem default
         ClientLoginResponse response = new ClientLoginResponse(null, message.getFrom());
 
