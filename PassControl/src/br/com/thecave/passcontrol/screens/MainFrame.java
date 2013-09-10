@@ -273,7 +273,6 @@ public final class MainFrame extends javax.swing.JFrame {
         activatePassControlTopBar(new LoginTopBar());
         setEnableNavigatorMenu(false);                      
         //Informa ao servidor que o usuário realizou logoff
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ClientLogoff());   
         Main.getInstance().logoff();
     }
     

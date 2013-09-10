@@ -9,12 +9,15 @@ import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;
 import java.net.URL;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  * @author guilherme
  */
-public class PanelConnectionInfo extends javax.swing.JLabel implements StatusConnectionListener{
+public class PanelConnectionInfo extends javax.swing.JLabel implements StatusConnectionListener
+{
 
     private static boolean lastStatusConnection = false;
     private static URL offlineIcon = null;
@@ -69,7 +72,7 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
             offlineIcon = getClass().getResource("/resources/offline.png");
         if (onlineIcon == null)
             onlineIcon = getClass().getResource("/resources/online.png");
-        changePicture();        
+        changePicture();          
     }
 
     /**
@@ -84,6 +87,11 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
         setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/offline.png"))); // NOI18N
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setName("jLabel"); // NOI18N
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -108,6 +116,29 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
         // TODO add your handling code here:
         Main.getInstance().getCommunicationThread().removeStatusConnectionListener(this);
     }//GEN-LAST:event_formAncestorRemoved
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        if (Main.getInstance().getCommunicationThread().getConnectionInstant() != null)
+        {
+
+            Date now = new Date();
+
+            long diffInMillies = now.getTime() - Main.getInstance().getCommunicationThread().getConnectionInstant().getTime();
+            int seconds = (int) (diffInMillies/1000);
+            int minutes = seconds/60;
+            seconds %= 60;
+
+            setToolTipText("Conectado. Duração da conexão: " + minutes + "m" + seconds + "s");
+            lastStatusConnection = true;
+        }
+        else
+        {
+            lastStatusConnection = false;            
+            setToolTipText("Não conectado");
+        }
+        
+        changePicture();
+    }//GEN-LAST:event_formMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

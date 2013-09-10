@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,15 @@ import java.util.logging.Logger;
  */
 public class ClientCommunicationThread extends PassControlCommunicationThread {
 
+    
+    /**
+     * Informa o momento em que a conexão foi fechada
+     */
+    Date connectionInstant = null;
+    
+    /**
+     * Informa o status da conexão
+     */
     boolean connectionStatus = false;
     
     /**
@@ -137,6 +147,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     //Tenta estabelecer uma conexão
                     socket = null;
                     socket = new Socket(serverIP, port); 
+                    connectionInstant = new Date();
                     System.out.println("Conexão estabelecida");
                     onChangeStatusConnection();                                                        
                 }
@@ -201,6 +212,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         }
         finally
         {
+            connectionInstant = null;
             onChangeStatusConnection();                            
             socket = null;
         }        
@@ -208,6 +220,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
 
     public boolean getConnectionStatus() {
         return connectionStatus;
+    }
+
+    public Date getConnectionInstant() {
+        return connectionInstant;
     }
     
     

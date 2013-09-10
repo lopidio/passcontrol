@@ -146,7 +146,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
             throw new IOException("Null socket");
         
         refreshHeartbeat(message.getFrom());
-        if (message.getType().equals("HeartBeatMessage"))
+        if (!message.getType().equals("HeartBeatMessage"))
             System.out.println("Mensagem será enviada " + message.getType());
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectOutputStream.writeObject(message);

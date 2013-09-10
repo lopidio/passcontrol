@@ -4,6 +4,7 @@ import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationT
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -110,6 +111,7 @@ public class Main
 
     public void logoff() 
     {
+        communicationThread.addBroadcastToSend(new ClientLogoff());           
         setCurrentUser(null);
     }
 }
