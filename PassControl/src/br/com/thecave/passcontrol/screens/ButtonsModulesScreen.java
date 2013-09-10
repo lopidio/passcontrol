@@ -44,7 +44,8 @@ public class ButtonsModulesScreen extends PassControlPanel
         initComponents();
         
         verifyPermissions();
-        Main.getInstance().getMainFrame().setEnableNavigatorMenu(true);              
+        Main.getInstance().getMainFrame().setEnableNavigatorMenu(true); 
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.NotIdentified));        
 
     }
 
@@ -64,11 +65,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmQueuePush = new javax.swing.JMenuItem();
         jmQueuePop = new javax.swing.JMenuItem();
         jmConfig = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jmVoltar = new javax.swing.JMenuItem();
-        jmLogout = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jmSair = new javax.swing.JMenuItem();
         jbBalcony = new javax.swing.JButton();
         jbViewer = new javax.swing.JButton();
         jbAdd = new javax.swing.JButton();
@@ -143,38 +139,6 @@ public class ButtonsModulesScreen extends PassControlPanel
             }
         });
         jmModules.add(jmConfig);
-        jmModules.add(jSeparator1);
-
-        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jmVoltar.setMnemonic('v');
-        jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmVoltarActionPerformed(evt);
-            }
-        });
-        jmModules.add(jmVoltar);
-
-        jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        jmLogout.setMnemonic('l');
-        jmLogout.setText("Log Out");
-        jmLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmLogoutActionPerformed(evt);
-            }
-        });
-        jmModules.add(jmLogout);
-        jmModules.add(jSeparator2);
-
-        jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jmSair.setMnemonic('s');
-        jmSair.setText("Sair");
-        jmSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmSairActionPerformed(evt);
-            }
-        });
-        jmModules.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -310,21 +274,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         openConfig();
     }//GEN-LAST:event_jmConfigActionPerformed
 
-    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
-        modulesController.performBack();
-    }//GEN-LAST:event_jmVoltarActionPerformed
-
-    private void jmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoutActionPerformed
-       modulesController.performLogout();
-    }//GEN-LAST:event_jmLogoutActionPerformed
-
-    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jmSairActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JButton jbAdd;
     private javax.swing.JButton jbAdmin;
     private javax.swing.JButton jbBalcony;
@@ -334,13 +284,10 @@ public class ButtonsModulesScreen extends PassControlPanel
     private javax.swing.JMenuItem jmAdmin;
     private javax.swing.JMenuItem jmConfig;
     private javax.swing.JMenuItem jmGuiche;
-    private javax.swing.JMenuItem jmLogout;
     private javax.swing.JMenu jmModules;
     private javax.swing.JMenuItem jmQueuePop;
     private javax.swing.JMenuItem jmQueuePush;
-    private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmViewer;
-    private javax.swing.JMenuItem jmVoltar;
     // End of variables declaration//GEN-END:variables
 
     private void openAdmin() 

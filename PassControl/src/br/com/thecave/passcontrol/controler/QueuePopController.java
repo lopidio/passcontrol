@@ -18,11 +18,5 @@ public class QueuePopController extends PassControlController
     {
         this.screen = (QueuePopScreen) passControlPanel;
     }
-
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ButtonsModulesScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }    
+    
 }

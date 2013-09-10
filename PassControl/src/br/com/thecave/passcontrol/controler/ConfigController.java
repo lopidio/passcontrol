@@ -19,11 +19,4 @@ public class ConfigController extends PassControlController
         this.screen = (ConfigScreen) passControlPanel;
     }
 
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ButtonsModulesScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }
-    
 }

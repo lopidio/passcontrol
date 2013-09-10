@@ -19,10 +19,4 @@ public class ViewerController extends PassControlController
         this.screen = (ViewerScreen) passControlPanel;
     }    
 
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ButtonsModulesScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }
 }

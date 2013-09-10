@@ -23,10 +23,4 @@ public class ButtonModulesController extends PassControlController
         this.modulesScreen = (ButtonsModulesScreen)passControlPanel;
     }    
 
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new DefaultScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
-    } 
 }

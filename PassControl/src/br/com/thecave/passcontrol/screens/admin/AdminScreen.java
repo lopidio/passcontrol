@@ -43,11 +43,6 @@ public class AdminScreen extends PassControlPanel
         jmUser = new javax.swing.JMenuItem();
         jmServicos = new javax.swing.JMenuItem();
         jmTipos = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jmVoltar = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jmLogOut = new javax.swing.JMenuItem();
-        jmSair = new javax.swing.JMenuItem();
         jmImagem = new javax.swing.JMenu();
         jmAlterImage = new javax.swing.JMenuItem();
         jmApresentacao = new javax.swing.JMenu();
@@ -104,38 +99,6 @@ public class AdminScreen extends PassControlPanel
             }
         });
         jmBaseDados.add(jmTipos);
-        jmBaseDados.add(jSeparator1);
-
-        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jmVoltar.setMnemonic('v');
-        jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmVoltarActionPerformed(evt);
-            }
-        });
-        jmBaseDados.add(jmVoltar);
-        jmBaseDados.add(jSeparator2);
-
-        jmLogOut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        jmLogOut.setMnemonic('l');
-        jmLogOut.setText("Log Out");
-        jmLogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmLogOutActionPerformed(evt);
-            }
-        });
-        jmBaseDados.add(jmLogOut);
-
-        jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jmSair.setMnemonic('s');
-        jmSair.setText("Sair");
-        jmSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmSairActionPerformed(evt);
-            }
-        });
-        jmBaseDados.add(jmSair);
 
         jmImagem.setMnemonic('I');
         jmImagem.setText("Imagem           ");
@@ -278,18 +241,6 @@ public class AdminScreen extends PassControlPanel
     private void jmTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTiposActionPerformed
     }//GEN-LAST:event_jmTiposActionPerformed
 
-    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
-        controller.performBack();
-    }//GEN-LAST:event_jmVoltarActionPerformed
-
-    private void jmLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogOutActionPerformed
-        controller.performLogout();
-    }//GEN-LAST:event_jmLogOutActionPerformed
-
-    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jmSairActionPerformed
-
     private void jmAlterImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterImageActionPerformed
     }//GEN-LAST:event_jmAlterImageActionPerformed
 
@@ -315,8 +266,6 @@ public class AdminScreen extends PassControlPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JInternalFrame ifGuiche;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel jlImage;
     private javax.swing.JMenuItem jmAddImage;
     private javax.swing.JMenuItem jmAlterImage;
@@ -328,14 +277,11 @@ public class AdminScreen extends PassControlPanel
     private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmImagem;
     private javax.swing.JMenuItem jmListImages;
-    private javax.swing.JMenuItem jmLogOut;
     private javax.swing.JMenuItem jmManual;
     private javax.swing.JMenuItem jmRemoveImages;
-    private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmServicos;
     private javax.swing.JMenuItem jmTipos;
     private javax.swing.JMenuItem jmUser;
-    private javax.swing.JMenuItem jmVoltar;
     // End of variables declaration//GEN-END:variables
 
     @Override

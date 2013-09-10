@@ -124,7 +124,7 @@ public class BalconyCrud extends PassControlPanel
     @Override
     public ArrayList<JMenu> createMenuItems() 
     {
-        ArrayList<JMenu> ret = new ArrayList<JMenu>();
+        ArrayList<JMenu> ret = new ArrayList<>();
         ret.add(jmBalconyCrud);
         return ret;
     }

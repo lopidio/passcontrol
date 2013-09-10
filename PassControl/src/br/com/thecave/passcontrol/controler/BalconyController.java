@@ -30,13 +30,6 @@ public class BalconyController extends PassControlController
         this.screen = (BalconyScreen) passControlPanel;
     }    
 
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ButtonsModulesScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }  
-
     public void recallNextClient() 
     {
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyID);

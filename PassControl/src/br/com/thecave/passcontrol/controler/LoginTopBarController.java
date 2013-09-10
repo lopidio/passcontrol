@@ -74,9 +74,5 @@ public class LoginTopBarController extends PassControlController
         //Simples assim
         Main.getInstance().getMainFrame().activatePassControlTopBar(new ResetTopBar());
     }
-
-    @Override
-    public void performBack() {
-    }
     
 }

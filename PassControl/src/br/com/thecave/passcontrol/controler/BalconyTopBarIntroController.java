@@ -41,11 +41,6 @@ public class BalconyTopBarIntroController extends PassControlController
         topBarIntro = (BalconyTopBarIntro)passControlPanel;
     }   
 
-    @Override
-    public void performBack() 
-    {
-    }
-
     public void confirmButtonPressed(String number, String type) 
     {
         BalconyLogin balconyLogin = new BalconyLogin(number, type);

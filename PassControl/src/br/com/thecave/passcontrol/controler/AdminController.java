@@ -20,12 +20,6 @@ public class AdminController extends PassControlController
         this.adminScreen = (AdminScreen) passControlPanel;
     }    
 
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ButtonsModulesScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }
 
     public void openBalconyCrud() 
     {

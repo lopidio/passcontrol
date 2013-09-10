@@ -4,15 +4,10 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.PassControlController;
-import br.com.thecave.passcontrol.topbar.LoginTopBar;
-import br.com.thecave.passcontrol.topbar.MainTopBar;
-import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
@@ -41,10 +36,14 @@ public abstract class PassControlPanel extends JPanel
     }
     
     /**
-     * Adiciona seus campos ao menu principal
+     * Adiciona seus campos ao menu principal (vazio, por default)
      * @return 
      */
-    public abstract ArrayList<JMenu> createMenuItems();
+    public ArrayList<JMenu> createMenuItems()
+    {
+        ArrayList<JMenu> retorno = new ArrayList<>();
+        return retorno;
+    }
 
     public PassControlController getPanelController() {
         return panelController;

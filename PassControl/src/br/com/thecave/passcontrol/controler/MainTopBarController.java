@@ -16,10 +16,5 @@ public class MainTopBarController extends PassControlController
     {
         mainTopBar = (MainTopBar)passControlPanel;
     }  
-    
-    @Override
-    public void performBack() 
-    {
-        
-    }    
+ 
 }

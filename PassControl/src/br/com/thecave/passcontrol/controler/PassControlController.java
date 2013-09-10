@@ -31,22 +31,9 @@ public abstract class PassControlController implements PassControlMessageListene
     public void onMessageReceive(PassControlMessage message, Socket socket) {
         //hook
     }   
-    
-    public void performLogout()
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new DefaultScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
-    }
-    
-    public void performExit()
-    {
-        System.exit(0);
-    }
-    
+
     public abstract void setPassControlPanel(JPanel passControlPanel);
     
-    public abstract void performBack();
-
     public void initialize() //Hook
     {
         
