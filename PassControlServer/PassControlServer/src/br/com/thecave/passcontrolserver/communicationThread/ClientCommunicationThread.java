@@ -185,14 +185,14 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      */
     private void onChangeStatusConnection()
     {
-        boolean connectionOff = (socket != null && !socket.isClosed());
-        if (connectionOff != connectionStatus)
+        boolean connection = (socket != null && !socket.isClosed());
+        if (connection != connectionStatus)
         {
             for (StatusConnectionListener statusConnectionListener : statusConnectionListeners) 
             {
-                statusConnectionListener.onChangeConnection(connectionOff);
+                statusConnectionListener.onChangeConnection(connection);
             }
-            connectionStatus = connectionOff;
+            connectionStatus = connection;
         }
     }
     

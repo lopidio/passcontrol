@@ -19,14 +19,13 @@ import java.util.concurrent.TimeUnit;
 public class PanelConnectionInfo extends javax.swing.JLabel implements StatusConnectionListener
 {
 
-    private static boolean lastStatusConnection = false;
     private static URL offlineIcon = null;
     private static URL onlineIcon = null;
     
-    private void changePicture() 
+    private void changePicture(boolean statusConnection) 
     {
         //Altero a cor do ícone de conexão
-        if (lastStatusConnection)
+        if (statusConnection)
         {
             setIcon(new javax.swing.ImageIcon(onlineIcon)); // NOI18N
         }
@@ -40,17 +39,16 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     public void onChangeConnection(boolean connectionStatus) 
     {       
         //Altero a cor do ícone de conexão
-        lastStatusConnection = connectionStatus;
         MainFrame mainFrame = Main.getInstance().getMainFrame();
         if (connectionStatus)
         {
             mainFrame.enableControlPanel();
-            changePicture();
+            changePicture(connectionStatus);
         }
         else
         {
             mainFrame.disableControlPanel();            
-            changePicture();
+            changePicture(connectionStatus);
             
             if (Main.getInstance().isLoggedIn() != null)
             {
@@ -72,7 +70,7 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
             offlineIcon = getClass().getResource("/resources/offline.png");
         if (onlineIcon == null)
             onlineIcon = getClass().getResource("/resources/online.png");
-        changePicture();          
+        changePicture(false);          
     }
 
     /**
@@ -108,8 +106,7 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     
         ClientCommunicationThread clientCommunicationThread = Main.getInstance().getCommunicationThread();
         clientCommunicationThread.addStatusConnectionListeners(this);
-        lastStatusConnection = clientCommunicationThread.getConnectionStatus();
-        changePicture();
+        changePicture(clientCommunicationThread.getConnectionStatus());
     }//GEN-LAST:event_formAncestorAdded
 
     private void formAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorRemoved
@@ -129,15 +126,13 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
             seconds %= 60;
 
             setToolTipText("Conectado. Duração da conexão: " + minutes + "m" + seconds + "s");
-            lastStatusConnection = true;
+            changePicture(true);
         }
         else
         {
-            lastStatusConnection = false;            
+            changePicture(false);
             setToolTipText("Não conectado");
         }
-        
-        changePicture();
     }//GEN-LAST:event_formMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
