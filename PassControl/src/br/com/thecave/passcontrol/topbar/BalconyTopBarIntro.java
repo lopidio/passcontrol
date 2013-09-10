@@ -114,7 +114,7 @@ public class BalconyTopBarIntro extends PassControlTopBar
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoutMouseClicked
-        balconyTopBarIntroController.performLogout();
+        Main.getInstance().getMainFrame().performLogoutAction();
     }//GEN-LAST:event_lbLogoutMouseClicked
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed

@@ -8,6 +8,9 @@ import br.com.thecave.passcontrol.controler.ButtonModulesController;
 import br.com.thecave.passcontrol.screens.admin.AdminScreen;
 import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
+import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -41,7 +44,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         initComponents();
         
         verifyPermissions();
-        
+        Main.getInstance().getMainFrame().setEnableNavigatorMenu(true);              
 
     }
 
@@ -341,28 +344,33 @@ public class ButtonsModulesScreen extends PassControlPanel
     // End of variables declaration//GEN-END:variables
 
     private void openAdmin() 
-    {
+    {       
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.AdministratorActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
     }
 
     private void openBalcony() 
     {
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.BalconyActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreen());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
     }
 
     private void openViewer() 
     {
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.ViewerActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new ViewerScreen());
     }
 
     private void openQueuePush() 
     {
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.QueuePushActor));        
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
     }
 
     private void openQueuePop() 
     {
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.QueuePopActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
     }
 

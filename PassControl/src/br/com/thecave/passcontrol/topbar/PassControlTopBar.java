@@ -4,7 +4,6 @@
  */
 package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.PassControlController;
 import br.com.thecave.passcontrol.screens.PanelConnectionInfo;
 import java.awt.Point;

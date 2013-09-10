@@ -168,10 +168,13 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     @Override
     protected void sendBroadcastMessage(PassControlMessage message)
     {
+        if (!message.getType().equals("HeartBeatMessage"))            
+            System.out.println("Mensagem enviada para todos os clientes do tipo " + message.getTo().name()); 
+        
         HashMap<MessageActors, ArrayList<ClientUserSocketPair>> clientsMarkedToBeRemoved = new HashMap<>();
         if (message.getTo() != MessageActors.AllActors) 
         {
-            System.out.println("Mensagem enviada para todos os clientes do tipo " + message.getTo().name());            
+           
             
             //Filtra só para os clientes desejados
             MessageActors actorToReceive = message.getTo();
@@ -195,9 +198,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         }        
         //Se a mensagem for para todos, TODOS MESMO!!...
         else // if (message.getTo() == MessageActors.AllActors) 
-        {
-            System.out.println("Mensagem enviada para todos os clientes do tipo " + message.getTo().name());            
-            
+        {           
             //Percorro todas as listas
             for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
             {
@@ -228,6 +229,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             ArrayList<ClientUserSocketPair> currentClient = clientsList.get(messageActor);
             for (ClientUserSocketPair client : entry.getValue()) 
             {
+                //Se não for um ponteiro perdido, eu dou logoff
+                if (client != null)
+                    client.logoff();
                 //Remove da lista atual
                 currentClient.remove(client);
             }

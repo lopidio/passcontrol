@@ -1,8 +1,11 @@
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.controler.PassControlController;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.PassControlTopBar;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
@@ -12,6 +15,7 @@ import javax.swing.JMenu;
  * @author Antonio Arleudo da costa
  */
 public final class MainFrame extends javax.swing.JFrame {
+    private int DEFAULT_MENU_COUNT = -1;
 
     /**
      * Creates new form AdministratorScreen
@@ -22,22 +26,11 @@ public final class MainFrame extends javax.swing.JFrame {
 
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.Y_AXIS));
         passControlPanel.setLayout(new BoxLayout(passControlPanel, BoxLayout.Y_AXIS));
+        DEFAULT_MENU_COUNT = menuBar.getMenuCount();
         
         activatePassControlPanel(new DefaultScreen());
         activatePassControlTopBar(new LoginTopBar());
-        
-//        JFrame desktopPane = new JFrame();
-//        QueueElementInfo queueElementInfo = new QueueElementInfo("sasas", "dsfsdfsdf", "rtgrtgrt");
-////        try {
-////            queueElementInfo.fadeIn(0.01f);
-////        } catch (Exception ex) {
-////            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-////        }
-//        desktopPane.add(queueElementInfo);
-//        desktopPane.setSize(800, 600);
-////        desktopPane.repaint();
-////        desktopPane.revalidate();
-//        desktopPane.setVisible(true);
+        setEnableNavigatorMenu(false);
         
     }
     
@@ -73,7 +66,7 @@ public final class MainFrame extends javax.swing.JFrame {
         passControlPanel.add(newPassControlPanel);
         
         //Removo os ítens antigos do menu
-        for (int i = 0; i < menuBar.getMenuCount() - 2 ; ++i)//2 pq sempre existem dois valores
+        for (int i = 0; i < menuBar.getMenuCount() - DEFAULT_MENU_COUNT ; ++i)//2 pq sempre existem dois valores
         {
             menuBar.remove(i);
         }
@@ -137,7 +130,7 @@ public final class MainFrame extends javax.swing.JFrame {
     {
         passControlPanel.setEnabled(false);
         //ítens do menu
-        for (int i = 0; i < menuBar.getMenuCount() - 2 ; ++i)//2 pq sempre existem dois valores
+        for (int i = 0; i < menuBar.getMenuCount() - DEFAULT_MENU_COUNT ; ++i)//Pq existem os valores que nunca são removidos
         {
             menuBar.setEnabled(false);
         }        
@@ -147,7 +140,7 @@ public final class MainFrame extends javax.swing.JFrame {
     {
         passControlPanel.setEnabled(true);
         //ítens do menu
-        for (int i = 0; i < menuBar.getMenuCount() - 2 ; ++i)//2 pq sempre existem dois valores
+        for (int i = 0; i < menuBar.getMenuCount() - DEFAULT_MENU_COUNT; ++i)//Pq existem os valores que nunca são removidos
         {
             menuBar.setEnabled(true);
         }        
@@ -175,6 +168,12 @@ public final class MainFrame extends javax.swing.JFrame {
         topBar = new javax.swing.JPanel();
         passControlPanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
+        jmNavegar = new javax.swing.JMenu();
+        jmMainPage = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jmLogoff = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jmSair = new javax.swing.JMenuItem();
         jmSobre = new javax.swing.JMenu();
         jmAjuda = new javax.swing.JMenu();
 
@@ -205,8 +204,38 @@ public final class MainFrame extends javax.swing.JFrame {
         );
         passControlPanelLayout.setVerticalGroup(
             passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 589, Short.MAX_VALUE)
         );
+
+        jmNavegar.setText("Navegar");
+
+        jmMainPage.setText("Página principal");
+        jmMainPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmMainPageActionPerformed(evt);
+            }
+        });
+        jmNavegar.add(jmMainPage);
+        jmNavegar.add(jSeparator2);
+
+        jmLogoff.setText("Logoff");
+        jmLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmLogoffActionPerformed(evt);
+            }
+        });
+        jmNavegar.add(jmLogoff);
+        jmNavegar.add(jSeparator1);
+
+        jmSair.setText("Sair");
+        jmSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSairActionPerformed(evt);
+            }
+        });
+        jmNavegar.add(jmSair);
+
+        menuBar.add(jmNavegar);
 
         jmSobre.setText("Sobre");
         menuBar.add(jmSobre);
@@ -234,9 +263,43 @@ public final class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
+        System.exit(0);        
+    }//GEN-LAST:event_jmSairActionPerformed
+
+    public void performLogoutAction()
+    {
+        activatePassControlPanel(new DefaultScreen());
+        activatePassControlTopBar(new LoginTopBar());
+        setEnableNavigatorMenu(false);                      
+        //Informa ao servidor que o usuário realizou logoff
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ClientLogoff());        
+    }
+    
+    private void jmLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoffActionPerformed
+        performLogoutAction();
+    }//GEN-LAST:event_jmLogoffActionPerformed
+
+    private void jmMainPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmMainPageActionPerformed
+        activatePassControlPanel(new ButtonsModulesScreen());
+        activatePassControlTopBar(new MainTopBar());
+    }//GEN-LAST:event_jmMainPageActionPerformed
+
+    public void setEnableNavigatorMenu(boolean enabled)
+    {
+        jmLogoff.setEnabled(enabled);
+        jmMainPage.setEnabled(enabled);
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmAjuda;
+    private javax.swing.JMenuItem jmLogoff;
+    private javax.swing.JMenuItem jmMainPage;
+    private javax.swing.JMenu jmNavegar;
+    private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenu jmSobre;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel passControlPanel;
