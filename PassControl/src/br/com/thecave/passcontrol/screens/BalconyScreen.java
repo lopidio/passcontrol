@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controler.BalconyController;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientResponse;
 import java.util.ArrayList;

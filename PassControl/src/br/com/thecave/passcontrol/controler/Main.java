@@ -102,4 +102,14 @@ public class Main
     public ClientCommunicationThread getCommunicationThread() {
         return communicationThread;
     }
+
+    public Object isLoggedIn() 
+    {
+        return currentUser != null;
+    }
+
+    public void logoff() 
+    {
+        setCurrentUser(null);
+    }
 }

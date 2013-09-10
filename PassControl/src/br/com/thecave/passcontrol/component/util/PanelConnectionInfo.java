@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.thecave.passcontrol.screens;
+package br.com.thecave.passcontrol.component.util;
 
 import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;
 import java.net.URL;
@@ -37,15 +38,22 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     {       
         //Altero a cor do ícone de conexão
         lastStatusConnection = connectionStatus;
+        MainFrame mainFrame = Main.getInstance().getMainFrame();
         if (connectionStatus)
         {
-            Main.getInstance().getMainFrame().enableControlPanel();
+            mainFrame.enableControlPanel();
             changePicture();
         }
         else
         {
-            Main.getInstance().getMainFrame().disableControlPanel();            
+            mainFrame.disableControlPanel();            
             changePicture();
+            
+            if (Main.getInstance().isLoggedIn() != null)
+            {
+                //TODO mostrar um Popup informando que o cliente foi deslogado automaticamente
+                mainFrame.performLogoutAction();
+            }
         }
     }
 
@@ -75,10 +83,7 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
 
         setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/offline.png"))); // NOI18N
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        setMaximumSize(new java.awt.Dimension(22, 22));
-        setMinimumSize(new java.awt.Dimension(22, 22));
         setName("jLabel"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(22, 22));
         addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
