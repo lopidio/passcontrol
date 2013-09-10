@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrolserver.communicationThread;
 
+import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     /**
      * Mapa de clientes identificados pelo ator
      */
-    ConcurrentHashMap<MessageActors, ArrayList<Socket>> clients;
+    ConcurrentHashMap<MessageActors, ArrayList<ClientUserSocketPair>> clientsList;
     
     /**
      * Construtor
@@ -47,7 +48,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         setHeartBeat(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
         //Executa a thread que escuta a porta
         new Thread(serverSocketListener).start();
-        clients = new ConcurrentHashMap<>();
+        clientsList = new ConcurrentHashMap<>();
     }
 
     /**
@@ -56,21 +57,16 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     @Override
     public void stop() {
         running = false;
-        try {
-
-            //Percorre todos os socket e os finaliza
-            for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) {
-                ArrayList<Socket> arrayList = entry.getValue();
-                for (Socket client : arrayList) {
-                    client.close();
-                }
+        //Percorre todos os socket e os finaliza
+        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) {
+            ArrayList<ClientUserSocketPair> arrayList = entry.getValue();
+            for (ClientUserSocketPair client : arrayList) {
+                client.closeConnection();
             }
-
-            serverSocketListener.stop();
-
-        } catch (IOException ex) {
-            Logger.getLogger(ClientCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        serverSocketListener.stop();
+
     }
     
     /**
@@ -81,9 +77,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         //Somatório
         int retorno = 0;
         //Percorre todo o mapa
-        for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
         {
-            ArrayList<Socket> arrayList = entry.getValue();
+            ArrayList<ClientUserSocketPair> arrayList = entry.getValue();
             retorno += arrayList.size();
         }
         return retorno;
@@ -92,12 +88,12 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     private void displayClientsList()
     {
         System.out.println("Número de clientes conectados: " + getNumClients());
-        for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
         {
-            ArrayList<Socket> arrayList = entry.getValue();
+            ArrayList<ClientUserSocketPair> arrayList = entry.getValue();
             if (arrayList.size() > 0)
             {
-                System.out.println(arrayList.size() + " do tipo " + entry.getKey().name());
+                System.out.println(entry.getKey().name() + " -> " + arrayList.size());
             }
         }        
         
@@ -117,16 +113,16 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             }
                 
             //Itera por todos os atores de conexão
-            for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+            for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
             {
                 markToReset = false;
                 
                 MessageActors currentActor = entry.getKey();
-                ArrayList<Socket> arrayList = entry.getValue();
-                //itera por todos os atores
+                ArrayList<ClientUserSocketPair> arrayList = entry.getValue();
+                //itera por todos os usuários de cada ator
                 try
                 {
-                    for (Socket client : arrayList) 
+                    for (ClientUserSocketPair client : arrayList) 
                     {
                         try 
                         {   
@@ -172,22 +168,22 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     @Override
     protected void sendBroadcastMessage(PassControlMessage message)
     {
-        HashMap<MessageActors, ArrayList<Socket>> clientsMarkedToBeRemoved = new HashMap<>();
+        HashMap<MessageActors, ArrayList<ClientUserSocketPair>> clientsMarkedToBeRemoved = new HashMap<>();
         if (message.getTo() != MessageActors.AllActors) 
         {
             System.out.println("Mensagem enviada para todos os clientes do tipo " + message.getTo().name());            
             
             //Filtra só para os clientes desejados
             MessageActors actorToReceive = message.getTo();
-            ArrayList<Socket> selectedClients = clients.get(actorToReceive);
+            ArrayList<ClientUserSocketPair> selectedClients = clientsList.get(actorToReceive);
             if (selectedClients != null) 
             {
-                for (Socket client : selectedClients) 
+                for (ClientUserSocketPair client : selectedClients) 
                 {
                     try
                     {
                         //Manda para todos
-                        sendMessage(client, message);
+                        sendMessage(client.getSocket(), message);
                     }
                     catch (IOException exc)
                     {
@@ -203,15 +199,15 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             System.out.println("Mensagem enviada para todos os clientes do tipo " + message.getTo().name());            
             
             //Percorro todas as listas
-            for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clients.entrySet()) 
+            for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
             {
                 //Percorro todos os elementos de todas as listas
-                for (Socket client : entry.getValue()) 
+                for (ClientUserSocketPair client : entry.getValue()) 
                 {
                     try
                     {
                         //Manda para todos
-                        sendMessage(client, message);
+                        sendMessage(client.getSocket(), message);
                     }
                     catch (IOException exc)
                     {
@@ -224,29 +220,33 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
 
         
         //Para todos os clientes a serem removidos
-        for (Map.Entry<MessageActors, ArrayList<Socket>> entry : clientsMarkedToBeRemoved.entrySet()) 
+        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsMarkedToBeRemoved.entrySet()) 
         {
-            MessageActors messageActors = entry.getKey();
-            ArrayList<Socket> currentClient = clients.get(messageActors);
-            for (Socket socket : entry.getValue()) 
+            //Ator chave
+            MessageActors messageActor = entry.getKey();
+            //Copia a lista atual
+            ArrayList<ClientUserSocketPair> currentClient = clientsList.get(messageActor);
+            for (ClientUserSocketPair client : entry.getValue()) 
             {
-                currentClient.remove(socket);
+                //Remove da lista atual
+                currentClient.remove(client);
             }
-            clients.put(messageActors, currentClient);
+            //Atualiza
+            clientsList.put(messageActor, currentClient);
         }
         
     }
 
-    public void addClient(MessageActors messageActors, Socket newClient) 
+    public void addClient(MessageActors messageActors, ClientUserSocketPair newClient) 
     {
         markToReset = true;
-        addClientToMap(clients, messageActors, newClient);
+        addClientToMap(clientsList, messageActors, newClient);
     }
 
-    public void removeClient(MessageActors messageActors, Socket newClient) 
+    public void removeClient(MessageActors messageActors, ClientUserSocketPair newClient) 
     {
         markToReset = true;
-        removeClientFromMap(clients, messageActors, newClient);
+        removeClientFromMap(clientsList, messageActors, newClient);
     }
     
     /**
@@ -255,10 +255,10 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      * @param actorKey Chave do HashMap
      * @param clientValue Valor a ser inserido na lista do HashMap
      */
-    private static void addClientToMap(AbstractMap<MessageActors, ArrayList<Socket>> map, MessageActors actorKey, Socket clientValue)
+    private static void addClientToMap(AbstractMap<MessageActors, ArrayList<ClientUserSocketPair>> map, MessageActors actorKey, ClientUserSocketPair clientValue)
     {
         //Recupera a lista anterior
-        ArrayList<Socket> listaDeClientesDoMesmoTipo;
+        ArrayList<ClientUserSocketPair> listaDeClientesDoMesmoTipo;
         listaDeClientesDoMesmoTipo = map.get(actorKey);
         if (listaDeClientesDoMesmoTipo == null) {
             listaDeClientesDoMesmoTipo = new ArrayList<>();
@@ -278,10 +278,10 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      * @param actorKey Chave do HashMap
      * @param client Valor a ser removido da lista do HashMap
      */
-    private static void removeClientFromMap(AbstractMap<MessageActors, ArrayList<Socket>> map, MessageActors actorKey, Socket client)
+    private static void removeClientFromMap(AbstractMap<MessageActors, ArrayList<ClientUserSocketPair>> map, MessageActors actorKey, ClientUserSocketPair client)
     {
         //Recupera a lista anterior
-        ArrayList<Socket> listaDeClientesDoMesmoTipo;
+        ArrayList<ClientUserSocketPair> listaDeClientesDoMesmoTipo;
         listaDeClientesDoMesmoTipo = map.get(actorKey);
         if (listaDeClientesDoMesmoTipo == null) {
             listaDeClientesDoMesmoTipo = new ArrayList<>();
@@ -296,19 +296,19 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     }
     
     
-    private void repositionClient(MessageActors currentActor, MessageActors newActor, Socket client) {
+    private void repositionClient(MessageActors currentActor, MessageActors newActor, ClientUserSocketPair client) {
         //Remove da lista anterior e adiciona na nova lista
-        removeClientFromMap(clients, currentActor, client);
-        addClientToMap(clients, newActor, client);
+        removeClientFromMap(clientsList, currentActor, client);
+        addClientToMap(clientsList, newActor, client);
     }
 
     //Retorna true caso tenha lido alguma coisa
-    private boolean checkInputStream(MessageActors currentActor, Socket client) throws IOException, ClassNotFoundException, NullPointerException
+    private boolean checkInputStream(MessageActors currentActor, ClientUserSocketPair client) throws IOException, ClassNotFoundException, NullPointerException
     {
-        if (client == null)
+        if (client == null || client.getSocket() == null)
             return false;
             
-        InputStream inputStream = client.getInputStream();
+        InputStream inputStream = client.getSocket().getInputStream();
         if (inputStream == null)
             return false;
         //Se possui mensagem para ser lida
@@ -316,7 +316,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         {
 
             //Recebe a mensagem
-            PassControlMessage message = handleIncomingMessage(client);
+            PassControlMessage message = handleIncomingMessage(client.getSocket());
             MessageActors newActor = message.getFrom();
             //Caso o ator tenha mudado de papel
             if (newActor != currentActor) {
@@ -324,14 +324,47 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             }
 
             //Distribui a mensagem para os listener que querem essa mensagem
-            redirectReceivedMessage(message, client);
+            redirectReceivedMessage(message, client.getSocket());
             return true;
 
         }
         return false;
     }
 
-    private int getNextClientID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void userLogin(Socket socket, UserBean userBean)
+    {
+        //Por todo o mapa
+        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
+        {
+            //Por todos os clientes
+            for (ClientUserSocketPair clientUserSocketPair : entry.getValue()) 
+            {
+                //Aquele que tiver o mesmo socket...
+                if (clientUserSocketPair.getSocket().equals(socket))
+                {
+                    clientUserSocketPair.login(userBean);
+                    return;
+                }
+            }
+        }
     }
+    
+    public void userLogoff(Socket socket)
+    {
+        //Por todo o mapa
+        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
+        {
+            //Por todos os clientes
+            for (ClientUserSocketPair clientUserSocketPair : entry.getValue()) 
+            {
+                //Aquele que tiver o mesmo socket...
+                if (clientUserSocketPair.getSocket().equals(socket))
+                {
+                    clientUserSocketPair.logoff();
+                    return;
+                }
+            }
+        }
+    }
+    
 }

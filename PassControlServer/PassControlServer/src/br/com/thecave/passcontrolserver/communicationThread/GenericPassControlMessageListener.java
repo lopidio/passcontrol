@@ -34,7 +34,7 @@ public class GenericPassControlMessageListener implements PassControlMessageList
 
     @Override
     public void onMessageReceive(PassControlMessage message, Socket socket) {
-        System.out.println("Retorno chegou no escutador genérico");
+//        System.out.println("Retorno chegou no escutador genérico");
         messageReceived = message;
         this.socket = socket;
     }

@@ -134,8 +134,8 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             {
                 if (socket == null || socket.isClosed()) 
                 {
-                    connectionStatus = false;
                     //Tenta estabelecer uma conexão
+                    socket = null;
                     socket = new Socket(serverIP, port); 
                     System.out.println("Conexão estabelecida");
                     onChangeStatusConnection();                                                        
@@ -160,12 +160,10 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             }
             catch (ClassNotFoundException | IOException exc) 
             {
-                onChangeStatusConnection();
-                System.err.println(exc.getMessage());
             }
             finally 
             {
-                finalizeConnection();
+                finalizeConnection();                
             }
         }
 
@@ -194,7 +192,6 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     {
         try 
         {
-            connectionStatus = false;
             //System.out.println("Conexão do cliente encerrada");
             if (socket != null)
                 socket.close();
@@ -204,6 +201,7 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         }
         finally
         {
+            onChangeStatusConnection();                            
             socket = null;
         }        
     }

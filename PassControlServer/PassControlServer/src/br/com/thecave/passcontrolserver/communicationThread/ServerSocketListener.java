@@ -55,7 +55,7 @@ public class ServerSocketListener implements Runnable
             try {
                 Socket newClient = serverSocket.accept();
                 System.out.println("Novo cliente aceito");
-                owner.addClient(MessageActors.NotIdentified, newClient);
+                owner.addClient(MessageActors.NotIdentified, new ClientUserSocketPair(newClient));
             } catch (IOException ex) {
                 Logger.getLogger(ServerSocketListener.class.getName()).log(Level.SEVERE, null, ex);
             }

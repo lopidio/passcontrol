@@ -130,7 +130,6 @@ public abstract class PassControlCommunicationThread implements Runnable {
                 }
             }
         }
-        System.out.println("Saiu do laço!");
         removeListener(listener, typeToListenTo);
 
         return retorno;
@@ -147,7 +146,8 @@ public abstract class PassControlCommunicationThread implements Runnable {
             throw new IOException("Null socket");
         
         refreshHeartbeat(message.getFrom());
-        System.out.println("Mensagem será enviada " + message.getType());
+        if (message.getType().equals("HeartBeatMessage"))
+            System.out.println("Mensagem será enviada " + message.getType());
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectOutputStream.writeObject(message);
 //        System.out.println("Mensagem enviada com sucesso");
@@ -186,12 +186,16 @@ public abstract class PassControlCommunicationThread implements Runnable {
 //        System.out.println("Mensagem será recebida");
         ObjectInputStream input = new ObjectInputStream(inputStream);
         PassControlMessage message = (PassControlMessage) input.readObject();
-        System.out.println("Mensagem recebida com sucesso " + message.getType());
+        if (!message.getType().equals("HeartBeatMessage"))
+            System.out.println("Mensagem recebida com sucesso " + message.getType());
         return message;
     }
     
     protected void redirectReceivedMessage(PassControlMessage message, Socket socket)
     {
+        if (message.getType().equals("HeartBeatMessage"))
+            return;
+        
         ArrayList<PassControlMessageListener> listenersArray = passControlMessageListeners.get(message.getType());
         //Não há escutador cadastradoI
         if (listenersArray == null || listenersArray.isEmpty())
@@ -217,7 +221,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         //E ajuda o servidor a identificar os clientes que estão mortos e tal
         if (watchdog.hasTimedOut())
         {
-            System.out.println("Heart beat");
+            System.out.println("HeartBeat");
             watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);
             addBroadcastToSend(heartBeatMessage);
             return true;
