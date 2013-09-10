@@ -269,11 +269,14 @@ public final class MainFrame extends javax.swing.JFrame {
 
     public void performLogoutAction()
     {
-        activatePassControlPanel(new DefaultScreen());
-        activatePassControlTopBar(new LoginTopBar());
-        setEnableNavigatorMenu(false);                      
-        //Informa ao servidor que o usuário realizou logoff
-        Main.getInstance().logoff();
+        if (Main.getInstance().isLoggedIn())
+        {
+            activatePassControlPanel(new DefaultScreen());
+            activatePassControlTopBar(new LoginTopBar());
+            setEnableNavigatorMenu(false);                      
+            //Informa ao servidor que o usuário realizou logoff
+            Main.getInstance().logoff();
+        }
     }
     
     private void jmLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoffActionPerformed

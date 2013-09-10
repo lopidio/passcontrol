@@ -10,7 +10,6 @@ import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationT
 import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;
 import java.net.URL;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -50,7 +49,7 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
             mainFrame.disableControlPanel();            
             changePicture(connectionStatus);
             
-            if (Main.getInstance().isLoggedIn() != null)
+            if (Main.getInstance().isLoggedIn())
             {
                 //TODO mostrar um Popup informando que o cliente foi deslogado automaticamente
                 mainFrame.performLogoutAction();

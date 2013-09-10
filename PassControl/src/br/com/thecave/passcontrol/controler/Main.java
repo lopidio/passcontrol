@@ -104,7 +104,7 @@ public class Main
         return communicationThread;
     }
 
-    public Object isLoggedIn() 
+    public boolean isLoggedIn() 
     {
         return currentUser != null;
     }

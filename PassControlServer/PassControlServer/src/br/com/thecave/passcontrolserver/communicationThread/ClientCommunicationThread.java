@@ -188,11 +188,11 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         boolean connection = (socket != null && !socket.isClosed());
         if (connection != connectionStatus)
         {
+            connectionStatus = connection;            
             for (StatusConnectionListener statusConnectionListener : statusConnectionListeners) 
             {
                 statusConnectionListener.onChangeConnection(connection);
             }
-            connectionStatus = connection;
         }
     }
     
