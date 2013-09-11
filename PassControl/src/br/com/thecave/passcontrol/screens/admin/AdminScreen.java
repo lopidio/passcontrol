@@ -5,11 +5,8 @@
 package br.com.thecave.passcontrol.screens.admin;
 
 import br.com.thecave.passcontrol.controler.AdminController;
-import br.com.thecave.passcontrol.controler.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
-import br.com.thecave.passcontrol.topbar.MainTopBar;
 import java.util.ArrayList;
-import javax.swing.GroupLayout;
 import javax.swing.JMenu;
 
 /**
@@ -39,10 +36,10 @@ public class AdminScreen extends PassControlPanel
     private void initComponents() {
 
         jmBaseDados = new javax.swing.JMenu();
+        jmTipos = new javax.swing.JMenuItem();
         jmGuiche = new javax.swing.JMenuItem();
         jmUser = new javax.swing.JMenuItem();
         jmServicos = new javax.swing.JMenuItem();
-        jmTipos = new javax.swing.JMenuItem();
         jmImagem = new javax.swing.JMenu();
         jmAlterImage = new javax.swing.JMenuItem();
         jmApresentacao = new javax.swing.JMenu();
@@ -59,6 +56,16 @@ public class AdminScreen extends PassControlPanel
 
         jmBaseDados.setMnemonic('B');
         jmBaseDados.setText("Administrar      ");
+
+        jmTipos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
+        jmTipos.setMnemonic('t');
+        jmTipos.setText("Tipos de Guichê");
+        jmTipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTiposActionPerformed(evt);
+            }
+        });
+        jmBaseDados.add(jmTipos);
 
         jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
         jmGuiche.setMnemonic('G');
@@ -89,16 +96,6 @@ public class AdminScreen extends PassControlPanel
             }
         });
         jmBaseDados.add(jmServicos);
-
-        jmTipos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
-        jmTipos.setMnemonic('t');
-        jmTipos.setText("Tipos de Guichê");
-        jmTipos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmTiposActionPerformed(evt);
-            }
-        });
-        jmBaseDados.add(jmTipos);
 
         jmImagem.setMnemonic('I');
         jmImagem.setText("Imagem           ");
@@ -233,12 +230,15 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmGuicheActionPerformed
 
     private void jmUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUserActionPerformed
+        controller.openUserCrud();
     }//GEN-LAST:event_jmUserActionPerformed
 
     private void jmServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmServicosActionPerformed
+        controller.openServiceCrud();
     }//GEN-LAST:event_jmServicosActionPerformed
 
     private void jmTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTiposActionPerformed
+        controller.openBalconyTypeCrud();
     }//GEN-LAST:event_jmTiposActionPerformed
 
     private void jmAlterImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterImageActionPerformed
