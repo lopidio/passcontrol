@@ -4,24 +4,37 @@
  */
 package br.com.thecave.passcontrolserver.messages.administrator;
 
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
-import java.util.ArrayList;
 
 /**
  *
  * @author guilherme
  */
-public class AdministratorListUser extends PassControlMessage
-{   
-    public AdministratorListUser() {
+public class AdministratorAddService extends PassControlMessage
+{
+    private ServiceBean bean;
+    
+    public AdministratorAddService() 
+    {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
     }
 
-    public AdministratorListUser(String comment) {
-        super(MessageActors.AdministratorActor, MessageActors.ServerActor, comment);
+    /**
+     * @return the bean
+     */
+    public ServiceBean getBean() 
+    {
+        return bean;
     }
 
-
+    /**
+     * @param bean the bean to set
+     */
+    public void setBean(ServiceBean bean) 
+    {
+        this.bean = bean;
+    }       
 }

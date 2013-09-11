@@ -70,7 +70,7 @@ public final class MainFrame extends javax.swing.JFrame
         menuBar.add(jmNavegar);
         for (JMenu novoMenu : newPassControlPanel.createMenuItems())
         {
-            menuBar.add(novoMenu, 0);
+            menuBar.add(novoMenu); //ou , 1);
         }
         menuBar.add(jmSobre);
         menuBar.add(jmAjuda);        
@@ -163,7 +163,9 @@ public final class MainFrame extends javax.swing.JFrame
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmSair = new javax.swing.JMenuItem();
         jmSobre = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jmAjuda = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle de Senhas");
@@ -192,7 +194,7 @@ public final class MainFrame extends javax.swing.JFrame
         );
         passControlPanelLayout.setVerticalGroup(
             passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
+            .addGap(0, 593, Short.MAX_VALUE)
         );
 
         jmNavegar.setText("Navegar");
@@ -226,9 +228,17 @@ public final class MainFrame extends javax.swing.JFrame
         menuBar.add(jmNavegar);
 
         jmSobre.setText("Sobre");
+
+        jMenuItem1.setText("Equipe de desenvolvimento e contato");
+        jmSobre.add(jMenuItem1);
+
         menuBar.add(jmSobre);
 
         jmAjuda.setText("Ajuda");
+
+        jMenuItem2.setText("Documento de ajuda");
+        jmAjuda.add(jMenuItem2);
+
         menuBar.add(jmAjuda);
 
         setJMenuBar(menuBar);
@@ -284,6 +294,8 @@ public final class MainFrame extends javax.swing.JFrame
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu jmAjuda;

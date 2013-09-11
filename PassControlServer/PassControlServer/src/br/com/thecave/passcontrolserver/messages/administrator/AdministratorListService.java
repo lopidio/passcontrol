@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrolserver.messages.administrator;
 
-import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.util.ArrayList;
@@ -13,15 +13,15 @@ import java.util.ArrayList;
  *
  * @author guilherme
  */
-public class AdministratorListUser extends PassControlMessage
-{   
-    public AdministratorListUser() {
+public class AdministratorListService extends PassControlMessage
+{    
+    public AdministratorListService() {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
     }
 
-    public AdministratorListUser(String comment) {
+    public AdministratorListService(ArrayList<ServiceBean> listUser, String comment) {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor, comment);
     }
 
-
+    
 }

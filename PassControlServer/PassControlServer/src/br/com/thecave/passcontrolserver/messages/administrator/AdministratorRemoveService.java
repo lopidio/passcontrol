@@ -4,24 +4,31 @@
  */
 package br.com.thecave.passcontrolserver.messages.administrator;
 
-import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
-import java.util.ArrayList;
 
 /**
  *
  * @author guilherme
  */
-public class AdministratorListUser extends PassControlMessage
-{   
-    public AdministratorListUser() {
+public class AdministratorRemoveService extends PassControlMessage
+{
+    private int id;
+    
+    public AdministratorRemoveService(int id) 
+    {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
+        this.id = id;
     }
 
-    public AdministratorListUser(String comment) {
-        super(MessageActors.AdministratorActor, MessageActors.ServerActor, comment);
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    
 }

@@ -4,6 +4,7 @@ import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 /**
  * Classe para persistencia na tabela TB_SERVICE utilizando a classe ServiceBean
  * @see ServiceBean
@@ -123,7 +124,44 @@ public class ServiceDAO {
      */
     public static ServiceBean selectFromId(int id)
     {
-        ServiceBean bean = new ServiceBean();
+        ServiceBean bean = null;
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_SERVICE WHERE INT_ID=" + id + ";";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                bean = new ServiceBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setName(rs.getString("TX_NAME"));
+                bean.setPriority(rs.getInt("INT_PRIORITY"));
+            }
+            
+            stmt.close();
+            conn.close();
+            return bean;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }            
+    }
+
+    public static ArrayList<ServiceBean> selectAll() {
+        ArrayList<ServiceBean> retorno = new ArrayList<>();
         try
         {
         // pegar a conexão com o banco
@@ -141,21 +179,23 @@ public class ServiceDAO {
             
             while(rs.next())
             {
+                ServiceBean bean = new ServiceBean();
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setName(rs.getString("TX_NAME"));
                 bean.setPriority(rs.getInt("INT_PRIORITY"));
+                retorno.add(bean);
             }
             
             stmt.close();
             conn.close();
-            return bean;
+            return retorno;
         }
         catch ( Exception e ) 
         {
             //TODO: logar erro
           ConnectionDataBase.getInstance().closeConnection();
-          return null;
         }            
+        return retorno;
     }
     
     
