@@ -5,7 +5,6 @@ import br.com.thecave.passcontrol.controler.PassControlController;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.PassControlTopBar;
-import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
@@ -14,8 +13,8 @@ import javax.swing.JMenu;
  *
  * @author Antonio Arleudo da costa
  */
-public final class MainFrame extends javax.swing.JFrame {
-    private int DEFAULT_MENU_COUNT = -1;
+public final class MainFrame extends javax.swing.JFrame 
+{
 
     /**
      * Creates new form AdministratorScreen
@@ -25,9 +24,7 @@ public final class MainFrame extends javax.swing.JFrame {
         initComponents();
 
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.Y_AXIS));
-        passControlPanel.setLayout(new BoxLayout(passControlPanel, BoxLayout.Y_AXIS));
-        DEFAULT_MENU_COUNT = menuBar.getMenuCount();
-        
+        passControlPanel.setLayout(new BoxLayout(passControlPanel, BoxLayout.Y_AXIS));        
         activatePassControlPanel(new DefaultScreen());
         activatePassControlTopBar(new LoginTopBar());
         setEnableNavigatorMenu(false);
@@ -65,20 +62,19 @@ public final class MainFrame extends javax.swing.JFrame {
         //Adiciona o novo
         passControlPanel.add(newPassControlPanel);
         
-        //Removo os ítens antigos do menu
-        for (int i = 0; i < menuBar.getMenuCount() - DEFAULT_MENU_COUNT ; ++i)//2 pq sempre existem dois valores
-        {
-            menuBar.remove(i);
-        }
-        
         //Seta o título atual
         setTitle(newPassControlPanel.getPassControlPanelTitle());
         
         //Adiciono os novos menus do ítem
+        menuBar.removeAll();
+        menuBar.add(jmNavegar);
         for (JMenu novoMenu : newPassControlPanel.createMenuItems())
         {
             menuBar.add(novoMenu, 0);
         }
+        menuBar.add(jmSobre);
+        menuBar.add(jmAjuda);        
+        
         
         passControlPanel.setVisible(true);
         passControlPanel.revalidate();
@@ -129,21 +125,13 @@ public final class MainFrame extends javax.swing.JFrame {
     public void disableControlPanel()
     {
         passControlPanel.setEnabled(false);
-        //ítens do menu
-        for (int i = 0; i < menuBar.getMenuCount() - DEFAULT_MENU_COUNT ; ++i)//Pq existem os valores que nunca são removidos
-        {
-            menuBar.setEnabled(false);
-        }        
+        menuBar.setEnabled(false);
     }
     
     public void enableControlPanel()
     {
         passControlPanel.setEnabled(true);
-        //ítens do menu
-        for (int i = 0; i < menuBar.getMenuCount() - DEFAULT_MENU_COUNT; ++i)//Pq existem os valores que nunca são removidos
-        {
-            menuBar.setEnabled(true);
-        }        
+        menuBar.setEnabled(true);        
     }
         
     public PassControlPanel getCurrentPassControlPanel()
