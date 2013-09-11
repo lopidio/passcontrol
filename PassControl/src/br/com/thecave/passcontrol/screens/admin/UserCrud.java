@@ -13,18 +13,20 @@ import javax.swing.JMenu;
  *
  * @author Arleudo
  */
-public class UserCrud extends PassControlPanel 
+public class UserCrud extends PassControlPanel
 {
+
     UserCrudController controller = null;
+
     /**
      * Creates new form AdminScreen
      */
-    public UserCrud() 
+    public UserCrud()
     {
         super("Cadastro de Usuários", new UserCrudController());
         this.controller = (UserCrudController) getPanelController();
         initComponents();
-        
+
     }
 
     /**
@@ -175,7 +177,6 @@ public class UserCrud extends PassControlPanel
                 .addContainerGap(283, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgtypeUser;
     private javax.swing.JButton btCancelar;
@@ -197,10 +198,9 @@ public class UserCrud extends PassControlPanel
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public ArrayList<JMenu> createMenuItems() 
+    public ArrayList<JMenu> createMenuItems()
     {
         ArrayList<JMenu> ret = new ArrayList<JMenu>();
         return ret;
     }
-
 }
