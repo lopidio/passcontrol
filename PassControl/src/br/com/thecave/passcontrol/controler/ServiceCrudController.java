@@ -20,15 +20,15 @@ public class ServiceCrudController extends PassControlController
     public void setPassControlPanel(JPanel passControlPanel) 
     {
         this.screen = (ServiceCrud) passControlPanel;
-        servicos = new ArrayList<ServiceBean>();
+        servicos = new ArrayList<>();
     }   
     
     public void loadServices()
     {
         AdministratorListService listService = new AdministratorListService();
-        AdministratorListServiceResponse response = (AdministratorListServiceResponse)Main.getInstance().
+        AdministratorListServiceResponse response = Main.getInstance().
                                                         getCommunicationThread().
-                                                    sendMessageAndWaitForResponseOrTimeout(listService, "AdministratorListServiceResponse", 2000);
+                                                    sendMessageAndWaitForResponseOrTimeout(listService, AdministratorListServiceResponse.class, 2000);
         
         servicos = response.getListService();
     }
