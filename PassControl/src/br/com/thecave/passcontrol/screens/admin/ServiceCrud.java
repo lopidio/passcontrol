@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens.admin;
 
-import br.com.thecave.passcontrol.controler.BalconyCrudController;
+import br.com.thecave.passcontrol.controler.ServiceCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import java.util.ArrayList;
 import javax.swing.JMenu;
@@ -13,16 +13,16 @@ import javax.swing.JMenu;
  *
  * @author Arleudo
  */
-public class BalconyCrud extends PassControlPanel 
+public class ServiceCrud extends PassControlPanel 
 {
-    BalconyCrudController controller = null;
+    ServiceCrudController controller = null;
     /**
      * Creates new form AdminScreen
      */
-    public BalconyCrud() 
+    public ServiceCrud() 
     {
-        super("Cadastro de Guichê", new BalconyCrudController());
-        this.controller = (BalconyCrudController) getPanelController();
+        super("Cadastro de Serviços", new ServiceCrudController());
+        this.controller = (ServiceCrudController) getPanelController();
         initComponents();
         
     }
@@ -43,14 +43,14 @@ public class BalconyCrud extends PassControlPanel
         jLabel1 = new javax.swing.JLabel();
         cbCodigo = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        cbTipo = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        tfNumero = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btSalvar = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        tfName = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cbPrioridade = new javax.swing.JComboBox();
 
         jmBalconyCrud.setText("Cadastro");
 
@@ -86,15 +86,11 @@ public class BalconyCrud extends PassControlPanel
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Código do Guichê");
+        jLabel1.setText("Código do Serviço");
 
         cbCodigo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
 
-        jLabel2.setText("Tipo do Guichê");
-
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4" }));
-
-        jLabel3.setText("Número do Guichê");
+        jLabel2.setText("Nome do Serviço");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -141,24 +137,28 @@ public class BalconyCrud extends PassControlPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel6.setText("Prioridade");
+
+        cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mínima", "Baixa", "Média", "Alta", "Máxima" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(925, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addComponent(cbCodigo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbCodigo, 0, 188, Short.MAX_VALUE)
                     .addComponent(jLabel2)
-                    .addComponent(cbTipo, 0, 188, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfNumero))
-                .addContainerGap(1169, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                    .addComponent(tfName)
+                    .addComponent(jLabel6)
+                    .addComponent(cbPrioridade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,14 +170,14 @@ public class BalconyCrud extends PassControlPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(145, 145, 145)
+                .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(146, 146, 146)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -199,22 +199,22 @@ public class BalconyCrud extends PassControlPanel
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbCodigo;
-    private javax.swing.JComboBox cbTipo;
+    private javax.swing.JComboBox cbPrioridade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmBalconyCrud;
     private javax.swing.JMenuItem jmLogout;
     private javax.swing.JMenuItem jmSair;
     private javax.swing.JMenuItem jmVoltar;
-    private javax.swing.JTextField tfNumero;
+    private javax.swing.JTextField tfName;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public ArrayList<JMenu> createMenuItems() 
     {
-        ArrayList<JMenu> ret = new ArrayList<>();
+        ArrayList<JMenu> ret = new ArrayList<JMenu>();
         ret.add(jmBalconyCrud);
         return ret;
     }
