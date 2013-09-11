@@ -14,7 +14,6 @@ import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
-import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.net.Socket;
 
@@ -28,8 +27,8 @@ public class ClientGenericListeners
     public static void addListenersCallback() 
     {
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-        server.addMessageListener(new ClientLoginMessageListener(), "ClientLoginRequest");
-        server.addMessageListener(new ClientLogoffMessageListener(), "ClientLogoff");
+        server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);
+        server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
 
     }    
 
@@ -51,7 +50,7 @@ public class ClientGenericListeners
                 UserBean superBean = new UserBean();
                 superBean.setLogin(initRequest.getUser());
                 superBean.setName("Super Usuário");
-                superBean.setType(UserPermission.getAllPermissionMask());
+                superBean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());
                 response.setUser(superBean);
             }
             else

@@ -10,65 +10,59 @@ package br.com.thecave.passcontrolserver.util;
  */
 public class UserPermission 
 {
-    private final static int ADMIN_PERMISSION_MASK = 1;
-    private final static int BALCONY_PERMISSION_MASK = 2;
-    private final static int VIEWER_PERMISSION_MASK = 4;
-    private final static int PUSHER_PERMISSION_MASK = 8;
-    private final static int POPPER_PERMISSION_MASK = 16;
-    private final static int CONFIG_PERMISSION_MASK = 32;
+    public final static UserPermission ADMIN_PERMISSION_MASK   = new UserPermission(1);
+    public final static UserPermission BALCONY_PERMISSION_MASK = new UserPermission(2);
+    public final static UserPermission VIEWER_PERMISSION_MASK  = new UserPermission(4);
+    public final static UserPermission PUSHER_PERMISSION_MASK  = new UserPermission(8);
+    public final static UserPermission POPPER_PERMISSION_MASK  = new UserPermission(16);
+    public final static UserPermission CONFIG_PERMISSION_MASK  = new UserPermission(32);
+    public final static UserPermission ALL_PERMISSION_MASK  = new UserPermission(63); //SOmatório anterior
+        
+    private int permissionCode = 0;       
     
-    public static boolean hasAdminPermission(int permissionCode)
+    public UserPermission()
     {
-        return (permissionCode & ADMIN_PERMISSION_MASK) == ADMIN_PERMISSION_MASK;
+        this.permissionCode = 0;
     }
-    public static boolean hasBalconyPermission(int permissionCode)
+
+    public UserPermission(int permissionCode)
     {
-        return (permissionCode & BALCONY_PERMISSION_MASK) == BALCONY_PERMISSION_MASK;
+        this.permissionCode = permissionCode;
     }
-    public static boolean hasViewerPermission(int permissionCode)
-    {
-        return (permissionCode & VIEWER_PERMISSION_MASK) == VIEWER_PERMISSION_MASK;
+
+    public int getPermissionCode() {
+        return permissionCode;
     }
-    public static boolean hasPusherPermission(int permissionCode)
+    
+    public boolean hasAdminPermission()
     {
-        return (permissionCode & PUSHER_PERMISSION_MASK) == PUSHER_PERMISSION_MASK;
+        return (permissionCode & ADMIN_PERMISSION_MASK.permissionCode) == ADMIN_PERMISSION_MASK.permissionCode;
     }
-    public static boolean hasPopperPermission(int permissionCode)
+    public boolean hasBalconyPermission()
     {
-        return (permissionCode & POPPER_PERMISSION_MASK) == POPPER_PERMISSION_MASK;
+        return (permissionCode & BALCONY_PERMISSION_MASK.permissionCode) == BALCONY_PERMISSION_MASK.permissionCode;
     }
-    public static boolean hasConfigPermission(int permissionCode)
+    public boolean hasViewerPermission()
     {
-        return (permissionCode & CONFIG_PERMISSION_MASK) == CONFIG_PERMISSION_MASK;
+        return (permissionCode & VIEWER_PERMISSION_MASK.permissionCode) == VIEWER_PERMISSION_MASK.permissionCode;
     }
-  
-    public static int getAdminPermissionMask()
+    public boolean hasPusherPermission()
     {
-        return ADMIN_PERMISSION_MASK;
+        return (permissionCode & PUSHER_PERMISSION_MASK.permissionCode) == PUSHER_PERMISSION_MASK.permissionCode;
     }
-    public static int getBalconyPermissionMask()
+    public boolean hasPopperPermission()
     {
-        return BALCONY_PERMISSION_MASK;
+        return (permissionCode & POPPER_PERMISSION_MASK.permissionCode) == POPPER_PERMISSION_MASK.permissionCode;
     }
-    public static int getViewerPermissionMask()
+    public boolean hasConfigPermission()
     {
-        return VIEWER_PERMISSION_MASK;
+        return (permissionCode & CONFIG_PERMISSION_MASK.permissionCode) == CONFIG_PERMISSION_MASK.permissionCode;
     }
-    public static int getPusherPermissionMask()
+      
+    public UserPermission addPermission(UserPermission newPermission)
     {
-        return PUSHER_PERMISSION_MASK;
-    }
-    public static int getPopperPermissionMask()
-    {
-        return POPPER_PERMISSION_MASK;
-    }
-    public static int getConfigPermissionMask()
-    {
-        return CONFIG_PERMISSION_MASK;
-    }
-    public static int getAllPermissionMask()
-    {
-        return ADMIN_PERMISSION_MASK | BALCONY_PERMISSION_MASK | VIEWER_PERMISSION_MASK | PUSHER_PERMISSION_MASK | POPPER_PERMISSION_MASK | CONFIG_PERMISSION_MASK;
+        permissionCode = (permissionCode | newPermission.permissionCode);
+        return this;
     }
     
 }

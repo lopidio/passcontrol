@@ -330,32 +330,33 @@ public class ButtonsModulesScreen extends PassControlPanel
     private void verifyPermissions() 
     {
         int permissionCode = Main.getInstance().getCurrentUser().getType();
-        if (UserPermission.hasAdminPermission(permissionCode))// É capaz de entrar na opção jbAdmin
+        UserPermission userPermission = new UserPermission(permissionCode);
+        if (userPermission.hasAdminPermission())// É capaz de entrar na opção jbAdmin
         {
             jbAdmin.setEnabled(true);
             jmAdmin.setEnabled(true);
         }
-        if (UserPermission.hasBalconyPermission(permissionCode))// É capaz de entrar na opção jbBalcony
+        if (userPermission.hasBalconyPermission())// É capaz de entrar na opção jbBalcony
         {
             jbBalcony.setEnabled(true);
             jmGuiche.setEnabled(true);
         }
-        if (UserPermission.hasViewerPermission(permissionCode))// É capaz de entrar na opção jbViewer
+        if (userPermission.hasViewerPermission())// É capaz de entrar na opção jbViewer
         {
             jbViewer.setEnabled(true);
             jmViewer.setEnabled(true);
         }
-        if (UserPermission.hasPusherPermission(permissionCode))// É capaz de entrar na opção jbAdd
+        if (userPermission.hasPusherPermission())// É capaz de entrar na opção jbAdd
         {
             jbAdd.setEnabled(true);
             jmQueuePush.setEnabled(true);
         }
-        if (UserPermission.hasPopperPermission(permissionCode))// É capaz de entrar na opção jbRemove
+        if (userPermission.hasPopperPermission())// É capaz de entrar na opção jbRemove
         {
             jbRemove.setEnabled(true);
             jmQueuePop.setEnabled(true);
         }
-        if (UserPermission.hasConfigPermission(permissionCode))// É capaz de entrar na opção jbConfig
+        if (userPermission.hasConfigPermission())// É capaz de entrar na opção jbConfig
         {
             jbConfig.setEnabled(true);
             jmConfig.setEnabled(true);

@@ -37,13 +37,13 @@ public class ClientAdministratorListeners
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
         
         ///User
-        server.addMessageListener(new AddUserListener(), "AdministratorAddUser");
-        server.addMessageListener(new ListUserListener(), "AdministratorListUser");
-        server.addMessageListener(new RemoveUserListener(), "AdministratorRemoveUser");
+        server.addMessageListener(new AddUserListener(), AdministratorAddUser.class);
+        server.addMessageListener(new ListUserListener(), AdministratorListUser.class);
+        server.addMessageListener(new RemoveUserListener(), AdministratorRemoveUser.class);
         ///Service
-        server.addMessageListener(new AddServiceListener(), "AdministratorAddService");
-        server.addMessageListener(new ListServiceListener(), "AdministratorListService");
-        server.addMessageListener(new RemoveServiceListener(), "AdministratorRemoveService");
+        server.addMessageListener(new AddServiceListener(), AdministratorAddService.class);
+        server.addMessageListener(new ListServiceListener(), AdministratorListService.class);
+        server.addMessageListener(new RemoveServiceListener(), AdministratorRemoveService.class);
     }
     
     //User Listeners

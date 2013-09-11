@@ -8,6 +8,7 @@ import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientResponse;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyRecallLastClient;
@@ -27,10 +28,10 @@ public class ClientBalconyListeners
     public static void addListenersCallback()
     {
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-        server.addMessageListener(new ClientBalconyListeners.BalconyInitListener(), "BalconyInitRequest");
-        server.addMessageListener(new ClientBalconyListeners.BalconyLoginListener(), "BalconyLogin");
-        server.addMessageListener(new ClientBalconyListeners.BalconyRecallLastClientListener(), "BalconyRecallLastClient");
-        server.addMessageListener(new ClientBalconyListeners.BalconyCallNextClientRequestListener(), "BalconyCallNextClientRequest");
+        server.addMessageListener(new ClientBalconyListeners.BalconyInitListener(), BalconyInitRequest.class);
+        server.addMessageListener(new ClientBalconyListeners.BalconyLoginListener(), BalconyLogin.class);
+        server.addMessageListener(new ClientBalconyListeners.BalconyRecallLastClientListener(), BalconyRecallLastClient.class);
+        server.addMessageListener(new ClientBalconyListeners.BalconyCallNextClientRequestListener(), BalconyCallNextClientRequest.class);
     }
     
     private static class BalconyInitListener implements PassControlMessageListener

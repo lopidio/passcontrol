@@ -10,6 +10,7 @@ import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.ResetTopBar;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.util.UserPermission;
 import javax.swing.JPanel;
 
 
@@ -35,7 +36,7 @@ public class LoginTopBarController extends PassControlController
                 MainFrame mainFrame = main.getMainFrame();
                 UserBean bean = new UserBean();
                 bean.setName("Guigui");
-                bean.setType(63);// Somatório (0,5) (2^x) = 63
+                bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());// Somatório (0,5) (2^x) = 63
                 main.setCurrentUser(bean);
                 mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
                 mainFrame.activatePassControlTopBar(new MainTopBar());

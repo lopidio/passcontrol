@@ -33,8 +33,8 @@ public class BalconyController extends PassControlController
     public void recallNextClient() 
     {
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyID);
-        ConfirmationResponse response = (ConfirmationResponse)Main.getInstance().getCommunicationThread().
-                    sendMessageAndWaitForResponseOrTimeout(balconyCallNextClientRequest, "ConfirmationResponse", 1000);        
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                    sendMessageAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 1000);        
         if (response != null)
         {
             screen.showPanelQueueInfo(lastCalledClient);
@@ -44,8 +44,8 @@ public class BalconyController extends PassControlController
     public void callNextClient() 
     {
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyID);
-        BalconyCallNextClientResponse response = (BalconyCallNextClientResponse)Main.getInstance().getCommunicationThread().
-                    sendMessageAndWaitForResponseOrTimeout(balconyCallNextClientRequest, "BalconyCallNextClientResponse", 1000);
+        BalconyCallNextClientResponse response = Main.getInstance().getCommunicationThread().
+                    sendMessageAndWaitForResponseOrTimeout(balconyCallNextClientRequest, BalconyCallNextClientResponse.class, 1000);
         
         if (response != null)
         {
