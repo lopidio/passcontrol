@@ -15,6 +15,7 @@ import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationT
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.net.Socket;
 
 /**
@@ -50,7 +51,7 @@ public class ClientGenericListeners
                 UserBean superBean = new UserBean();
                 superBean.setLogin(initRequest.getUser());
                 superBean.setName("Super Usuário");
-                superBean.setType(63);
+                superBean.setType(UserPermission.getAllPermissionMask());
                 response.setUser(superBean);
             }
             else

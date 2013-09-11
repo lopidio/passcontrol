@@ -11,6 +11,7 @@ import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -329,32 +330,32 @@ public class ButtonsModulesScreen extends PassControlPanel
     private void verifyPermissions() 
     {
         int permissionCode = Main.getInstance().getCurrentUser().getType();
-        if ((permissionCode & 1) == 1)// É capaz de entrar na opção jbAdmin
+        if (UserPermission.hasAdminPermission(permissionCode))// É capaz de entrar na opção jbAdmin
         {
             jbAdmin.setEnabled(true);
             jmAdmin.setEnabled(true);
         }
-        if ((permissionCode & 2) == 2)// É capaz de entrar na opção jbBalcony
+        if (UserPermission.hasBalconyPermission(permissionCode))// É capaz de entrar na opção jbBalcony
         {
             jbBalcony.setEnabled(true);
             jmGuiche.setEnabled(true);
         }
-        if ((permissionCode & 4) == 4)// É capaz de entrar na opção jbViewer
+        if (UserPermission.hasViewerPermission(permissionCode))// É capaz de entrar na opção jbViewer
         {
             jbViewer.setEnabled(true);
             jmViewer.setEnabled(true);
         }
-        if ((permissionCode & 8) == 8)// É capaz de entrar na opção jbAdd
+        if (UserPermission.hasPusherPermission(permissionCode))// É capaz de entrar na opção jbAdd
         {
             jbAdd.setEnabled(true);
             jmQueuePush.setEnabled(true);
         }
-        if ((permissionCode & 16) == 16)// É capaz de entrar na opção jbRemove
+        if (UserPermission.hasPopperPermission(permissionCode))// É capaz de entrar na opção jbRemove
         {
             jbRemove.setEnabled(true);
             jmQueuePop.setEnabled(true);
         }
-        if ((permissionCode & 32) == 32)// É capaz de entrar na opção jbConfig
+        if (UserPermission.hasConfigPermission(permissionCode))// É capaz de entrar na opção jbConfig
         {
             jbConfig.setEnabled(true);
             jmConfig.setEnabled(true);
