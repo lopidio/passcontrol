@@ -337,23 +337,19 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
 
     public void userLogin(Socket socket, UserBean userBean)
     {
-        //Por todo o mapa
-        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
-        {
-            //Por todos os clientes
-            for (ClientUserSocketPair clientUserSocketPair : entry.getValue()) 
-            {
-                //Aquele que tiver o mesmo socket...
-                if (clientUserSocketPair.getSocket().equals(socket))
-                {
-                    clientUserSocketPair.login(userBean);
-                    return;
-                }
-            }
-        }
+        ClientUserSocketPair pair = getPairFromSocket(socket);
+        if (pair != null)
+            pair.login(userBean);
     }
     
     public void userLogoff(Socket socket)
+    {
+        ClientUserSocketPair pair = getPairFromSocket(socket);
+        if (pair != null)
+            pair.logoff();
+    }
+    
+    public ClientUserSocketPair getPairFromSocket(Socket socket)
     {
         //Por todo o mapa
         for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
@@ -364,11 +360,11 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                 //Aquele que tiver o mesmo socket...
                 if (clientUserSocketPair.getSocket().equals(socket))
                 {
-                    clientUserSocketPair.logoff();
-                    return;
+                    return clientUserSocketPair;
                 }
             }
-        }
+        }    
+        return null;
     }
     
 }
