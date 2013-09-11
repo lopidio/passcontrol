@@ -36,10 +36,6 @@ public class BalconyTypeCrud extends PassControlPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jmBalconyTypeCrud = new javax.swing.JMenu();
-        jmVoltar = new javax.swing.JMenuItem();
-        jmLogout = new javax.swing.JMenuItem();
-        jmSair = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         cbCodigo = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -49,38 +45,6 @@ public class BalconyTypeCrud extends PassControlPanel
         btNovo = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-
-        jmBalconyTypeCrud.setText("Cadastro");
-
-        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jmVoltar.setMnemonic('v');
-        jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmVoltarActionPerformed(evt);
-            }
-        });
-        jmBalconyTypeCrud.add(jmVoltar);
-
-        jmLogout.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        jmLogout.setMnemonic('l');
-        jmLogout.setText("Logout");
-        jmLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmLogoutActionPerformed(evt);
-            }
-        });
-        jmBalconyTypeCrud.add(jmLogout);
-
-        jmSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jmSair.setMnemonic('s');
-        jmSair.setText("Sair");
-        jmSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmSairActionPerformed(evt);
-            }
-        });
-        jmBalconyTypeCrud.add(jmSair);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -169,18 +133,6 @@ public class BalconyTypeCrud extends PassControlPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVoltarActionPerformed
-        controller.performBack();
-    }//GEN-LAST:event_jmVoltarActionPerformed
-
-    private void jmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoutActionPerformed
-        controller.performLogout();
-    }//GEN-LAST:event_jmLogoutActionPerformed
-
-    private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
-        controller.performExit();
-    }//GEN-LAST:event_jmSairActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btDeletar;
@@ -190,10 +142,6 @@ public class BalconyTypeCrud extends PassControlPanel
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenu jmBalconyTypeCrud;
-    private javax.swing.JMenuItem jmLogout;
-    private javax.swing.JMenuItem jmSair;
-    private javax.swing.JMenuItem jmVoltar;
     private javax.swing.JTextField tfType;
     // End of variables declaration//GEN-END:variables
 
@@ -201,7 +149,6 @@ public class BalconyTypeCrud extends PassControlPanel
     public ArrayList<JMenu> createMenuItems() 
     {
         ArrayList<JMenu> ret = new ArrayList<JMenu>();
-        ret.add(jmBalconyTypeCrud);
         return ret;
     }
 

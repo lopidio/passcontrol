@@ -4,8 +4,6 @@
  */
 package br.com.thecave.passcontrol.controler;
 
-import br.com.thecave.passcontrol.screens.DefaultScreen;
-import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import java.net.Socket;

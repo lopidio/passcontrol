@@ -18,11 +18,4 @@ public class BalconyCrudController extends PassControlController
     {
         this.screen = (BalconyCrud) passControlPanel;
     }    
-
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }
 }

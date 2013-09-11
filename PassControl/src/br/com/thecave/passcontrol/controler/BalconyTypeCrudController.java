@@ -17,12 +17,6 @@ public class BalconyTypeCrudController extends PassControlController
     public void setPassControlPanel(JPanel passControlPanel) 
     {
         this.screen = (BalconyTypeCrud) passControlPanel;
-    }    
+    }   
 
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }
 }

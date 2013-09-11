@@ -17,12 +17,5 @@ public class ServiceCrudController extends PassControlController
     public void setPassControlPanel(JPanel passControlPanel) 
     {
         this.screen = (ServiceCrud) passControlPanel;
-    }    
-
-    @Override
-    public void performBack() 
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
-    }
+    }   
 }
