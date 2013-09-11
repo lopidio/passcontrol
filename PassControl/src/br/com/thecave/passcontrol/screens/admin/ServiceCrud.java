@@ -6,7 +6,9 @@ package br.com.thecave.passcontrol.screens.admin;
 
 import br.com.thecave.passcontrol.controler.ServiceCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
 
 /**
@@ -24,7 +26,11 @@ public class ServiceCrud extends PassControlPanel
         super("Cadastro de Serviços", new ServiceCrudController());
         this.controller = (ServiceCrudController) getPanelController();
         initComponents();
-        
+        controller.loadServices();
+        defineCBNames();
+        btCancelar.setEnabled(false);
+        btSalvar.setEnabled(false);
+        cbPrioridade.setEnabled(false);
     }
 
     /**
@@ -59,6 +65,13 @@ public class ServiceCrud extends PassControlPanel
 
         btNovo.setBackground(new java.awt.Color(0, 153, 191));
         btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btNovoActionPerformed(evt);
+            }
+        });
 
         btDeletar.setBackground(new java.awt.Color(0, 153, 191));
         btDeletar.setText("Deletar");
@@ -68,6 +81,13 @@ public class ServiceCrud extends PassControlPanel
 
         btCancelar.setBackground(new java.awt.Color(0, 153, 191));
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,6 +163,24 @@ public class ServiceCrud extends PassControlPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btNovoActionPerformed
+    {//GEN-HEADEREND:event_btNovoActionPerformed
+        btNovo.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        cbName.setEditable(true);
+        cbPrioridade.setEnabled(true);
+        btEditar.setEnabled(false);
+        btDeletar.setEnabled(false);
+        
+        cbName.setModel(new DefaultComboBoxModel());
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btCancelarActionPerformed
+    {//GEN-HEADEREND:event_btCancelarActionPerformed
+        defineCBNames();        
+    }//GEN-LAST:event_btCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btDeletar;
@@ -161,6 +199,23 @@ public class ServiceCrud extends PassControlPanel
     {
         ArrayList<JMenu> ret = new ArrayList<JMenu>();
         return ret;
+    }
+
+    private void defineCBNames()
+    {
+        ArrayList<ServiceBean> services = controller.getServices();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        
+        for(ServiceBean bean : services)
+        {
+            model.addElement(bean.getName());
+        }
+        cbName.setModel(model);
+    }
+    
+    private void defineCBPriorites(int value)
+    {
+        cbPrioridade.setSelectedIndex(value - 1);
     }
 
 }

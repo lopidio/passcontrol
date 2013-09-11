@@ -27,12 +27,12 @@ public class AdministratorListServiceResponse extends PassControlMessage
         this.listService = listUser;
     }
 
-    public ArrayList<ServiceBean> getListUser() {
+    public ArrayList<ServiceBean> getListService() {
         return listService;
     }
 
-    public void setListUser(ArrayList<ServiceBean> listUser) {
-        this.listService = listUser;
+    public void setListService(ArrayList<ServiceBean> listService) {
+        this.listService = listService;
     }
     
 }
