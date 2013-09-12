@@ -118,12 +118,11 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     {
         GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
 
-        Watchdog timeOutWatcher = new Watchdog(timeout);
-
         addMessageListener(listener, clazz);
         message.setTo(MessageActors.ServerActor);
+        Watchdog timeOutWatcher = new Watchdog(timeout);
         addBroadcastToSend(message);
-        while (!timeOutWatcher.hasTimedOut()) //Se a espera não for infinita...
+        while (!timeOutWatcher.hasTimedOut()) //Enquando não deu timeout
         {          
             if (listener.hasReceivedMessage())
             {

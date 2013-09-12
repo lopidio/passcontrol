@@ -7,6 +7,7 @@ package br.com.thecave.passcontrolserver.communicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -299,12 +300,16 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         
     }
     
-    
-    public <Message extends PassControlMessage> HashMap<Message, Socket> sendMessageToClientsAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
+    /**
+     * 
+     * @param <Message> Classe da mensagem que deve ser recebida
+     * @param message Mensagem a ser passada por parâmetro
+     * @param clazz Classe da mensagem que deve ser recebida
+     * @return Um mapa de Socket-Mensagem
+     */
+    public <Message extends PassControlMessage> HashMap<Socket, Message> sendMessageToClientsAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
     {
-        
-        int numClientsOfType = clientsList.get(message.getTo()).size();
-        GenericBufferPassControlMessageListener listener = new GenericBufferPassControlMessageListener(numClientsOfType);
+        GenericBufferPassControlMessageListener listener = new GenericBufferPassControlMessageListener(clientsList.get(message.getTo()).size());
 
         addMessageListener(listener, clazz);
         addBroadcastToSend(message);
@@ -325,7 +330,42 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         }
         removeListener(listener, clazz);
 
-        return (HashMap<Message, Socket>)listener.getMessagesReceived();
+        return (HashMap<Socket, Message>)listener.getMessagesReceived();
+    }
+    
+    /**
+     * 
+     * @param <Message> Classe da mensagem que deve ser recebida
+     * @param message Mensagem a ser passada por parâmetro
+     * @param clazz Classe da mensagem que deve ser recebida
+     * @param timeout in milliseconds
+     * @return Um mapa de Socket-Mensagem
+     */
+    public <Message extends PassControlMessage> HashMap<Socket, Message> sendMessageToClientsAndWaitForResponseOrTimeout(PassControlMessage message, Class<Message> clazz, long timeout)
+    {
+        GenericBufferPassControlMessageListener listener = new GenericBufferPassControlMessageListener(clientsList.get(message.getTo()).size());
+
+        addMessageListener(listener, clazz);
+        Watchdog timeOutWatcher = new Watchdog(timeout);
+        addBroadcastToSend(message);
+        while (!timeOutWatcher.hasTimedOut()) //Enquanto não der timeout
+        {          
+            if (listener.hasReceivedAllMessages())
+            {
+                break;
+            }
+            else
+            {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        removeListener(listener, clazz);
+
+        return (HashMap<Socket, Message>)listener.getMessagesReceived();
     }
     
     

@@ -10,6 +10,7 @@ import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -18,26 +19,28 @@ import java.util.HashMap;
 public class GenericBufferPassControlMessageListener implements PassControlMessageListener
 {
 
-    HashMap<PassControlMessage, Socket> messagesReceived = null;
+    HashMap<Socket, PassControlMessage> messagesReceived = null;
     
-    int messagesToWait;
+    int messagesToWaitCount;
 
-    public GenericBufferPassControlMessageListener(int messagesToWait) {
-        messagesReceived = new HashMap<>(messagesToWait);
-        this.messagesToWait = messagesToWait;
+    GenericBufferPassControlMessageListener(int messagesToWaitCount) 
+    {
+        this.messagesToWaitCount = messagesToWaitCount;
+        messagesReceived = new HashMap<>(messagesToWaitCount);
     }
 
     public boolean hasReceivedAllMessages()
     {
-        return messagesReceived.size() == messagesToWait;
+        return messagesReceived.size() == messagesToWaitCount;
     }
 
     @Override
-    public void onMessageReceive(PassControlMessage message, Socket socket) {
-        messagesReceived.put(message, socket);
+    public void onMessageReceive(PassControlMessage message, Socket socket) 
+    {
+        messagesReceived.put(socket, message);
     }
 
-    public HashMap<PassControlMessage, Socket> getMessagesReceived() {
+    public HashMap<Socket, PassControlMessage> getMessagesReceived() {
         return messagesReceived;
     }
     
