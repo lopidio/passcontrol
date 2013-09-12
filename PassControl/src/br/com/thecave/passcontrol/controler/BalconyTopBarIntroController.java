@@ -24,8 +24,7 @@ public class BalconyTopBarIntroController extends PassControlController
     @Override
     public void initialize() {
         BalconyInitRequest balconyInitRequest = new BalconyInitRequest();
-        BalconyInitResponse balconyInitResponse = Main.getInstance().getCommunicationThread().
-                    sendMessageAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
+        BalconyInitResponse balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
         
         if (balconyInitResponse != null)
         {
@@ -44,8 +43,7 @@ public class BalconyTopBarIntroController extends PassControlController
     public void confirmButtonPressed(String number, String type) 
     {
         BalconyLogin balconyLogin = new BalconyLogin(number, type);
-        ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                    sendMessageAndWaitForResponseOrTimeout(balconyLogin, ConfirmationResponse.class, 1000);
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyLogin, ConfirmationResponse.class, 1000);
         
         if (response != null)
         {

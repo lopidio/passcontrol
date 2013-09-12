@@ -70,7 +70,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         responsesToSend = new ConcurrentHashMap<>();
     }
     
-    synchronized public <Message extends PassControlMessage> void removeListener(GenericPassControlMessageListener listener, Class<Message> clazz) {
+    synchronized public <Message extends PassControlMessage> void removeListener(PassControlMessageListener listener, Class<Message> clazz) {
         String typeToListenTo = clazz.getSimpleName();
         ArrayList<PassControlMessageListener> list = passControlMessageListeners.get(typeToListenTo);
         if (list == null)
@@ -96,82 +96,6 @@ public abstract class PassControlCommunicationThread implements Runnable {
         passControlMessageListeners.put(typeToListenTo, list);
     }
     
-    /**
-     * Envia a mensagem e espera a resposta ou timeout
-     * 
-     * @param message Mensagem a ser enviada
-     * @param typeToListenTo Tipo da resposta esperado
-     * @param timeout Tempo de espera (em milissegundos) (se não positivo, espera infinitamente)
-     * @return Mensagem esperada ou null
-     */
-    public <Message extends PassControlMessage> Message sendMessageAndWaitForResponseOrTimeout(PassControlMessage message, Class<Message> clazz, long timeout)
-    {
-        Message retorno = null;
-        GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
-
-        Watchdog timeOutWatcher = new Watchdog(timeout);
-
-        addMessageListener(listener, clazz);
-        addBroadcastToSend(message);
-        while (!timeOutWatcher.hasTimedOut()) //Se a espera não for infinita...
-        {          
-            if (listener.hasReceivedMessage())
-            {
-//                System.out.println("Retorno já foi recebido");
-                retorno = (Message)listener.getReceivedMessage();
-                break;
-            }
-            else
-            {
-                try {
-//                    System.out.println("Tentativa frustrada de leitura número: " + ++x);                    
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        removeListener(listener, clazz);
-
-        return retorno;
-    }
-        
-    /**
-     * Envia a mensagem e espera a resposta ou timeout
-     * 
-     * @param message Mensagem a ser enviada
-     * @param typeToListenTo Tipo da resposta esperado
-     * @return Mensagem esperada ou null
-     */
-    public <Message extends PassControlMessage> Message sendMessageAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
-    {
-        Message retorno = null;
-        GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
-
-        addMessageListener(listener, clazz);
-        addBroadcastToSend(message);
-        while (true)//Espera infinitamente 
-        {          
-            if (listener.hasReceivedMessage())
-            {
-//                System.out.println("Retorno já foi recebido");
-                retorno = (Message)listener.getReceivedMessage();
-                break;
-            }
-            else
-            {
-                try {
-//                    System.out.println("Tentativa frustrada de leitura número: " + ++x);                    
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        removeListener(listener, clazz);
-
-        return retorno;
-    }
     
     /**
      * Envia a mensagem

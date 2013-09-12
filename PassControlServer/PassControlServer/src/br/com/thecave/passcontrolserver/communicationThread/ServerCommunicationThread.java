@@ -300,6 +300,34 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     }
     
     
+    public <Message extends PassControlMessage> ArrayList<Message> sendMessageToClientsAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
+    {
+        int numClientsOfType = clientsList.get(message.getTo()).size();
+        GenericBufferPassControlMessageListener listener = new GenericBufferPassControlMessageListener(numClientsOfType);
+
+        addMessageListener(listener, clazz);
+        addBroadcastToSend(message);
+        while (true)//Espera infinitamente 
+        {          
+            if (listener.hasReceivedAllMessages())
+            {
+                break;
+            }
+            else
+            {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        removeListener(listener, clazz);
+
+        return (ArrayList<Message>)listener.getReceivedMessage();
+    }
+    
+    
     private void repositionClient(MessageActors currentActor, MessageActors newActor, ClientUserSocketPair client) {
         //Remove da lista anterior e adiciona na nova lista
         removeClientFromMap(clientsList, currentActor, client);

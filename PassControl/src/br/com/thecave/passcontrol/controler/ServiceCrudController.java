@@ -27,8 +27,7 @@ public class ServiceCrudController extends PassControlController
     {
         AdministratorListService listService = new AdministratorListService();
         AdministratorListServiceResponse response = Main.getInstance().
-                                                        getCommunicationThread().
-                                                    sendMessageAndWaitForResponseOrTimeout(listService, AdministratorListServiceResponse.class, 2000);
+                                                        getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, AdministratorListServiceResponse.class, 2000);
         
         servicos = response.getListService();
     }

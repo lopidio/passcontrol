@@ -6,6 +6,7 @@ package br.com.thecave.passcontrolserver.communicationThread;
 
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -104,34 +105,80 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
         running = false;
         finalizeConnection();
     }
-    //REGIÃO DE TESTES
-//    public static void main(String[] args) {
-//            ClientCommunicationThread me = new ClientCommunicationThread("127.0.0.1", 23073);
-//            new Thread(me).start();
-//        
-//            ClientLoginRequest initRequest = new ClientLoginRequest(MessageActors.AdministratorActor, "guigui", "123456senha");
-//
-//            ClientLoginResponse initResponse = (ClientLoginResponse)me.sendMessageAndWaitForResponseOrTimeout
-//                    (initRequest, ClientLoginResponse.class.getSimpleName(), 30*1000);
-//
-//            if (initResponse != null)
-//            {
-//                if (initResponse.getUser() != null)
-//                {
-//                    System.out.println("PermissionCode: " + initResponse.getUser().getType());
-//                    System.out.println("Status login: true");
-//                }
-//                else
-//                {
-//                    System.out.println("Usuário e senha incompatíveis");
-//                }
-//            }
-//            else
-//                System.out.println("TIME OUT!");
-//            me.stop();
-//            System.out.println("Fim execução cliente");
-//    }
-    //FIM DA REGIÃO DE TESTES
+
+    /**
+     * Envia a mensagem e espera a resposta ou timeout
+     * 
+     * @param message Mensagem a ser enviada
+     * @param typeToListenTo Tipo da resposta esperado
+     * @param timeout Tempo de espera (em milissegundos) (se não positivo, espera infinitamente)
+     * @return Mensagem esperada ou null
+     */
+    public <Message extends PassControlMessage> Message sendMessageToServerAndWaitForResponseOrTimeout(PassControlMessage message, Class<Message> clazz, long timeout)
+    {
+        GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
+
+        Watchdog timeOutWatcher = new Watchdog(timeout);
+
+        addMessageListener(listener, clazz);
+        message.setTo(MessageActors.ServerActor);
+        addBroadcastToSend(message);
+        while (!timeOutWatcher.hasTimedOut()) //Se a espera não for infinita...
+        {          
+            if (listener.hasReceivedMessage())
+            {
+//                System.out.println("Retorno já foi recebido");
+                break;
+            }
+            else
+            {
+                try {
+//                    System.out.println("Tentativa frustrada de leitura número: " + ++x);                    
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        removeListener(listener, clazz);
+
+        return (Message)listener.getReceivedMessage();
+    }
+        
+    /**
+     * Envia a mensagem e espera a resposta ou timeout
+     * 
+     * @param message Mensagem a ser enviada
+     * @param typeToListenTo Tipo da resposta esperado
+     * @return Mensagem esperada ou null
+     */
+    public <Message extends PassControlMessage> Message sendMessageToServerAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
+    {
+        GenericPassControlMessageListener listener = new GenericPassControlMessageListener();
+
+        addMessageListener(listener, clazz);
+        message.setTo(MessageActors.ServerActor);
+        addBroadcastToSend(message);
+        while (true)//Espera infinitamente 
+        {          
+            if (listener.hasReceivedMessage())
+            {
+                break;
+            }
+            else
+            {
+                try {
+//                    System.out.println("Tentativa frustrada de leitura número: " + ++x);                    
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        removeListener(listener, clazz);
+
+        return (Message)listener.getReceivedMessage();
+    }    
     
     @Override
     public void run() {
