@@ -300,8 +300,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     }
     
     
-    public <Message extends PassControlMessage> ArrayList<Message> sendMessageToClientsAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
+    public <Message extends PassControlMessage> HashMap<Message, Socket> sendMessageToClientsAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
     {
+        
         int numClientsOfType = clientsList.get(message.getTo()).size();
         GenericBufferPassControlMessageListener listener = new GenericBufferPassControlMessageListener(numClientsOfType);
 
@@ -324,7 +325,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         }
         removeListener(listener, clazz);
 
-        return (ArrayList<Message>)listener.getReceivedMessage();
+        return (HashMap<Message, Socket>)listener.getMessagesReceived();
     }
     
     
