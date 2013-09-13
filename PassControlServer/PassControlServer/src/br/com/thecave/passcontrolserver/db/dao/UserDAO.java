@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Antonio Arleudo da Costa
  */
 public class UserDAO 
-{
+{    
     /**
      * Metodo para persistir um UserBean na tabela Tb_USER
      * @param bean Objeto UserBean a ser inserido
@@ -31,13 +31,14 @@ public class UserDAO
             
             Statement stmt;
             conn.setAutoCommit(false);
-
+            
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_USER (TX_NAME,INT_TYPE,TX_LOGIN,TX_PASSWORD) " +
+            String sql = "INSERT INTO TB_USER (TX_NAME,INT_TYPE,TX_LOGIN,TX_PASSWORD,TX_EMAIL) " +
                          "VALUES ('" + bean.getName() + "', " + 
                          bean.getType() + ", " + 
                          "'" + bean.getLogin() + "', " + 
-                         "'" + bean.getPassword() + "' );";
+                         "'" + bean.getPassword() + "', " + 
+                         "'" + bean.getEmail()+ "' );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -74,8 +75,9 @@ public class UserDAO
                          "',INT_TYPE = " + bean.getType() + 
                          ",TX_LOGIN = '"+ bean.getLogin() + 
                          "',TX_PASSWORD = '" + bean.getPassword() + 
+                         "',TX_EMAIL = '" + bean.getEmail()+ 
                          "' WHERE INT_ID=" + bean.getId() + ";";
-
+            
             stmt.executeUpdate(sql);
             conn.commit();          
             stmt.close();
@@ -108,7 +110,7 @@ public class UserDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "DELETE FROM  TB_USER WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "DELETE FROM TB_USER WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          
@@ -154,8 +156,9 @@ public class UserDAO
                 bean.setType(rs.getInt("INT_TYPE"));
                 bean.setLogin(rs.getString("TX_LOGIN"));
                 bean.setPassword(rs.getString("TX_PASSWORD"));
+                bean.setEmail(rs.getString("TX_EMAIL"));
             }
-            
+
             stmt.close();
             conn.close();
             return bean;
@@ -198,6 +201,7 @@ public class UserDAO
                 bean.setType(rs.getInt("INT_TYPE"));
                 bean.setLogin(rs.getString("TX_LOGIN"));
                 bean.setPassword(rs.getString("TX_PASSWORD"));
+                bean.setEmail(rs.getString("TX_EMAIL"));                
             }
             
             stmt.close();
@@ -241,6 +245,7 @@ public class UserDAO
                 bean.setType(rs.getInt("INT_TYPE"));
                 bean.setLogin(rs.getString("TX_LOGIN"));
                 bean.setPassword(rs.getString("TX_PASSWORD"));
+                bean.setEmail(rs.getString("TX_EMAIL"));                
                 beanList.add(bean);
             }
             

@@ -25,7 +25,11 @@ public class UserBean extends TableBean
      * Guarda o valor da variavel [TX_PASSWORD] da tabela TB_USER
      */
     private String password;
-
+    /**
+     * Guarda o valor da variavel [TX_EMAIL] da tabela TB_USER
+     */
+    private String email;
+    
     /**
      * @return the id
      */
@@ -105,6 +109,21 @@ public class UserBean extends TableBean
     {
         this.password = password;
     }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+    
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     
     
 }

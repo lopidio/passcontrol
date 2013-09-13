@@ -145,7 +145,7 @@ public class QueuesManagerDAO
      */
     public QueuesManagerBean selectFromId(int id)
     {
-        QueuesManagerBean bean = new QueuesManagerBean();
+        QueuesManagerBean bean = null;
         try
         {
         // pegar a conexão com o banco
@@ -163,6 +163,7 @@ public class QueuesManagerDAO
             
             while(rs.next())
             {
+                bean = new QueuesManagerBean();
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setIdService(rs.getInt("INT_ID_SERVICE"));
                 bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
@@ -182,6 +183,6 @@ public class QueuesManagerDAO
             //TODO: logar erro
           ConnectionDataBase.getInstance().closeConnection();
           return null;
-        }            
+        }  
     }    
 }
