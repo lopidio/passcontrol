@@ -153,7 +153,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         return message;
     }
     
-    protected void redirectReceivedMessage(PassControlMessage message, Socket socket)
+    public void redirectReceivedMessage(PassControlMessage message, Socket socket)
     {
         if (message.getType().equals("HeartBeatMessage"))
             return;

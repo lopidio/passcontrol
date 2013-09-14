@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrolserver.messagelisteners.nongeneric;
 
 import br.com.thecave.passcontrolserver.PassControlServer;
+import br.com.thecave.passcontrolserver.communicationThread.ClientUserSocketPair;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
@@ -15,8 +16,6 @@ import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyRecallLastClient;
-import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
-import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
@@ -42,8 +41,6 @@ public class ClientBalconyListeners implements ClientListeners
         server.addMessageListener(new BalconyLoginListener(), BalconyLogin.class);
         server.addMessageListener(new BalconyRecallLastClientListener(), BalconyRecallLastClient.class);
         server.addMessageListener(new BalconyCallNextClientRequestListener(), BalconyCallNextClientRequest.class);
-        server.addMessageListener(new BalconyChangeActorListener(), ChangeActorMessage.class);
-        server.addMessageListener(new BalconyLogoffListener(), ClientLogoff.class);
     }
     
     private static class BalconyInitListener implements PassControlMessageListener
@@ -58,9 +55,10 @@ public class ClientBalconyListeners implements ClientListeners
             //Pego todos os guichês
             ArrayList<BalconyBean> balconyBeans = BalconyDAO.selectAll();
 
-            //Removo aqueles que estão em uso
+            //Se a consulta deu certo
             if (balconyBeans != null)
             {
+                refreshUnnavaliableBalconySocket();
                 //Removo os que já estão sendo usados 
                 for (Map.Entry<BalconyBean, Socket> unnavaliable : unnavaliableBalconySocket.entrySet()) 
                 {
@@ -73,6 +71,36 @@ public class ClientBalconyListeners implements ClientListeners
             
             PassControlServer.getInstance().getServer().addResponseToSend(socket, balconyInitResponse);
         }       
+
+        private void refreshUnnavaliableBalconySocket() 
+        {
+            //Verifico se tem algum socket meu que não tá logado no servidor
+            
+            //Pego todos os clientes logados como balcony
+            ArrayList<ClientUserSocketPair> balconysLoggedOnServer = PassControlServer.getInstance().getServer().getClientsList().get(MessageActors.BalconyActor); 
+
+            //Copia de segurança
+            HashMap<BalconyBean, Socket> safeCopy = new HashMap<>(unnavaliableBalconySocket);
+            //Itero por todos os meus guichês
+            for (Map.Entry<BalconyBean, Socket> entry : safeCopy.entrySet()) {
+                BalconyBean balconyBean = entry.getKey();
+                Socket socket = entry.getValue();
+                
+                boolean existeUmCorrespondente = false;
+                for (ClientUserSocketPair clientUserSocketPair : balconysLoggedOnServer)
+                {
+                    if (clientUserSocketPair.getSocket().equals(socket))
+                    {
+                        existeUmCorrespondente = true;
+                    }
+                }
+                if (!existeUmCorrespondente)
+                {
+                    unnavaliableBalconySocket.remove(balconyBean);
+                }
+                
+            }
+        }
     }
 
     private static class BalconyLoginListener implements PassControlMessageListener {
@@ -126,43 +154,4 @@ public class ClientBalconyListeners implements ClientListeners
         }
     }
 
-    private static class BalconyChangeActorListener implements PassControlMessageListener {
-
-        @Override
-        public void onMessageReceive(PassControlMessage message, Socket socket) {
-//            ChangeActorMessage changeActorMessage = (ChangeActorMessage)message;
-
-            removeUnnavaliableBalconyFromSocket(socket);
-
-        }
-
-
-    }
-
-    private static class BalconyLogoffListener implements PassControlMessageListener{
-
-        @Override
-        public void onMessageReceive(PassControlMessage message, Socket socket) 
-        {
-//            ClientLogoff clientLogoff = (ClientLogoff)message;
-            removeUnnavaliableBalconyFromSocket(socket);
-        }
-    }
-    
-    private static boolean removeUnnavaliableBalconyFromSocket(Socket socket)
-    {
-        //Verifico se um desses sockets estava associado à um guichê
-        //Se tiver, digo que esse guichê está disponível
-        for (Map.Entry<BalconyBean, Socket> unnavaliable : unnavaliableBalconySocket.entrySet()) {
-            BalconyBean balconyBean = unnavaliable.getKey();
-            Socket unnavaliableSocket = unnavaliable.getValue();
-            if (socket.equals(unnavaliable))
-            {
-                unnavaliableBalconySocket.remove(balconyBean);
-                return true;
-            }
-        }        
-        return false;
-    }
-        
 }

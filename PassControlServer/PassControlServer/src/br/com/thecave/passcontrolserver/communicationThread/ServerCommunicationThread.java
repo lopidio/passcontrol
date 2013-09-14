@@ -440,5 +440,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         }    
         return null;
     }
-    
+
+    public ConcurrentHashMap<MessageActors, ArrayList<ClientUserSocketPair>> getClientsList() {
+        return clientsList;
+    }
+
 }

@@ -4,7 +4,9 @@
  */
 package br.com.thecave.passcontrolserver.communicationThread;
 
+import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Date;
