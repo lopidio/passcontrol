@@ -6,7 +6,9 @@ package br.com.thecave.passcontrol.screens.admin;
 
 import br.com.thecave.passcontrol.controller.UserCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
+import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
 
 /**
@@ -15,7 +17,6 @@ import javax.swing.JMenu;
  */
 public class UserCrud extends PassControlPanel
 {
-
     UserCrudController controller = null;
 
     /**
@@ -25,7 +26,8 @@ public class UserCrud extends PassControlPanel
     {
         super("Cadastro de Usuários", new UserCrudController());
         this.controller = (UserCrudController) getPanelController();
-        initComponents();
+        initComponents();        
+        loadNames();
 
     }
 
@@ -36,11 +38,10 @@ public class UserCrud extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         bgtypeUser = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        cbCodigo = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tfLogin = new javax.swing.JTextField();
@@ -49,18 +50,14 @@ public class UserCrud extends PassControlPanel
         btNovo = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-        tfName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tfSenha = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         rbAdmin = new javax.swing.JRadioButton();
         rbUser = new javax.swing.JRadioButton();
+        cbName = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setText("Código do Usuário");
-
-        cbCodigo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
 
         jLabel2.setText("Nome do Usuário");
 
@@ -121,6 +118,8 @@ public class UserCrud extends PassControlPanel
         bgtypeUser.add(rbUser);
         rbUser.setText("Usuário");
 
+        cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,14 +131,12 @@ public class UserCrud extends PassControlPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(cbCodigo, 0, 188, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(tfLogin)
-                    .addComponent(tfName)
+                    .addComponent(tfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                     .addComponent(jLabel4)
-                    .addComponent(tfSenha))
+                    .addComponent(tfSenha)
+                    .addComponent(cbName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -150,18 +147,14 @@ public class UserCrud extends PassControlPanel
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbAdmin))
+                    .addComponent(rbAdmin)
+                    .addComponent(cbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -183,8 +176,7 @@ public class UserCrud extends PassControlPanel
     private javax.swing.JButton btDeletar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox cbCodigo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox cbName;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -193,7 +185,6 @@ public class UserCrud extends PassControlPanel
     private javax.swing.JRadioButton rbAdmin;
     private javax.swing.JRadioButton rbUser;
     private javax.swing.JTextField tfLogin;
-    private javax.swing.JTextField tfName;
     private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
 
@@ -203,4 +194,17 @@ public class UserCrud extends PassControlPanel
         ArrayList<JMenu> ret = new ArrayList<JMenu>();
         return ret;
     }
+
+    private void loadNames()
+    {
+        ArrayList<UserBean> users = controller.getUserBeans();
+        controller.loadUsers();
+        
+        DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
+        
+        for(UserBean bean : controller.getUserBeans())
+            boxModel.addElement(bean.getName());
+        
+        cbName.setModel(boxModel);
+    }    
 }
