@@ -41,10 +41,13 @@ public class PassControlServer {
     public static void main(String[] args) 
     {
         ServerCommunicationThread server = getInstance().server;
+        
+        //Fazer uma lista de ClientListeners???
+        
         // Cadastra os listeners relativos às mensagens do administrador
-        ClientAdministratorListeners.addListenersCallback();
-        ClientBalconyListeners.addListenersCallback();
-        ClientGenericListeners.addListenersCallback();
+        new ClientAdministratorListeners().addListenersCallback();
+        new ClientBalconyListeners().addListenersCallback();
+        new ClientGenericListeners().addListenersCallback();
         new Thread(server).start();
     }
 

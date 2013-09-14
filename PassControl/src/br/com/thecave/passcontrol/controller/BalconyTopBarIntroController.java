@@ -6,10 +6,12 @@ package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -19,17 +21,17 @@ import javax.swing.JPanel;
 public class BalconyTopBarIntroController extends PassControlController 
 {
     BalconyTopBarIntro topBarIntro = null;
+    BalconyInitResponse balconyInitResponse = null;
 
 
     @Override
     public void initialize() {
         BalconyInitRequest balconyInitRequest = new BalconyInitRequest();
-        BalconyInitResponse balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
+        balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
         
         if (balconyInitResponse != null)
         {
-            topBarIntro.setBalconyTypes(balconyInitResponse.getBalconyTypes());
-            topBarIntro.setBalconyNumbers(balconyInitResponse.getBalconyNumbers());
+            topBarIntro.setBalconyNumbers(balconyInitResponse.getAvaliableBalconys());
             topBarIntro.enableConfirmButton();
         }
     }
@@ -40,9 +42,10 @@ public class BalconyTopBarIntroController extends PassControlController
         topBarIntro = (BalconyTopBarIntro)passControlPanel;
     }   
 
-    public void confirmButtonPressed(String number, String type) 
+    public void confirmButtonPressed(int index) 
     {
-        BalconyLogin balconyLogin = new BalconyLogin(number, type);
+        BalconyBean selectedBalconyBean = balconyInitResponse.getAvaliableBalconys().get(index);
+        BalconyLogin balconyLogin = new BalconyLogin(selectedBalconyBean);
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyLogin, ConfirmationResponse.class, 1000);
         
         if (response != null)
@@ -51,7 +54,13 @@ public class BalconyTopBarIntroController extends PassControlController
             {
                 topBarIntro.blockPassControlTopBar();
                 BalconyScreen balconyScreen = (BalconyScreen)Main.getInstance().getMainFrame().getCurrentPassControlPanel();
-                balconyScreen.initialize(number);
+                balconyScreen.initialize(selectedBalconyBean.getNumber());
+            }
+            else
+            {
+                JOptionPane.showConfirmDialog(null, "Guichê indisponível no momento", "Operação não realizada", JOptionPane.ERROR_MESSAGE);
+                //Reinicio o bomboBox
+                initialize();
             }
         }
     }

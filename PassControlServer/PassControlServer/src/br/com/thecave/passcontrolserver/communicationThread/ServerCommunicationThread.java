@@ -140,6 +140,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                         {
                             markToReset = true;
                             System.out.println("Conexão perdida. Cliente será removido da lista de clientes");
+                            //Se não for um ponteiro perdido, eu dou logoff
+                            if (client != null)
+                                client.logoff();                            
                             removeClient(currentActor, client);
                             Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
                         }

@@ -6,6 +6,9 @@ package br.com.thecave.passcontrolserver.messagelisteners.nongeneric;
 
 import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
+import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientListeners;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
@@ -23,9 +26,11 @@ import java.util.ArrayList;
  *
  * @author lopidio
  */
-public class ClientBalconyListeners 
+public class ClientBalconyListeners implements ClientListeners
 {
-    public static void addListenersCallback()
+
+    @Override
+    public void addListenersCallback()
     {
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
         server.addMessageListener(new ClientBalconyListeners.BalconyInitListener(), BalconyInitRequest.class);
@@ -40,18 +45,7 @@ public class ClientBalconyListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
 //            BalconyInitRequest balconyInitRequestMessage = (BalconyInitRequest)message;
-            
-            ArrayList<String> types = new ArrayList<>();
-            types.add("Tipo comum");
-            types.add("Prioritário");
-            types.add("Caseiro");
-            
-            ArrayList<String> number = new ArrayList<>();
-            number.add("1+");
-            number.add("2+");
-            number.add("14=");
-            
-            BalconyInitResponse balconyInitResponse = new BalconyInitResponse(types, number);
+            BalconyInitResponse balconyInitResponse = new BalconyInitResponse(PassControlServer.getInstance().getAvaliableBalconys());
             PassControlServer.getInstance().getServer().addResponseToSend(socket, balconyInitResponse);
         }       
     }
@@ -62,14 +56,17 @@ public class ClientBalconyListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) {
             BalconyLogin balconyLogin = (BalconyLogin)message;
 
-            System.out.println("Guichê inicializado com o número " + balconyLogin.getNumber() + " e atende " + balconyLogin.getBalconyType() );
+            System.out.println("Guichê inicializado com o número " + balconyLogin.getBalconyBean().getNumber() );
             
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.BalconyActor);
+            confirmationResponse.setStatusOperation(PassControlServer.getInstance().setBalconyUsing(balconyLogin.getBalconyBean(), true));
             
             PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
         }
 
     }
+    
+    
 
     private static class BalconyRecallLastClientListener implements PassControlMessageListener {
         @Override

@@ -6,14 +6,16 @@ package br.com.thecave.passcontrolserver.messagelisteners.nongeneric;
 
 import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientListeners;
 
 /**
  *
  * @author guilherme
  */
-public class ClientQueuePushListeners 
+public class ClientQueuePushListeners implements ClientListeners
 {
-    public static void addListenersCallback()
+    @Override
+    public void addListenersCallback()
     {
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
 //        server.addMessageListener(new QueuePusherAddClientListeners.BalconyInitListener(), QueuePusherAddClient.class);

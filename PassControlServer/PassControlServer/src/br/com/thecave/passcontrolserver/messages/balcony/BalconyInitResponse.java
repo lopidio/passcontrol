@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrolserver.messages.balcony;
 
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.util.ArrayList;
@@ -17,27 +18,23 @@ public class BalconyInitResponse extends PassControlMessage
     /**
      * Tipos disponíveis do balcão
      */
-    ArrayList<String> balconyTypes;
+    ArrayList<BalconyBean> avaliableBalconys;
     
-    /**
-     * números disponíveis para o balcão
-     */
-    ArrayList<String> balconyNumbers;
-
-    public BalconyInitResponse(ArrayList<String> balconyTypes, ArrayList<String> balconyNumbers) {
+    public BalconyInitResponse(ArrayList<BalconyBean> avaliableBalconys) {
         super(MessageActors.ServerActor, MessageActors.BalconyActor);
-        this.balconyTypes = balconyTypes;
-        this.balconyNumbers = balconyNumbers;
+        this.avaliableBalconys = avaliableBalconys;
     }
 
-    public ArrayList<String> getBalconyTypes() {
-        return balconyTypes;
+    public ArrayList<BalconyBean> getAvaliableBalconys() {
+        return avaliableBalconys;
     }
 
-    public ArrayList<String> getBalconyNumbers() {
-        return balconyNumbers;
+    public void setAvaliableBalconys(ArrayList<BalconyBean> avaliableBalconys) {
+        this.avaliableBalconys = avaliableBalconys;
     }
+
     
     
+
     
 }

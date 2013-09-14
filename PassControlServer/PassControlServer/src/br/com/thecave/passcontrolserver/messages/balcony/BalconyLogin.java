@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrolserver.messages.balcony;
 
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 
@@ -16,36 +17,22 @@ public class BalconyLogin extends PassControlMessage
     /**
      * Número do guichê
      */
-    String number;
+    BalconyBean balconyBean;
     
-    /**
-     * Índice do tipo de guichê selecionado do array de tipos
-     */
-    String balconyType;
-
-    public BalconyLogin(String number, String balconyType) 
+    public BalconyLogin(BalconyBean balconyBean) 
     {
         super(MessageActors.BalconyActor, MessageActors.ServerActor);
-        this.number = number;
-        this.balconyType = balconyType;
+        this.balconyBean = balconyBean;
     }
 
-    public String getNumber() {
-        return number;
+    public BalconyBean getBalconyBean() {
+        return balconyBean;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-    
-    public String getBalconyType() {
-        return balconyType;
+    public void setBalconyBean(BalconyBean balconyBean) {
+        this.balconyBean = balconyBean;
     }
 
-    public void setBalconyType(String balconyType) {
-        this.balconyType = balconyType;
-    }
-    
-    
+
     
 }

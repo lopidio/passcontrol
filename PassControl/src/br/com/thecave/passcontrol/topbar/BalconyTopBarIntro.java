@@ -2,7 +2,9 @@ package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controller.BalconyTopBarIntroController;
 import br.com.thecave.passcontrol.controller.Main;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -49,7 +51,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lbTipo = new javax.swing.JLabel();
         lbNumero = new javax.swing.JLabel();
         cbNumero = new javax.swing.JComboBox();
-        cbTipo = new javax.swing.JComboBox();
         jbConfirm = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 191));
@@ -101,9 +102,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
         cbNumero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
         add(cbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 19, 185, 30));
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tipo 1", "Tipo 2", "Tipo 3", "Tipo 4" }));
-        add(cbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 56, 185, 30));
-
         jbConfirm.setText("OK");
         jbConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,12 +116,11 @@ public class BalconyTopBarIntro extends PassControlTopBar
     }//GEN-LAST:event_lbLogoutMouseClicked
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
-        balconyTopBarIntroController.confirmButtonPressed((String)cbNumero.getModel().getSelectedItem(), (String)cbTipo.getModel().getSelectedItem());
+        balconyTopBarIntroController.confirmButtonPressed((int)cbNumero.getModel().getSelectedItem());
     }//GEN-LAST:event_jbConfirmActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbNumero;
-    private javax.swing.JComboBox cbTipo;
     private javax.swing.JButton jbConfirm;
     private javax.swing.JLabel jlBarra;
     private javax.swing.JLabel jlIcon;
@@ -135,23 +132,19 @@ public class BalconyTopBarIntro extends PassControlTopBar
     private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
 
-    public void setBalconyTypes(ArrayList<String> balconyTypes) {
-        String[] strCast = new String[balconyTypes.size()];
-        strCast = balconyTypes.toArray(strCast);
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(strCast));
-    }
-
-    public void setBalconyNumbers(ArrayList<String> balconyNumbers) {
-        String[] strCast = new String[balconyNumbers.size()];
-        strCast = balconyNumbers.toArray(strCast);
-        cbNumero.setModel(new javax.swing.DefaultComboBoxModel(strCast));
+    public void setBalconyNumbers(ArrayList<BalconyBean> avaliableBalcony) {
+        DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
+        for (BalconyBean balconyBean : avaliableBalcony)
+        {
+            defaultComboBoxModel.addElement(balconyBean.getNumber());
+        }
+        cbNumero.setModel(defaultComboBoxModel);
     }
 
     @Override
     public void blockPassControlTopBar() 
     {
         cbNumero.setEnabled(false);
-        cbTipo.setEnabled(false);
         jbConfirm.setEnabled(false);
     }
 
@@ -159,7 +152,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
     public void unblockPassControlTopBar() 
     {
         cbNumero.setEnabled(true);
-        cbTipo.setEnabled(true);
         jbConfirm.setEnabled(true);
     }
     

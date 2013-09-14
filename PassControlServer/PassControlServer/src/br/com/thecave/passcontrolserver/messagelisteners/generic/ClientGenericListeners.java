@@ -26,10 +26,11 @@ import java.util.ArrayList;
  *
  * @author lopidio
  */
-public class ClientGenericListeners
+public class ClientGenericListeners implements ClientListeners
 {
     
-    public static void addListenersCallback() 
+    @Override
+    public void addListenersCallback() 
     {
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
         server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);

@@ -21,6 +21,7 @@ import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
 import br.com.thecave.passcontrolserver.db.dao.BalconyTypesServiceDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
+import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientListeners;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalcony;
@@ -37,9 +38,10 @@ import java.util.ArrayList;
  *
  * @author guilherme
  */
-public class ClientAdministratorListeners
+public class ClientAdministratorListeners implements ClientListeners
 {
-    public static void addListenersCallback()
+    @Override
+    public void addListenersCallback()
     {
         
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
