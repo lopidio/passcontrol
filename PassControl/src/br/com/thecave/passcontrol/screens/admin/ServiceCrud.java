@@ -241,6 +241,7 @@ public class ServiceCrud extends PassControlPanel
     private ServiceBean extractBeanFromCombo()
     {
         String name = cbName.getSelectedItem().toString();
+        controller.loadServices();
         for(ServiceBean bean : controller.getServices())
         {
             if(bean.getName().equals(name))
