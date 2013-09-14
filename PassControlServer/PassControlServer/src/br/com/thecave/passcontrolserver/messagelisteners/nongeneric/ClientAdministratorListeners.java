@@ -19,6 +19,7 @@ import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
+import br.com.thecave.passcontrolserver.db.dao.BalconyTypesServiceDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddService;
@@ -172,7 +173,12 @@ public class ClientAdministratorListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
             AdministratorAddBalcony addServiceMessage = (AdministratorAddBalcony)message;
-            boolean status = BalconyDAO.insert(addServiceMessage.getBalconyBean());
+            boolean status = false;
+            for (ServiceBean serviceBeans : addServiceMessage.getServiceBeans()) 
+            {
+                status = BalconyTypesServiceDAO.insert(addServiceMessage.getBalconyBean(), serviceBeans);
+            }
+            status = status && BalconyDAO.insert(addServiceMessage.getBalconyBean());
             ConfirmationResponse response = new ConfirmationResponse(status, message, MessageActors.AdministratorActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
         }       

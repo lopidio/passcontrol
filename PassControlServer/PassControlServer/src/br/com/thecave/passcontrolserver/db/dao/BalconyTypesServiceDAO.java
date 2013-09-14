@@ -3,6 +3,7 @@ package br.com.thecave.passcontrolserver.db.dao;
 import br.com.thecave.passcontrolserver.db.ConnectionDataBase;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.BalconyTypesServiceBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -200,4 +201,40 @@ public class BalconyTypesServiceDAO {
           return retorno;
         }            
     }
-}
+
+    /**
+     * Metodo para persistir um BalconyTypesServiceBean na tabela TB_BALCONY_TYPES_SERVICE
+     * @param balconyBean
+     * @param serviceBeans
+     * @return  true se o metodo executar corretamente, false caso contrario
+     * @see BalconyTypesServiceBean
+     */
+    public static boolean insert(BalconyBean balconyBean, ServiceBean serviceBeans) 
+    {
+        try
+        {
+            // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return false;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "INSERT INTO TB_BALCONY_TYPES_SERVICE (INT_ID_BALCONY,INT_ID_SERVICE) " +
+                         "VALUES (" + balconyBean.getId()+ ","+ serviceBeans.getId()+" );";
+            stmt.executeUpdate(sql);           
+
+            stmt.close();
+            conn.commit();
+            conn.close();
+            return true;
+        } 
+        catch ( Exception e ) 
+        {
+          //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return false;
+        }
+    }}
