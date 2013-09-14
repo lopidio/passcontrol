@@ -5,6 +5,7 @@ import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 /**
  * Classe para persistencia na tabela TB_BALCONY utilizando a classe BalconyBean
  * @see BalconyBean
@@ -157,4 +158,47 @@ public class BalconyDAO {
         }            
     }
     
+/**
+     * Metodo para recuperar um BalconyBean a partir de seu id.
+     * @param id Id do registro que se quer recuperar
+     * @return Bean com os dados ja preenchidos.
+     */
+    public static ArrayList<BalconyBean> selectAll()
+    {
+        ArrayList<BalconyBean> retorno = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o bancos
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_BALCONY;";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                BalconyBean bean = new BalconyBean();
+                bean.setId(rs.getInt("INT_ID"));    
+                bean.setNumber(rs.getString("TX_NUMBER"));
+                retorno.add(bean);
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }            
+    }
+        
 }
