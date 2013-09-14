@@ -1,6 +1,7 @@
 package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controller.LoginTopBarController;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,8 +24,9 @@ public class LoginTopBar extends PassControlTopBar
         addPanelConnectionInfo();
     }
     
-    public void incorrectUser()
+    public void incorrectUser(String message)
     {
+        JOptionPane.showMessageDialog(null, message, "Login não realizado" ,JOptionPane.ERROR_MESSAGE);
         jtfLogin.setText("");
         jtfSenha.setText("");
         verifyOkButton();

@@ -70,7 +70,8 @@ public final class MainFrame extends javax.swing.JFrame
         menuBar.add(jmNavegar);
         for (JMenu novoMenu : newPassControlPanel.createMenuItems())
         {
-            menuBar.add(novoMenu); //ou , 1);
+            //Insere em segundo lugar. O primeiro sempre vai ser navegar
+            menuBar.add(novoMenu, 1);
         }
         menuBar.add(jmSobre);
         menuBar.add(jmAjuda);        

@@ -60,7 +60,7 @@ public class LoginTopBarController extends PassControlController
 //            }
 //            else
 //            {
-//                loginTopBar.incorrectUser();
+//                loginTopBar.incorrectUser(clientLoginResponse.getComment());
 //            }
 //        }
 //        else

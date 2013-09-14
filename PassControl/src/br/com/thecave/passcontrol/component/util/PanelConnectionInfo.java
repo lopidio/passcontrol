@@ -10,6 +10,7 @@ import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationT
 import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;
 import java.net.URL;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,7 +52,7 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
             
             if (Main.getInstance().isLoggedIn())
             {
-                //TODO mostrar um Popup informando que o cliente foi deslogado automaticamente
+                JOptionPane.showMessageDialog(null, "O servidor está offline. Execute o servidor para continuar", "Erro no servidor" ,JOptionPane.ERROR_MESSAGE);
                 mainFrame.performLogoutAction();
             }
         }
