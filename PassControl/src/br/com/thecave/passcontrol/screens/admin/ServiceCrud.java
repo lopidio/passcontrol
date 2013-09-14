@@ -28,6 +28,7 @@ public class ServiceCrud extends PassControlPanel
         initComponents();
         controller.loadServices();
         defineCBNames();
+        sincronizeCombos();
         btCancelar.setEnabled(false);
         btSalvar.setEnabled(false);
         cbPrioridade.setEnabled(false);
@@ -128,6 +129,13 @@ public class ServiceCrud extends PassControlPanel
         cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mínima", "Baixa", "Média", "Alta", "Máxima" }));
 
         cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbName.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cbNameItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -181,6 +189,11 @@ public class ServiceCrud extends PassControlPanel
         defineCBNames();        
     }//GEN-LAST:event_btCancelarActionPerformed
 
+    private void cbNameItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbNameItemStateChanged
+    {//GEN-HEADEREND:event_cbNameItemStateChanged
+        sincronizeCombos();
+    }//GEN-LAST:event_cbNameItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btDeletar;
@@ -216,6 +229,24 @@ public class ServiceCrud extends PassControlPanel
     private void defineCBPriorites(int value)
     {
         cbPrioridade.setSelectedIndex(value - 1);
+    }
+
+    private void sincronizeCombos()
+    {
+        ServiceBean bean = extractBeanFromCombo();
+        if(bean != null)
+        defineCBPriorites(bean.getPriority());
+    }
+
+    private ServiceBean extractBeanFromCombo()
+    {
+        String name = cbName.getSelectedItem().toString();
+        for(ServiceBean bean : controller.getServices())
+        {
+            if(bean.getName().equals(name))
+                return bean;
+        }
+        return null;
     }
 
 }

@@ -30,8 +30,8 @@ public class BalconyDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "INSERT INTO TB_BALCONY (INT_NUMBER,INT_ID_BALCONY_TYPE) " +
-                         "VALUES (" + bean.getNumber() +" , " + bean.getIdBalconyType()+ " );";
+            String sql = "INSERT INTO TB_BALCONY (TX_NUMBER) " +
+                         "VALUES (" + bean.getNumber() + " );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
@@ -65,7 +65,6 @@ public class BalconyDAO {
 
             stmt = conn.createStatement();
             String sql = "UPDATE TB_BALCONY SET INT_NUMBER = "+ bean.getNumber() + 
-                    ",INT_ID_BALCONY_TYPE = " + bean.getIdBalconyType() + 
                     " WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
@@ -143,9 +142,7 @@ public class BalconyDAO {
             {
                 bean = new BalconyBean();
                 bean.setId(rs.getInt("INT_ID"));    
-                bean.setNumber(rs.getInt("INT_NUMBER"));
-                bean.setIdBalconyType(rs.getInt("INT_ID_BALCONY_TYPE"));
-
+                bean.setNumber(rs.getString("TX_NUMBER"));
             }
             
             stmt.close();
