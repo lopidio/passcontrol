@@ -123,7 +123,7 @@ public class BalconyDAO {
      */
     public static BalconyBean selectFromId(int id)
     {
-        BalconyBean bean = new BalconyBean();
+        BalconyBean bean = null;
         try
         {
         // pegar a conexão com o bancos
@@ -135,12 +135,13 @@ public class BalconyDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_BALCONY;";
+            String sql = "SELECT * FROM TB_BALCONY WHERE ID=" + id +";";
 
             ResultSet rs = stmt.executeQuery(sql);
             
             while(rs.next())
             {
+                bean = new BalconyBean();
                 bean.setId(rs.getInt("INT_ID"));    
                 bean.setNumber(rs.getInt("INT_NUMBER"));
                 bean.setIdBalconyType(rs.getInt("INT_ID_BALCONY_TYPE"));

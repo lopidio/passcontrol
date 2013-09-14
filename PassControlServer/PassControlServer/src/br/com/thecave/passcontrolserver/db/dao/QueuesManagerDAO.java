@@ -157,7 +157,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_QUEUES_MANAGER;";
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE INT_ID="+id+";";
 
             ResultSet rs = stmt.executeQuery(sql);
             

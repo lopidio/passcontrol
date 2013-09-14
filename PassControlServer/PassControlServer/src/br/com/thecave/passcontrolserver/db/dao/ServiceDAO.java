@@ -102,7 +102,7 @@ public class ServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "DELETE FROM  TB_SERVICE WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "DELETE FROM TB_SERVICE WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          
@@ -167,7 +167,7 @@ public class ServiceDAO {
         // pegar a conexão com o banco
             Connection conn = ConnectionDataBase.getInstance().getConnection();
             if(conn == null)
-                return null;
+                return retorno;
             
             Statement stmt;
             conn.setAutoCommit(false);

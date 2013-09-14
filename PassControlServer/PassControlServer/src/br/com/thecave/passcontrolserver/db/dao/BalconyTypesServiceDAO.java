@@ -1,10 +1,12 @@
 package br.com.thecave.passcontrolserver.db.dao;
 
 import br.com.thecave.passcontrolserver.db.ConnectionDataBase;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.BalconyTypesServiceBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 /**
  * Classe para persistencia na tabela TB_BALCONY_TYPES_SERVICE utilizando a classe BalconyTypesServiceBean
  * @see BalconyTypesServiceBean
@@ -122,7 +124,7 @@ public class BalconyTypesServiceDAO {
      */
     public static BalconyTypesServiceBean selectFromId(int id)
     {
-        BalconyTypesServiceBean bean = new BalconyTypesServiceBean();
+        BalconyTypesServiceBean bean = null;
         try
         {
         // pegar a conexão com o banco
@@ -134,12 +136,13 @@ public class BalconyTypesServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_BALCONY_TYPES_SERVICE;";
+            String sql = "SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID="+id+";";
 
             ResultSet rs = stmt.executeQuery(sql);
             
             while(rs.next())
             {
+                bean = new BalconyTypesServiceBean();
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
                 bean.setIdService(rs.getInt("INT_ID_SERVICE"));
@@ -155,6 +158,46 @@ public class BalconyTypesServiceDAO {
             //TODO: logar erro
           ConnectionDataBase.getInstance().closeConnection();
           return null;
+        }            
+    }    
+    
+    /**
+     * Método para recuperar os tipos que determinado guichê atende
+     * @param balconyBean bean que se deseja saber os serviços
+     * @return vetor de ids do Service
+     */
+    public static ArrayList<Integer> selectServicesIdFromBalconyId(BalconyBean balconyBean)
+    {
+        ArrayList<Integer> retorno = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY="+balconyBean.getId()+";";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                retorno.add(rs.getInt("INT_ID_SERVICE"));
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return retorno;
         }            
     }
 }

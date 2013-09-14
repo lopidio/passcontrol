@@ -125,7 +125,7 @@ public class ClientDAO {
      */
     public static ClientBean selectFromId(int id)
     {
-        ClientBean bean = new ClientBean();
+        ClientBean bean = null;
         try
         {
         // pegar a conexão com o banco
@@ -137,12 +137,13 @@ public class ClientDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_CLIENT;";
+            String sql = "SELECT * FROM TB_CLIENT WHERE INT_ID="+id+";";
 
             ResultSet rs = stmt.executeQuery(sql);
             
             while(rs.next())
             {
+                bean = new ClientBean();
                 bean.setId(rs.getInt("INT_ID"));
                 bean.setRegister(rs.getString("TX_REGISTER"));
                 bean.setName(rs.getString("TX_NAME"));

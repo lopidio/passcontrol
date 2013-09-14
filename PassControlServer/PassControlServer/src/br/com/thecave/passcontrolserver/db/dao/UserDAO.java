@@ -144,7 +144,7 @@ public class UserDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_USER;";
+            String sql = "SELECT * FROM TB_USER WHERE INT_ID=" + id + ";";
 
             ResultSet rs = stmt.executeQuery(sql);
             
@@ -227,7 +227,7 @@ public class UserDAO
         // pegar a conexão com o banco
             Connection conn = ConnectionDataBase.getInstance().getConnection();
             if(conn == null)
-                return null;
+                return beanList;
             
             Statement stmt;
             conn.setAutoCommit(false);
