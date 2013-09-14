@@ -79,6 +79,13 @@ public class ServiceCrud extends PassControlPanel
 
         btSalvar.setBackground(new java.awt.Color(0, 153, 191));
         btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btSalvarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setBackground(new java.awt.Color(0, 153, 191));
         btCancelar.setText("Cancelar");
@@ -193,6 +200,11 @@ public class ServiceCrud extends PassControlPanel
     {//GEN-HEADEREND:event_cbNameItemStateChanged
         sincronizeCombos();
     }//GEN-LAST:event_cbNameItemStateChanged
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btSalvarActionPerformed
+    {//GEN-HEADEREND:event_btSalvarActionPerformed
+        controller.saveService(cbName.getSelectedItem().toString(), cbPrioridade.getSelectedIndex() +1 );
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
