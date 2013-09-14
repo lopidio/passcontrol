@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controler.LoginTopBarController;
+import br.com.thecave.passcontrol.controller.LoginTopBarController;
 
 /**
  *

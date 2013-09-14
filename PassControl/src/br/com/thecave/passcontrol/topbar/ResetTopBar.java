@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controler.ResetTopBarControler;
+import br.com.thecave.passcontrol.controller.ResetTopBarControler;
 
 /**
  *

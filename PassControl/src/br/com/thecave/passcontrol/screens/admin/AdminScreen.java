@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens.admin;
 
-import br.com.thecave.passcontrol.controler.AdminController;
+import br.com.thecave.passcontrol.controller.AdminController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import java.util.ArrayList;
 import javax.swing.JMenu;

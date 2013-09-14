@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controler.ConfigController;
+import br.com.thecave.passcontrol.controller.ConfigController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 

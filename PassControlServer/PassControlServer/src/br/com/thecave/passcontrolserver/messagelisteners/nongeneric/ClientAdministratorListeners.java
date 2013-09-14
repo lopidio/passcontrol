@@ -19,8 +19,8 @@ import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddService;
-import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListService;
-import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListServiceResponse;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveService;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -42,7 +42,6 @@ public class ClientAdministratorListeners
         server.addMessageListener(new RemoveUserListener(), AdministratorRemoveUser.class);
         ///Service
         server.addMessageListener(new AddServiceListener(), AdministratorAddService.class);
-        server.addMessageListener(new ListServiceListener(), AdministratorListService.class);
         server.addMessageListener(new RemoveServiceListener(), AdministratorRemoveService.class);
     }
     
@@ -105,19 +104,6 @@ public class ClientAdministratorListeners
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
         }       
     }
-    
-    private static class ListServiceListener implements PassControlMessageListener
-    {
-        @Override
-        public void onMessageReceive(PassControlMessage message, Socket socket) 
-        {
-//            AdministratorListService listUserMessage = (AdministratorListService)message;
-            ArrayList<ServiceBean> services = ServiceDAO.selectAll();
-            AdministratorListServiceResponse response = new AdministratorListServiceResponse(services);
-            PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
-        }       
-    }
-    
     
     private static class RemoveServiceListener implements PassControlMessageListener
     {

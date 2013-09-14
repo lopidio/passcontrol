@@ -12,10 +12,14 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
+import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,7 +33,7 @@ public class ClientGenericListeners
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
         server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
-
+        server.addMessageListener(new ClientListServiceListener(), ClientListServiceResponse.class);
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener
@@ -112,5 +116,18 @@ public class ClientGenericListeners
         }
     }
     
+    
+    private static class ClientListServiceListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+//            ClientListService listUserMessage = (ClientListService)message;
+            ArrayList<ServiceBean> services = ServiceDAO.selectAll();
+            ClientListServiceResponse response = new ClientListServiceResponse(services, message.getFrom());
+            PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
+        }       
+    }
+        
     
 }

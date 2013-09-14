@@ -1,9 +1,10 @@
-package br.com.thecave.passcontrol.controler;
+package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.admin.ServiceCrud;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
-import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListService;
-import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListServiceResponse;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -25,9 +26,9 @@ public class ServiceCrudController extends PassControlController
     
     public void loadServices()
     {
-        AdministratorListService listService = new AdministratorListService();
-        AdministratorListServiceResponse response = Main.getInstance().
-                                                        getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, AdministratorListServiceResponse.class, 2000);
+        ClientListService listService = new ClientListService(MessageActors.AdministratorActor);
+        ClientListServiceResponse response = Main.getInstance().
+                                                        getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, ClientListServiceResponse.class, 2000);
         
         servicos = response.getListService();
     }

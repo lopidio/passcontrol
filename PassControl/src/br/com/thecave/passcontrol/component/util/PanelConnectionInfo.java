@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.component.util;
 
-import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.communicationThread.StatusConnectionListener;

@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controler.QueuePushController;
+import br.com.thecave.passcontrol.controller.QueuePushController;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 

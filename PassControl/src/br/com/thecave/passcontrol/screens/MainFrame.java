@@ -1,7 +1,7 @@
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controler.Main;
-import br.com.thecave.passcontrol.controler.PassControlController;
+import br.com.thecave.passcontrol.controller.Main;
+import br.com.thecave.passcontrol.controller.PassControlController;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.topbar.PassControlTopBar;

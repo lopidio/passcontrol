@@ -1,4 +1,4 @@
-package br.com.thecave.passcontrol.controler;
+package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.admin.UserCrud;
 import javax.swing.JPanel;

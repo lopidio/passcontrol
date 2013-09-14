@@ -2,23 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.thecave.passcontrolserver.messages.administrator;
+package br.com.thecave.passcontrolserver.messages.generic;
 
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
-import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
-import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.util.ArrayList;
 
 /**
  *
  * @author guilherme
  */
-public class AdministratorListServiceResponse extends PassControlMessage
+public class ClientListServiceResponse extends PassControlMessage
 {
     ArrayList<ServiceBean> listService;
-    
-    public AdministratorListServiceResponse(ArrayList<ServiceBean> listUser) {
-        super(MessageActors.ServerActor, MessageActors.AdministratorActor);
+        
+    public ClientListServiceResponse(ArrayList<ServiceBean> listUser, MessageActors to) {
+        super(MessageActors.ServerActor, to);
         this.listService = listUser;
     }
 

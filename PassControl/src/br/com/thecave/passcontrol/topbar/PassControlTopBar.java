@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controler.PassControlController;
+import br.com.thecave.passcontrol.controller.PassControlController;
 import br.com.thecave.passcontrol.component.util.PanelConnectionInfo;
 import java.awt.Point;
 import javax.swing.BoxLayout;

@@ -1,7 +1,7 @@
 package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controler.BalconyTopBarIntroController;
-import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.controller.BalconyTopBarIntroController;
+import br.com.thecave.passcontrol.controller.Main;
 import java.util.ArrayList;
 
 /**

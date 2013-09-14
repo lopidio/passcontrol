@@ -25,10 +25,13 @@ public class AutomaticNextQueueChooser
         return instance;
     }
         
-    public QueuesManagerBean chooseNextElement()
+    public QueuesManagerBean chooseNextElement(int balconyId)
     {
         //Fluxo:
         /**
+         * 
+         * Verifica quais serviços esse guichê atende.
+         * 
          * Verifica se tem alguém com prioridade máxima.
          *      Se tiver:
          *          retorna o próximo de prioridade máxima;

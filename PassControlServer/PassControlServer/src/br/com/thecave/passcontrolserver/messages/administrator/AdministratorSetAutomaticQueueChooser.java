@@ -9,12 +9,24 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 
 /**
  *
- * @author guilherme
+ * @author lopidio
  */
-public class AdministratorListService extends PassControlMessage
-{    
-    public AdministratorListService() {
+public class AdministratorSetAutomaticQueueChooser extends PassControlMessage
+{
+    boolean isOn;
+
+    public AdministratorSetAutomaticQueueChooser(boolean isOn) {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
+        this.isOn = isOn;
     }
+
+    public boolean isIsOn() {
+        return isOn;
+    }
+
+    public void setIsOn(boolean isOn) {
+        this.isOn = isOn;
+    }
+    
     
 }

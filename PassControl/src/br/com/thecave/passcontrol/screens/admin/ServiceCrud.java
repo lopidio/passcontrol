@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.screens.admin;
 
-import br.com.thecave.passcontrol.controler.ServiceCrudController;
+import br.com.thecave.passcontrol.controller.ServiceCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.util.ArrayList;

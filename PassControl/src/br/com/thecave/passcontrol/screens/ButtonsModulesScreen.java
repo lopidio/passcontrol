@@ -4,9 +4,9 @@
  */
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controler.ButtonModulesController;
+import br.com.thecave.passcontrol.controller.ButtonModulesController;
 import br.com.thecave.passcontrol.screens.admin.AdminScreen;
-import br.com.thecave.passcontrol.controler.Main;
+import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
