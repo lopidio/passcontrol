@@ -2,12 +2,16 @@ package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.admin.BalconyCrud;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
-import br.com.thecave.passcontrolserver.db.bean.BalconyTypesServiceBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalconyResponse;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveBalcony;
+import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -35,9 +39,26 @@ public class BalconyCrudController extends PassControlController
         balconys = response.getBalconyBeans();
     }
 
-    public void saveBalcony( BalconyBean balconyBean, BalconyTypesServiceBean typesServiceBean )
+    public void saveBalcony( BalconyBean balconyBean, ArrayList<ServiceBean> typesServiceBean )
     {
+        AdministratorAddBalcony addBalcony = new AdministratorAddBalcony(balconyBean, typesServiceBean );
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(addBalcony, ConfirmationResponse.class, 2000);
         
+        if(response.getStatusOperation())
+            JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+        else
+            JOptionPane.showMessageDialog(null, "Erro ao salvar registros!");
+    }
+    
+    public void deleteBalcony( BalconyBean balconyBean )
+    {
+        AdministratorRemoveBalcony remove = new AdministratorRemoveBalcony( balconyBean );
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(remove, ConfirmationResponse.class, 2000);
+        
+        if(response.getStatusOperation())
+            JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+        else
+            JOptionPane.showMessageDialog(null, "Erro ao deletar registros!");
     }
     
     public ArrayList<BalconyBean> getBalconyBeans()
@@ -55,5 +76,16 @@ public class BalconyCrudController extends PassControlController
             model.addElement(bean.getNumber());
         }
         cbBalconyName.setModel(model);
+    }
+
+    public BalconyBean extractBeanFromName( String name )
+    {
+        loadBalconys();
+        for(BalconyBean bean : getBalconyBeans())
+        {
+            if(bean.getNumber().equals(name))
+                return bean;
+        }
+        return null;
     }
 }

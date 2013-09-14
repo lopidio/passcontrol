@@ -7,9 +7,8 @@ package br.com.thecave.passcontrol.screens.admin;
 import br.com.thecave.passcontrol.controller.BalconyCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
-import br.com.thecave.passcontrolserver.db.bean.BalconyTypesServiceBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
 
 /**
@@ -77,6 +76,13 @@ public class BalconyCrud extends PassControlPanel
 
         btDeletar.setBackground(new java.awt.Color(0, 153, 191));
         btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btDeletarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setBackground(new java.awt.Color(0, 153, 191));
         btCancelar.setText("Cancelar");
@@ -143,13 +149,21 @@ public class BalconyCrud extends PassControlPanel
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btSalvarActionPerformed
     {//GEN-HEADEREND:event_btSalvarActionPerformed
         BalconyBean balconyBean = new BalconyBean();
-        BalconyTypesServiceBean typesServiceBean = new BalconyTypesServiceBean();
+        ArrayList<ServiceBean> typesServiceBean = new ArrayList<ServiceBean>();
         
         balconyBean.setNumber(cbBalconyName.getSelectedItem().toString());
         controller.loadBalconys();
         
+        balconyBean = extractBeanFromCombo();
+        
         controller.saveBalcony(balconyBean, typesServiceBean);
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btDeletarActionPerformed
+    {//GEN-HEADEREND:event_btDeletarActionPerformed
+        BalconyBean bean = extractBeanFromCombo();
+        controller.deleteBalcony(bean);
+    }//GEN-LAST:event_btDeletarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
@@ -166,6 +180,10 @@ public class BalconyCrud extends PassControlPanel
     {
         ArrayList<JMenu> ret = new ArrayList<>();
         return ret;
+    }
+    private BalconyBean extractBeanFromCombo()
+    {
+        return controller.extractBeanFromName(cbBalconyName.getSelectedItem().toString());
     }
 
 }
