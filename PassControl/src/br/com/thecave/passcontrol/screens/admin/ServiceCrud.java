@@ -76,6 +76,13 @@ public class ServiceCrud extends PassControlPanel
 
         btDeletar.setBackground(new java.awt.Color(0, 153, 191));
         btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btDeletarActionPerformed(evt);
+            }
+        });
 
         btSalvar.setBackground(new java.awt.Color(0, 153, 191));
         btSalvar.setText("Salvar");
@@ -206,6 +213,13 @@ public class ServiceCrud extends PassControlPanel
         controller.saveService(cbName.getSelectedItem().toString(), cbPrioridade.getSelectedIndex() +1 );
     }//GEN-LAST:event_btSalvarActionPerformed
 
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btDeletarActionPerformed
+    {//GEN-HEADEREND:event_btDeletarActionPerformed
+        ServiceBean bean = new ServiceBean();
+        bean.setName(cbName.getSelectedItem().toString());
+        controller.deleteService(bean);
+    }//GEN-LAST:event_btDeletarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btDeletar;
@@ -245,6 +259,6 @@ public class ServiceCrud extends PassControlPanel
 
     private ServiceBean extractBeanFromCombo()
     {
-        return controller.extractBeanFromCombo(cbName);
+        return controller.extractBeanFromName(cbName.getSelectedItem().toString());
     }
 }

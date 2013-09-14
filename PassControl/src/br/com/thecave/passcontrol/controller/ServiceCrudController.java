@@ -3,6 +3,7 @@ package br.com.thecave.passcontrol.controller;
 import br.com.thecave.passcontrol.screens.admin.ServiceCrud;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddService;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
@@ -55,9 +56,8 @@ public class ServiceCrudController extends PassControlController
         cbName.setModel(model);
     }
 
-    public ServiceBean extractBeanFromCombo( JComboBox cbName )
+    public ServiceBean extractBeanFromName( String name )
     {
-        String name = cbName.getSelectedItem().toString();
         loadServices();
         for(ServiceBean bean : getServices())
         {
@@ -83,5 +83,20 @@ public class ServiceCrudController extends PassControlController
             JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
         else
             JOptionPane.showMessageDialog(null, "Erro ao salvar registro!");
+    }
+
+    public void deleteService( ServiceBean bean )
+    {
+        bean = extractBeanFromName(bean.getName());
+        AdministratorRemoveService removeService = new AdministratorRemoveService(bean.getId());
+        
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                            sendMessageToServerAndWaitForResponseOrTimeout(removeService, 
+                                                                           ConfirmationResponse.class, 
+                                                                           2000);
+        if(response.getStatusOperation())
+            JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+        else
+            JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
     }
 }
