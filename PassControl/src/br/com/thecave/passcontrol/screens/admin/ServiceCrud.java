@@ -216,14 +216,7 @@ public class ServiceCrud extends PassControlPanel
 
     private void defineCBNames()
     {
-        ArrayList<ServiceBean> services = controller.getServices();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        
-        for(ServiceBean bean : services)
-        {
-            model.addElement(bean.getName());
-        }
-        cbName.setModel(model);
+        controller.defineCBNames(cbName);        
     }
     
     private void defineCBPriorites(int value)
@@ -240,14 +233,6 @@ public class ServiceCrud extends PassControlPanel
 
     private ServiceBean extractBeanFromCombo()
     {
-        String name = cbName.getSelectedItem().toString();
-        controller.loadServices();
-        for(ServiceBean bean : controller.getServices())
-        {
-            if(bean.getName().equals(name))
-                return bean;
-        }
-        return null;
+        return controller.extractBeanFromCombo(cbName);
     }
-
 }
