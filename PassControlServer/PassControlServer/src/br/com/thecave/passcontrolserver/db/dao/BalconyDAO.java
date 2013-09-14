@@ -65,8 +65,8 @@ public class BalconyDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "UPDATE TB_BALCONY SET INT_NUMBER = "+ bean.getNumber() + 
-                    " WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "UPDATE TB_BALCONY SET TX_NUMBER = '"+ bean.getNumber() + 
+                    "' WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          
