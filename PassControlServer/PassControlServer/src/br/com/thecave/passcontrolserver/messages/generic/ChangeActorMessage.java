@@ -15,8 +15,4 @@ public class ChangeActorMessage extends PassControlMessage
         super(from, MessageActors.ServerActor);
     }
 
-    public ChangeActorMessage(MessageActors from, String comment) {
-        super(from, MessageActors.ServerActor, comment);
-    }
-    
 }

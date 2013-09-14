@@ -18,8 +18,4 @@ public class BalconyInitRequest extends PassControlMessage
         super(MessageActors.BalconyActor, MessageActors.ServerActor);
     }
 
-    public BalconyInitRequest(String comment) {
-        super(MessageActors.BalconyActor, MessageActors.ServerActor, comment);
-    }
-    
 }

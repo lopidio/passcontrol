@@ -18,12 +18,7 @@ public class AdministratorListServiceResponse extends PassControlMessage
     ArrayList<ServiceBean> listService;
     
     public AdministratorListServiceResponse(ArrayList<ServiceBean> listUser) {
-        super(MessageActors.AdministratorActor, MessageActors.ServerActor);
-        this.listService = listUser;
-    }
-
-    public AdministratorListServiceResponse(ArrayList<ServiceBean> listUser, String comment) {
-        super(MessageActors.AdministratorActor, MessageActors.ServerActor, comment);
+        super(MessageActors.ServerActor, MessageActors.AdministratorActor);
         this.listService = listUser;
     }
 

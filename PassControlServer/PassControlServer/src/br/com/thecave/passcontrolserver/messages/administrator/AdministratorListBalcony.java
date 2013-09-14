@@ -9,12 +9,11 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 
 /**
  *
- * @author guilherme
+ * @author lopidio
  */
-public class AdministratorListUser extends PassControlMessage
-{   
-    public AdministratorListUser() {
+public class AdministratorListBalcony extends PassControlMessage
+{
+     public AdministratorListBalcony() {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
-    }
-
+    }   
 }

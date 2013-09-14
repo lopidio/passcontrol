@@ -19,11 +19,6 @@ public class ClientLoginResponse extends PassControlMessage
         this.user = user;
     }
 
-    public ClientLoginResponse(UserBean user, MessageActors to, String comment) {
-        super(MessageActors.ServerActor, to, comment);
-        this.user = user;
-    }
-
     public UserBean getUser() {
         return user;
     }

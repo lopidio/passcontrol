@@ -4,32 +4,34 @@
  */
 package br.com.thecave.passcontrolserver.messages.administrator;
 
+import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 
 /**
  *
- * @author guilherme
+ * @author lopidio
  */
-public class AdministratorRemoveUser extends PassControlMessage
+public class AdministratorUpdateUser extends PassControlMessage
 {
-    /**
-     * ID do usuário a ser removido
-     */
-    int id;
+    
+    UserBean userBean;
 
-    public AdministratorRemoveUser(int id) {
+    public AdministratorUpdateUser(UserBean userBean) {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
-        this.id = id;
+        this.userBean = userBean;
+    }
+    
+    
+
+    public UserBean getUserBean() {
+        return userBean;
     }
 
-    public int getId() {
-        return id;
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    
     
     
 }

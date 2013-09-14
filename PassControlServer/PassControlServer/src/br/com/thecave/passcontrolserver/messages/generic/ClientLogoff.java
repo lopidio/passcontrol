@@ -16,9 +16,4 @@ public class ClientLogoff extends PassControlMessage
         super(MessageActors.NotIdentified, MessageActors.ServerActor);
     }
 
-    public ClientLogoff( String comment) 
-    {
-        super(MessageActors.NotIdentified, MessageActors.ServerActor, comment);
-    }
-
 }

@@ -47,15 +47,6 @@ public abstract class PassControlMessage implements Serializable
     }
     
 
-    public PassControlMessage(MessageActors from, MessageActors to, String comment) {
-        this.from = from;
-        this.to = to;
-        this.type = this.getClass().getSimpleName();
-        this.date = new java.util.Date();
-        this.comment = comment;
-    }    
-    
-
     /**
      * Getter do remetente
      * @return remetente

@@ -25,11 +25,6 @@ public class AdministratorListUserResponse extends PassControlMessage
         this.users = users;
     }
 
-    public AdministratorListUserResponse(ArrayList<UserBean> users, String comment) {
-        super(MessageActors.ServerActor, MessageActors.AdministratorActor, comment);
-        this.users = users;
-    }
-
     public ArrayList<UserBean> getUsers() {
         return users;
     }

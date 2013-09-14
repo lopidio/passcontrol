@@ -28,14 +28,6 @@ public class BalconyCallNextClientResponse extends PassControlMessage
      */
     String passNumber;
 
-    public BalconyCallNextClientResponse(String clientName, String serviceType, String passNumber, String comment) 
-    {
-        super(MessageActors.ServerActor, MessageActors.BalconyActor, comment);
-        this.clientName = clientName;
-        this.serviceType = serviceType;
-        this.passNumber = passNumber;
-    }
-    
     public BalconyCallNextClientResponse(String clientName, String serviceType, String passNumber) 
     {
         super(MessageActors.ServerActor, MessageActors.BalconyActor);

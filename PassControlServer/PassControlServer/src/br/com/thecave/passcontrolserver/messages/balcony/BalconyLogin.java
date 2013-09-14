@@ -30,12 +30,6 @@ public class BalconyLogin extends PassControlMessage
         this.balconyType = balconyType;
     }
 
-    public BalconyLogin(String number, String balconyType, String comment) {
-        super(MessageActors.BalconyActor, MessageActors.ServerActor, comment);
-        this.number = number;
-        this.balconyType = balconyType;
-    }
-
     public String getNumber() {
         return number;
     }

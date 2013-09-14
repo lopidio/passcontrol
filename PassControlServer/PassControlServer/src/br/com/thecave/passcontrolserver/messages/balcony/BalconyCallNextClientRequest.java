@@ -23,12 +23,6 @@ public class BalconyCallNextClientRequest extends PassControlMessage
         super(MessageActors.BalconyActor, MessageActors.ServerActor);
         this.balconyID = balconyID;
     }
-    
-    public BalconyCallNextClientRequest(String balconyID, String comment) 
-    {
-        super(MessageActors.BalconyActor, MessageActors.ServerActor, comment);
-        this.balconyID = balconyID;
-    }
 
     public String getBalconyID() {
         return balconyID;

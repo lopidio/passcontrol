@@ -21,12 +21,6 @@ public class BalconyRecallLastClient extends PassControlMessage
         this.balconyID = balconyID;
     }
 
-    public BalconyRecallLastClient(String balconyID, String comment) 
-    {
-        super(MessageActors.BalconyActor, MessageActors.ServerActor, comment);
-        this.balconyID = balconyID;
-    }
-
     public String getBalconyID() {
         return balconyID;
     }

@@ -29,12 +29,6 @@ public class BalconyInitResponse extends PassControlMessage
         this.balconyTypes = balconyTypes;
         this.balconyNumbers = balconyNumbers;
     }
-    
-    public BalconyInitResponse(ArrayList<String> balconyTypes, ArrayList<String> balconyNumbers, String comment) {
-        super(MessageActors.ServerActor, MessageActors.BalconyActor, comment);
-        this.balconyTypes = balconyTypes;
-        this.balconyNumbers = balconyNumbers;
-    }
 
     public ArrayList<String> getBalconyTypes() {
         return balconyTypes;
