@@ -28,6 +28,7 @@ public class ServiceCrud extends PassControlPanel
         initComponents();
         controller.loadServices();
         defineCBNames();
+        sincronizeCombos();
         btCancelar.setEnabled(false);
         btSalvar.setEnabled(false);
         cbPrioridade.setEnabled(false);
@@ -128,6 +129,13 @@ public class ServiceCrud extends PassControlPanel
         cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mínima", "Baixa", "Média", "Alta", "Máxima" }));
 
         cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbName.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cbNameItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -181,6 +189,11 @@ public class ServiceCrud extends PassControlPanel
         defineCBNames();        
     }//GEN-LAST:event_btCancelarActionPerformed
 
+    private void cbNameItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbNameItemStateChanged
+    {//GEN-HEADEREND:event_cbNameItemStateChanged
+        sincronizeCombos();
+    }//GEN-LAST:event_cbNameItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btDeletar;
@@ -203,14 +216,7 @@ public class ServiceCrud extends PassControlPanel
 
     private void defineCBNames()
     {
-        ArrayList<ServiceBean> services = controller.getServices();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        
-        for(ServiceBean bean : services)
-        {
-            model.addElement(bean.getName());
-        }
-        cbName.setModel(model);
+        controller.defineCBNames(cbName);        
     }
     
     private void defineCBPriorites(int value)
@@ -218,4 +224,15 @@ public class ServiceCrud extends PassControlPanel
         cbPrioridade.setSelectedIndex(value - 1);
     }
 
+    private void sincronizeCombos()
+    {
+        ServiceBean bean = extractBeanFromCombo();
+        if(bean != null)
+        defineCBPriorites(bean.getPriority());
+    }
+
+    private ServiceBean extractBeanFromCombo()
+    {
+        return controller.extractBeanFromCombo(cbName);
+    }
 }

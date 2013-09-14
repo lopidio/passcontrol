@@ -14,6 +14,7 @@ import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
@@ -33,7 +34,7 @@ public class ClientGenericListeners
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
         server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
-        server.addMessageListener(new ClientListServiceListener(), ClientListServiceResponse.class);
+        server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener

@@ -189,6 +189,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbNameItemStateChanged"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
