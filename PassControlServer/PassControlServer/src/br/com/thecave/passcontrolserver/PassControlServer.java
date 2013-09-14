@@ -5,10 +5,12 @@
 package br.com.thecave.passcontrolserver;
 
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
