@@ -151,6 +151,11 @@ public class BalconyCrud extends PassControlPanel
         BalconyBean balconyBean = new BalconyBean();
         ArrayList<ServiceBean> typesServiceBean = new ArrayList<ServiceBean>();
         
+        ServiceBean bean =  new ServiceBean();
+        bean.setName("meu serviço");
+        bean.setPriority(3);
+        typesServiceBean.add(bean);
+        
         balconyBean.setNumber(cbBalconyName.getSelectedItem().toString());
         controller.loadBalconys();
         

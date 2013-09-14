@@ -32,7 +32,7 @@ public class BalconyDAO {
 
             stmt = conn.createStatement();
             String sql = "INSERT INTO TB_BALCONY (TX_NUMBER) " +
-                         "VALUES (" + bean.getNumber() + " );";
+                         "VALUES ('" + bean.getNumber() + "' );";
             stmt.executeUpdate(sql);           
 
             stmt.close();
