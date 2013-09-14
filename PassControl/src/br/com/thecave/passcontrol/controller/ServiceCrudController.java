@@ -74,7 +74,7 @@ public class ServiceCrudController extends PassControlController
         bean.setName(name);
         bean.setPriority(priority);
         // enviando o bean ao servidor
-        AdministratorAddService addService = new AdministratorAddService();
+        AdministratorAddService addService = new AdministratorAddService(bean);
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().
                             sendMessageToServerAndWaitForResponseOrTimeout(addService, 
                                                                            ConfirmationResponse.class, 

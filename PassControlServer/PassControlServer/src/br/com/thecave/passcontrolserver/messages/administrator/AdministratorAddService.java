@@ -16,9 +16,10 @@ public class AdministratorAddService extends PassControlMessage
 {
     private ServiceBean bean;
     
-    public AdministratorAddService() 
+    public AdministratorAddService(ServiceBean bean) 
     {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
+        this.bean = bean;
     }
 
     /**
