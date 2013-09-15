@@ -58,7 +58,7 @@ public class BalconyTopBarIntroController extends PassControlController
             }
             else
             {
-                JOptionPane.showConfirmDialog(null, "Guichê indisponível no momento", "Operação não realizada", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showConfirmDialog(null, response.getComment(), "Operação não realizada", JOptionPane.ERROR_MESSAGE);
                 //Reinicio o bomboBox
                 initialize();
             }

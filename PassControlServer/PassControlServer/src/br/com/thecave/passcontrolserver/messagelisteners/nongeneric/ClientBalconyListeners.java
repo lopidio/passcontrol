@@ -76,7 +76,7 @@ public class ClientBalconyListeners implements ClientListeners
         {
             //Verifico se tem algum socket meu que não tá logado no servidor
             
-            //Pego todos os clientes logados como balcony
+            //Pego todos os clientes logados como BALCONY ACTOR
             ArrayList<ClientUserSocketPair> balconysLoggedOnServer = PassControlServer.getInstance().getServer().getClientsList().get(MessageActors.BalconyActor); 
 
             //Copia de segurança
@@ -108,13 +108,24 @@ public class ClientBalconyListeners implements ClientListeners
         @Override
         public void onMessageReceive(PassControlMessage message, Socket socket) {
             BalconyLogin balconyLogin = (BalconyLogin)message;
+            BalconyBean balconyBean = balconyLogin.getBalconyBean();
 
-            System.out.println("Guichê inicializado com o número " + balconyLogin.getBalconyBean().getNumber() );
+            System.out.println("Guichê inicializado com o número " + balconyBean.getNumber() );
             
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.BalconyActor);
             
-            //Informo que esse guichê não está mais disponível
-            unnavaliableBalconySocket.put(balconyLogin.getBalconyBean(), socket);
+            //O guichê não está em uso
+            if (unnavaliableBalconySocket.get(balconyBean) == null)
+            {
+                //Adiciono na lista de usados
+                unnavaliableBalconySocket.put(balconyBean, socket);
+            }
+            else
+            {
+                //Informo que esse guichê não está mais disponível
+                confirmationResponse.setStatusOperation(false);
+                confirmationResponse.setComment("Guichê em uso.");
+            }
             
             PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
         }
