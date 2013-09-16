@@ -167,9 +167,9 @@ public class BalconyTypesServiceDAO {
      * @param balconyBean bean que se deseja saber os serviços
      * @return vetor de ids do Service
      */
-    public static ArrayList<Integer> selectServicesIdFromBalconyId(BalconyBean balconyBean)
+    public static ArrayList<ServiceBean> selectServicesFromBalconyId(BalconyBean balconyBean)
     {
-        ArrayList<Integer> retorno = new ArrayList<>();
+        ArrayList<ServiceBean> retorno = new ArrayList<>();
         try
         {
         // pegar a conexão com o banco
@@ -181,13 +181,17 @@ public class BalconyTypesServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY="+balconyBean.getId()+";";
+            String sql = "SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY="+balconyBean.getId()+";";
 
             ResultSet rs = stmt.executeQuery(sql);
             
             while(rs.next())
             {
-                retorno.add(rs.getInt("INT_ID_SERVICE"));
+                ServiceBean novoBean = new ServiceBean();                
+                novoBean.setId(rs.getInt("INT_ID"));
+                novoBean.setName(rs.getString("TX_NAME"));
+                novoBean.setPriority(rs.getInt("INT_PRIORITY"));                
+                retorno.add(novoBean);
             }
             
             stmt.close();

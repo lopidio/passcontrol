@@ -1,10 +1,12 @@
 package br.com.thecave.passcontrolserver.db.dao;
 
 import br.com.thecave.passcontrolserver.db.ConnectionDataBase;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.xml.crypto.Data;
 
 /**
@@ -37,8 +39,8 @@ public class QueuesManagerDAO
                                                         "INT_ID_USER_CHECKIN," + 
                                                         "INT_ID_USER_CHECKOUT," +
                                                         "INT_ID_CLIENT," +
-//                                                        "DT_CHECKIN," + 
-//                                                        "DT_CHECKOUT," + 
+                                                        "DT_CHECKIN," + 
+                                                        "DT_CHECKOUT," + 
                                                         "TX_PASS_NUMBER) " +
                                                         "VALUES (" + 
                                                         bean.getIdService() + ", " + 
@@ -138,12 +140,13 @@ public class QueuesManagerDAO
           return false;
         }    
     }
+
     /**
      * Metodo para recuperar um QueuesManagerBean a partir de seu id.
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public QueuesManagerBean selectFromId(int id)
+    public static QueuesManagerBean selectFromId(int id)
     {
         QueuesManagerBean bean = null;
         try
@@ -177,6 +180,56 @@ public class QueuesManagerDAO
             stmt.close();
             conn.close();
             return bean;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }  
+    }    
+    
+    /**
+     * Método para recuperar todos os elementos passíveis de atendimento por um certo guichê ordenados por ordem de chegada
+     * @param id Id do registro que se quer recuperar
+     * @return Bean com os dados ja preenchidos.
+     */
+    public static ArrayList<QueuesManagerBean> selectAvaliableTuplesFromBalcony(BalconyBean balconyBean)
+    {
+        ArrayList<QueuesManagerBean> retorno = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE DT_CHECKOUT IS NULL AND INT_ID_SERVICE = "
+                    + "(SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") ORDER BY DT_CHECKIN";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                QueuesManagerBean bean = new QueuesManagerBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
+                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
+                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
+                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
+                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
+                bean.setCheckin((Data) rs.getDate("DT_CHECKIN"));
+                bean.setCheckout((Data) rs.getDate("DT_CHECKOUT"));
+                retorno.add(bean);
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
         }
         catch ( Exception e ) 
         {

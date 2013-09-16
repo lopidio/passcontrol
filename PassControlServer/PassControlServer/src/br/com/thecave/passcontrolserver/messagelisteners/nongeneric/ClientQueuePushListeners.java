@@ -19,5 +19,7 @@ public class ClientQueuePushListeners implements ClientListeners
     {
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
 //        server.addMessageListener(new QueuePusherAddClientListeners.BalconyInitListener(), QueuePusherAddClient.class);
+        
+//Informar ao escolhedor que mais um elemento foi adicionado        
     }    
 }

@@ -6,7 +6,7 @@ import javax.xml.crypto.Data;
  * Classe que irá guardar os dados da tabela TB_QUEUES_MANAGER no banco "queue_manager.db"
  * @author Glaylson Alves
  */
-public class QueuesManagerBean extends TableBean
+public class QueuesManagerBean extends TableBean 
 {
     /**
      * Guarda o valor da variavel [INT_ID] da tabela TB_QUEUES_MANAGER
