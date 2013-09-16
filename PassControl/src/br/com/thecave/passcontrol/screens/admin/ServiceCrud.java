@@ -4,12 +4,16 @@
  */
 package br.com.thecave.passcontrol.screens.admin;
 
+import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.ServiceCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,14 +28,12 @@ public class ServiceCrud extends PassControlPanel
     public ServiceCrud() 
     {
         super("Cadastro de Serviços", new ServiceCrudController());
-        this.controller = (ServiceCrudController) getPanelController();
+        this.controller = (ServiceCrudController) getPanelController();        
         initComponents();
-        controller.loadServices();
+        jpSecundario.setVisible(false);
+        
         defineCBNames();
         sincronizeCombos();
-        btCancelar.setEnabled(false);
-        btSalvar.setEnabled(false);
-        cbPrioridade.setEnabled(false);
     }
 
     /**
@@ -44,210 +46,257 @@ public class ServiceCrud extends PassControlPanel
     private void initComponents()
     {
 
+        jmAdmin = new javax.swing.JMenu();
+        jmAdminstrador = new javax.swing.JMenuItem();
+        jmVoltar = new javax.swing.JMenuItem();
+        jlAdminPic = new javax.swing.JLabel();
+        jpBarraLateral = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jbEditar = new javax.swing.JButton();
+        jbNovo = new javax.swing.JButton();
+        jpSecundario = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        btEditar = new javax.swing.JButton();
-        btNovo = new javax.swing.JButton();
-        btDeletar = new javax.swing.JButton();
-        btSalvar = new javax.swing.JButton();
-        btCancelar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         cbPrioridade = new javax.swing.JComboBox();
+        jbAdicionar = new javax.swing.JButton();
         cbName = new javax.swing.JComboBox();
+        jbRemove = new javax.swing.JButton();
+
+        jmAdmin.setText("Administrar");
+        jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+
+        jmAdminstrador.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+        jmAdminstrador.setMnemonic('a');
+        jmAdminstrador.setText("Administrador");
+        jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmAdminstradorActionPerformed(evt);
+            }
+        });
+        jmAdmin.add(jmAdminstrador);
+
+        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+        jmVoltar.setMnemonic('v');
+        jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmVoltarActionPerformed(evt);
+            }
+        });
+        jmAdmin.add(jmVoltar);
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Nome do Serviço");
+        jlAdminPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
+        add(jlAdminPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 11, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
 
-        btEditar.setBackground(new java.awt.Color(0, 153, 191));
-        btEditar.setText("Editar");
+        javax.swing.GroupLayout jpBarraLateralLayout = new javax.swing.GroupLayout(jpBarraLateral);
+        jpBarraLateral.setLayout(jpBarraLateralLayout);
+        jpBarraLateralLayout.setHorizontalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+        jpBarraLateralLayout.setVerticalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
 
-        btNovo.setBackground(new java.awt.Color(0, 153, 191));
-        btNovo.setText("Novo");
-        btNovo.addActionListener(new java.awt.event.ActionListener()
+        add(jpBarraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 11, -1, 290));
+
+        jLabel1.setBackground(new java.awt.Color(150, 150, 150));
+        jLabel1.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(200, 200, 200));
+        jLabel1.setText("ADMINISTRANDO SERVIÇOS");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 11, -1, -1));
+
+        jbEditar.setBackground(new java.awt.Color(45, 123, 142));
+        jbEditar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btNovoActionPerformed(evt);
+                jbEditarActionPerformed(evt);
             }
         });
+        add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 221, 37));
 
-        btDeletar.setBackground(new java.awt.Color(0, 153, 191));
-        btDeletar.setText("Deletar");
-        btDeletar.addActionListener(new java.awt.event.ActionListener()
+        jbNovo.setBackground(new java.awt.Color(45, 123, 142));
+        jbNovo.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btDeletarActionPerformed(evt);
+                jbNovoActionPerformed(evt);
             }
         });
+        add(jbNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 221, 37));
 
-        btSalvar.setBackground(new java.awt.Color(0, 153, 191));
-        btSalvar.setText("Salvar");
-        btSalvar.addActionListener(new java.awt.event.ActionListener()
+        jLabel2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel2.setText("Nome do serviço");
+
+        jLabel3.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel3.setText("Prioridade");
+
+        cbPrioridade.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Minima", "Baixa", "Média", "Alta", "Máxima" }));
+
+        jbAdicionar.setBackground(new java.awt.Color(45, 123, 142));
+        jbAdicionar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbAdicionar.setText("Adicionar");
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btSalvarActionPerformed(evt);
+                jbAdicionarActionPerformed(evt);
             }
         });
 
-        btCancelar.setBackground(new java.awt.Color(0, 153, 191));
-        btCancelar.setText("Cancelar");
-        btCancelar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                btCancelarActionPerformed(evt);
-            }
-        });
+        cbName.setEditable(true);
+        cbName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jbRemove.setBackground(new java.awt.Color(45, 123, 142));
+        jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbRemove.setText("Remover");
+
+        javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
+        jpSecundario.setLayout(jpSecundarioLayout);
+        jpSecundarioLayout.setHorizontalGroup(
+            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpSecundarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpSecundarioLayout.createSequentialGroup()
+                        .addComponent(jbAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpSecundarioLayout.createSequentialGroup()
+                        .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbPrioridade, javax.swing.GroupLayout.Alignment.LEADING, 0, 208, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel6.setText("Prioridade");
-
-        cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mínima", "Baixa", "Média", "Alta", "Máxima" }));
-
-        cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbName.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
-                cbNameItemStateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(942, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel6)
-                    .addComponent(cbPrioridade, 0, 188, Short.MAX_VALUE)
-                    .addComponent(cbName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jpSecundarioLayout.setVerticalGroup(
+            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecundarioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbAdicionar)
+                    .addComponent(jbRemove))
+                .addGap(38, 38, 38))
         );
+
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 260));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btNovoActionPerformed
-    {//GEN-HEADEREND:event_btNovoActionPerformed
-        btNovo.setEnabled(false);
-        btSalvar.setEnabled(true);
-        btCancelar.setEnabled(true);
-        cbName.setEditable(true);
-        cbPrioridade.setEnabled(true);
-        btEditar.setEnabled(false);
-        btDeletar.setEnabled(false);
-        
+    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
+    {//GEN-HEADEREND:event_jbNovoActionPerformed
+        jpSecundario.setVisible(true);
+        jbNovo.setVisible(false);
+        jbEditar.setVisible(false);
+        jbRemove.setEnabled(false);
+        jbAdicionar.setEnabled(true);
         cbName.setModel(new DefaultComboBoxModel());
-    }//GEN-LAST:event_btNovoActionPerformed
+        jmVoltar.setEnabled(true);
+        
+    }//GEN-LAST:event_jbNovoActionPerformed
 
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btCancelarActionPerformed
-    {//GEN-HEADEREND:event_btCancelarActionPerformed
-        defineCBNames();        
-    }//GEN-LAST:event_btCancelarActionPerformed
+    private void jmAdminstradorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmAdminstradorActionPerformed
+    {//GEN-HEADEREND:event_jmAdminstradorActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }//GEN-LAST:event_jmAdminstradorActionPerformed
 
-    private void cbNameItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbNameItemStateChanged
-    {//GEN-HEADEREND:event_cbNameItemStateChanged
-        sincronizeCombos();
-    }//GEN-LAST:event_cbNameItemStateChanged
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmVoltarActionPerformed
+    {//GEN-HEADEREND:event_jmVoltarActionPerformed
+        jpSecundario.setVisible(false);
+        jbNovo.setVisible(true);
+        jbEditar.setVisible(true);
+    }//GEN-LAST:event_jmVoltarActionPerformed
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btSalvarActionPerformed
-    {//GEN-HEADEREND:event_btSalvarActionPerformed
-        controller.saveService(cbName.getSelectedItem().toString(), cbPrioridade.getSelectedIndex() +1 );
-    }//GEN-LAST:event_btSalvarActionPerformed
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbEditarActionPerformed
+    {//GEN-HEADEREND:event_jbEditarActionPerformed
+        jpSecundario.setVisible(true);
+        jbAdicionar.setText("Salvar");
+        jbRemove.setEnabled(true);
+        jbNovo.setVisible(false);
+        jbEditar.setVisible(false);
+        jmVoltar.setEnabled(true);
+        controller.defineCBNames(cbName);
+    }//GEN-LAST:event_jbEditarActionPerformed
 
-    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btDeletarActionPerformed
-    {//GEN-HEADEREND:event_btDeletarActionPerformed
-        ServiceBean bean = new ServiceBean();
-        bean.setName(cbName.getSelectedItem().toString());
-        controller.deleteService(bean);
-    }//GEN-LAST:event_btDeletarActionPerformed
+    private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
+    {//GEN-HEADEREND:event_jbAdicionarActionPerformed
+        String s = "";
+        if(cbName.getSelectedItem() != null)
+            s = cbName.getSelectedItem().toString();
+        while(s.equals(""))
+        {
+            s = JOptionPane.showInputDialog("Insira o nome do serviço!");
+        }
+        controller.saveService(cbName.getSelectedItem().toString(), cbPrioridade.getSelectedIndex() + 1);
+        jpSecundario.setVisible(false);
+        jbNovo.setVisible(true);
+        jbEditar.setVisible(true);
+    }//GEN-LAST:event_jbAdicionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCancelar;
-    private javax.swing.JButton btDeletar;
-    private javax.swing.JButton btEditar;
-    private javax.swing.JButton btNovo;
-    private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbName;
     private javax.swing.JComboBox cbPrioridade;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jbAdicionar;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbNovo;
+    private javax.swing.JButton jbRemove;
+    private javax.swing.JLabel jlAdminPic;
+    private javax.swing.JMenu jmAdmin;
+    private javax.swing.JMenuItem jmAdminstrador;
+    private javax.swing.JMenuItem jmVoltar;
+    private javax.swing.JPanel jpBarraLateral;
+    private javax.swing.JPanel jpSecundario;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public ArrayList<JMenu> createMenuItems() 
     {
         ArrayList<JMenu> ret = new ArrayList<JMenu>();
+        ret.add(jmAdmin);
+        jmVoltar.setEnabled(false);
         return ret;
     }
 
     private void defineCBNames()
     {
-        controller.defineCBNames(cbName);        
+        controller.defineCBNames(cbName);
     }
     
     private void defineCBPriorites(int value)
     {
-        cbPrioridade.setSelectedIndex(value - 1);
     }
 
     private void sincronizeCombos()
@@ -259,6 +308,6 @@ public class ServiceCrud extends PassControlPanel
 
     private ServiceBean extractBeanFromCombo()
     {
-        return controller.extractBeanFromName(cbName.getSelectedItem().toString());
+        return new ServiceBean();
     }
 }

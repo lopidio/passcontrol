@@ -46,6 +46,7 @@ public class ServiceCrudController extends PassControlController
 
     public void defineCBNames( JComboBox cbName )
     {
+        loadServices();
         ArrayList<ServiceBean> services = getServices();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         
