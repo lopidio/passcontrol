@@ -12,7 +12,6 @@ import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +21,7 @@ import javax.swing.JOptionPane;
 public class ServiceCrud extends PassControlPanel 
 {
     ServiceCrudController controller = null;
+    private boolean insert;
     /**
      * Creates new form AdminScreen
      */
@@ -165,6 +165,13 @@ public class ServiceCrud extends PassControlPanel
         cbName.setEditable(true);
         cbName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                cbNameActionPerformed(evt);
+            }
+        });
 
         jbRemove.setBackground(new java.awt.Color(45, 123, 142));
         jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -217,10 +224,11 @@ public class ServiceCrud extends PassControlPanel
         jpSecundario.setVisible(true);
         jbNovo.setVisible(false);
         jbEditar.setVisible(false);
-        jbRemove.setEnabled(false);
+        jbRemove.setVisible(false);
         jbAdicionar.setEnabled(true);
         cbName.setModel(new DefaultComboBoxModel());
-        jmVoltar.setEnabled(true);
+        jmVoltar.setVisible(true);
+        insert = true;
         
     }//GEN-LAST:event_jbNovoActionPerformed
 
@@ -235,6 +243,7 @@ public class ServiceCrud extends PassControlPanel
         jpSecundario.setVisible(false);
         jbNovo.setVisible(true);
         jbEditar.setVisible(true);
+        jmVoltar.setVisible(false);
     }//GEN-LAST:event_jmVoltarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbEditarActionPerformed
@@ -244,8 +253,9 @@ public class ServiceCrud extends PassControlPanel
         jbRemove.setEnabled(true);
         jbNovo.setVisible(false);
         jbEditar.setVisible(false);
-        jmVoltar.setEnabled(true);
+        jmVoltar.setVisible(true);
         controller.defineCBNames(cbName);
+        insert = false;
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
@@ -256,12 +266,24 @@ public class ServiceCrud extends PassControlPanel
         while(s.equals(""))
         {
             s = JOptionPane.showInputDialog("Insira o nome do serviço!");
+            DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
+            boxModel.addElement(s);
+            cbName.setModel(boxModel);
         }
-        controller.saveService(cbName.getSelectedItem().toString(), cbPrioridade.getSelectedIndex() + 1);
+        if(insert)
+            controller.saveService(cbName.getSelectedItem().toString(), cbPrioridade.getSelectedIndex() + 1);
+        else
+            controller.updateService(cbName.getSelectedItem().toString(), cbPrioridade.getSelectedIndex() + 1);
         jpSecundario.setVisible(false);
         jbNovo.setVisible(true);
         jbEditar.setVisible(true);
+        jmVoltar.setVisible(false);
     }//GEN-LAST:event_jbAdicionarActionPerformed
+
+    private void cbNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbNameActionPerformed
+    {//GEN-HEADEREND:event_cbNameActionPerformed
+        sincronizeCombos();
+    }//GEN-LAST:event_cbNameActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbName;
@@ -286,17 +308,19 @@ public class ServiceCrud extends PassControlPanel
     {
         ArrayList<JMenu> ret = new ArrayList<JMenu>();
         ret.add(jmAdmin);
-        jmVoltar.setEnabled(false);
+        jmVoltar.setVisible(false);
         return ret;
     }
 
     private void defineCBNames()
     {
         controller.defineCBNames(cbName);
+        sincronizeCombos();
     }
     
     private void defineCBPriorites(int value)
     {
+        cbPrioridade.setSelectedIndex(value - 1);
     }
 
     private void sincronizeCombos()
@@ -308,6 +332,12 @@ public class ServiceCrud extends PassControlPanel
 
     private ServiceBean extractBeanFromCombo()
     {
-        return new ServiceBean();
+        ServiceBean ret = new ServiceBean();
+        for(ServiceBean bean : controller.getServices())
+        {
+            if(bean.getName().equals(cbName.getSelectedItem().toString()))
+                return bean;
+        }
+        return null;
     }
 }
