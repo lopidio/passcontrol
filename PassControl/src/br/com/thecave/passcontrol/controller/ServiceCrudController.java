@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.screens.admin.ServiceCrud;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveService;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
@@ -46,6 +47,7 @@ public class ServiceCrudController extends PassControlController
 
     public void defineCBNames( JComboBox cbName )
     {
+        loadServices();
         ArrayList<ServiceBean> services = getServices();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         
@@ -98,5 +100,24 @@ public class ServiceCrudController extends PassControlController
             JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
         else
             JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
+    }
+
+    public void updateService( String name, int priority )
+    {
+        // criando um bean com os dados da tela
+        ServiceBean bean = new ServiceBean();
+        bean = extractBeanFromName(name);
+        bean.setName(name);
+        bean.setPriority(priority);
+        // enviando o bean ao servidor
+        AdministratorUpdateService update = new AdministratorUpdateService(bean);
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                            sendMessageToServerAndWaitForResponseOrTimeout(update, 
+                                                                           ConfirmationResponse.class, 
+                                                                           2000);
+        if(response.getStatusOperation())
+            JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
+        else
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar registro!");
     }
 }
