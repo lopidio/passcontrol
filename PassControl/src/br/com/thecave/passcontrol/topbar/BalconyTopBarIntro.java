@@ -90,8 +90,8 @@ public class BalconyTopBarIntro extends PassControlTopBar
 
         lbNumero.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbNumero.setForeground(new java.awt.Color(255, 255, 255));
-        lbNumero.setText("Número do Guichê:");
-        add(lbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 20, -1, 28));
+        lbNumero.setText("Guichê:");
+        add(lbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, 28));
 
         cbNumero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
         add(cbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 19, 185, 30));
@@ -110,7 +110,7 @@ public class BalconyTopBarIntro extends PassControlTopBar
     }//GEN-LAST:event_lbLogoutMouseClicked
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
-        balconyTopBarIntroController.confirmButtonPressed((int)cbNumero.getModel().getSelectedItem());
+        balconyTopBarIntroController.confirmButtonPressed(cbNumero.getSelectedIndex());
     }//GEN-LAST:event_jbConfirmActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
