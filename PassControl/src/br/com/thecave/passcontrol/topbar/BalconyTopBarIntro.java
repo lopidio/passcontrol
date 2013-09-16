@@ -48,7 +48,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lblUser = new javax.swing.JLabel();
         lbNameUser = new javax.swing.JLabel();
         lbLogout = new javax.swing.JLabel();
-        lbTipo = new javax.swing.JLabel();
         lbNumero = new javax.swing.JLabel();
         cbNumero = new javax.swing.JComboBox();
         jbConfirm = new javax.swing.JButton();
@@ -89,11 +88,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
         });
         add(lbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1288, 108, -1, -1));
 
-        lbTipo.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
-        lbTipo.setForeground(new java.awt.Color(255, 255, 255));
-        lbTipo.setText("Tipo do Guichê:");
-        add(lbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(474, 57, -1, 28));
-
         lbNumero.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbNumero.setForeground(new java.awt.Color(255, 255, 255));
         lbNumero.setText("Número do Guichê:");
@@ -128,7 +122,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
     private javax.swing.JLabel lbLogout;
     private javax.swing.JLabel lbNameUser;
     private javax.swing.JLabel lbNumero;
-    private javax.swing.JLabel lbTipo;
     private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
 
