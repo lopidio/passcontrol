@@ -211,7 +211,7 @@ public class NextQueueChooser implements Runnable
                     if (managerBean != null)
                     {
                         //Informo ao guichê
-                        ClientBalconyListeners.sendBackElementQueueToBalcony(balconyBean, socket, managerBean);
+                        ClientBalconyListeners.sendBackElementQueueToBalcony(socket, managerBean);
                         waitingBalconys.remove(balconyBean, socket);
                         
                         //Recomeço do ZERO
@@ -230,6 +230,8 @@ public class NextQueueChooser implements Runnable
         //Informa que existe um balcão esperando algum cliente
         synchronized (waitingBalconys)
         {
+            System.out.println("Guichê " + balconyBean.getNumber()+ " chamando o próximo");
+            
             waitingBalconys.put(balconyBean, socket);
         }
     }

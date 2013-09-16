@@ -158,18 +158,21 @@ public class ClientBalconyListeners implements ClientListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
             BalconyCallNextClientRequest balconyCallNextClient = (BalconyCallNextClientRequest)message;
-            System.out.println("Guichê " + balconyCallNextClient.getBalconyBean().getNumber()+ " chamando o próximo");
             
-            //Repasso a informação para o escolhedor do próximo cliente
-            NextQueueChooser.getInstance().balconyAvaliable(balconyCallNextClient.getBalconyBean(), socket);
-            
-            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyCallNextClient, MessageActors.BalconyActor);
-            PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);            
+            //Ninguém bole no server enquanto esse bloco é bulido
+            synchronized (PassControlServer.getInstance().getServer())
+            {
+                //Repasso a informação para o escolhedor do próximo cliente
+                NextQueueChooser.getInstance().balconyAvaliable(balconyCallNextClient.getBalconyBean(), socket);
+
+                ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyCallNextClient, MessageActors.BalconyActor);
+                PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);            
+            }
         }
     }
 
     //Envia o elemento de volta para o balcony
-    public static void sendBackElementQueueToBalcony(BalconyBean balconyBean, Socket socket, QueuesManagerBean queuesManagerBean)
+    public static void sendBackElementQueueToBalcony(Socket socket, QueuesManagerBean queuesManagerBean)
     {
         BalconyCallNextClientResponse balconyCallNextClientResponse = new BalconyCallNextClientResponse("Guiguinha cliente", "Fila macarrão", queuesManagerBean);
         PassControlServer.getInstance().getServer().addResponseToSend(socket, balconyCallNextClientResponse);
