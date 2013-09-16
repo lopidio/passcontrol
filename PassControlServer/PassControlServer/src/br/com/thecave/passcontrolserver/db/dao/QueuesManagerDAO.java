@@ -173,8 +173,8 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
-                bean.setCheckin((Data) rs.getDate("DT_CHECKIN"));
-                bean.setCheckout((Data) rs.getDate("DT_CHECKOUT"));
+                bean.setCheckin(rs.getDate("DT_CHECKIN"));
+                bean.setCheckout(rs.getDate("DT_CHECKOUT"));
             }
             
             stmt.close();
@@ -208,7 +208,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE DT_CHECKOUT IS NULL AND INT_ID_SERVICE = "
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE (DT_CHECKOUT IS NULL OR DT_CHECKOUT ='') AND INT_ID_SERVICE = "
                     + "(SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") ORDER BY DT_CHECKIN";
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -222,8 +222,8 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
-                bean.setCheckin((Data) rs.getDate("DT_CHECKIN"));
-                bean.setCheckout((Data) rs.getDate("DT_CHECKOUT"));
+                bean.setCheckin(rs.getDate("DT_CHECKIN"));
+                bean.setCheckout(rs.getDate("DT_CHECKOUT"));
                 retorno.add(bean);
             }
             

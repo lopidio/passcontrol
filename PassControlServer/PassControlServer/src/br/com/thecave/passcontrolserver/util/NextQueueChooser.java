@@ -9,17 +9,34 @@ import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
+import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
  * @author guilherme
  */
-public class NextQueueChooser 
+public class NextQueueChooser implements Runnable
 {
+    /**
+     * Indica se a escolha é automática (true) ou manual (false)
+     */
     private boolean on;
     
+    /**
+     * Indica qual prioridade deve ser atendida na poróxima chamada
+     */
     private int nextPriority;
+    
+    /**
+     * Mapa de balcão e os seu respectivos sockets que estão aguardando por clientes
+     */
+    private final ConcurrentHashMap<BalconyBean, Socket> waitingBalconys;
+
 
     /**
      * Singleton properties
@@ -32,10 +49,14 @@ public class NextQueueChooser
         return instance;
     }
 
-    public NextQueueChooser() 
+    /**
+     * Constructor
+     */
+    private NextQueueChooser() 
     {
         this.on = false;
         this.nextPriority = 4; //Alta
+        waitingBalconys = new ConcurrentHashMap<>(); //
     }
     
     /**
@@ -69,14 +90,21 @@ public class NextQueueChooser
     
     private QueuesManagerBean prepareSelectedQueuesManageElement(QueuesManagerBean selectedManagerBean, ServiceBean serviceBean)
     {
-        //selectedManagerBean
+        //Seto a hora da escolha
+        selectedManagerBean.setCheckout(new Date());
+        
+        //Atualizo a próxima prioridade que eu devo escolher
         updateNextPriority(ServiceDAO.selectFromId(selectedManagerBean.getIdService()).getPriority());
+        
+        //Atualiza no banco
+        QueuesManagerDAO.update(selectedManagerBean);
+        
+        //Retorna o bean atualizado
         return selectedManagerBean;
     }
     
-    public QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
-    {
-        
+    private QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
+    {        
         ArrayList<QueuesManagerBean> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
         /**Se a fila estiver vazia...
          * Adiciono esse balcony (SINCRONIZADA) em uma lista e o informo assim que um novo cliente chegar
@@ -90,10 +118,17 @@ public class NextQueueChooser
         
         if (on)
         {
-            //Informo ao QueuePoper a mensagem: BalconyBean, managerBeans e seus serviços, e o managerBeanRecomendado
-            //Ele me retorna um QueueManagerBean...
-            //return prepareSelectedQueuesManageElement(resposta.getSelected());
-            return null;
+            while (on)
+            {
+                //TODO
+                //Boto um timeout só a massa
+                //Informo ao QueuePoper a mensagem: BalconyBean, managerBeans e seus serviços, e o managerBeanRecomendado
+                //Ele me retorna um QueueManagerBean...
+                //return prepareSelectedQueuesManageElement(resposta.getSelected());                
+                
+                //Só pra não dar erro
+            }
+            return new QueuesManagerBean();
         }
         else
         {
@@ -110,13 +145,14 @@ public class NextQueueChooser
                 //Se eu achar alguém dessa prioridade
                 if (selectedIndex != -1)
                     return prepareSelectedQueuesManageElement(managerBeans.get(selectedIndex), serviceBeans.get(selectedIndex));
+                else //Altero a prioridade que eu quero
+                    updateNextPriority(nextPriority);
             }
             selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 1); //Prioridade mínima
-            return prepareSelectedQueuesManageElement(managerBeans.get(selectedIndex), serviceBeans.get(selectedIndex));
+            if (selectedIndex != -1)
+                return prepareSelectedQueuesManageElement(managerBeans.get(selectedIndex), serviceBeans.get(selectedIndex));
+            return null;
         }
-
-        
-        
         
         //Fluxo:
         /**
@@ -154,6 +190,48 @@ public class NextQueueChooser
     public void setOn(boolean on) 
     {
         this.on = on;
+    }
+
+    @Override
+    public void run() 
+    {
+        while (true)
+        {
+            synchronized (waitingBalconys)  
+            {
+                //Percorro todos os guichês que estão esperando
+                for (Map.Entry<BalconyBean, Socket> entry : waitingBalconys.entrySet()) 
+                {
+                    BalconyBean balconyBean = entry.getKey();
+                    //Seleciono o melhor elemento para aquele guichê
+                    QueuesManagerBean managerBean = chooseNextElement(balconyBean);
+                    Socket socket = entry.getValue();                
+
+                    //Se existir um cliente que se adeque ao guichê
+                    if (managerBean != null)
+                    {
+                        //Informo ao guichê
+                        ClientBalconyListeners.sendBackElementQueueToBalcony(balconyBean, socket, managerBean);
+                        waitingBalconys.remove(balconyBean, socket);
+                        
+                        //Recomeço do ZERO
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Indica que existe um guichê esperando pelo próximo cliente
+     */
+    public void balconyAvaliable(BalconyBean balconyBean, Socket socket) 
+    {
+        //Informa que existe um balcão esperando algum cliente
+        synchronized (waitingBalconys)
+        {
+            waitingBalconys.put(balconyBean, socket);
+        }
     }
     
     

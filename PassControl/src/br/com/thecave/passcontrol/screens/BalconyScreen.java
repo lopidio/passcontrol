@@ -6,9 +6,8 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.BalconyController;
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientResponse;
-import java.util.ArrayList;
-import javax.swing.JMenu;
 
 /**
  *
@@ -97,17 +96,17 @@ public class BalconyScreen extends PassControlPanel
     // End of variables declaration//GEN-END:variables
 
     
-    public void initialize(String balconyID)
+    public void initialize(BalconyBean balconyBean)
     {
         jbRepetir.setVisible(true);
         jbRepetir.setEnabled(false);
         jbGuicheLivre.setVisible(true);        
-        controller.setBalconyID(balconyID);
+        controller.setBalconyBean(balconyBean);
     }
 
     public void showPanelQueueInfo(BalconyCallNextClientResponse response) 
     {
-        QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getPassNumber());
+        QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber());
         jpSenha.add(queueElementInfoBig);
         jpSenha.setVisible(true);
     }

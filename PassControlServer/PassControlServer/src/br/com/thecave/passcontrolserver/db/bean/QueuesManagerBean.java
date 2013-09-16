@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrolserver.db.bean;
 
+import java.util.Date;
 import javax.xml.crypto.Data;
 
 /**
@@ -35,11 +36,11 @@ public class QueuesManagerBean extends TableBean
     /**
      * Guarda o valor da variavel [DT_CHECKIN] da tabela TB_QUEUES_MANAGER
      */
-    private Data checkin;
+    private Date checkin;
     /**
      * Guarda o valor da variavel [DT_CHECKOUT] da tabela TB_QUEUES_MANAGER
      */
-    private Data checkout;
+    private Date checkout;
     /**
      * Guarda o valor da variavel [TX_PASS_NUMBER] da tabela TB_QUEUES_MANAGER
      */
@@ -132,28 +133,28 @@ public class QueuesManagerBean extends TableBean
     /**
      * @return the checkin
      */
-    public Data getCheckin() {
+    public Date getCheckin() {
         return checkin;
     }
 
     /**
      * @param checkin the checkin to set
      */
-    public void setCheckin(Data checkin) {
+    public void setCheckin(Date checkin) {
         this.checkin = checkin;
     }
 
     /**
      * @return the checkout
      */
-    public Data getCheckout() {
+    public Date getCheckout() {
         return checkout;
     }
 
     /**
      * @param checkout the checkout to set
      */
-    public void setCheckout(Data checkout) {
+    public void setCheckout(Date checkout) {
         this.checkout = checkout;
     }
 

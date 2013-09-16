@@ -54,7 +54,7 @@ public class BalconyTopBarIntroController extends PassControlController
             {
                 topBarIntro.blockPassControlTopBar();
                 BalconyScreen balconyScreen = (BalconyScreen)Main.getInstance().getMainFrame().getCurrentPassControlPanel();
-                balconyScreen.initialize(selectedBalconyBean.getNumber());
+                balconyScreen.initialize(selectedBalconyBean);
             }
             else
             {

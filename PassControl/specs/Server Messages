@@ -15,13 +15,13 @@ class Message implements Serializable
 
 ####################### Mensagens genéricas ######################
 From client:
-	ClientInit //User, senha
-	ClientInitResponse //Eis as permissões desse usuário: ..., ..., .... Eis a imagem principal do fundo...
+	-ClientInit //User, senha
+	-ClientInitResponse //Eis as permissões desse usuário: ..., ..., .... Eis a imagem principal do fundo...
 	ClientPasswordRecovery //User
-	ClientLogout //Falou!
+	-ClientLogout //Falou!
 
 From server:
-	ServerSetMainImage //Bytes do arquivo da imagem principal e seu nome
+	-ServerSetMainImage //Bytes do arquivo da imagem principal e seu nome
 
 ##################################################################
 ####################### Viewer ###################################
@@ -41,9 +41,9 @@ From server:
 ####################### Balcony ##################################
 
 From client:
-	BalconyInit //Verifica número do balcão e tipo
-	BalconyInitResponse //Sim ou não (o Server garante que o balcão não esteja em uso)
-	BalconyPopQueue //Olá, server, sou tal guichê, estou livre, por favor, me envie um cliente...
+	-BalconyInit //Verifica número do balcão
+	-BalconyInitResponse //Sim ou não (o Server garante que o balcão não esteja em uso)
+	-BalconyPopQueue //Olá, server, sou tal guichê, estou livre, por favor, me envie um cliente...
 	BalconyPopQueueResponse //Olá, balcony, eis seu cliente (QueueManagerBean)"24-B Caminhão da casa"
 	BalconyLastPoppedQueue //Olá, server, chama o último que eu chamei (ou o próprio Balcony já diz qual deseja rechamar.. Tipo: 24-B[QueueManagerBean])(então o servidor repassará o chamado para o Viewer) aí, por favor.
 
@@ -73,12 +73,12 @@ From client:
 	-AdministratorAddUser //UserBean
 	-AdministratorListUsers //List<UserBean>
 	-AdministratorRemoveUser //UserBean
-	AdministratorAddService //ServiceBean
-	AdministratorListServices //List<ServiceBean>
-	AdministratorRemoveService //ServiceBean
-	AdministratorAddBalcony //BalconyBean
-	AdministratorListBalconys //List<BalconyBean>
-	AdministratorRemoveBalcony //BalconyBean
+	-AdministratorAddService //ServiceBean
+	-AdministratorListServices //List<ServiceBean>
+	-AdministratorRemoveService //ServiceBean
+	-AdministratorAddBalcony //BalconyBean
+	-AdministratorListBalconys //List<BalconyBean>
+	-AdministratorRemoveBalcony //BalconyBean
 	AdministratorAddSlideImage //ImageBytes ImageName
 	AdministratorListSlidesImage //List<ImageBytes ImageName>
 	AdministratorRemoveSlideImage //ImageName

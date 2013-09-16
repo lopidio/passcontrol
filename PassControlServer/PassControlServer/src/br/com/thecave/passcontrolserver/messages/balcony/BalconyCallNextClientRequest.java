@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrolserver.messages.balcony;
 
+import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 
@@ -14,23 +15,24 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 public class BalconyCallNextClientRequest extends PassControlMessage
 {
     /**
-     * ID do balcão
+     * balcão
      */
-    String balconyID;
+    BalconyBean balconyBean;
 
-    public BalconyCallNextClientRequest(String balconyID) 
+    public BalconyCallNextClientRequest(BalconyBean balconyBean) 
     {
         super(MessageActors.BalconyActor, MessageActors.ServerActor);
-        this.balconyID = balconyID;
+        this.balconyBean = balconyBean;
     }
 
-    public String getBalconyID() {
-        return balconyID;
+    public BalconyBean getBalconyBean() {
+        return balconyBean;
     }
 
-    public void setBalconyID(String balconyID) {
-        this.balconyID = balconyID;
+    public void setBalconyBean(BalconyBean balconyBean) {
+        this.balconyBean = balconyBean;
     }
-    
+
+
     
 }

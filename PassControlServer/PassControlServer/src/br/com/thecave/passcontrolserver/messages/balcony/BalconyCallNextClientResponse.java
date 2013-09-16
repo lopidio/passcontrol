@@ -4,6 +4,7 @@
  */
 package br.com.thecave.passcontrolserver.messages.balcony;
 
+import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 
@@ -24,16 +25,22 @@ public class BalconyCallNextClientResponse extends PassControlMessage
     String serviceType;
     
     /**
-     * Número da senha
+     * Representa o próprio elemento
      */
-    String passNumber;
-
-    public BalconyCallNextClientResponse(String clientName, String serviceType, String passNumber) 
+    QueuesManagerBean queuesManagerBean;
+    
+    /**
+     * 
+     * @param clientName
+     * @param serviceType
+     * @param passNumber 
+     */
+    public BalconyCallNextClientResponse(String clientName, String serviceType, QueuesManagerBean queuesManagerBean) 
     {
         super(MessageActors.ServerActor, MessageActors.BalconyActor);
         this.clientName = clientName;
         this.serviceType = serviceType;
-        this.passNumber = passNumber;
+        this.queuesManagerBean = queuesManagerBean;
     }
 
     public String getClientName() {
@@ -52,14 +59,14 @@ public class BalconyCallNextClientResponse extends PassControlMessage
         this.serviceType = serviceType;
     }
 
-    public String getPassNumber() {
-        return passNumber;
+    public QueuesManagerBean getQueuesManagerBean() {
+        return queuesManagerBean;
     }
 
-    public void setPassNumber(String passNumber) {
-        this.passNumber = passNumber;
+    public void setQueuesManagerBean(QueuesManagerBean queuesManagerBean) {
+        this.queuesManagerBean = queuesManagerBean;
     }
-    
-    
+
+
     
 }
