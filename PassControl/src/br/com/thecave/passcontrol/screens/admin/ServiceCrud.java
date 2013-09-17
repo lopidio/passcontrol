@@ -33,7 +33,6 @@ public class ServiceCrud extends PassControlPanel
         jpSecundario.setVisible(false);
         
         defineCBNames();
-        sincronizeCombos();
     }
 
     /**
@@ -283,19 +282,21 @@ public class ServiceCrud extends PassControlPanel
         }
         // construindo o bean com as informações da tela
         bean = extractBeanIdFromCombo();
-        bean.setName(cbName.getSelectedItem().toString());
-        bean.setPriority(cbPrioridade.getSelectedIndex() + 1);
         
         // se tiver clicado em novo
         if(insert)
         {
-            
-           ret = controller.saveService(bean);
+            bean = new ServiceBean();
+            bean.setName(cbName.getSelectedItem().toString());
+            bean.setPriority(cbPrioridade.getSelectedIndex() + 1); 
+            ret = controller.saveService(bean);
         }
         // se tiver clicado em editar
         else
         {
-           ret = controller.updateService(bean);
+            bean.setName(cbName.getSelectedItem().toString());
+            bean.setPriority(cbPrioridade.getSelectedIndex() + 1);
+            ret = controller.updateService(bean);
         }
         if(ret)
             voltar(); // limpa a tela

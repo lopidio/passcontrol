@@ -12,9 +12,10 @@ public class AdministratorAddUser extends PassControlMessage
 {
     private UserBean bean;
     
-    public AdministratorAddUser() 
+    public AdministratorAddUser(UserBean bean) 
     {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
+        this.bean = bean;
     }
 
     /**

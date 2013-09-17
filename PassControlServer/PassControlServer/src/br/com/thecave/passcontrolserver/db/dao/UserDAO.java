@@ -237,7 +237,7 @@ public class UserDAO
 
             ResultSet rs = stmt.executeQuery(sql);
             
-            if(rs.next())
+            while(rs.next())
             {
                 UserBean bean = new UserBean();
                 bean.setId(rs.getInt("INT_ID"));
