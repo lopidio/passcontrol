@@ -155,6 +155,7 @@ public class ServiceCrudController extends PassControlController
      */
     private boolean findOldRegister( ServiceBean bean )
     {
+        loadServices();
         for ( ServiceBean serviceBean : servicos )
         {
             if(serviceBean.equals(bean))
