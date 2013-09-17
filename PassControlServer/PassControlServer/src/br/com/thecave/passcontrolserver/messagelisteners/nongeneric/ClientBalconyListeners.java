@@ -117,7 +117,7 @@ public class ClientBalconyListeners implements ClientListeners
             BalconyLogin balconyLogin = (BalconyLogin)message;
             BalconyBean balconyBean = balconyLogin.getBalconyBean();
 
-            System.out.println("Guichê inicializado com o número " + balconyBean.getNumber() );
+//            System.out.println("Guichê inicializado com o número " + balconyBean.getNumber() );
             
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.BalconyActor);
             
@@ -162,8 +162,11 @@ public class ClientBalconyListeners implements ClientListeners
     {
 
         @Override
-        public void onMessageReceive(PassControlMessage message, Socket socket) {
-            br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage showClientMessage = (br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage)message;
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+            //Rechamada de um cliente
+            
+            BalconyShowClientMessage showClientMessage = (BalconyShowClientMessage)message;
             //Envia para todos os viewers
             message.setFrom(MessageActors.ServerActor);
             message.setTo(MessageActors.ViewerActor);
@@ -194,6 +197,10 @@ public class ClientBalconyListeners implements ClientListeners
             
             //Informa à todos os QueuePoppers que esse Cliente já foi chamado
             balconyCallNextClientResponse.setTo(MessageActors.QueuePopActor);
+            server.addBroadcastToSend(balconyCallNextClientResponse);
+
+            //Informa à todos os visualizadores que esse Cliente já foi chamado
+            balconyCallNextClientResponse.setTo(MessageActors.ViewerActor);
             server.addBroadcastToSend(balconyCallNextClientResponse);
         }
     }

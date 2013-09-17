@@ -4,15 +4,21 @@
  */
 package br.com.thecave.passcontrolserver.util;
 
+import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNextElement;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,7 +43,6 @@ public class NextQueueChooser implements Runnable
      */
     private final ConcurrentHashMap<BalconyBean, Socket> waitingBalconys;
 
-
     /**
      * Singleton properties
      */
@@ -61,6 +66,7 @@ public class NextQueueChooser implements Runnable
     }
     
     /**
+     * Percorre a lista de serviços e retorna o índice do primeiro serviço com aquela prioridade
      * Retorna -1 caso não encontre
      */
     private static int getFirstServiceBeanFromPriority(ArrayList<ServiceBean> serviceBeans, int priority)
@@ -104,8 +110,92 @@ public class NextQueueChooser implements Runnable
         return selectedManagerBean;
     }
     
+    private QueuesManagerBean automaticChoose(BalconyBean balconyBean, ArrayList<QueuesManagerBean> avaliableClients)
+    {
+        //Pego os serviço de todos os clientes que se adequam
+        ArrayList<ServiceBean> serviceBeans = new ArrayList<>(avaliableClients.size());
+        for (QueuesManagerBean queuesManagerBean : avaliableClients) 
+        {
+            serviceBeans.add(ServiceDAO.selectFromId(queuesManagerBean.getIdService()));
+        }
+
+        int selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 5); //Prioridade máxima
+        //Se existir alguém com prioridade máxima
+        if (selectedIndex != -1)
+        {
+            return prepareSelectedQueuesManageElement(avaliableClients.get(selectedIndex), serviceBeans.get(selectedIndex));
+        }
+        //Tento para as prioridades Alta, média e baixa (A partir da última escolha...)
+        for (int i = 0; i < 3; ++i)
+        {
+            selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, nextPriority); //Próxima prioridade
+            //Se eu achar alguém dessa prioridade
+            if (selectedIndex != -1)
+                return prepareSelectedQueuesManageElement(avaliableClients.get(selectedIndex), serviceBeans.get(selectedIndex));
+            else //Altero a prioridade que eu quero
+                updateNextPriority(nextPriority);
+        }
+        selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 1); //Prioridade mínima
+        if (selectedIndex != -1)
+            return prepareSelectedQueuesManageElement(avaliableClients.get(selectedIndex), serviceBeans.get(selectedIndex));
+        return null;
+    }
+    
+    /**
+     * Trava enquanto um popper não escolher um cliente
+     * @param balconyBean
+     * @param avaliableClients
+     * @return 
+     */
+    private QueuesManagerBean manualChoose(BalconyBean balconyBean, ArrayList<QueuesManagerBean> avaliableClients)
+    {
+        QueuePopperChooseNextElement chooseNextElement = new QueuePopperChooseNextElement(balconyBean, avaliableClients);
+
+        //Mando para todos os poppers
+        HashMap<Socket, BalconyShowClientMessage> clientsResponse = PassControlServer.getInstance().getServer().sendMessageToClientsAndWaitForResponseOrTimeout(chooseNextElement, BalconyShowClientMessage.class, 1000);
+
+        //A resposta de algum popper
+        BalconyShowClientMessage balconyShowClientMessage = null;
+        while (on)
+        {
+            //Analiso a resposta de cada um (e respondo as que existirem)
+            for (Map.Entry<Socket, BalconyShowClientMessage> entry : clientsResponse.entrySet()) 
+            {
+                Socket socket = entry.getKey();
+                BalconyShowClientMessage message = entry.getValue();
+
+                //Se existir a resposta
+                if (message != null)
+                {
+                    //Informo ao popper que sua escolha foi bem sucedida
+                    ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyShowClientMessage, MessageActors.QueuePopActor);
+                    if (balconyShowClientMessage != null)
+                    {
+                        confirmationResponse.setStatusOperation(false);
+                        confirmationResponse.setComment("O cliente já foi escolhido através de outro removedor.");
+                    }
+                    PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
+
+                    //Informo que uma escolha já aconteceu
+                    balconyShowClientMessage = message;
+                }
+
+            }
+            
+            //Se algum deles enviou resposta
+            if (balconyShowClientMessage != null)
+            {
+                //Preparo a escolha para ser envia
+                return prepareSelectedQueuesManageElement(balconyShowClientMessage.getQueuesManagerBean(),
+                                                    ServiceDAO.selectFromId(balconyShowClientMessage.getQueuesManagerBean().getIdService()));
+            }
+        }
+        //O tipo de escolha mudou (automática para manual)
+        return null;
+    }    
+    
     private QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
-    {        
+    {   
         ArrayList<QueuesManagerBean> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
         
         //Não existe nenhum cliente que se adeque
@@ -114,49 +204,21 @@ public class NextQueueChooser implements Runnable
             return null;
         }
         
-        ArrayList<ServiceBean> serviceBeans = new ArrayList<>(managerBeans.size());
-        for (QueuesManagerBean queuesManagerBean : managerBeans) 
-        {
-            serviceBeans.add(ServiceDAO.selectFromId(queuesManagerBean.getIdService()));
-        }
-        
+        QueuesManagerBean chosenClient = null;
+        //Se a escolhar for manual
         if (on)
         {
-            while (on)
-            {
-                //TODO
-                //Boto um timeout só a massa
-                //Informo ao QueuePoper a mensagem: BalconyBean, managerBeans e seus serviços, e o managerBeanRecomendado
-                //Ele me retorna um QueueManagerBean...
-                //return prepareSelectedQueuesManageElement(resposta.getSelected());                
-                
-                //Só pra não dar erro
-            }
-            return new QueuesManagerBean();
+            //Retorna nulo caso a tenha mudado a forma de escolha (autmática para manual)
+            chosenClient = manualChoose(balconyBean, managerBeans);
         }
-        else
+        
+        //Se a escolha for automática
+        if (chosenClient == null)
         {
-            int selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 5); //Prioridade máxima
-            //Se existir alguém com prioridade máxima
-            if (selectedIndex != -1)
-            {
-                return prepareSelectedQueuesManageElement(managerBeans.get(selectedIndex), serviceBeans.get(selectedIndex));
-            }
-            //Tento para as prioridades Alta, média e baixa (A partir da última escolha...)
-            for (int i = 0; i < 3; ++i)
-            {
-                selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, nextPriority); //Próxima prioridade
-                //Se eu achar alguém dessa prioridade
-                if (selectedIndex != -1)
-                    return prepareSelectedQueuesManageElement(managerBeans.get(selectedIndex), serviceBeans.get(selectedIndex));
-                else //Altero a prioridade que eu quero
-                    updateNextPriority(nextPriority);
-            }
-            selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 1); //Prioridade mínima
-            if (selectedIndex != -1)
-                return prepareSelectedQueuesManageElement(managerBeans.get(selectedIndex), serviceBeans.get(selectedIndex));
-            return null;
+            chosenClient = automaticChoose(balconyBean, managerBeans);
         }
+        
+        return chosenClient;
         
         //Fluxo:
         /**
@@ -214,7 +276,7 @@ public class NextQueueChooser implements Runnable
                     //Se existir um cliente que se adeque ao guichê
                     if (managerBean != null)
                     {
-                        //Informo ao guichê
+                        //Informo aos guichê
                         ClientBalconyListeners.sendBackElementQueueToBalcony(socket, managerBean);
                         waitingBalconys.remove(balconyBean, socket);
                         
@@ -239,6 +301,5 @@ public class NextQueueChooser implements Runnable
             waitingBalconys.put(balconyBean, socket);
         }
     }
-    
-    
+
 }
