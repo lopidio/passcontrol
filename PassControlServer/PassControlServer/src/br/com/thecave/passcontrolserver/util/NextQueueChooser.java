@@ -107,9 +107,12 @@ public class NextQueueChooser implements Runnable
     private QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
     {        
         ArrayList<QueuesManagerBean> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
-        /**Se a fila estiver vazia...
-         * Adiciono esse balcony (SINCRONIZADA) em uma lista e o informo assim que um novo cliente chegar
-         */
+        
+        //Não existe nenhum cliente que se adeque
+        if (managerBeans.isEmpty())
+        {
+            return null;
+        }
         
         ArrayList<ServiceBean> serviceBeans = new ArrayList<>(managerBeans.size());
         for (QueuesManagerBean queuesManagerBean : managerBeans) 

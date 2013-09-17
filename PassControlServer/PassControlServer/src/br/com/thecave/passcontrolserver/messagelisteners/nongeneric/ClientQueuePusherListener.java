@@ -68,6 +68,10 @@ public class ClientQueuePusherListener implements ClientListeners
             //Informo ao pusher que deu certo!!
             BalconyShowClientMessage response = new BalconyShowClientMessage(clientName, addQueueElement.getServiceBean().getName(), queuesManagerBean, MessageActors.ServerActor, MessageActors.QueuePushActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);                                
+            
+            ///Informo à todos os QueuePoppers pra inserir esse elemento
+            response.setTo(MessageActors.QueuePopActor);
+            PassControlServer.getInstance().getServer().addBroadcastToSend(response);
         }
     }
 
