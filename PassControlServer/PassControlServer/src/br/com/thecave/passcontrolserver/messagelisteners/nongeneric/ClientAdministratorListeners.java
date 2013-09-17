@@ -41,11 +41,8 @@ import java.util.ArrayList;
 public class ClientAdministratorListeners implements ClientListeners
 {
     @Override
-    public void addListenersCallback()
-    {
-        
-        ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-        
+    public void addListenersCallback(ServerCommunicationThread server)
+    {        
         ///User
         server.addMessageListener(new AddUserListener(), AdministratorAddUser.class);
         server.addMessageListener(new ListUserListener(), AdministratorListUser.class);

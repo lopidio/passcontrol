@@ -7,7 +7,6 @@ import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessag
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
-import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

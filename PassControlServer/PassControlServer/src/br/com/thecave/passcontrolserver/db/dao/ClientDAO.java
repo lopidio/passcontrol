@@ -161,5 +161,49 @@ public class ClientDAO {
           return null;
         }            
     }
+
+    /**
+     * Metodo para recuperar um ClientBean a partir de seu Registro
+     * @param id Id do registro que se quer recuperar
+     * @return Bean com os dados ja preenchidos.
+     */
+    public static ClientBean selectFromRegister(String register)
+    {
+        ClientBean bean = null;
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_CLIENT WHERE TX_REGISTER='"+register+"';";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                bean = new ClientBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setRegister(rs.getString("TX_REGISTER"));
+                bean.setName(rs.getString("TX_NAME"));
+                bean.setTelefone(rs.getString("TX_TELEFONE"));
+            }
+            
+            stmt.close();
+            conn.close();
+            return bean;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }            
+    }
     
 }

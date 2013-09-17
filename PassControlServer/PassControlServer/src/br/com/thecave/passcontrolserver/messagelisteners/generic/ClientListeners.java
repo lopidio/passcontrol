@@ -4,11 +4,13 @@
  */
 package br.com.thecave.passcontrolserver.messagelisteners.generic;
 
+import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+
 /**
  *
  * @author guilherme
  */
 public interface ClientListeners 
 {
-    public abstract void addListenersCallback();
+    public abstract void addListenersCallback(ServerCommunicationThread server);
 }

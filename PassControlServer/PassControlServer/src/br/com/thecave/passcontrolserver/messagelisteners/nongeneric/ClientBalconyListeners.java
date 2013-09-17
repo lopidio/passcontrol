@@ -8,6 +8,7 @@ import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.communicationThread.ClientUserSocketPair;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
 import br.com.thecave.passcontrolserver.db.dao.ClientDAO;
@@ -37,9 +38,8 @@ public class ClientBalconyListeners implements ClientListeners
     private static HashMap<BalconyBean, Socket> unnavaliableBalconySocket = new HashMap<>();
 
     @Override
-    public void addListenersCallback()
+    public void addListenersCallback(ServerCommunicationThread server)
     {
-        ServerCommunicationThread server = PassControlServer.getInstance().getServer();
         
         //Chamados pelo balcony login
         server.addMessageListener(new BalconyInitListener(), BalconyInitRequest.class);
@@ -175,7 +175,13 @@ public class ClientBalconyListeners implements ClientListeners
     //Envia o elemento de volta para o balcony
     public static void sendBackElementQueueToBalcony(Socket socket, QueuesManagerBean queuesManagerBean)
     {
-        String clientName = ClientDAO.selectFromId(queuesManagerBean.getIdClient()).getName();
+        String clientName = "";
+        ClientBean clientBean = ClientDAO.selectFromId(queuesManagerBean.getIdClient());
+        if (clientBean != null)
+        {
+            clientName = clientBean.getName();
+        }
+        
         String serviceName = ServiceDAO.selectFromId(queuesManagerBean.getIdService()).getName();
 
         //Ninguém bole no server enquanto esse bloco é bulido

@@ -30,9 +30,8 @@ public class ClientGenericListeners implements ClientListeners
 {
     
     @Override
-    public void addListenersCallback() 
+    public void addListenersCallback(ServerCommunicationThread server) 
     {
-        ServerCommunicationThread server = PassControlServer.getInstance().getServer();
         server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);

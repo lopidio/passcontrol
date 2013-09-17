@@ -8,6 +8,7 @@ import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationT
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
+import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,10 @@ public class PassControlServer {
             singletonInstance = new PassControlServer();
         return singletonInstance;
     }
+
+    public static String generatePassNumber(QueuePusherAddQueueElement addQueueElement) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * Thread que lida com a comunicação com os clientes
@@ -45,9 +50,9 @@ public class PassControlServer {
         //Fazer uma lista de ClientListeners???
         
         // Cadastra os listeners relativos às mensagens do administrador
-        new ClientAdministratorListeners().addListenersCallback();
-        new ClientBalconyListeners().addListenersCallback();
-        new ClientGenericListeners().addListenersCallback();
+        new ClientAdministratorListeners().addListenersCallback(server);
+        new ClientBalconyListeners().addListenersCallback(server);
+        new ClientGenericListeners().addListenersCallback(server);
         new Thread(server).start();
     }
 
