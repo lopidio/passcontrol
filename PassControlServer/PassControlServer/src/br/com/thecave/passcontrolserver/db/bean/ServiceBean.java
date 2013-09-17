@@ -64,5 +64,14 @@ public class ServiceBean extends TableBean
     public void setPriority(int priority) 
     {
         this.priority = priority;
+    } 
+
+    @Override
+    public boolean equals( Object obj )
+    {
+        ServiceBean bean = (ServiceBean) obj;
+        if(bean.getName().equalsIgnoreCase(name) && bean.getPriority() == priority)
+            return true;
+        return false;
     }   
 }

@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrolserver.util;
 
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -90,6 +91,13 @@ public class Validation
             }
         }
         return true;
+    }
+    //==============================================================================
+    public static boolean ServiceBeanEquals( ServiceBean src, ServiceBean target)
+    {
+        if(src.equals(target))
+            return true;
+        return false;
     }
     //==============================================================================
 }

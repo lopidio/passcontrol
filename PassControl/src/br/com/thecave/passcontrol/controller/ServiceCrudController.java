@@ -69,27 +69,36 @@ public class ServiceCrudController extends PassControlController
         return null;
     }
 
-    public void saveService(String name, int priority)
+    public boolean saveService(ServiceBean bean)
     {
-        // criando um bean com os dados da tela
-        ServiceBean bean = new ServiceBean();
-        bean.setName(name);
-        bean.setPriority(priority);
-        // enviando o bean ao servidor
-        AdministratorAddService addService = new AdministratorAddService(bean);
-        ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                            sendMessageToServerAndWaitForResponseOrTimeout(addService, 
-                                                                           ConfirmationResponse.class, 
-                                                                           2000);
-        if(response.getStatusOperation())
-            JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+        if(!findOldRegister(bean))
+        {
+            // enviando o bean ao servidor
+            AdministratorAddService addService = new AdministratorAddService(bean);
+            ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                                sendMessageToServerAndWaitForResponseOrTimeout(addService, 
+                                                                               ConfirmationResponse.class, 
+                                                                               2000);
+            if(response.getStatusOperation())
+            {
+                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+                return true;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar registro!");
+                return false;
+            }
+        }
         else
-            JOptionPane.showMessageDialog(null, "Erro ao salvar registro!");
+        {
+            JOptionPane.showMessageDialog(null, "Registro já existente, insira um outro nome!");
+            return false;
+        }
     }
 
     public void deleteService( ServiceBean bean )
     {
-        bean = extractBeanFromName(bean.getName());
         AdministratorRemoveService removeService = new AdministratorRemoveService(bean.getId());
         
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().
@@ -102,22 +111,55 @@ public class ServiceCrudController extends PassControlController
             JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
     }
 
-    public void updateService( String name, int priority )
+    public boolean updateService( ServiceBean bean )
     {
-        // criando um bean com os dados da tela
-        ServiceBean bean = new ServiceBean();
-        bean = extractBeanFromName(name);
-        bean.setName(name);
-        bean.setPriority(priority);
-        // enviando o bean ao servidor
-        AdministratorUpdateService update = new AdministratorUpdateService(bean);
-        ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                            sendMessageToServerAndWaitForResponseOrTimeout(update, 
-                                                                           ConfirmationResponse.class, 
-                                                                           2000);
-        if(response.getStatusOperation())
-            JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
+        if(!findOldRegister(bean))
+        {
+            // criando um bean com os dados da tela
+            if(bean == null)
+            {
+                JOptionPane.showMessageDialog(null, "Não existe nenhum registro para ser atualizado");
+                return false;
+            }
+            else
+            {
+                // enviando o bean ao servidor
+                AdministratorUpdateService update = new AdministratorUpdateService(bean);
+                ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                                    sendMessageToServerAndWaitForResponseOrTimeout(update, 
+                                                                                   ConfirmationResponse.class, 
+                                                                                   2000);
+                if(response.getStatusOperation())
+                {
+                    JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
+                    return true;
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Erro ao atualizar registro!");
+                    return false;
+                }
+            }
+        }
         else
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar registro!");
+        {
+            JOptionPane.showMessageDialog(null, "Já existe um registro com esse nome, escolha um diferente!");
+            return false;
+        }
+    }
+
+    /**
+     * Verifica na lista de beans se já existe um outro bean com o mesmo nome
+     * @param name Nome a ser verificado
+     * @return true se existe, false se não existe
+     */
+    private boolean findOldRegister( ServiceBean bean )
+    {
+        for ( ServiceBean serviceBean : servicos )
+        {
+            if(serviceBean.equals(bean))
+                return true;
+        }
+        return false;
     }
 }
