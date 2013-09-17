@@ -55,6 +55,11 @@ public abstract class PassControlMessage implements Serializable
         return from;
     }
 
+    public void setFrom(MessageActors from) {
+        this.from = from;
+    }
+
+    
   
     /**
      * Getter do tipo.

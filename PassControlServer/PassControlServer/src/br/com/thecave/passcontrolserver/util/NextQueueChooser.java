@@ -54,6 +54,7 @@ public class NextQueueChooser implements Runnable
      */
     private NextQueueChooser() 
     {
+        //Começa como falso.. Só pra ver qual é.
         this.on = false;
         this.nextPriority = 4; //Alta
         waitingBalconys = new ConcurrentHashMap<>(); //

@@ -12,7 +12,7 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
  *
  * @author lopidio
  */
-public class BalconyCallNextClientResponse extends PassControlMessage
+public class BalconyShowClientMessage extends PassControlMessage
 {
     /**
      * Nome do cliente
@@ -35,9 +35,9 @@ public class BalconyCallNextClientResponse extends PassControlMessage
      * @param serviceType
      * @param passNumber 
      */
-    public BalconyCallNextClientResponse(String clientName, String serviceType, QueuesManagerBean queuesManagerBean) 
+    public BalconyShowClientMessage(String clientName, String serviceType, QueuesManagerBean queuesManagerBean, MessageActors from, MessageActors to) 
     {
-        super(MessageActors.ServerActor, MessageActors.BalconyActor);
+        super(from, to);
         this.clientName = clientName;
         this.serviceType = serviceType;
         this.queuesManagerBean = queuesManagerBean;

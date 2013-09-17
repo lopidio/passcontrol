@@ -3,8 +3,13 @@ package br.com.thecave.passcontrol.controller;
 import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientRequest;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientResponse;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
+import java.net.Socket;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -15,7 +20,7 @@ public class BalconyController extends PassControlController
 {
     BalconyScreen screen;
     
-    BalconyCallNextClientResponse lastCalledClient = null;
+    BalconyShowClientMessage lastCalledClient = null;
     
     /**
      * ID do guichê
@@ -30,24 +35,28 @@ public class BalconyController extends PassControlController
 
     public void recallNextClient() 
     {
-//        BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyBean);
-//        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 1000);        
-//        if (response != null)
-//        {
-//            screen.showPanelQueueInfo(lastCalledClient);
-//        }           
+        
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(lastCalledClient, ConfirmationResponse.class, 1000);
+        if (response != null)
+        {
+            if (response.getStatusOperation())
+            {
+                showBalconyClient(lastCalledClient);
+            }
+        }        
     }
 
     public void callNextClient() 
     {
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyBean);
-        BalconyCallNextClientResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, BalconyCallNextClientResponse.class, 1000);
-        
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 1000);
         if (response != null)
         {
-            lastCalledClient = response;
-            screen.showPanelQueueInfo(response);
-        }        
+            if (response.getStatusOperation())
+            {
+                JOptionPane.showMessageDialog(null, "Aguardando próximo cliente", "Por favor, aguarde;", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
     public BalconyBean getBalconyBean() {
@@ -58,5 +67,32 @@ public class BalconyController extends PassControlController
         this.balconyBean = balconyBean;
     }
 
+    @Override
+    public void onMessageReceive(PassControlMessage message, Socket socket) 
+    {
+        showBalconyClient((BalconyShowClientMessage)message);
+    }
+
+    @Override
+    public void addMessageListeners() 
+    {
+        Main.getInstance().getCommunicationThread().addMessageListener(this, BalconyShowClientMessage.class);
+    }
+
+    @Override
+    public void removeMessageListeners() 
+    {
+        Main.getInstance().getCommunicationThread().removeListener(this, BalconyShowClientMessage.class);
+    }
+
+    private void showBalconyClient(BalconyShowClientMessage showClientMessage) 
+    {
+        lastCalledClient = showClientMessage;
+        lastCalledClient.setFrom(MessageActors.BalconyActor);        
+        lastCalledClient.setTo(MessageActors.ServerActor);
+        screen.showPanelQueueInfo(showClientMessage);
+    }
+
+    
     
 }

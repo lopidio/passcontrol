@@ -36,6 +36,7 @@ public class ClientGenericListeners implements ClientListeners
         server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
+
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener
@@ -130,6 +131,7 @@ public class ClientGenericListeners implements ClientListeners
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
         }       
     }
+
         
     
 }

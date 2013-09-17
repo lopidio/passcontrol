@@ -7,7 +7,7 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.BalconyController;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientResponse;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 
 /**
  *
@@ -104,7 +104,7 @@ public class BalconyScreen extends PassControlPanel
         controller.setBalconyBean(balconyBean);
     }
 
-    public void showPanelQueueInfo(BalconyCallNextClientResponse response) 
+    public void showPanelQueueInfo(BalconyShowClientMessage response) 
     {
         QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber());
         jpSenha.add(queueElementInfoBig);

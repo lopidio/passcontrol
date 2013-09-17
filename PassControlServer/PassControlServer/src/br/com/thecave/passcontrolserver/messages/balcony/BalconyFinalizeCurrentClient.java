@@ -11,23 +11,13 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
  *
  * @author lopidio
  */
-public class BalconyRecallLastClient extends PassControlMessage
+public class BalconyFinalizeCurrentClient extends PassControlMessage
 {
-    String balconyID;
 
-    public BalconyRecallLastClient(String balconyID) 
+    public BalconyFinalizeCurrentClient() 
     {
         super(MessageActors.BalconyActor, MessageActors.ServerActor);
-        this.balconyID = balconyID;
     }
-
-    public String getBalconyID() {
-        return balconyID;
-    }
-
-    public void setBalconyID(String balconyID) {
-        this.balconyID = balconyID;
-    }
-    
     
 }
+
