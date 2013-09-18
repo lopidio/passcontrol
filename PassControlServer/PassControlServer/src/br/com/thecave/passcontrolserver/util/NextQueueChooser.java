@@ -103,9 +103,6 @@ public class NextQueueChooser implements Runnable
         //Atualizo a próxima prioridade que eu devo escolher
         updateNextPriority(ServiceDAO.selectFromId(selectedManagerBean.getIdService()).getPriority());
         
-        //Atualiza no banco
-        QueuesManagerDAO.update(selectedManagerBean);
-        
         //Retorna o bean atualizado
         return selectedManagerBean;
     }
@@ -142,7 +139,7 @@ public class NextQueueChooser implements Runnable
     }
     
     /**
-     * Trava enquanto um popper não escolher um cliente
+     * Retorna null se nenhum popper escolher
      * @param balconyBean
      * @param avaliableClients
      * @return 
@@ -156,46 +153,43 @@ public class NextQueueChooser implements Runnable
 
         //A resposta de algum popper
         BalconyShowClientMessage balconyShowClientMessage = null;
-        while (on)
+        //Analiso a resposta de cada um (e respondo as que existirem)
+        for (Map.Entry<Socket, BalconyShowClientMessage> entry : clientsResponse.entrySet()) 
         {
-            //Analiso a resposta de cada um (e respondo as que existirem)
-            for (Map.Entry<Socket, BalconyShowClientMessage> entry : clientsResponse.entrySet()) 
-            {
-                Socket socket = entry.getKey();
-                BalconyShowClientMessage message = entry.getValue();
+            Socket socket = entry.getKey();
+            BalconyShowClientMessage message = entry.getValue();
 
-                //Se existir a resposta
-                if (message != null)
+            //Se existir a resposta
+            if (message != null)
+            {
+                //Informo ao popper que sua escolha foi bem sucedida
+                ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyShowClientMessage, MessageActors.QueuePopActor);
+                if (balconyShowClientMessage != null)
                 {
-                    //Informo ao popper que sua escolha foi bem sucedida
-                    ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyShowClientMessage, MessageActors.QueuePopActor);
-                    if (balconyShowClientMessage != null)
-                    {
-                        confirmationResponse.setStatusOperation(false);
-                        confirmationResponse.setComment("O cliente já foi escolhido através de outro removedor.");
-                    }
-                    PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
-
-                    //Informo que uma escolha já aconteceu
-                    balconyShowClientMessage = message;
+                    confirmationResponse.setStatusOperation(false);
+                    confirmationResponse.setComment("O cliente já foi escolhido através de outro removedor.");
                 }
+                PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
 
+                //Informo que uma escolha já aconteceu
+                balconyShowClientMessage = message;
             }
-            
-            //Se algum deles enviou resposta
-            if (balconyShowClientMessage != null)
-            {
-                //Preparo a escolha para ser envia
-                return prepareSelectedQueuesManageElement(balconyShowClientMessage.getQueuesManagerBean(),
-                                                    ServiceDAO.selectFromId(balconyShowClientMessage.getQueuesManagerBean().getIdService()));
-            }
+
         }
-        //O tipo de escolha mudou (automática para manual)
+
+        //Se algum deles enviou resposta
+        if (balconyShowClientMessage != null)
+        {
+            //Preparo a escolha para ser envia
+            return prepareSelectedQueuesManageElement(balconyShowClientMessage.getQueuesManagerBean(),
+                                                ServiceDAO.selectFromId(balconyShowClientMessage.getQueuesManagerBean().getIdService()));
+        }
         return null;
     }    
     
     private QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
     {   
+        //Seleciona todos os queues disponíveis para aquele guichê
         ArrayList<QueuesManagerBean> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
         
         //Não existe nenhum cliente que se adeque
@@ -211,41 +205,14 @@ public class NextQueueChooser implements Runnable
             //Retorna nulo caso a tenha mudado a forma de escolha (autmática para manual)
             chosenClient = manualChoose(balconyBean, managerBeans);
         }
-        
-        //Se a escolha for automática
-        if (chosenClient == null)
+        else
         {
             chosenClient = automaticChoose(balconyBean, managerBeans);
+            //É zero quando a escolha foi automática
+            chosenClient.setIdUserCheckout(0);
         }
         
         return chosenClient;
-        
-        //Fluxo:
-        /**
-         * 
-         * Se estiver desligado:
-         *      repassa o serviço para o QueuePoper
-         * 
-         * 
-         * Se estiver ligado:
-         * Verifica quais serviços esse guichê atende.
-         * 
-         * Verifica se tem alguém com prioridade máxima.
-         *      Se tiver:
-         *          retorna o próximo de prioridade máxima;
-         *      Se não:
-         *          Verifica se tem algum elemento com prioridade alta, média ou baixa
-         *              Se tiver:
-         *                  Verifica qual, dessas 3 prioridades, foi a última a ser chamada;
-         *                  Incrementa em um esse valor;
-         *                  Retorna o próximo dessa prioridade incrementada;
-         *              Se não:
-         *              Verifica se tem algum da prioridade mínima
-         *                  Se tiver:
-         *                      retorna o próximo de prioridade mínima;
-         *                  Se não:
-         *                      retorna nulo;
-         */
     }
     
     public boolean isOn() 
@@ -265,7 +232,7 @@ public class NextQueueChooser implements Runnable
         {
             synchronized (waitingBalconys)  
             {
-                //Percorro todos os guichês que estão esperando
+                //Percorro só o primeiro guichê que está esperando
                 for (Map.Entry<BalconyBean, Socket> entry : waitingBalconys.entrySet()) 
                 {
                     BalconyBean balconyBean = entry.getKey();
@@ -278,11 +245,15 @@ public class NextQueueChooser implements Runnable
                     {
                         //Informo aos guichê
                         ClientBalconyListeners.sendBackElementQueueToBalcony(socket, managerBean);
-                        waitingBalconys.remove(balconyBean, socket);
                         
-                        //Recomeço do ZERO
-                        break;
+                        //salvo as alterações no banco.
+                        QueuesManagerDAO.update(managerBean);
+                        waitingBalconys.remove(balconyBean, socket);                        
                     }
+                    
+                    //Só funciona para o primeiro guichê!!!
+                    //Foi a melhor maneira (não consegui achar o método do hashMap que retorna o primeiro elemento. :D)
+                    break;
                 }
             }
         }
