@@ -1,15 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens.admin;
 
 import br.com.thecave.passcontrol.controller.BalconyCrudController;
+import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,21 +18,17 @@ import javax.swing.JMenu;
 public class BalconyCrud extends PassControlPanel 
 {
     BalconyCrudController controller = null;
+    private boolean insert;
     /**
      * Creates new form AdminScreen
      */
     public BalconyCrud() 
     {
-        super("Cadastro de Guichê", new BalconyCrudController());
-        this.controller = (BalconyCrudController) getPanelController();
+        super("Cadastro de Usuários", new BalconyCrudController());
+        this.controller = (BalconyCrudController) getPanelController();        
         initComponents();
-        controller.loadBalconys();
-        defineCBNames();        
-    }
-    
-    private void defineCBNames()
-    {
-        controller.defineCBNames(cbBalconyName);        
+        jpSecundario.setVisible(false);        
+        defineCBNames();
     }
 
     /**
@@ -45,150 +41,323 @@ public class BalconyCrud extends PassControlPanel
     private void initComponents()
     {
 
-        cbBalconyName = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        btSalvar = new javax.swing.JButton();
-        btNovo = new javax.swing.JButton();
-        btDeletar = new javax.swing.JButton();
-        btCancelar = new javax.swing.JButton();
+        jmAdmin = new javax.swing.JMenu();
+        jmAdminstrador = new javax.swing.JMenuItem();
+        jmVoltar = new javax.swing.JMenuItem();
+        bgPermissao = new javax.swing.ButtonGroup();
+        jlAdminPic = new javax.swing.JLabel();
+        jpBarraLateral = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jbEditar = new javax.swing.JButton();
+        jbNovo = new javax.swing.JButton();
+        jpSecundario = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jbAdicionar = new javax.swing.JButton();
+        cbName = new javax.swing.JComboBox();
+        jbRemove = new javax.swing.JButton();
+
+        jmAdmin.setText("Administrar");
+        jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+
+        jmAdminstrador.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+        jmAdminstrador.setMnemonic('a');
+        jmAdminstrador.setText("Administrador");
+        jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmAdminstradorActionPerformed(evt);
+            }
+        });
+        jmAdmin.add(jmAdminstrador);
+
+        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+        jmVoltar.setMnemonic('v');
+        jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmVoltarActionPerformed(evt);
+            }
+        });
+        jmAdmin.add(jmVoltar);
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbBalconyName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
+        jlAdminPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
+        add(jlAdminPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 11, -1, -1));
 
-        jLabel3.setText("Nome do Guichê");
+        jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout jpBarraLateralLayout = new javax.swing.GroupLayout(jpBarraLateral);
+        jpBarraLateral.setLayout(jpBarraLateralLayout);
+        jpBarraLateralLayout.setHorizontalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+        jpBarraLateralLayout.setVerticalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
 
-        btSalvar.setBackground(new java.awt.Color(0, 153, 191));
-        btSalvar.setText("Salvar");
-        btSalvar.addActionListener(new java.awt.event.ActionListener()
+        add(jpBarraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 11, -1, 290));
+
+        jLabel1.setBackground(new java.awt.Color(150, 150, 150));
+        jLabel1.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(200, 200, 200));
+        jLabel1.setText("ADMINISTRANDO USUÁRIOS");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 11, -1, -1));
+
+        jbEditar.setBackground(new java.awt.Color(45, 123, 142));
+        jbEditar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btSalvarActionPerformed(evt);
+                jbEditarActionPerformed(evt);
             }
         });
+        add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 221, 37));
 
-        btNovo.setBackground(new java.awt.Color(0, 153, 191));
-        btNovo.setText("Novo");
-
-        btDeletar.setBackground(new java.awt.Color(0, 153, 191));
-        btDeletar.setText("Deletar");
-        btDeletar.addActionListener(new java.awt.event.ActionListener()
+        jbNovo.setBackground(new java.awt.Color(45, 123, 142));
+        jbNovo.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                btDeletarActionPerformed(evt);
+                jbNovoActionPerformed(evt);
+            }
+        });
+        add(jbNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 221, 37));
+
+        jLabel2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel2.setText("Nome do guichê");
+
+        jbAdicionar.setBackground(new java.awt.Color(45, 123, 142));
+        jbAdicionar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbAdicionar.setText("Adicionar");
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbAdicionarActionPerformed(evt);
             }
         });
 
-        btCancelar.setBackground(new java.awt.Color(0, 153, 191));
-        btCancelar.setText("Cancelar");
+        cbName.setEditable(true);
+        cbName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                cbNameActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jbRemove.setBackground(new java.awt.Color(45, 123, 142));
+        jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbRemove.setText("Remover");
+        jbRemove.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbRemoveActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
+        jpSecundario.setLayout(jpSecundarioLayout);
+        jpSecundarioLayout.setHorizontalGroup(
+            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpSecundarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecundarioLayout.createSequentialGroup()
+                        .addComponent(jbAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpSecundarioLayout.createSequentialGroup()
+                        .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(cbName, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jpSecundarioLayout.setVerticalGroup(
+            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecundarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
+                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbAdicionar)
+                    .addComponent(jbRemove))
+                .addGap(38, 38, 38))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(925, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(cbBalconyName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbBalconyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(167, 167, 167)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(374, Short.MAX_VALUE))
-        );
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 380));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btSalvarActionPerformed
-    {//GEN-HEADEREND:event_btSalvarActionPerformed
-        BalconyBean balconyBean = new BalconyBean();
-        ArrayList<ServiceBean> typesServiceBean = new ArrayList<ServiceBean>();
-        
-        ServiceBean bean =  new ServiceBean();
-        bean.setName("meu serviço");
-        bean.setPriority(3);
-        typesServiceBean.add(bean);
-        
-        balconyBean.setNumber(cbBalconyName.getSelectedItem().toString());
-        controller.loadBalconys();
-        
-        balconyBean = extractBeanFromCombo();
-        
-        controller.saveBalcony(balconyBean, typesServiceBean);
-    }//GEN-LAST:event_btSalvarActionPerformed
+    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
+    {//GEN-HEADEREND:event_jbNovoActionPerformed
+        jpSecundario.setVisible(true);
+        jbNovo.setVisible(false);
+        jbEditar.setVisible(false);
+        jbRemove.setVisible(false);
+        jbAdicionar.setEnabled(true);
+        cbName.setModel(new DefaultComboBoxModel());
+        jmVoltar.setVisible(true);
+        insert = true;
+        jbAdicionar.setText("Adicionar");
+    }//GEN-LAST:event_jbNovoActionPerformed
 
-    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btDeletarActionPerformed
-    {//GEN-HEADEREND:event_btDeletarActionPerformed
-        BalconyBean bean = extractBeanFromCombo();
-        controller.deleteBalcony(bean);
-    }//GEN-LAST:event_btDeletarActionPerformed
+    private void jmAdminstradorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmAdminstradorActionPerformed
+    {//GEN-HEADEREND:event_jmAdminstradorActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }//GEN-LAST:event_jmAdminstradorActionPerformed
+
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmVoltarActionPerformed
+    {//GEN-HEADEREND:event_jmVoltarActionPerformed
+        voltar();
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbEditarActionPerformed
+    {//GEN-HEADEREND:event_jbEditarActionPerformed
+        jpSecundario.setVisible(true);
+        jbAdicionar.setText("Atualizar");
+        jbRemove.setEnabled(true);
+        jbNovo.setVisible(false);
+        jbEditar.setVisible(false);
+        jmVoltar.setVisible(true);
+        controller.defineCBNames(cbName);
+        jbRemove.setVisible(true);
+        insert = false;
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
+    {//GEN-HEADEREND:event_jbAdicionarActionPerformed
+        String s = "";
+        BalconyBean bean = new BalconyBean();
+        boolean ret;
+        if(cbName.getSelectedItem() != null)
+            s = cbName.getSelectedItem().toString();
+        
+        // não permite inserir um registro com o nome vazio
+        while(s.equals(""))
+        {
+            s = JOptionPane.showInputDialog("Insira o nome do usuário!");
+            DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
+            boxModel.addElement(s);
+            cbName.setModel(boxModel);
+        }
+        // construindo o bean com as informações da tela
+        bean = extractBeanIdFromCombo();
+        
+        // se tiver clicado em novo
+        if(insert)
+        {
+            bean = new BalconyBean();
+            bean.setNumber(cbName.getSelectedItem().toString());
+            ServiceBean serviceBean = new ServiceBean();
+            serviceBean.setName("Servico");
+            serviceBean.setPriority(2);
+            ArrayList<ServiceBean> arrayList = new ArrayList<ServiceBean>();
+            arrayList.add(serviceBean);
+            //TODO: recuperar a lista de serviços
+            ret = controller.saveBalcony(bean, arrayList);
+        }
+        // se tiver clicado em editar
+        else
+        {
+            //TODO: pegar os serviços
+            ret = controller.updateBalcony(bean, new ArrayList<ServiceBean>());
+        }
+        if(ret)
+            voltar(); // limpa a tela
+    }//GEN-LAST:event_jbAdicionarActionPerformed
+
+    private void cbNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbNameActionPerformed
+    {//GEN-HEADEREND:event_cbNameActionPerformed
+        sincronizeCampos();
+    }//GEN-LAST:event_cbNameActionPerformed
+
+    private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbRemoveActionPerformed
+    {//GEN-HEADEREND:event_jbRemoveActionPerformed
+        BalconyBean bean = extractBeanIdFromCombo();
+        if(bean != null)
+        {
+            controller.deleteBalcony(bean);
+            voltar();
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Não existe nenhum registro a ser deletado!");
+    }//GEN-LAST:event_jbRemoveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCancelar;
-    private javax.swing.JButton btDeletar;
-    private javax.swing.JButton btNovo;
-    private javax.swing.JButton btSalvar;
-    private javax.swing.JComboBox cbBalconyName;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.ButtonGroup bgPermissao;
+    private javax.swing.JComboBox cbName;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jbAdicionar;
+    private javax.swing.JButton jbEditar;
+    private javax.swing.JButton jbNovo;
+    private javax.swing.JButton jbRemove;
+    private javax.swing.JLabel jlAdminPic;
+    private javax.swing.JMenu jmAdmin;
+    private javax.swing.JMenuItem jmAdminstrador;
+    private javax.swing.JMenuItem jmVoltar;
+    private javax.swing.JPanel jpBarraLateral;
+    private javax.swing.JPanel jpSecundario;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public ArrayList<JMenu> createMenuItems() 
     {
-        ArrayList<JMenu> ret = new ArrayList<>();
+        ArrayList<JMenu> ret = new ArrayList<JMenu>();
+        ret.add(jmAdmin);
+        jmVoltar.setVisible(false);
         return ret;
     }
-    private BalconyBean extractBeanFromCombo()
+
+    private void defineCBNames()
     {
-        return controller.extractBeanFromName(cbBalconyName.getSelectedItem().toString());
+        controller.defineCBNames(cbName);
+        sincronizeCampos();
+    }
+    
+    private void sincronizeCampos()
+    {
+        BalconyBean bean = extractBeanIdFromCombo();
+        if(bean != null)
+        {
+        }
     }
 
+    private BalconyBean extractBeanIdFromCombo()
+    {
+        BalconyCrudController ret = new BalconyCrudController();
+        controller.loadBalconys();
+        for(BalconyBean bean : controller.getBalconyBeans())
+        {
+            if(bean.getNumber().equals(cbName.getSelectedItem().toString()))
+                return bean;
+        }
+        return null;
+    }
+
+    private void voltar()
+    {
+        Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyCrud());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }
 }
