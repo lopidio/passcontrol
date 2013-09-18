@@ -27,9 +27,9 @@ public class BalconyScreen extends PassControlPanel
     public void enableButtons(boolean enable)
     {
         btChamar.setEnabled(enable);
-        btEncerrar.setEnabled(enable);
-        btEsperar.setEnabled(enable);
-        btRepetir.setEnabled(enable);        
+        btEncerrar.setEnabled(false);
+        btEsperar.setEnabled(false);
+        btRepetir.setEnabled(false);        
     }
 
     /**

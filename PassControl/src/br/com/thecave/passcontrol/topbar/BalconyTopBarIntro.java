@@ -59,26 +59,20 @@ public class BalconyTopBarIntro extends PassControlTopBar
         setBackground(new java.awt.Color(0, 153, 191));
         setForeground(new java.awt.Color(0, 153, 191));
         setPreferredSize(new java.awt.Dimension(1376, 128));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
-        add(jlIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 3, 106, 122));
 
         jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
-        add(jlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 3, -1, 122));
 
         jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
-        add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 3, 222, 122));
 
         lblUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lblUser.setForeground(new java.awt.Color(255, 255, 255));
         lblUser.setText("Usuário:");
-        add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(1245, 3, -1, 22));
 
         lbNameUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbNameUser.setForeground(new java.awt.Color(255, 255, 255));
         lbNameUser.setText("Isso ira mudar");
-        add(lbNameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(1245, 31, -1, -1));
 
         lbLogout.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbLogout.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,16 +86,13 @@ public class BalconyTopBarIntro extends PassControlTopBar
                 lbLogoutMouseClicked(evt);
             }
         });
-        add(lbLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1288, 108, -1, -1));
 
         lbNumero.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbNumero.setForeground(new java.awt.Color(255, 255, 255));
         lbNumero.setText("Guichê:");
-        add(lbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, 28));
 
         cbNumero.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbNumero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
-        add(cbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 19, 185, 30));
 
         jbConfirm.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
         jbConfirm.setText("OK");
@@ -112,7 +103,62 @@ public class BalconyTopBarIntro extends PassControlTopBar
                 jbConfirmActionPerformed(evt);
             }
         });
-        add(jbConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jlIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jlBarra)
+                .addGap(12, 12, 12)
+                .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(172, 172, 172)
+                .addComponent(lbNumero)
+                .addGap(14, 14, 14)
+                .addComponent(cbNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbConfirm)
+                .addGap(394, 394, 394)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUser)
+                    .addComponent(lbNameUser)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(lbLogout))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jlIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jlBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jlName, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lbNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(lbNameUser)
+                        .addGap(59, 59, 59)
+                        .addComponent(lbLogout)))
+                .addGap(174, 174, 174))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoutMouseClicked
