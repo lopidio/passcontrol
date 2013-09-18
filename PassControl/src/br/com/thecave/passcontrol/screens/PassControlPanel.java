@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controller.PassControlController;
@@ -15,29 +11,34 @@ import javax.swing.JPanel;
  * @author guilherme
  */
 public abstract class PassControlPanel extends JPanel
-{   
+{
+
     protected PassControlController panelController;
     private String passControlPanelTitle;
 
-    public PassControlPanel(String passControlPanelTitle, PassControlController panelController) {
+    public PassControlPanel( String passControlPanelTitle, PassControlController panelController )
+    {
         this.panelController = panelController;
         this.passControlPanelTitle = passControlPanelTitle;
-        
+
         BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(layout);        
+        this.setLayout(layout);
     }
 
-    public String getPassControlPanelTitle() {
+    public String getPassControlPanelTitle()
+    {
         return passControlPanelTitle;
     }
 
-    public void setPassControlPanelTitle(String passControlPanelTitle) {
+    public void setPassControlPanelTitle( String passControlPanelTitle )
+    {
         this.passControlPanelTitle = passControlPanelTitle;
     }
-    
+
     /**
      * Adiciona seus campos ao menu principal (vazio, por default)
-     * @return 
+     *
+     * @return
      */
     public ArrayList<JMenu> createMenuItems()
     {
@@ -45,11 +46,13 @@ public abstract class PassControlPanel extends JPanel
         return retorno;
     }
 
-    public PassControlController getPanelController() {
+    public PassControlController getPanelController()
+    {
         return panelController;
     }
 
-    public void setPanelController(PassControlController panelController) {
+    public void setPanelController( PassControlController panelController )
+    {
         this.panelController = panelController;
     }
 
@@ -58,7 +61,7 @@ public abstract class PassControlPanel extends JPanel
      */
     public boolean initializeController()
     {
-        if (panelController != null)
+        if ( panelController != null )
         {
             panelController.setPassControlPanel(this);
             panelController.initialize();
@@ -66,7 +69,7 @@ public abstract class PassControlPanel extends JPanel
         }
         return false;
     }
-    
+
     public void blockPassControlPanel()
     {
         //hook
@@ -76,5 +79,4 @@ public abstract class PassControlPanel extends JPanel
     {
         //hook
     }
-
 }

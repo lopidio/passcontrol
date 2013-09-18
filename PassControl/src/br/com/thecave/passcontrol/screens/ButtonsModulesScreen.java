@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controller.ButtonModulesController;
@@ -10,7 +6,6 @@ import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
-import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.util.ArrayList;
 import javax.swing.JMenu;
@@ -19,34 +14,33 @@ import javax.swing.JMenu;
  *
  * @author Arleudo
  */
-public class ButtonsModulesScreen extends PassControlPanel 
+public class ButtonsModulesScreen extends PassControlPanel
 {
+
     ButtonModulesController modulesController = null;
-    
+
     @Override
-    public ArrayList<JMenu> createMenuItems() 
+    public ArrayList<JMenu> createMenuItems()
     {
         ArrayList<JMenu> retorno = new ArrayList<>();
         retorno.add(jmModules);
-               
+
         return retorno;
     }
 
-    
-    
     /**
      * Creates new form DefaultScreen
      */
-    public ButtonsModulesScreen() 
+    public ButtonsModulesScreen()
     {
         //Acho que não preciso de controller
         super("Sistema Gerenciador de Filas", new ButtonModulesController());
         modulesController = (ButtonModulesController) getPanelController();
         initComponents();
-        
+
         verifyPermissions();
-        Main.getInstance().getMainFrame().setEnableNavigatorMenu(true); 
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.NotIdentified));        
+        Main.getInstance().getMainFrame().setEnableNavigatorMenu(true);
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.NotIdentified));
 
     }
 
@@ -252,7 +246,7 @@ public class ButtonsModulesScreen extends PassControlPanel
     }//GEN-LAST:event_jbConfigActionPerformed
 
     private void jmAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAdminActionPerformed
-       openAdmin();
+        openAdmin();
     }//GEN-LAST:event_jmAdminActionPerformed
 
     private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
@@ -274,7 +268,6 @@ public class ButtonsModulesScreen extends PassControlPanel
     private void jmConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConfigActionPerformed
         openConfig();
     }//GEN-LAST:event_jmConfigActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAdd;
     private javax.swing.JButton jbAdmin;
@@ -291,77 +284,75 @@ public class ButtonsModulesScreen extends PassControlPanel
     private javax.swing.JMenuItem jmViewer;
     // End of variables declaration//GEN-END:variables
 
-    private void openAdmin() 
-    {       
+    private void openAdmin()
+    {
         Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.AdministratorActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
     }
 
-    private void openBalcony() 
+    private void openBalcony()
     {
         Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.BalconyActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreen());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
     }
 
-    private void openViewer() 
+    private void openViewer()
     {
         Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.ViewerActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new ViewerScreen());
     }
 
-    private void openQueuePush() 
+    private void openQueuePush()
     {
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.QueuePushActor));        
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.QueuePushActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
     }
 
-    private void openQueuePop() 
+    private void openQueuePop()
     {
         Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.QueuePopActor));
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
     }
 
-    private void openConfig() 
+    private void openConfig()
     {
         Main.getInstance().getMainFrame().activatePassControlPanel(new ConfigScreen());
     }
 
-    private void verifyPermissions() 
+    private void verifyPermissions()
     {
         int permissionCode = Main.getInstance().getCurrentUser().getType();
         UserPermission userPermission = new UserPermission(permissionCode);
-        if (userPermission.hasAdminPermission())// É capaz de entrar na opção jbAdmin
+        if ( userPermission.hasAdminPermission() )// É capaz de entrar na opção jbAdmin
         {
             jbAdmin.setEnabled(true);
             jmAdmin.setEnabled(true);
         }
-        if (userPermission.hasBalconyPermission())// É capaz de entrar na opção jbBalcony
+        if ( userPermission.hasBalconyPermission() )// É capaz de entrar na opção jbBalcony
         {
             jbBalcony.setEnabled(true);
             jmGuiche.setEnabled(true);
         }
-        if (userPermission.hasViewerPermission())// É capaz de entrar na opção jbViewer
+        if ( userPermission.hasViewerPermission() )// É capaz de entrar na opção jbViewer
         {
             jbViewer.setEnabled(true);
             jmViewer.setEnabled(true);
         }
-        if (userPermission.hasPusherPermission())// É capaz de entrar na opção jbAdd
+        if ( userPermission.hasPusherPermission() )// É capaz de entrar na opção jbAdd
         {
             jbAdd.setEnabled(true);
             jmQueuePush.setEnabled(true);
         }
-        if (userPermission.hasPopperPermission())// É capaz de entrar na opção jbRemove
+        if ( userPermission.hasPopperPermission() )// É capaz de entrar na opção jbRemove
         {
             jbRemove.setEnabled(true);
             jmQueuePop.setEnabled(true);
         }
-        if (userPermission.hasConfigPermission())// É capaz de entrar na opção jbConfig
+        if ( userPermission.hasConfigPermission() )// É capaz de entrar na opção jbConfig
         {
             jbConfig.setEnabled(true);
             jmConfig.setEnabled(true);
         }
     }
-
-    
 }

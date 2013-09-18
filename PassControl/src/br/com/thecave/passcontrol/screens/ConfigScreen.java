@@ -1,21 +1,20 @@
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controller.ConfigController;
-import java.util.ArrayList;
-import javax.swing.JMenu;
 
 /**
  *
  * @author Arleudo
  */
-public class ConfigScreen extends PassControlPanel 
+public class ConfigScreen extends PassControlPanel
 {
+
     ConfigController controller = null;
 
     /**
      * Creates new form AdminScreen
      */
-    public ConfigScreen() 
+    public ConfigScreen()
     {
         super("Configurações", new ConfigController());
         this.controller = (ConfigController) getPanelController();
@@ -42,9 +41,7 @@ public class ConfigScreen extends PassControlPanel
         add(jlImage);
         jlImage.setBounds(10, 11, 1347, 778);
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlImage;
     // End of variables declaration//GEN-END:variables
-
 }

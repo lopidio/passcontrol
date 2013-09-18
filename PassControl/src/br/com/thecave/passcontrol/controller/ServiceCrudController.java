@@ -21,22 +21,23 @@ import javax.swing.JPanel;
  */
 public class ServiceCrudController extends PassControlController
 {
+
     ServiceCrud screen;
     ArrayList<ServiceBean> servicos;
 
     @Override
-    public void setPassControlPanel(JPanel passControlPanel) 
+    public void setPassControlPanel( JPanel passControlPanel )
     {
         this.screen = (ServiceCrud) passControlPanel;
         servicos = new ArrayList<>();
-    }   
-    
+    }
+
     public void loadServices()
     {
         ClientListService listService = new ClientListService(MessageActors.AdministratorActor);
         ClientListServiceResponse response = Main.getInstance().
-                                                        getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, ClientListServiceResponse.class, 2000);
-        
+                getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, ClientListServiceResponse.class, 2000);
+
         servicos = response.getListService();
     }
 
@@ -50,8 +51,8 @@ public class ServiceCrudController extends PassControlController
         loadServices();
         ArrayList<ServiceBean> services = getServices();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        
-        for(ServiceBean bean : services)
+
+        for ( ServiceBean bean : services )
         {
             model.addElement(bean.getName());
         }
@@ -61,25 +62,27 @@ public class ServiceCrudController extends PassControlController
     public ServiceBean extractBeanFromName( String name )
     {
         loadServices();
-        for(ServiceBean bean : getServices())
+        for ( ServiceBean bean : getServices() )
         {
-            if(bean.getName().equals(name))
+            if ( bean.getName().equals(name) )
+            {
                 return bean;
+            }
         }
         return null;
     }
 
-    public boolean saveService(ServiceBean bean)
+    public boolean saveService( ServiceBean bean )
     {
-        if(!findOldRegister(bean))
+        if ( !findOldRegister(bean) )
         {
             // enviando o bean ao servidor
             AdministratorAddService addService = new AdministratorAddService(bean);
             ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                                sendMessageToServerAndWaitForResponseOrTimeout(addService, 
-                                                                               ConfirmationResponse.class, 
-                                                                               2000);
-            if(response.getStatusOperation())
+                    sendMessageToServerAndWaitForResponseOrTimeout(addService,
+                    ConfirmationResponse.class,
+                    2000);
+            if ( response.getStatusOperation() )
             {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
                 return true;
@@ -100,23 +103,27 @@ public class ServiceCrudController extends PassControlController
     public void deleteService( ServiceBean bean )
     {
         AdministratorRemoveService removeService = new AdministratorRemoveService(bean.getId());
-        
+
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                            sendMessageToServerAndWaitForResponseOrTimeout(removeService, 
-                                                                           ConfirmationResponse.class, 
-                                                                           2000);
-        if(response.getStatusOperation())
+                sendMessageToServerAndWaitForResponseOrTimeout(removeService,
+                ConfirmationResponse.class,
+                2000);
+        if ( response.getStatusOperation() )
+        {
             JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+        }
         else
+        {
             JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
+        }
     }
 
     public boolean updateService( ServiceBean bean )
     {
-        if(!findOldRegister(bean))
+        if ( !findOldRegister(bean) )
         {
             // criando um bean com os dados da tela
-            if(bean == null)
+            if ( bean == null )
             {
                 JOptionPane.showMessageDialog(null, "Não existe nenhum registro para ser atualizado");
                 return false;
@@ -126,10 +133,10 @@ public class ServiceCrudController extends PassControlController
                 // enviando o bean ao servidor
                 AdministratorUpdateService update = new AdministratorUpdateService(bean);
                 ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                                    sendMessageToServerAndWaitForResponseOrTimeout(update, 
-                                                                                   ConfirmationResponse.class, 
-                                                                                   2000);
-                if(response.getStatusOperation())
+                        sendMessageToServerAndWaitForResponseOrTimeout(update,
+                        ConfirmationResponse.class,
+                        2000);
+                if ( response.getStatusOperation() )
                 {
                     JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
                     return true;
@@ -150,6 +157,7 @@ public class ServiceCrudController extends PassControlController
 
     /**
      * Verifica na lista de beans se já existe um outro bean com o mesmo nome
+     *
      * @param name Nome a ser verificado
      * @return true se existe, false se não existe
      */
@@ -158,8 +166,10 @@ public class ServiceCrudController extends PassControlController
         loadServices();
         for ( ServiceBean serviceBean : servicos )
         {
-            if(serviceBean.equals(bean))
+            if ( serviceBean.equals(bean) )
+            {
                 return true;
+            }
         }
         return false;
     }

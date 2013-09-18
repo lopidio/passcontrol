@@ -12,12 +12,13 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class BalconyTopBarIntro extends PassControlTopBar
 {
+
     private BalconyTopBarIntroController balconyTopBarIntroController;
 
     /**
      * Creates new form TopBar
      */
-    public BalconyTopBarIntro() 
+    public BalconyTopBarIntro()
     {
         super(new BalconyTopBarIntroController());
         initComponents();
@@ -25,12 +26,12 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lbNameUser.setText(Main.getInstance().getCurrentUser().getName());
         jbConfirm.setEnabled(false);
         addPanelConnectionInfo();
-        
+
     }
-    
+
     public void enableConfirmButton()
     {
-        jbConfirm.setEnabled(true);        
+        jbConfirm.setEnabled(true);
     }
 
     /**
@@ -112,7 +113,6 @@ public class BalconyTopBarIntro extends PassControlTopBar
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
         balconyTopBarIntroController.confirmButtonPressed(cbNumero.getSelectedIndex());
     }//GEN-LAST:event_jbConfirmActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbNumero;
     private javax.swing.JButton jbConfirm;
@@ -125,9 +125,10 @@ public class BalconyTopBarIntro extends PassControlTopBar
     private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
 
-    public void setBalconyNumbers(ArrayList<BalconyBean> avaliableBalcony) {
+    public void setBalconyNumbers( ArrayList<BalconyBean> avaliableBalcony )
+    {
         DefaultComboBoxModel defaultComboBoxModel = new DefaultComboBoxModel();
-        for (BalconyBean balconyBean : avaliableBalcony)
+        for ( BalconyBean balconyBean : avaliableBalcony )
         {
             defaultComboBoxModel.addElement(balconyBean.getNumber());
         }
@@ -135,17 +136,16 @@ public class BalconyTopBarIntro extends PassControlTopBar
     }
 
     @Override
-    public void blockPassControlTopBar() 
+    public void blockPassControlTopBar()
     {
         cbNumero.setEnabled(false);
         jbConfirm.setEnabled(false);
     }
 
     @Override
-    public void unblockPassControlTopBar() 
+    public void unblockPassControlTopBar()
     {
         cbNumero.setEnabled(true);
         jbConfirm.setEnabled(true);
     }
-    
 }

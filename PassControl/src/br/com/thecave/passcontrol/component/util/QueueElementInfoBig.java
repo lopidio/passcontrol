@@ -10,21 +10,20 @@ import javax.swing.JPanel;
  *
  * @author lopidio
  */
-public class QueueElementInfoBig extends JPanel 
+public class QueueElementInfoBig extends JPanel
 {
 
+    public QueueElementInfoBig( String clientName, String queueName, String userPass )
+    {
 
-    public QueueElementInfoBig(String clientName, String queueName, String userPass) {
-        
         initComponents();
-        
+
         txtFila.setText(queueName);
         txtNome.setText(clientName);
         txtSenha.setText(userPass);
-        
+
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

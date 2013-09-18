@@ -9,13 +9,14 @@ import javax.swing.JOptionPane;
  */
 public class LoginTopBar extends PassControlTopBar
 {
-    private LoginTopBarController loginTopBarControler;  
+
+    private LoginTopBarController loginTopBarControler;
 
     /**
      * Creates new form TopBar
      */
-    public LoginTopBar() 
-    {        
+    public LoginTopBar()
+    {
         super(new LoginTopBarController());
         loginTopBarControler = (LoginTopBarController) getPanelController();
         initComponents();
@@ -23,15 +24,15 @@ public class LoginTopBar extends PassControlTopBar
         jlErrorLogin.setVisible(false);
         addPanelConnectionInfo();
     }
-    
-    public void incorrectUser(String message)
+
+    public void incorrectUser( String message )
     {
-        JOptionPane.showMessageDialog(null, message, "Login não realizado" ,JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "Login não realizado", JOptionPane.ERROR_MESSAGE);
         jtfLogin.setText("");
         jtfSenha.setText("");
         verifyOkButton();
     }
-    
+
     public String getUserName()
     {
         return jtfLogin.getText();
@@ -139,7 +140,7 @@ public class LoginTopBar extends PassControlTopBar
 
     private void jtfLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfLoginKeyTyped
         verifyOkButton();
-        if(getUserName().length() >= 4)
+        if ( getUserName().length() >= 4 )
         {
             jlErrorLogin.setVisible(false);
         }
@@ -152,7 +153,7 @@ public class LoginTopBar extends PassControlTopBar
 
     private void jtfSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfSenhaKeyTyped
         verifyOkButton();
-        if(getUserPassword().length() >= 5)
+        if ( getUserPassword().length() >= 5 )
         {
             jlbErrorSenha.setVisible(false);
         }
@@ -165,16 +166,15 @@ public class LoginTopBar extends PassControlTopBar
 
     private void verifyOkButton()
     {
-        if (getUserName().length() >= 4 && getUserPassword().length() >= 5)
+        if ( getUserName().length() >= 4 && getUserPassword().length() >= 5 )
         {
             jbOk.setEnabled(true);
         }
         else
         {
-            jbOk.setEnabled(false);            
+            jbOk.setEnabled(false);
         }
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbOk;
@@ -188,5 +188,4 @@ public class LoginTopBar extends PassControlTopBar
     private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JLabel lbForgottPassword;
     // End of variables declaration//GEN-END:variables
-
 }

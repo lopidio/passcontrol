@@ -9,12 +9,12 @@ import javax.swing.JPanel;
  */
 public class MainTopBarController extends PassControlController
 {
+
     MainTopBar mainTopBar = null;
 
     @Override
-    public void setPassControlPanel(JPanel passControlPanel) 
+    public void setPassControlPanel( JPanel passControlPanel )
     {
-        mainTopBar = (MainTopBar)passControlPanel;
-    }  
- 
+        mainTopBar = (MainTopBar) passControlPanel;
+    }
 }

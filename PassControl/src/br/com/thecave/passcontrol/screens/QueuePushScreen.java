@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controller.QueuePushController;
@@ -12,18 +8,19 @@ import javax.swing.JMenu;
  *
  * @author Arleudo
  */
-public class QueuePushScreen extends PassControlPanel 
+public class QueuePushScreen extends PassControlPanel
 {
+
     QueuePushController controller = null;
 
     /**
      * Creates new form AdminScreen
      */
-    public QueuePushScreen() 
+    public QueuePushScreen()
     {
         super("Escolha de Serviços", new QueuePushController());
         this.controller = (QueuePushController) getPanelController();
-        initComponents(); 
+        initComponents();
         jpSenha.setVisible(false);
     }
 
@@ -173,7 +170,6 @@ public class QueuePushScreen extends PassControlPanel
     private void jmInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInsertActionPerformed
         controller.insert();
     }//GEN-LAST:event_jmInsertActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbServices;
     private javax.swing.JLabel jLabel1;
@@ -192,11 +188,11 @@ public class QueuePushScreen extends PassControlPanel
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public ArrayList<JMenu> createMenuItems() 
+    public ArrayList<JMenu> createMenuItems()
     {
         ArrayList<JMenu> retorno = new ArrayList<>();
         retorno.add(jmChooseService);
-               
+
         return retorno;
     }
 }

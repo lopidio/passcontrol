@@ -5,8 +5,6 @@
 package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
-import br.com.thecave.passcontrol.screens.DefaultScreen;
-import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import javax.swing.JPanel;
 
 /**
@@ -15,12 +13,12 @@ import javax.swing.JPanel;
  */
 public class ButtonModulesController extends PassControlController
 {
-    ButtonsModulesScreen modulesScreen;
-    
-    @Override
-    public void setPassControlPanel(JPanel passControlPanel) 
-    {
-        this.modulesScreen = (ButtonsModulesScreen)passControlPanel;
-    }    
 
+    ButtonsModulesScreen modulesScreen;
+
+    @Override
+    public void setPassControlPanel( JPanel passControlPanel )
+    {
+        this.modulesScreen = (ButtonsModulesScreen) passControlPanel;
+    }
 }

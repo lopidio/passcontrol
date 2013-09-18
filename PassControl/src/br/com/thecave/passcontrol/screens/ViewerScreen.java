@@ -1,30 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controller.ViewerController;
-import java.util.ArrayList;
-import javax.swing.JMenu;
 
 /**
  *
  * @author Arleudo
  */
-public class ViewerScreen extends PassControlPanel 
+public class ViewerScreen extends PassControlPanel
 {
+
     ViewerController controller = null;
 
     /**
      * Creates new form AdminScreen
      */
-    public ViewerScreen() 
+    public ViewerScreen()
     {
         super("Visualizador", new ViewerController());
         this.controller = (ViewerController) getPanelController();
         initComponents();
-        
+
     }
 
     /**
@@ -47,9 +42,7 @@ public class ViewerScreen extends PassControlPanel
         add(jlImage);
         jlImage.setBounds(10, 11, 1347, 778);
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlImage;
     // End of variables declaration//GEN-END:variables
-
 }

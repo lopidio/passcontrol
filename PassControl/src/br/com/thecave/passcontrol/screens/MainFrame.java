@@ -13,138 +13,140 @@ import javax.swing.JMenu;
  *
  * @author Antonio Arleudo da costa
  */
-public final class MainFrame extends javax.swing.JFrame 
+public final class MainFrame extends javax.swing.JFrame
 {
 
     /**
      * Creates new form AdministratorScreen
      */
-    public MainFrame() 
+    public MainFrame()
     {
         initComponents();
 
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.Y_AXIS));
-        passControlPanel.setLayout(new BoxLayout(passControlPanel, BoxLayout.Y_AXIS));        
+        passControlPanel.setLayout(new BoxLayout(passControlPanel, BoxLayout.Y_AXIS));
         activatePassControlPanel(new DefaultScreen());
         activatePassControlTopBar(new LoginTopBar());
         setEnableNavigatorMenu(false);
-        
+
     }
-    
-    public void activatePassControlPanel(PassControlPanel newPassControlPanel)
+
+    public void activatePassControlPanel( PassControlPanel newPassControlPanel )
     {
-        for (Component component : passControlPanel.getComponents())
+        for ( Component component : passControlPanel.getComponents() )
         {
             try
             {
-                PassControlPanel castPrevPassControl = (PassControlPanel)component;
+                PassControlPanel castPrevPassControl = (PassControlPanel) component;
                 PassControlController passControlController = castPrevPassControl.getPanelController();
-                if (passControlController != null)
+                if ( passControlController != null )
                 {
                     passControlController.removeMessageListeners();
                 }
-            }catch (ClassCastException exc)
+            }
+            catch ( ClassCastException exc )
             {
                 //do nothing
             }
         }
 
         //Verifica se tem controller, caso tenha, inicializa e cadastra os escutadores de eventos
-        if (newPassControlPanel.initializeController())
+        if ( newPassControlPanel.initializeController() )
         {
             //Adiciona aos escutadores de eventos
             newPassControlPanel.getPanelController().addMessageListeners();
-        }        
+        }
 
         //Remove o atual
         passControlPanel.removeAll();
-        
+
         //Adiciona o novo
         passControlPanel.add(newPassControlPanel);
-        
+
         //Seta o título atual
         setTitle(newPassControlPanel.getPassControlPanelTitle());
-        
+
         //Adiciono os novos menus do ítem
         menuBar.removeAll();
         menuBar.add(jmNavegar);
-        for (JMenu novoMenu : newPassControlPanel.createMenuItems())
+        for ( JMenu novoMenu : newPassControlPanel.createMenuItems() )
         {
             //Insere em segundo lugar. O primeiro sempre vai ser navegar
             menuBar.add(novoMenu, 1);
         }
         menuBar.add(jmSobre);
-        menuBar.add(jmAjuda);        
-        
-        
+        menuBar.add(jmAjuda);
+
+
         passControlPanel.setVisible(true);
         passControlPanel.revalidate();
         passControlPanel.repaint();
         getContentPane().revalidate();
         getContentPane().repaint();
-        
+
         //Mais ou menos assim
     }
-    
-    public void activatePassControlTopBar(PassControlTopBar newPassControlTopBar)
+
+    public void activatePassControlTopBar( PassControlTopBar newPassControlTopBar )
     {
-        for (Component component : topBar.getComponents())
+        for ( Component component : topBar.getComponents() )
         {
             try
             {
-                PassControlPanel castPrevPassControl = (PassControlPanel)component;
+                PassControlPanel castPrevPassControl = (PassControlPanel) component;
                 castPrevPassControl.getPanelController().removeMessageListeners();
-            }catch (ClassCastException exc)
+            }
+            catch ( ClassCastException exc )
             {
                 //do nothing
             }
         }
 
         //Verifica se tem controller, caso tenha, inicializa e cadastra os escutadores de eventos
-        if (newPassControlTopBar.initializeController())
+        if ( newPassControlTopBar.initializeController() )
         {
             //Adiciona aos escutadores de eventos
             newPassControlTopBar.getPanelController().addMessageListeners();
-        }        
-                
+        }
+
 
         //Remove o atual
         topBar.removeAll();
         //Adiciona o novo
         topBar.add(newPassControlTopBar);
-        
+
 
         topBar.setVisible(true);
         topBar.revalidate();
         topBar.repaint();
         getContentPane().revalidate();
         getContentPane().repaint();
-        
+
         //Mais ou menos assim
     }
-    
+
     public void disableControlPanel()
     {
         passControlPanel.setEnabled(false);
         menuBar.setEnabled(false);
     }
-    
+
     public void enableControlPanel()
     {
         passControlPanel.setEnabled(true);
-        menuBar.setEnabled(true);        
+        menuBar.setEnabled(true);
     }
-        
+
     public PassControlPanel getCurrentPassControlPanel()
     {
-        return (PassControlPanel)passControlPanel.getComponent(0);        
+        return (PassControlPanel) passControlPanel.getComponent(0);
     }
-    
+
     public PassControlTopBar getCurrentPassControlTopBar()
     {
-        return (PassControlTopBar)topBar.getComponent(0);
+        return (PassControlTopBar) topBar.getComponent(0);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -263,21 +265,21 @@ public final class MainFrame extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSairActionPerformed
-        System.exit(0);        
+        System.exit(0);
     }//GEN-LAST:event_jmSairActionPerformed
 
     public void performLogoutAction()
     {
-        if (Main.getInstance().isLoggedIn())
+        if ( Main.getInstance().isLoggedIn() )
         {
             activatePassControlPanel(new DefaultScreen());
             activatePassControlTopBar(new LoginTopBar());
-            setEnableNavigatorMenu(false);                      
+            setEnableNavigatorMenu(false);
             //Informa ao servidor que o usuário realizou logoff
             Main.getInstance().logoff();
         }
     }
-    
+
     private void jmLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoffActionPerformed
         performLogoutAction();
     }//GEN-LAST:event_jmLogoffActionPerformed
@@ -287,13 +289,11 @@ public final class MainFrame extends javax.swing.JFrame
         activatePassControlTopBar(new MainTopBar());
     }//GEN-LAST:event_jmMainPageActionPerformed
 
-    public void setEnableNavigatorMenu(boolean enabled)
+    public void setEnableNavigatorMenu( boolean enabled )
     {
         jmLogoff.setEnabled(enabled);
         jmMainPage.setEnabled(enabled);
     }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -309,7 +309,4 @@ public final class MainFrame extends javax.swing.JFrame
     private javax.swing.JPanel passControlPanel;
     private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
-
-
 }
-

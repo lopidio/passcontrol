@@ -1,8 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
-import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
 import br.com.thecave.passcontrol.screens.ViewerScreen;
-import br.com.thecave.passcontrol.topbar.MainTopBar;
 import javax.swing.JPanel;
 
 /**

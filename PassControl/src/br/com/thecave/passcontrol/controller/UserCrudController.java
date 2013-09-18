@@ -20,22 +20,23 @@ import javax.swing.JPanel;
  */
 public class UserCrudController extends PassControlController
 {
+
     UserCrud screen;
     ArrayList<UserBean> users;
 
     @Override
-    public void setPassControlPanel(JPanel passControlPanel) 
+    public void setPassControlPanel( JPanel passControlPanel )
     {
         this.screen = (UserCrud) passControlPanel;
         users = new ArrayList<>();
-    } 
-    
+    }
+
     public void loadUsers()
     {
         AdministratorListUser listUser = new AdministratorListUser();
         AdministratorListUserResponse response = Main.getInstance().getCommunicationThread().
                 sendMessageToServerAndWaitForResponse(listUser, AdministratorListUserResponse.class);
-        
+
         users = response.getUsers();
     }
 
@@ -49,8 +50,8 @@ public class UserCrudController extends PassControlController
         loadUsers();
         ArrayList<UserBean> beans = getUserBeans();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        
-        for(UserBean bean : beans)
+
+        for ( UserBean bean : beans )
         {
             model.addElement(bean.getName());
         }
@@ -59,15 +60,15 @@ public class UserCrudController extends PassControlController
 
     public boolean saveUser( UserBean bean )
     {
-        if(!findOldRegister(bean))
+        if ( !findOldRegister(bean) )
         {
             // enviando o bean ao servidor
             AdministratorAddUser addUser = new AdministratorAddUser(bean);
             ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                                sendMessageToServerAndWaitForResponseOrTimeout(addUser, 
-                                                                               ConfirmationResponse.class, 
-                                                                               2000);
-            if(response.getStatusOperation())
+                    sendMessageToServerAndWaitForResponseOrTimeout(addUser,
+                    ConfirmationResponse.class,
+                    2000);
+            if ( response.getStatusOperation() )
             {
                 JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
                 return true;
@@ -87,10 +88,10 @@ public class UserCrudController extends PassControlController
 
     public boolean updateUser( UserBean bean )
     {
-        if(!findOldRegister(bean))
+        if ( !findOldRegister(bean) )
         {
             // criando um bean com os dados da tela
-            if(bean == null)
+            if ( bean == null )
             {
                 JOptionPane.showMessageDialog(null, "Não existe nenhum registro para ser atualizado");
                 return false;
@@ -100,10 +101,10 @@ public class UserCrudController extends PassControlController
                 // enviando o bean ao servidor
                 AdministratorUpdateUser update = new AdministratorUpdateUser(bean);
                 ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                                    sendMessageToServerAndWaitForResponseOrTimeout(update, 
-                                                                                   ConfirmationResponse.class, 
-                                                                                   2000);
-                if(response.getStatusOperation())
+                        sendMessageToServerAndWaitForResponseOrTimeout(update,
+                        ConfirmationResponse.class,
+                        2000);
+                if ( response.getStatusOperation() )
                 {
                     JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
                     return true;
@@ -125,19 +126,24 @@ public class UserCrudController extends PassControlController
     public void deleteUser( UserBean bean )
     {
         AdministratorRemoveUser removeUser = new AdministratorRemoveUser(bean.getId());
-        
+
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                            sendMessageToServerAndWaitForResponseOrTimeout(removeUser, 
-                                                                           ConfirmationResponse.class, 
-                                                                           2000);
-        if(response.getStatusOperation())
+                sendMessageToServerAndWaitForResponseOrTimeout(removeUser,
+                ConfirmationResponse.class,
+                2000);
+        if ( response.getStatusOperation() )
+        {
             JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+        }
         else
+        {
             JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
+        }
     }
-    
-     /**
+
+    /**
      * Verifica na lista de beans se já existe um outro bean com o mesmo nome
+     *
      * @param name Nome a ser verificado
      * @return true se existe, false se não existe
      */
@@ -146,8 +152,10 @@ public class UserCrudController extends PassControlController
         loadUsers();
         for ( UserBean userBean : users )
         {
-            if(userBean.equals(bean))
+            if ( userBean.equals(bean) )
+            {
                 return true;
+            }
         }
         return false;
     }

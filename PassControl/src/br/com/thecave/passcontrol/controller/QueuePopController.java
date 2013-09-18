@@ -1,8 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
-import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
 import br.com.thecave.passcontrol.screens.QueuePopScreen;
-import br.com.thecave.passcontrol.topbar.MainTopBar;
 import javax.swing.JPanel;
 
 /**
@@ -11,12 +9,12 @@ import javax.swing.JPanel;
  */
 public class QueuePopController extends PassControlController
 {
+
     QueuePopScreen screen;
 
     @Override
-    public void setPassControlPanel(JPanel passControlPanel) 
+    public void setPassControlPanel( JPanel passControlPanel )
     {
         this.screen = (QueuePopScreen) passControlPanel;
     }
-    
 }

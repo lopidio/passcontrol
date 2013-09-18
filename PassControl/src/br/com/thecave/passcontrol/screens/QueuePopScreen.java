@@ -1,25 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controller.QueuePopController;
-import java.util.ArrayList;
-import javax.swing.JMenu;
 
 /**
  *
  * @author Arleudo
  */
-public class QueuePopScreen extends PassControlPanel 
+public class QueuePopScreen extends PassControlPanel
 {
+
     QueuePopController controller = null;
-    
+
     /**
      * Creates new form AdminScreen
      */
-    public QueuePopScreen() 
+    public QueuePopScreen()
     {
         super("Controle de Fila", new QueuePopController());
         this.controller = (QueuePopController) getPanelController();
@@ -46,9 +41,7 @@ public class QueuePopScreen extends PassControlPanel
         add(jlImage);
         jlImage.setBounds(10, 11, 1347, 778);
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlImage;
     // End of variables declaration//GEN-END:variables
-
 }

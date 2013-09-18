@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
@@ -14,7 +10,8 @@ import javax.swing.JPanel;
  * @author guilherme
  */
 public abstract class PassControlController implements PassControlMessageListener
-{  
+{
+
     public void addMessageListeners()
     {
         //hook
@@ -26,14 +23,14 @@ public abstract class PassControlController implements PassControlMessageListene
     }
 
     @Override
-    public void onMessageReceive(PassControlMessage message, Socket socket) {
+    public void onMessageReceive( PassControlMessage message, Socket socket )
+    {
         //hook
-    }   
+    }
 
-    public abstract void setPassControlPanel(JPanel passControlPanel);
-    
+    public abstract void setPassControlPanel( JPanel passControlPanel );
+
     public void initialize() //Hook
     {
-        
     }
 }

@@ -9,19 +9,20 @@ import br.com.thecave.passcontrol.controller.MainTopBarController;
  */
 public class MainTopBar extends PassControlTopBar
 {
+
     private MainTopBarController mainTopBarController;
 
     /**
      * Creates new form TopBar
      */
-    public MainTopBar() 
+    public MainTopBar()
     {
         super(new MainTopBarController());
         initComponents();
         mainTopBarController = (MainTopBarController) getPanelController();
         lbNameUser.setText(Main.getInstance().getCurrentUser().getName());
         addPanelConnectionInfo();
-        
+
     }
 
     /**
@@ -80,7 +81,6 @@ public class MainTopBar extends PassControlTopBar
     private void lbLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoutMouseClicked
         Main.getInstance().getMainFrame().performLogoutAction();
     }//GEN-LAST:event_lbLogoutMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlBarra;
     private javax.swing.JLabel jlIcon;
@@ -89,6 +89,4 @@ public class MainTopBar extends PassControlTopBar
     private javax.swing.JLabel lbNameUser;
     private javax.swing.JLabel lblUser;
     // End of variables declaration//GEN-END:variables
-
-
 }

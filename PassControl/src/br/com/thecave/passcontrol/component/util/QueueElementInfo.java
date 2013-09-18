@@ -4,7 +4,6 @@
  */
 package br.com.thecave.passcontrol.component.util;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,80 +21,92 @@ public class QueueElementInfo extends JPanel
 
     private static class FadeInOutAction implements ActionListener
     {
-        Timer timer = new Timer(0, this);   
+
+        Timer timer = new Timer(0, this);
         private float DELTA;
         private float alpha;
         private JPanel jPanel;
-        
-        FadeInOutAction(JPanel jPanel, float DELTA) throws Exception
+
+        FadeInOutAction( JPanel jPanel, float DELTA ) throws Exception
         {
             this.DELTA = DELTA;
             this.jPanel = jPanel;
-            
-            if (DELTA < 0)
+
+            if ( DELTA < 0 )
+            {
                 alpha = 1f;
-            else if (DELTA > 0)
+            }
+            else if ( DELTA > 0 )
+            {
                 alpha = 0;
+            }
             else
+            {
                 throw new Exception("Delta inválido");
+            }
             timer.start();
         }
-        
+
         @Override
-        public void actionPerformed(ActionEvent ae) {
+        public void actionPerformed( ActionEvent ae )
+        {
             alpha += DELTA;
-            if (alpha < 0 || alpha > 1) 
+            if ( alpha < 0 || alpha > 1 )
             {
                 timer.restart();
-                if (DELTA < 0)
+                if ( DELTA < 0 )
+                {
                     alpha = 1f;
-                else if (DELTA > 0)
-                    alpha = 0;                
+                }
+                else if ( DELTA > 0 )
+                {
+                    alpha = 0;
+                }
             }
-            jPanel.repaint();   
+            jPanel.repaint();
         }
 
-        public float getAlpha() {
+        public float getAlpha()
+        {
             return alpha;
         }
-        
+
         public boolean isRunning()
         {
             return timer.isRunning();
         }
-        
     }
-
     FadeInOutAction fader = null;
-    
-    public QueueElementInfo(String clientName, String queueName, String userPass) {
-        
+
+    public QueueElementInfo( String clientName, String queueName, String userPass )
+    {
+
         initComponents();
-        
+
         txtFila.setText(queueName);
         txtNome.setText(clientName);
         txtSenha.setText(userPass);
-                
+
     }
-    
-    public void fadeIn(float DELTA) throws Exception
+
+    public void fadeIn( float DELTA ) throws Exception
     {
         fader = new FadeInOutAction(this, Math.abs(DELTA));
-                 
+
     }
-    
-    
+
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent( Graphics g )
+    {
         super.paintComponent(g);
-        
-        if (false && fader != null && fader.isRunning())
+
+        if ( false && fader != null && fader.isRunning() )
         {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(new Color(g2d.getColor().getRed(), g2d.getColor().getGreen(), g2d.getColor().getBlue(), fader.getAlpha()*255));
+            g2d.setColor(new Color(g2d.getColor().getRed(), g2d.getColor().getGreen(), g2d.getColor().getBlue(), fader.getAlpha() * 255));
         }
-    }    
-    
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -21,11 +21,11 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
 
     private static URL offlineIcon = null;
     private static URL onlineIcon = null;
-    
-    private void changePicture(boolean statusConnection) 
+
+    private void changePicture( boolean statusConnection )
     {
         //Altero a cor do ícone de conexão
-        if (statusConnection)
+        if ( statusConnection )
         {
             setIcon(new javax.swing.ImageIcon(onlineIcon)); // NOI18N
         }
@@ -36,23 +36,23 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     }
 
     @Override
-    public void onChangeConnection(boolean connectionStatus) 
-    {       
+    public void onChangeConnection( boolean connectionStatus )
+    {
         //Altero a cor do ícone de conexão
         MainFrame mainFrame = Main.getInstance().getMainFrame();
-        if (connectionStatus)
+        if ( connectionStatus )
         {
             mainFrame.enableControlPanel();
             changePicture(connectionStatus);
         }
         else
         {
-            mainFrame.disableControlPanel();            
+            mainFrame.disableControlPanel();
             changePicture(connectionStatus);
-            
-            if (Main.getInstance().isLoggedIn())
+
+            if ( Main.getInstance().isLoggedIn() )
             {
-                JOptionPane.showMessageDialog(null, "O servidor está offline. Execute o servidor para continuar", "Erro no servidor" ,JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "O servidor está offline. Execute o servidor para continuar", "Erro no servidor", JOptionPane.ERROR_MESSAGE);
                 mainFrame.performLogoutAction();
             }
         }
@@ -61,16 +61,20 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     /**
      * Creates new form PanelConnectionInfo
      */
-    public PanelConnectionInfo() 
+    public PanelConnectionInfo()
     {
-       
+
         initComponents();
 
-        if (offlineIcon == null)
+        if ( offlineIcon == null )
+        {
             offlineIcon = getClass().getResource("/resources/offline.png");
-        if (onlineIcon == null)
+        }
+        if ( onlineIcon == null )
+        {
             onlineIcon = getClass().getResource("/resources/online.png");
-        changePicture(false);          
+        }
+        changePicture(false);
     }
 
     /**
@@ -103,7 +107,7 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     }// </editor-fold>//GEN-END:initComponents
 
     private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
-    
+
         ClientCommunicationThread clientCommunicationThread = Main.getInstance().getCommunicationThread();
         clientCommunicationThread.addStatusConnectionListeners(this);
         changePicture(clientCommunicationThread.getConnectionStatus());
@@ -115,14 +119,14 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
     }//GEN-LAST:event_formAncestorRemoved
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        if (Main.getInstance().getCommunicationThread().getConnectionInstant() != null)
+        if ( Main.getInstance().getCommunicationThread().getConnectionInstant() != null )
         {
 
             Date now = new Date();
 
             long diffInMillies = now.getTime() - Main.getInstance().getCommunicationThread().getConnectionInstant().getTime();
-            int seconds = (int) (diffInMillies/1000);
-            int minutes = seconds/60;
+            int seconds = (int) (diffInMillies / 1000);
+            int minutes = seconds / 60;
             seconds %= 60;
 
             setToolTipText("Conectado. Duração da conexão: " + minutes + "m" + seconds + "s");
@@ -134,7 +138,6 @@ public class PanelConnectionInfo extends javax.swing.JLabel implements StatusCon
             setToolTipText("Não conectado");
         }
     }//GEN-LAST:event_formMouseEntered
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

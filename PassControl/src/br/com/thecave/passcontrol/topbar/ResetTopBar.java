@@ -8,18 +8,19 @@ import br.com.thecave.passcontrol.controller.ResetTopBarControler;
  */
 public class ResetTopBar extends PassControlTopBar
 {
+
     private ResetTopBarControler resetTopBarControler;
 
     /**
      * Creates new form TopBar
      */
-    public ResetTopBar() 
+    public ResetTopBar()
     {
         super(new ResetTopBarControler());
         initComponents();
         resetTopBarControler = (ResetTopBarControler) getPanelController();
         addPanelConnectionInfo();
-        
+
     }
 
     /**
@@ -82,7 +83,6 @@ public class ResetTopBar extends PassControlTopBar
     private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
         resetTopBarControler.backToLoginTopbar();
     }//GEN-LAST:event_jbCancelActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbCancel;
     private javax.swing.JButton jbOk;

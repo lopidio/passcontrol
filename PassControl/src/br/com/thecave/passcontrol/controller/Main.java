@@ -10,19 +10,22 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class Main 
+public class Main
 {
+
     /**
      * Singleton instance and method
      */
     private static Main singletonInstance = null;
+
     public static Main getInstance()
     {
-        if (singletonInstance == null)
+        if ( singletonInstance == null )
+        {
             singletonInstance = new Main();
+        }
         return singletonInstance;
     }
-    
     /**
      * Private attributes
      */
@@ -33,46 +36,56 @@ public class Main
     private Main()
     {
 
-                mainFrame                = new MainFrame();
-                
-                communicationThread = new ClientCommunicationThread(
-                        "localhost", 
-                        23073);
-                mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-                mainFrame.setVisible(true);        
+        mainFrame = new MainFrame();
+
+        communicationThread = new ClientCommunicationThread(
+                "localhost",
+                23073);
+        mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        mainFrame.setVisible(true);
     }
-    
-    
-    public static void main(String args[]) 
+
+    public static void main( String args[] )
     {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    try {
-                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (InstantiationException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (UnsupportedLookAndFeelException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
+        for ( javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels() )
+        {
+            if ( "Nimbus".equals(info.getName()) )
+            {
+                try
+                {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
                 }
+                catch ( ClassNotFoundException ex )
+                {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch ( InstantiationException ex )
+                {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch ( IllegalAccessException ex )
+                {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch ( UnsupportedLookAndFeelException ex )
+                {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
             }
-  
+        }
+
         //</editor-fold>
 
-        java.awt.EventQueue.invokeLater(new Runnable() 
+        java.awt.EventQueue.invokeLater(new Runnable()
         {
             @Override
-            public void run() 
+            public void run()
             {
                 //Creates
                 Main app = getInstance();
@@ -81,37 +94,41 @@ public class Main
 //                PresentationControler.getInstance().setLabel(getInstance().adminScreen.getLbImage());
             }
         });
-    }   
+    }
 
     /**
      * Retorna um bean representando o usuário atual da aplicação
-     * @return 
+     *
+     * @return
      */
-    public UserBean getCurrentUser() {
+    public UserBean getCurrentUser()
+    {
         return currentUser;
     }
 
-    public void setCurrentUser(UserBean currentUser) {
+    public void setCurrentUser( UserBean currentUser )
+    {
         this.currentUser = currentUser;
-    }  
-    
+    }
+
     public MainFrame getMainFrame()
     {
         return mainFrame;
     }
-    
-    public ClientCommunicationThread getCommunicationThread() {
+
+    public ClientCommunicationThread getCommunicationThread()
+    {
         return communicationThread;
     }
 
-    public boolean isLoggedIn() 
+    public boolean isLoggedIn()
     {
         return currentUser != null;
     }
 
-    public void logoff() 
+    public void logoff()
     {
-        communicationThread.addBroadcastToSend(new ClientLogoff());           
+        communicationThread.addBroadcastToSend(new ClientLogoff());
         setCurrentUser(null);
     }
 }

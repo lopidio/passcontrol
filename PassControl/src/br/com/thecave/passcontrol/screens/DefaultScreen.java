@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.controller.Main;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -13,13 +8,13 @@ import javax.swing.JMenuItem;
  *
  * @author Arleudo
  */
-public class DefaultScreen extends PassControlPanel 
+public class DefaultScreen extends PassControlPanel
 {
 
     /**
      * Creates new form DefaultScreen
      */
-    public DefaultScreen() 
+    public DefaultScreen()
     {
         //Acho que não preciso de controller
         super("Sistema Gerenciador de Filas", null);
@@ -65,7 +60,6 @@ public class DefaultScreen extends PassControlPanel
     private javax.swing.JLabel jlImageCenter;
     // End of variables declaration//GEN-END:variables
 
-    
     @Override
     public ArrayList<JMenu> createMenuItems()
     {
@@ -73,15 +67,17 @@ public class DefaultScreen extends PassControlPanel
         JMenu jmServerConfig = new javax.swing.JMenu();
         JMenuItem jmIP = new javax.swing.JMenuItem();
         JMenuItem jmPort = new javax.swing.JMenuItem();
-        
+
         jmServerConfig.setText("Configurações do servidor");
 
         jmIP.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         jmIP.setMnemonic('I');
         jmIP.setText("IP");
-        jmIP.addActionListener(new java.awt.event.ActionListener() {
+        jmIP.addActionListener(new java.awt.event.ActionListener()
+        {
             @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed( java.awt.event.ActionEvent evt )
+            {
 //                jmAdminActionPerformed(evt);
             }
         });
@@ -90,16 +86,17 @@ public class DefaultScreen extends PassControlPanel
         jmPort.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         jmPort.setMnemonic('P');
         jmPort.setText("Porta");
-        jmPort.addActionListener(new java.awt.event.ActionListener() {
+        jmPort.addActionListener(new java.awt.event.ActionListener()
+        {
             @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed( java.awt.event.ActionEvent evt )
+            {
 //                jmGuicheActionPerformed(evt);
             }
         });
         jmServerConfig.add(jmPort);
-        
+
         retorno.add(jmServerConfig);
         return retorno;
     }
-    
 }

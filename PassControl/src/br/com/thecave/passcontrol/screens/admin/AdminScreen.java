@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens.admin;
 
 import br.com.thecave.passcontrol.controller.AdminController;
@@ -13,13 +9,15 @@ import javax.swing.JMenu;
  *
  * @author Arleudo
  */
-public class AdminScreen extends PassControlPanel 
+public class AdminScreen extends PassControlPanel
 {
+
     AdminController controller = null;
+
     /**
      * Creates new form AdminScreen
      */
-    public AdminScreen() 
+    public AdminScreen()
     {
         super("Administrador", new AdminController());
         controller = (AdminController) getPanelController();
@@ -247,7 +245,6 @@ public class AdminScreen extends PassControlPanel
 
     private void jmManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmManualActionPerformed
     }//GEN-LAST:event_jmManualActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JInternalFrame ifGuiche;
     private javax.swing.JLabel jLabel1;
@@ -269,18 +266,18 @@ public class AdminScreen extends PassControlPanel
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public ArrayList<JMenu> createMenuItems() 
+    public ArrayList<JMenu> createMenuItems()
     {
         ArrayList<JMenu> retorno = new ArrayList<>();
         retorno.add(jmGerenAuto);
         retorno.add(jmApresentacao);
         retorno.add(jmImagem);
         retorno.add(jmBaseDados);
-        
+
         return retorno;
     }
 
-    private void openBalconyCrud() 
+    private void openBalconyCrud()
     {
         controller.openBalconyCrud();
     }

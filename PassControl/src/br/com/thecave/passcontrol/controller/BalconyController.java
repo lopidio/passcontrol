@@ -17,81 +17,79 @@ import javax.swing.JPanel;
  */
 public class BalconyController extends PassControlController
 {
+
     BalconyScreen screen;
-    
     BalconyShowClientMessage lastCalledClient = null;
-    
     /**
      * ID do guichê
      */
     private BalconyBean balconyBean = null;
 
     @Override
-    public void setPassControlPanel(JPanel passControlPanel) 
+    public void setPassControlPanel( JPanel passControlPanel )
     {
         this.screen = (BalconyScreen) passControlPanel;
-    }    
+    }
 
-    public void recallNextClient() 
+    public void recallNextClient()
     {
-        
+
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(lastCalledClient, ConfirmationResponse.class, 1000);
-        if (response != null)
+        if ( response != null )
         {
-            if (response.getStatusOperation())
+            if ( response.getStatusOperation() )
             {
                 showBalconyClient(lastCalledClient);
             }
-        }        
+        }
     }
 
-    public void callNextClient() 
+    public void callNextClient()
     {
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyBean);
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 1000);
-        if (response != null)
+        if ( response != null )
         {
-            if (response.getStatusOperation())
+            if ( response.getStatusOperation() )
             {
                 JOptionPane.showMessageDialog(null, "Aguardando próximo cliente", "Por favor, aguarde;", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
 
-    public BalconyBean getBalconyBean() {
+    public BalconyBean getBalconyBean()
+    {
         return balconyBean;
     }
 
-    public void setBalconyBean(BalconyBean balconyBean) {
+    public void setBalconyBean( BalconyBean balconyBean )
+    {
         this.balconyBean = balconyBean;
     }
 
     @Override
-    public void onMessageReceive(PassControlMessage message, Socket socket) 
+    public void onMessageReceive( PassControlMessage message, Socket socket )
     {
-        showBalconyClient((BalconyShowClientMessage)message);
+        showBalconyClient((BalconyShowClientMessage) message);
     }
 
     @Override
-    public void addMessageListeners() 
+    public void addMessageListeners()
     {
         Main.getInstance().getCommunicationThread().addMessageListener(this, BalconyShowClientMessage.class);
     }
 
     @Override
-    public void removeMessageListeners() 
+    public void removeMessageListeners()
     {
         Main.getInstance().getCommunicationThread().removeListener(this, BalconyShowClientMessage.class);
     }
 
-    private void showBalconyClient(BalconyShowClientMessage showClientMessage) 
+    private void showBalconyClient( BalconyShowClientMessage showClientMessage )
     {
         lastCalledClient = showClientMessage;
-        lastCalledClient.setFrom(MessageActors.BalconyActor);        
+        lastCalledClient.setFrom(MessageActors.BalconyActor);
         lastCalledClient.setTo(MessageActors.ServerActor);
         screen.showPanelQueueInfo(showClientMessage);
     }
-
-    
-    
 }

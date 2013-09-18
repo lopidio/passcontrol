@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
@@ -13,24 +9,24 @@ import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessag
  *
  * @author Arleudo
  */
-public class BalconyScreen extends PassControlPanel 
+public class BalconyScreen extends PassControlPanel
 {
-    
+
     BalconyController controller = null;
 
     /**
      * Creates new form AdminScreen
      */
-    public BalconyScreen() 
+    public BalconyScreen()
     {
         super("Guichê", new BalconyController());
         controller = (BalconyController) getPanelController();
         initComponents();
-        
+
         jbGuicheLivre.setVisible(false);
         jbRepetir.setVisible(false);
         jpSenha.setVisible(false);
-        
+
     }
 
     /**
@@ -87,7 +83,6 @@ public class BalconyScreen extends PassControlPanel
     private void jbRepetirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRepetirActionPerformed
         controller.recallNextClient();
     }//GEN-LAST:event_jbRepetirActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbGuicheLivre;
     private javax.swing.JButton jbRepetir;
@@ -95,16 +90,15 @@ public class BalconyScreen extends PassControlPanel
     private javax.swing.JPanel jpSenha;
     // End of variables declaration//GEN-END:variables
 
-    
-    public void initialize(BalconyBean balconyBean)
+    public void initialize( BalconyBean balconyBean )
     {
         jbRepetir.setVisible(true);
         jbRepetir.setEnabled(false);
-        jbGuicheLivre.setVisible(true);        
+        jbGuicheLivre.setVisible(true);
         controller.setBalconyBean(balconyBean);
     }
 
-    public void showPanelQueueInfo(BalconyShowClientMessage response) 
+    public void showPanelQueueInfo( BalconyShowClientMessage response )
     {
         QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber());
         jpSenha.add(queueElementInfoBig);

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.ButtonsModulesScreen;
@@ -13,37 +9,36 @@ import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import javax.swing.JPanel;
 
-
 /**
  *
  * @author Arleudo
  */
-public class LoginTopBarController extends PassControlController 
+public class LoginTopBarController extends PassControlController
 {
+
     LoginTopBar loginTopBar = null;
 
     @Override
-    public void setPassControlPanel(JPanel passControlPanel) {
-        loginTopBar = (LoginTopBar)passControlPanel;
+    public void setPassControlPanel( JPanel passControlPanel )
+    {
+        loginTopBar = (LoginTopBar) passControlPanel;
     }
-    
-    
-    
-    public void performLogin() 
+
+    public void performLogin()
     {
         Main main = Main.getInstance();
-        
-                MainFrame mainFrame = main.getMainFrame();
-                UserBean bean = new UserBean();
-                bean.setName("Guigui");
-                bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());// Somatório (0,5) (2^x) = 63
-                main.setCurrentUser(bean);
-                mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
-                mainFrame.activatePassControlTopBar(new MainTopBar());
-                
-          //TODO: remover SQL injection
-                
-        
+
+        MainFrame mainFrame = main.getMainFrame();
+        UserBean bean = new UserBean();
+        bean.setName("Guigui");
+        bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());// Somatório (0,5) (2^x) = 63
+        main.setCurrentUser(bean);
+        mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
+        mainFrame.activatePassControlTopBar(new MainTopBar());
+
+        //TODO: remover SQL injection
+
+
 //        Main main = Main.getInstance();
 //        ClientLoginRequest initRequest = new 
 //                ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
@@ -67,13 +62,12 @@ public class LoginTopBarController extends PassControlController
 //        {
 //            JOptionPane.showMessageDialog(null, "Tempo de conexão expirada!", "Erro", JOptionPane.ERROR_MESSAGE);
 //        }
-        
+
     }
 
-    public void resetPassword() 
+    public void resetPassword()
     {
         //Simples assim
         Main.getInstance().getMainFrame().activatePassControlTopBar(new ResetTopBar());
     }
-    
 }
