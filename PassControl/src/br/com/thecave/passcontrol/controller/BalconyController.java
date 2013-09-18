@@ -18,11 +18,8 @@ import javax.swing.JPanel;
 public class BalconyController extends PassControlController
 {
 
-    BalconyScreen screen;
-    BalconyShowClientMessage lastCalledClient = null;
-    /**
-     * ID do guichê
-     */
+    private BalconyScreen screen;
+    private BalconyShowClientMessage lastCalledClient = null;
     private BalconyBean balconyBean = null;
 
     @Override
@@ -66,7 +63,7 @@ public class BalconyController extends PassControlController
     {
         this.balconyBean = balconyBean;
     }
-
+    
     @Override
     public void onMessageReceive( PassControlMessage message, Socket socket )
     {
@@ -91,5 +88,5 @@ public class BalconyController extends PassControlController
         lastCalledClient.setFrom(MessageActors.BalconyActor);
         lastCalledClient.setTo(MessageActors.ServerActor);
         screen.showPanelQueueInfo(showClientMessage);
-    }
+    }    
 }

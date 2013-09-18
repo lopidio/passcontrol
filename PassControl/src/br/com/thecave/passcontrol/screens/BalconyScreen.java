@@ -22,11 +22,14 @@ public class BalconyScreen extends PassControlPanel
         super("Guichê", new BalconyController());
         controller = (BalconyController) getPanelController();
         initComponents();
-
-        jbGuicheLivre.setVisible(false);
-        jbRepetir.setVisible(false);
-        jpSenha.setVisible(false);
-
+    }
+    
+    public void enableButtons(boolean enable)
+    {
+        btChamar.setEnabled(enable);
+        btEncerrar.setEnabled(enable);
+        btEsperar.setEnabled(enable);
+        btRepetir.setEnabled(enable);        
     }
 
     /**
@@ -36,72 +39,168 @@ public class BalconyScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
-        jbGuicheLivre = new javax.swing.JButton();
-        jbRepetir = new javax.swing.JButton();
-        jpSenha = new javax.swing.JPanel();
-        jlImage = new javax.swing.JLabel();
+        jlBalcony = new javax.swing.JLabel();
+        jpBarraLateral = new javax.swing.JPanel();
+        btChamar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btRepetir = new javax.swing.JButton();
+        btEncerrar = new javax.swing.JButton();
+        btEsperar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(null);
 
-        jbGuicheLivre.setFont(new java.awt.Font("Square721 BT", 0, 18)); // NOI18N
-        jbGuicheLivre.setText("Guichê Livre");
-        jbGuicheLivre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGuicheLivreActionPerformed(evt);
+        jlBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
+
+        jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
+
+        javax.swing.GroupLayout jpBarraLateralLayout = new javax.swing.GroupLayout(jpBarraLateral);
+        jpBarraLateral.setLayout(jpBarraLateralLayout);
+        jpBarraLateralLayout.setHorizontalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+        jpBarraLateralLayout.setVerticalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
+
+        btChamar.setBackground(new java.awt.Color(45, 123, 142));
+        btChamar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        btChamar.setText("Chamar");
+        btChamar.setEnabled(false);
+        btChamar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btChamarActionPerformed(evt);
             }
         });
-        add(jbGuicheLivre);
-        jbGuicheLivre.setBounds(950, 410, 260, 120);
 
-        jbRepetir.setFont(new java.awt.Font("Square721 BT", 0, 18)); // NOI18N
-        jbRepetir.setText("Repetir Chamada");
-        jbRepetir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRepetirActionPerformed(evt);
+        jLabel1.setBackground(new java.awt.Color(150, 150, 150));
+        jLabel1.setFont(new java.awt.Font("Square721 BT", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(200, 200, 200));
+        jLabel1.setText("CONTROLADOR DE GUICHÊ");
+
+        btRepetir.setBackground(new java.awt.Color(45, 123, 142));
+        btRepetir.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        btRepetir.setText("Repetir");
+        btRepetir.setEnabled(false);
+        btRepetir.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btRepetirActionPerformed(evt);
             }
         });
-        add(jbRepetir);
-        jbRepetir.setBounds(150, 410, 260, 120);
-        add(jpSenha);
-        jpSenha.setBounds(510, 100, 350, 210);
 
-        jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_big.png"))); // NOI18N
-        jlImage.setToolTipText("");
-        add(jlImage);
-        jlImage.setBounds(10, 11, 1347, 778);
+        btEncerrar.setBackground(new java.awt.Color(45, 123, 142));
+        btEncerrar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        btEncerrar.setText("Encerrar");
+        btEncerrar.setEnabled(false);
+        btEncerrar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btEncerrarActionPerformed(evt);
+            }
+        });
+
+        btEsperar.setBackground(new java.awt.Color(45, 123, 142));
+        btEsperar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        btEsperar.setText("Esperar");
+        btEsperar.setEnabled(false);
+        btEsperar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btEsperarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlBalcony)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpBarraLateral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btChamar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btEsperar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(708, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpBarraLateral, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlBalcony)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btChamar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btEsperar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(499, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbGuicheLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuicheLivreActionPerformed
-        controller.callNextClient();
-        jbRepetir.setEnabled(true);
-    }//GEN-LAST:event_jbGuicheLivreActionPerformed
+    private void btChamarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btChamarActionPerformed
+    {//GEN-HEADEREND:event_btChamarActionPerformed
+    }//GEN-LAST:event_btChamarActionPerformed
 
-    private void jbRepetirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRepetirActionPerformed
-        controller.recallNextClient();
-    }//GEN-LAST:event_jbRepetirActionPerformed
+    private void btRepetirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btRepetirActionPerformed
+    {//GEN-HEADEREND:event_btRepetirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btRepetirActionPerformed
+
+    private void btEncerrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btEncerrarActionPerformed
+    {//GEN-HEADEREND:event_btEncerrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEncerrarActionPerformed
+
+    private void btEsperarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btEsperarActionPerformed
+    {//GEN-HEADEREND:event_btEsperarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEsperarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbGuicheLivre;
-    private javax.swing.JButton jbRepetir;
-    private javax.swing.JLabel jlImage;
-    private javax.swing.JPanel jpSenha;
+    private javax.swing.JButton btChamar;
+    private javax.swing.JButton btEncerrar;
+    private javax.swing.JButton btEsperar;
+    private javax.swing.JButton btRepetir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jlBalcony;
+    private javax.swing.JPanel jpBarraLateral;
     // End of variables declaration//GEN-END:variables
 
     public void initialize( BalconyBean balconyBean )
     {
-        jbRepetir.setVisible(true);
-        jbRepetir.setEnabled(false);
-        jbGuicheLivre.setVisible(true);
         controller.setBalconyBean(balconyBean);
     }
 
     public void showPanelQueueInfo( BalconyShowClientMessage response )
     {
         QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber());
-        jpSenha.add(queueElementInfoBig);
-        jpSenha.setVisible(true);
+        //jpSenha.add(queueElementInfoBig);
+        //jpSenha.setVisible(true);
     }
 }

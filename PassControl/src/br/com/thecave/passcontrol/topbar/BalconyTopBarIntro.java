@@ -2,6 +2,7 @@ package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controller.BalconyTopBarIntroController;
 import br.com.thecave.passcontrol.controller.Main;
+import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -14,6 +15,7 @@ public class BalconyTopBarIntro extends PassControlTopBar
 {
 
     private BalconyTopBarIntroController balconyTopBarIntroController;
+    private BalconyScreen screen;
 
     /**
      * Creates new form TopBar
@@ -26,7 +28,7 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lbNameUser.setText(Main.getInstance().getCurrentUser().getName());
         jbConfirm.setEnabled(false);
         addPanelConnectionInfo();
-
+        balconyTopBarIntroController.defineCBNames(cbNumero);
     }
 
     public void enableConfirmButton()
@@ -41,7 +43,8 @@ public class BalconyTopBarIntro extends PassControlTopBar
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
@@ -82,8 +85,10 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lbLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
         lbLogout.setText("Logout");
         lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        lbLogout.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 lbLogoutMouseClicked(evt);
             }
         });
@@ -94,16 +99,20 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lbNumero.setText("Guichê:");
         add(lbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, 28));
 
+        cbNumero.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbNumero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
         add(cbNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 19, 185, 30));
 
+        jbConfirm.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
         jbConfirm.setText("OK");
-        jbConfirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbConfirm.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbConfirmActionPerformed(evt);
             }
         });
-        add(jbConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(763, 92, -1, -1));
+        add(jbConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbLogoutMouseClicked
@@ -112,6 +121,7 @@ public class BalconyTopBarIntro extends PassControlTopBar
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
         balconyTopBarIntroController.confirmButtonPressed(cbNumero.getSelectedIndex());
+        this.screen.enableButtons(true);
     }//GEN-LAST:event_jbConfirmActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbNumero;
@@ -147,5 +157,10 @@ public class BalconyTopBarIntro extends PassControlTopBar
     {
         cbNumero.setEnabled(true);
         jbConfirm.setEnabled(true);
+    }
+
+    public void setScreen( BalconyScreen screen )
+    {
+        this.screen = screen;
     }
 }

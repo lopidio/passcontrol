@@ -1,16 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalcony;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalconyResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -23,12 +24,14 @@ public class BalconyTopBarIntroController extends PassControlController
 
     BalconyTopBarIntro topBarIntro = null;
     BalconyInitResponse balconyInitResponse = null;
+    private ArrayList<BalconyBean> balconysBeans;
 
     @Override
     public void initialize()
     {
         BalconyInitRequest balconyInitRequest = new BalconyInitRequest();
         balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
+        balconysBeans = new ArrayList<BalconyBean>();
 
         if ( balconyInitResponse != null )
         {
@@ -64,6 +67,37 @@ public class BalconyTopBarIntroController extends PassControlController
                 initialize();
             }
         }
+    }
+
+    public void loadBalconys()
+    {
+        AdministratorListBalcony listBalcony = new AdministratorListBalcony();
+        AdministratorListBalconyResponse response = Main.getInstance().
+                getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listBalcony, AdministratorListBalconyResponse.class, 2000);
+
+        balconysBeans = response.getBalconyBeans();
+    }
+
+    public void defineCBNames( JComboBox cbBalconyName )
+    {
+        loadBalconys();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        for ( BalconyBean bean : balconysBeans )
+        {
+            model.addElement(bean.getNumber());
+        }
+        cbBalconyName.setModel(model);
+    }
+
+    public ArrayList<BalconyBean> getBalconyBeans()
+    {
+        return balconysBeans;
+    }
+
+    public void setBalconyBeans( ArrayList<BalconyBean> balconyBeans )
+    {
+        this.balconysBeans = balconyBeans;
     }
     //Fluxo:
     /**

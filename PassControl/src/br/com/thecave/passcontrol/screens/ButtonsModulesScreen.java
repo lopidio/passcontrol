@@ -293,8 +293,11 @@ public class ButtonsModulesScreen extends PassControlPanel
     private void openBalcony()
     {
         Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.BalconyActor));
-        Main.getInstance().getMainFrame().activatePassControlPanel(new BalconyScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new BalconyTopBarIntro());
+        BalconyScreen screen = new BalconyScreen();
+        BalconyTopBarIntro topBarIntro = new BalconyTopBarIntro();
+        topBarIntro.setScreen(screen);
+        Main.getInstance().getMainFrame().activatePassControlPanel(screen);
+        Main.getInstance().getMainFrame().activatePassControlTopBar(topBarIntro);
     }
 
     private void openViewer()
