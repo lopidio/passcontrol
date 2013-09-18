@@ -79,37 +79,38 @@ public class ClientBalconyListeners implements ClientListeners
             PassControlServer.getInstance().getServer().addResponseToSend(socket, balconyInitResponse);
         }       
 
-        private void refreshUnnavaliableBalconySocket() 
-        {
-            //Verifico se tem algum socket meu que não tá logado no servidor
-            
-            //Pego todos os clientes logados como BALCONY ACTOR
-            ArrayList<ClientUserSocketPair> balconysLoggedOnServer = PassControlServer.getInstance().getServer().getClientsList().get(MessageActors.BalconyActor); 
-
-            //Copia de segurança
-            HashMap<BalconyBean, Socket> safeCopy = new HashMap<>(unnavaliableBalconySocket);
-            //Itero por todos os meus guichês
-            for (Map.Entry<BalconyBean, Socket> entry : safeCopy.entrySet()) {
-                BalconyBean balconyBean = entry.getKey();
-                Socket socket = entry.getValue();
-                
-                boolean existeUmCorrespondente = false;
-                for (ClientUserSocketPair clientUserSocketPair : balconysLoggedOnServer)
-                {
-                    if (clientUserSocketPair.getSocket().equals(socket))
-                    {
-                        existeUmCorrespondente = true;
-                    }
-                }
-                if (!existeUmCorrespondente)
-                {
-                    unnavaliableBalconySocket.remove(balconyBean);
-                }
-                
-            }
-        }
     }
 
+    private static void refreshUnnavaliableBalconySocket() 
+    {
+        //Verifico se tem algum socket meu que não tá logado no servidor
+
+        //Pego todos os clientes logados como BALCONY ACTOR
+        ArrayList<ClientUserSocketPair> balconysLoggedOnServer = PassControlServer.getInstance().getServer().getClientsList().get(MessageActors.BalconyActor); 
+
+        //Copia de segurança
+        HashMap<BalconyBean, Socket> safeCopy = new HashMap<>(unnavaliableBalconySocket);
+        //Itero por todos os meus guichês
+        for (Map.Entry<BalconyBean, Socket> entry : safeCopy.entrySet()) {
+            BalconyBean balconyBean = entry.getKey();
+            Socket socket = entry.getValue();
+
+            boolean existeUmCorrespondente = false;
+            for (ClientUserSocketPair clientUserSocketPair : balconysLoggedOnServer)
+            {
+                if (clientUserSocketPair.getSocket().equals(socket))
+                {
+                    existeUmCorrespondente = true;
+                }
+            }
+            if (!existeUmCorrespondente)
+            {
+                unnavaliableBalconySocket.remove(balconyBean);
+            }
+
+        }
+    }
+    
     private static class BalconyLoginListener implements PassControlMessageListener {
 
         @Override
@@ -138,7 +139,7 @@ public class ClientBalconyListeners implements ClientListeners
         }
 
     }
-
+    
     private static class BalconyCallNextClientRequestListener implements PassControlMessageListener {
 
         @Override
@@ -185,6 +186,7 @@ public class ClientBalconyListeners implements ClientListeners
             clientName = clientBean.getName();
         }
         
+        //Captura o nome do serviço
         String serviceName = ServiceDAO.selectFromId(queuesManagerBean.getIdService()).getName();
 
         //Ninguém bole no server enquanto esse bloco é bulido
@@ -204,5 +206,12 @@ public class ClientBalconyListeners implements ClientListeners
             server.addBroadcastToSend(balconyCallNextClientResponse);
         }
     }
+
+    public static HashMap<BalconyBean, Socket> getUsedBalconys() 
+    {
+        //Atualiza a lista
+        refreshUnnavaliableBalconySocket();
+        return unnavaliableBalconySocket;
+    }    
     
 }

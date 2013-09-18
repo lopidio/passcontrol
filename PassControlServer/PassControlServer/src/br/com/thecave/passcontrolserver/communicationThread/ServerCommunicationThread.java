@@ -444,6 +444,24 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     public ConcurrentHashMap<MessageActors, ArrayList<ClientUserSocketPair>> getClientsList() {
         return clientsList;
     }
+    
+    public boolean isUserLogged(UserBean user)
+    {
+        //Por todo o mapa
+        for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
+        {
+            //Por todos os clientes
+            for (ClientUserSocketPair clientUserSocketPair : entry.getValue()) 
+            {
+                //Aquele que tiver o mesmo socket...
+                if (clientUserSocketPair.getUser().equals(user))
+                {
+                    return true;
+                }
+            }
+        } 
+        return false;
+    }
 
 
 }

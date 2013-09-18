@@ -17,6 +17,20 @@ import javax.swing.JPanel;
  */
 public class BalconyController extends PassControlController
 {
+    
+    /**
+     * FLUXO:
+     * 
+     * Para chamar um cliente:
+     *  Enviar: BalconyCallNextClientRequest
+     *  Retorna um: ConfirmationResponse
+     * 
+     * Fazer o controller escutar: BalconyShowClientMessage
+     *  E mostrar na tela toda vez que escutar um...
+     * 
+     * Para rechamar, é só reenviar um BalconyShowClientMessage não tem resposta!!
+     */    
+        
 
     private BalconyScreen screen;
     private BalconyShowClientMessage lastCalledClient = null;

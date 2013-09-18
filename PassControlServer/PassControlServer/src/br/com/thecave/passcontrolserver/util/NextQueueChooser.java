@@ -245,7 +245,6 @@ public class NextQueueChooser implements Runnable
                     {
                         //Informo aos guichê
                         ClientBalconyListeners.sendBackElementQueueToBalcony(socket, managerBean);
-                        
                         //salvo as alterações no banco.
                         QueuesManagerDAO.update(managerBean);
                         waitingBalconys.remove(balconyBean, socket);                        

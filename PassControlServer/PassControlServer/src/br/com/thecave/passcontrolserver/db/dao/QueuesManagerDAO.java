@@ -3,6 +3,7 @@ package br.com.thecave.passcontrolserver.db.dao;
 import br.com.thecave.passcontrolserver.db.ConnectionDataBase;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -208,7 +209,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE (DT_CHECKOUT IS NULL OR DT_CHECKOUT ='') AND INT_ID_SERVICE = "
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY = 0 AND INT_ID_SERVICE = "
                     + "(SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") ORDER BY DT_CHECKIN";
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -236,6 +237,46 @@ public class QueuesManagerDAO
             //TODO: logar erro
           ConnectionDataBase.getInstance().closeConnection();
           return null;
+        }  
+    }    
+    
+    /**
+     * Método para se existe elementos de um determinado serviço que não foram atendidos ainda
+     * @param id Id do registro que se quer recuperar
+     * @return Bean com os dados ja preenchidos.
+     */
+    public static boolean selectAvaliableTuplesFromService(ServiceBean serviceBean)
+    {
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return false;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY = 0 AND INT_ID_SERVICE = "+serviceBean.getId()+" LIMIT 1;";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            boolean retorno = false;
+            if(rs.next())
+            {
+                retorno = true;
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return false;
         }  
     }    
 }

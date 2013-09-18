@@ -20,6 +20,7 @@ import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
 import br.com.thecave.passcontrolserver.db.dao.BalconyTypesServiceDAO;
+import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientListeners;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddBalcony;
@@ -58,6 +59,10 @@ public class ClientAdministratorListeners implements ClientListeners
         server.addMessageListener(new ListBalconyListener(), AdministratorListBalcony.class);
         server.addMessageListener(new UpdateBalconyListener(), AdministratorUpdateBalcony.class);
         server.addMessageListener(new RemoveBalconyListener(), AdministratorRemoveBalcony.class);
+        
+        ///Comuns
+//        AdministratorSetAutomaticQueueChooser
+//        AdministradorSetMainImage
     }
     
     //User Listeners
@@ -96,7 +101,11 @@ public class ClientAdministratorListeners implements ClientListeners
             UserBean bean = UserDAO.selectFromId(remUserMessage.getId());
             if (bean != null)
             {
-                if (UserDAO.delete(bean))
+                if (PassControlServer.getInstance().getServer().isUserLogged(bean))
+                {
+                    response.setComment("Usuário não pode ser deletado. Usuário está logado no momento.");                    
+                }
+                else if (UserDAO.delete(bean))
                 {
                     response.setStatusOperation(true);
                     response.setComment("Usuário deletado com sucesso");
@@ -131,6 +140,12 @@ public class ClientAdministratorListeners implements ClientListeners
             ServiceBean bean = ServiceDAO.selectFromId(removeUserMessage.getId());
             if (bean != null)
             {
+                
+                if (QueuesManagerDAO.selectAvaliableTuplesFromService(bean))
+                {
+                    response.setComment("Não foi possível deletar serviço. Existe cliente não atendido esperando esse serviço.");                    
+                }
+                
                 if (ServiceDAO.delete(bean))
                 {
                     response.setStatusOperation(true);
@@ -201,8 +216,18 @@ public class ClientAdministratorListeners implements ClientListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
             AdministratorRemoveBalcony administratorRemoveBalcony = (AdministratorRemoveBalcony)message;
-            boolean status = BalconyDAO.delete(administratorRemoveBalcony.getBalconyBean());            
-            ConfirmationResponse response = new ConfirmationResponse(status, message, MessageActors.AdministratorActor);
+            
+            ConfirmationResponse response = new ConfirmationResponse(false, message, MessageActors.AdministratorActor);
+            if (ClientBalconyListeners.getUsedBalconys().get(administratorRemoveBalcony.getBalconyBean()) != null)
+            {
+                response.setComment("Não foi possível deletar guichê. Guichê em uso no momento");
+            }
+            else
+            {
+                response.setStatusOperation(BalconyDAO.delete(administratorRemoveBalcony.getBalconyBean()));      
+                response.setComment("Guichê removido com sucesso");                
+                
+            }
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
         }       
     }

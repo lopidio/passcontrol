@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  */
 public class BalconyTopBarIntroController extends PassControlController
 {
-
+    
     BalconyTopBarIntro topBarIntro = null;
     BalconyInitResponse balconyInitResponse = null;
     private ArrayList<BalconyBean> balconysBeans;
@@ -31,7 +31,7 @@ public class BalconyTopBarIntroController extends PassControlController
     {
         BalconyInitRequest balconyInitRequest = new BalconyInitRequest();
         balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
-        balconysBeans = new ArrayList<BalconyBean>();
+        balconysBeans = new ArrayList<>();
 
         if ( balconyInitResponse != null )
         {
@@ -102,10 +102,19 @@ public class BalconyTopBarIntroController extends PassControlController
     //Fluxo:
     /**
      * ********** Já no construtor Envio um BalconyInitRequest ao servidor.
-     * Apenas para requisitar os números de balcão e os tipos disponíveis Recebo
-     * um BalconyInitResponse e inicializo meus dois componentes.
+     * Apenas para requisitar os números de balcão disponíveis
+     * um BalconyInitResponse e inicializo meu componente.
      *
-     * **** Ao apertar OK Ao apertar OK, envio um BalconyLogin com as duas
-     * informações desta tela ao servidor. Passo para a próxima tela
+     * **** Ao apertar OK Ao apertar OK, envio um BalconyLogin com a
+     * informação desta tela ao servidor. Passo para a próxima tela
      */
+    
+    /**
+     * Fluxo
+     * Na inicialização:    
+     *  Enviar um BalconyInitRequest e receber um balconyInitResponse
+     * Ao apertar OK:
+     *  Enviar um BalconyLogin e receber um ConfirmationResponse
+     */
+    
 }
