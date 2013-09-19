@@ -32,7 +32,8 @@ public class MainTopBar extends PassControlTopBar
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
@@ -70,8 +71,10 @@ public class MainTopBar extends PassControlTopBar
         lbLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
         lbLogout.setText("Logout");
         lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        lbLogout.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 lbLogoutMouseClicked(evt);
             }
         });

@@ -6,6 +6,9 @@
       <Properties>
         <Property name="mnemonic" type="int" value="66"/>
         <Property name="text" type="java.lang.String" value="Administrar      "/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Square721 BT" size="14" style="0"/>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -16,6 +19,9 @@
           <Properties>
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Alt+G"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="71"/>
             <Property name="text" type="java.lang.String" value="Guich&#xea;"/>
@@ -29,6 +35,9 @@
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Alt+U"/>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
+            </Property>
             <Property name="mnemonic" type="int" value="85"/>
             <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
           </Properties>
@@ -40,6 +49,9 @@
           <Properties>
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Alt+S"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="115"/>
             <Property name="text" type="java.lang.String" value="Servi&#xe7;os"/>
@@ -54,6 +66,9 @@
       <Properties>
         <Property name="mnemonic" type="int" value="73"/>
         <Property name="text" type="java.lang.String" value="Imagem           "/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Square721 BT" size="14" style="0"/>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -64,6 +79,9 @@
           <Properties>
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Alt+I"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="73"/>
             <Property name="text" type="java.lang.String" value="Alterar imagem principal"/>
@@ -78,6 +96,9 @@
       <Properties>
         <Property name="mnemonic" type="int" value="65"/>
         <Property name="text" type="java.lang.String" value="Apresenta&#xe7;&#xe3;o            "/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Square721 BT" size="14" style="0"/>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -88,6 +109,9 @@
           <Properties>
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Ctrl+Alt+D"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="100"/>
             <Property name="text" type="java.lang.String" value="Adicionar imagem"/>
@@ -101,6 +125,9 @@
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Ctrl+Alt+L"/>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
+            </Property>
             <Property name="mnemonic" type="int" value="76"/>
             <Property name="text" type="java.lang.String" value="Listar imagens"/>
           </Properties>
@@ -113,6 +140,9 @@
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Ctrl+Alt+R"/>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
+            </Property>
             <Property name="mnemonic" type="int" value="82"/>
             <Property name="text" type="java.lang.String" value="Remover imagem"/>
           </Properties>
@@ -124,6 +154,9 @@
           <Properties>
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Ctrl+Alt+T"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="116"/>
             <Property name="text" type="java.lang.String" value="Alterar tempo da apresenta&#xe7;&#xe3;o"/>
@@ -138,6 +171,9 @@
       <Properties>
         <Property name="mnemonic" type="int" value="71"/>
         <Property name="text" type="java.lang.String" value="Gerenciamento da Fila      "/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Square721 BT" size="14" style="0"/>
+        </Property>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -148,6 +184,9 @@
           <Properties>
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Ctrl+Alt+A"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Gerenciamento Autom&#xe1;tico"/>
@@ -160,6 +199,9 @@
           <Properties>
             <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
               <KeyStroke key="Ctrl+Alt+M"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Square721 BT" size="14" style="0"/>
             </Property>
             <Property name="mnemonic" type="int" value="77"/>
             <Property name="text" type="java.lang.String" value="Gerenciamento Manual"/>

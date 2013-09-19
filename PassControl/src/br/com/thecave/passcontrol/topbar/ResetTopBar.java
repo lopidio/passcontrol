@@ -30,7 +30,8 @@ public class ResetTopBar extends PassControlTopBar
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
@@ -44,32 +45,43 @@ public class ResetTopBar extends PassControlTopBar
         setPreferredSize(new java.awt.Dimension(1376, 128));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jlIcon.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
         add(jlIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 6, 106, 116));
 
+        jlBarra.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
         add(jlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 6, -1, 116));
 
+        jlName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
         add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 6, 222, 116));
+
+        jtfLogin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         add(jtfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1121, 23, 236, -1));
 
+        jbOk.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbOk.setText("OK");
-        jbOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbOk.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbOkActionPerformed(evt);
             }
         });
         add(jbOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(1257, 69, 100, -1));
 
-        jlLogin.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
+        jlLogin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlLogin.setForeground(new java.awt.Color(255, 255, 255));
         jlLogin.setText("Login:");
         add(jlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 29, -1, -1));
 
+        jbCancel.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbCancel.setText("Cancelar");
-        jbCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbCancel.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbCancelActionPerformed(evt);
             }
         });
