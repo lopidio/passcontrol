@@ -66,7 +66,7 @@ public class ClientQueuePusherListener implements ClientListeners
             QueuesManagerDAO.insert(queuesManagerBean);
             
             //Informo ao pusher que deu certo!!
-            BalconyShowClientMessage response = new BalconyShowClientMessage(clientName, addQueueElement.getServiceBean().getName(), queuesManagerBean, MessageActors.ServerActor, MessageActors.QueuePushActor);
+            BalconyShowClientMessage response = new BalconyShowClientMessage(clientName, addQueueElement.getServiceBean().getName(), null, queuesManagerBean, MessageActors.ServerActor, MessageActors.QueuePushActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);                                
             
             ///Informo à todos os QueuePoppers pra inserir esse elemento

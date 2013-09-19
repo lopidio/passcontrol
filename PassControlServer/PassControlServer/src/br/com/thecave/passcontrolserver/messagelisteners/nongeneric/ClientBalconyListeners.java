@@ -12,12 +12,14 @@ import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
 import br.com.thecave.passcontrolserver.db.dao.ClientDAO;
+import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientListeners;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientInit;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
@@ -46,8 +48,16 @@ public class ClientBalconyListeners implements ClientListeners
         server.addMessageListener(new BalconyLoginListener(), BalconyLogin.class);
         
         //Chamado pelo balcony 'de verdade'
+        
+        //Balcony livre
         server.addMessageListener(new BalconyCallNextClientRequestListener(), BalconyCallNextClientRequest.class);
-        server.addMessageListener(new BalconyShowClientMessageListener(), br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage.class);
+        
+        //Rechamar último chamado
+        server.addMessageListener(new BalconyShowClientMessageListener(), BalconyShowClientMessage.class);
+        
+        //Cliente enviado pelo server apareceu na tela do balcony
+        server.addMessageListener(new BalconyShowClientInitListener(), BalconyShowClientInit.class);
+        
     }
     
     private static class BalconyInitListener implements PassControlMessageListener
@@ -174,6 +184,45 @@ public class ClientBalconyListeners implements ClientListeners
             PassControlServer.getInstance().getServer().addBroadcastToSend(showClientMessage);
         }
 
+    }  
+    private static class BalconyShowClientInitListener implements PassControlMessageListener
+    {
+
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+            BalconyShowClientInit balconyShowClientInit = (BalconyShowClientInit)message;
+            QueuesManagerBean queuesManagerBean = balconyShowClientInit.getQueuesManagerBean();
+
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+
+            
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyShowClientInit, MessageActors.BalconyActor);
+
+            //Verifico se esse cliente ainda não foi chamado por nenhum outro guichê
+            if (QueuesManagerDAO.selectFromId(queuesManagerBean.getId()).getIdBalcony() == 0)
+            {
+                //Se a atualização tiver sido bem sucedida
+                if (QueuesManagerDAO.update(queuesManagerBean))
+                {                
+                    //Informa à todos os QueuePoppers que esse Cliente foi chamado
+                    balconyShowClientInit.setTo(MessageActors.QueuePopActor);
+                    server.addBroadcastToSend(balconyShowClientInit);
+
+                    //Informa à todos os visualizadores que esse Cliente foi chamado
+                    balconyShowClientInit.setTo(MessageActors.ViewerActor);
+                    server.addBroadcastToSend(balconyShowClientInit);                
+                }
+            }
+            else
+            {
+                confirmationResponse.setStatusOperation(false);                
+                confirmationResponse.setComment("Cliente já atendido por outro guichê");
+            }
+            server.addResponseToSend(socket, confirmationResponse);
+
+        }
+
     }    
     
     //Envia o elemento de volta para o balcony
@@ -188,23 +237,13 @@ public class ClientBalconyListeners implements ClientListeners
         
         //Captura o nome do serviço
         String serviceName = ServiceDAO.selectFromId(queuesManagerBean.getIdService()).getName();
-
-        //Ninguém bole no server enquanto esse bloco é bulido
+        //Captura o nome do guichê
+        String balconyName = BalconyDAO.selectFromId(queuesManagerBean.getIdBalcony()).getNumber();
+        
         ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-        synchronized (server)
-        {   
-            //Informa ao guichê que esse balcão foi chamado
-            BalconyShowClientMessage balconyCallNextClientResponse = new BalconyShowClientMessage(clientName, serviceName, queuesManagerBean, MessageActors.ServerActor, MessageActors.BalconyActor);
-            server.addResponseToSend(socket, balconyCallNextClientResponse);
-            
-            //Informa à todos os QueuePoppers que esse Cliente já foi chamado
-            balconyCallNextClientResponse.setTo(MessageActors.QueuePopActor);
-            server.addBroadcastToSend(balconyCallNextClientResponse);
-
-            //Informa à todos os visualizadores que esse Cliente já foi chamado
-            balconyCallNextClientResponse.setTo(MessageActors.ViewerActor);
-            server.addBroadcastToSend(balconyCallNextClientResponse);
-        }
+        //Informa ao guichê que esse cliente deve ser chamado
+        BalconyShowClientMessage balconyCallNextClientResponse = new BalconyShowClientMessage(clientName, serviceName, balconyName, queuesManagerBean, MessageActors.ServerActor, MessageActors.BalconyActor);
+        server.addResponseToSend(socket, balconyCallNextClientResponse);
     }
 
     public static HashMap<BalconyBean, Socket> getUsedBalconys() 

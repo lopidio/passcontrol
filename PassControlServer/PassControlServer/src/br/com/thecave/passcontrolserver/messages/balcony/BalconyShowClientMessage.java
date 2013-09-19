@@ -28,6 +28,11 @@ public class BalconyShowClientMessage extends PassControlMessage
      * Representa o próprio elemento
      */
     QueuesManagerBean queuesManagerBean;
+
+    /**
+     * O nome do balcão
+     */
+    String balconyNumber;
     
     /**
      * 
@@ -35,12 +40,13 @@ public class BalconyShowClientMessage extends PassControlMessage
      * @param serviceType
      * @param passNumber 
      */
-    public BalconyShowClientMessage(String clientName, String serviceType, QueuesManagerBean queuesManagerBean, MessageActors from, MessageActors to) 
+    public BalconyShowClientMessage(String clientName, String serviceType, String balconyNumber, QueuesManagerBean queuesManagerBean, MessageActors from, MessageActors to) 
     {
         super(from, to);
         this.clientName = clientName;
         this.serviceType = serviceType;
         this.queuesManagerBean = queuesManagerBean;
+        this.balconyNumber = balconyNumber;
     }
 
     public String getClientName() {
@@ -65,6 +71,14 @@ public class BalconyShowClientMessage extends PassControlMessage
 
     public void setQueuesManagerBean(QueuesManagerBean queuesManagerBean) {
         this.queuesManagerBean = queuesManagerBean;
+    }
+
+    public String getBalconyNumber() {
+        return balconyNumber;
+    }
+
+    public void setBalconyNumber(String balconyNumber) {
+        this.balconyNumber = balconyNumber;
     }
 
 

@@ -95,10 +95,14 @@ public class NextQueueChooser implements Runnable
         }
     }
     
-    private QueuesManagerBean prepareSelectedQueuesManageElement(QueuesManagerBean selectedManagerBean, ServiceBean serviceBean)
+    private QueuesManagerBean prepareSelectedQueuesManageElement(BalconyBean balconyBean, QueuesManagerBean selectedManagerBean)
     {
         //Seto a hora da escolha
         selectedManagerBean.setCheckout(new Date());
+        //Seto o Id do guichê
+        selectedManagerBean.setIdBalcony(balconyBean.getId());
+        //salvo as alterações no banco.
+        QueuesManagerDAO.update(selectedManagerBean);
         
         //Atualizo a próxima prioridade que eu devo escolher
         updateNextPriority(ServiceDAO.selectFromId(selectedManagerBean.getIdService()).getPriority());
@@ -116,26 +120,36 @@ public class NextQueueChooser implements Runnable
             serviceBeans.add(ServiceDAO.selectFromId(queuesManagerBean.getIdService()));
         }
 
+        QueuesManagerBean selectedQueueManagerBean = null;
         int selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 5); //Prioridade máxima
         //Se existir alguém com prioridade máxima
         if (selectedIndex != -1)
         {
-            return prepareSelectedQueuesManageElement(avaliableClients.get(selectedIndex), serviceBeans.get(selectedIndex));
+            selectedQueueManagerBean = avaliableClients.get(selectedIndex);
         }
-        //Tento para as prioridades Alta, média e baixa (A partir da última escolha...)
-        for (int i = 0; i < 3; ++i)
+        else
         {
-            selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, nextPriority); //Próxima prioridade
-            //Se eu achar alguém dessa prioridade
-            if (selectedIndex != -1)
-                return prepareSelectedQueuesManageElement(avaliableClients.get(selectedIndex), serviceBeans.get(selectedIndex));
-            else //Altero a prioridade que eu quero
-                updateNextPriority(nextPriority);
+            //Tento para as prioridades Alta, média e baixa (A partir da última escolha...)
+            for (int i = 0; i < 3; ++i)
+            {
+                selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, nextPriority); //Próxima prioridade
+                //Se eu achar alguém dessa prioridade
+                if (selectedIndex != -1)
+                    selectedQueueManagerBean = avaliableClients.get(selectedIndex);
+                else //Altero a prioridade que eu quero
+                    updateNextPriority(nextPriority);
+            }
+            if (selectedQueueManagerBean == null)
+            {
+                selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 1); //Prioridade mínima
+                if (selectedIndex != -1)
+                {
+                    selectedQueueManagerBean = avaliableClients.get(selectedIndex);
+                }
+            }
         }
-        selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 1); //Prioridade mínima
-        if (selectedIndex != -1)
-            return prepareSelectedQueuesManageElement(avaliableClients.get(selectedIndex), serviceBeans.get(selectedIndex));
-        return null;
+
+        return selectedQueueManagerBean;
     }
     
     /**
@@ -176,20 +190,12 @@ public class NextQueueChooser implements Runnable
             }
 
         }
-
-        //Se algum deles enviou resposta
-        if (balconyShowClientMessage != null)
-        {
-            //Preparo a escolha para ser envia
-            return prepareSelectedQueuesManageElement(balconyShowClientMessage.getQueuesManagerBean(),
-                                                ServiceDAO.selectFromId(balconyShowClientMessage.getQueuesManagerBean().getIdService()));
-        }
-        return null;
+        return balconyShowClientMessage.getQueuesManagerBean();
     }    
     
     private QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
     {   
-        //Seleciona todos os queues disponíveis para aquele guichê
+        //Seleciona todos os clientes atendíveis para aquele guichê
         ArrayList<QueuesManagerBean> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
         
         //Não existe nenhum cliente que se adeque
@@ -212,7 +218,7 @@ public class NextQueueChooser implements Runnable
             chosenClient.setIdUserCheckout(0);
         }
         
-        return chosenClient;
+        return prepareSelectedQueuesManageElement(balconyBean, chosenClient);
     }
     
     public boolean isOn() 
@@ -243,10 +249,8 @@ public class NextQueueChooser implements Runnable
                     //Se existir um cliente que se adeque ao guichê
                     if (managerBean != null)
                     {
-                        //Informo aos guichê
+                        //Informo ao guichê
                         ClientBalconyListeners.sendBackElementQueueToBalcony(socket, managerBean);
-                        //salvo as alterações no banco.
-                        QueuesManagerDAO.update(managerBean);
                         waitingBalconys.remove(balconyBean, socket);                        
                     }
                     

@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientInit;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
@@ -81,7 +82,10 @@ public class BalconyController extends PassControlController
     @Override
     public void onMessageReceive( PassControlMessage message, Socket socket )
     {
-        showBalconyClient((BalconyShowClientMessage) message);
+        //Recebo um cliente para atender...
+        //Mostra o cliente
+        BalconyShowClientMessage received = (BalconyShowClientMessage) message;
+        showBalconyClient(received);
     }
 
     @Override
