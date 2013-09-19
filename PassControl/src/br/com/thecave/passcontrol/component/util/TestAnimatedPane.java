@@ -1,4 +1,4 @@
-package br.com.thecave.passcontrolserver;
+package br.com.thecave.passcontrol.component.util;
 
 
 import java.awt.BorderLayout;
