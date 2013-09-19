@@ -154,7 +154,8 @@ public final class MainFrame extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         topBar = new javax.swing.JPanel();
         passControlPanel = new javax.swing.JPanel();
@@ -197,32 +198,42 @@ public final class MainFrame extends javax.swing.JFrame
         );
         passControlPanelLayout.setVerticalGroup(
             passControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
+            .addGap(0, 597, Short.MAX_VALUE)
         );
 
         jmNavegar.setText("Navegar");
+        jmNavegar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
+        jmMainPage.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmMainPage.setText("Página principal");
-        jmMainPage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmMainPage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmMainPageActionPerformed(evt);
             }
         });
         jmNavegar.add(jmMainPage);
         jmNavegar.add(jSeparator2);
 
+        jmLogoff.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmLogoff.setText("Logoff");
-        jmLogoff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmLogoff.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmLogoffActionPerformed(evt);
             }
         });
         jmNavegar.add(jmLogoff);
         jmNavegar.add(jSeparator1);
 
+        jmSair.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmSair.setText("Sair");
-        jmSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmSair.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmSairActionPerformed(evt);
             }
         });
@@ -231,14 +242,18 @@ public final class MainFrame extends javax.swing.JFrame
         menuBar.add(jmNavegar);
 
         jmSobre.setText("Sobre");
+        jmSobre.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
+        jMenuItem1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jMenuItem1.setText("Equipe de desenvolvimento e contato");
         jmSobre.add(jMenuItem1);
 
         menuBar.add(jmSobre);
 
         jmAjuda.setText("Ajuda");
+        jmAjuda.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jMenuItem2.setText("Documento de ajuda");
         jmAjuda.add(jMenuItem2);
 

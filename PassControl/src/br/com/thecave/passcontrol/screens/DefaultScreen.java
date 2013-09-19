@@ -1,8 +1,10 @@
 package br.com.thecave.passcontrol.screens;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.plaf.FontUIResource;
 
 /**
  *
@@ -67,12 +69,14 @@ public class DefaultScreen extends PassControlPanel
         JMenu jmServerConfig = new javax.swing.JMenu();
         JMenuItem jmIP = new javax.swing.JMenuItem();
         JMenuItem jmPort = new javax.swing.JMenuItem();
+        jmServerConfig.setFont(new Font("Square721 BT", Font.PLAIN, 14));
 
         jmServerConfig.setText("Configurações do servidor");
 
         jmIP.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         jmIP.setMnemonic('I');
         jmIP.setText("IP");
+        jmIP.setFont(new Font("Square721 BT", Font.PLAIN, 14));
         jmIP.addActionListener(new java.awt.event.ActionListener()
         {
             @Override
@@ -85,6 +89,7 @@ public class DefaultScreen extends PassControlPanel
 
         jmPort.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         jmPort.setMnemonic('P');
+        jmPort.setFont(new Font("Square721 BT", Font.PLAIN, 14));
         jmPort.setText("Porta");
         jmPort.addActionListener(new java.awt.event.ActionListener()
         {

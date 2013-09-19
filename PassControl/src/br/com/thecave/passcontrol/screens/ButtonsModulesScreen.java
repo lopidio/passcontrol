@@ -51,7 +51,8 @@ public class ButtonsModulesScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmModules = new javax.swing.JMenu();
         jmAdmin = new javax.swing.JMenuItem();
@@ -70,66 +71,84 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmModules.setText("Módulos");
 
         jmAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAdmin.setMnemonic('a');
         jmAdmin.setText("Administrador");
         jmAdmin.setEnabled(false);
-        jmAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdmin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminActionPerformed(evt);
             }
         });
         jmModules.add(jmAdmin);
 
         jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
+        jmGuiche.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmGuiche.setMnemonic('g');
         jmGuiche.setText("Guichês");
         jmGuiche.setEnabled(false);
-        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmGuiche.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmGuicheActionPerformed(evt);
             }
         });
         jmModules.add(jmGuiche);
 
         jmViewer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmViewer.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmViewer.setMnemonic('v');
         jmViewer.setText("Visualizador");
         jmViewer.setEnabled(false);
-        jmViewer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmViewer.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmViewerActionPerformed(evt);
             }
         });
         jmModules.add(jmViewer);
 
         jmQueuePush.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
+        jmQueuePush.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmQueuePush.setMnemonic('d');
         jmQueuePush.setText("Adicionar");
         jmQueuePush.setEnabled(false);
-        jmQueuePush.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmQueuePush.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmQueuePushActionPerformed(evt);
             }
         });
         jmModules.add(jmQueuePush);
 
         jmQueuePop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK));
+        jmQueuePop.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmQueuePop.setMnemonic('r');
         jmQueuePop.setText("Remover");
         jmQueuePop.setEnabled(false);
-        jmQueuePop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmQueuePop.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmQueuePopActionPerformed(evt);
             }
         });
         jmModules.add(jmQueuePop);
 
         jmConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        jmConfig.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmConfig.setMnemonic('c');
         jmConfig.setText("Configurações");
         jmConfig.setEnabled(false);
-        jmConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmConfig.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmConfigActionPerformed(evt);
             }
         });
@@ -139,48 +158,60 @@ public class ButtonsModulesScreen extends PassControlPanel
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
         jbBalcony.setEnabled(false);
-        jbBalcony.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbBalcony.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbBalconyActionPerformed(evt);
             }
         });
 
         jbViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/viewer_button.png"))); // NOI18N
         jbViewer.setEnabled(false);
-        jbViewer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbViewer.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbViewerActionPerformed(evt);
             }
         });
 
         jbAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
         jbAdd.setEnabled(false);
-        jbAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbAddActionPerformed(evt);
             }
         });
 
         jbConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/config_button.png"))); // NOI18N
         jbConfig.setEnabled(false);
-        jbConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbConfig.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbConfigActionPerformed(evt);
             }
         });
 
         jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
         jbAdmin.setEnabled(false);
-        jbAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbAdmin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbAdminActionPerformed(evt);
             }
         });
 
         jbRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
         jbRemove.setEnabled(false);
-        jbRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbRemove.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbRemoveActionPerformed(evt);
             }
         });
