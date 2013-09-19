@@ -65,17 +65,30 @@ public class ClientGenericListeners implements ClientListeners
                 //Verifica se existe o usuário no banco
                 if (bean != null)
                 {
-                    if (bean.getPassword().equals(initRequest.getPassword()))
+                    //Se o usuário já está logado
+                    if (PassControlServer.getInstance().getServer().isUserLogged(bean))
+                    {
+                        response.setComment("Usuário já está logado!");
+                    }
+                    else if (bean.getPassword().equals(initRequest.getPassword()))
                     {
                         response.setUser(bean);
                     }
+                    else
+                    {
+                        response.setComment("Senha inválida!");
+                    }
+                }
+                else
+                {
+                    response.setComment("Usuário não encontrado!");
                 }
 
             }
 
             if (response.getUser() != null)
             {
-                //TODO tenho que verificar se o usuário já está em uso...
+                //Registra o login!
                 PassControlServer.getInstance().getServer().userLogin(socket, response.getUser());
             }
 
