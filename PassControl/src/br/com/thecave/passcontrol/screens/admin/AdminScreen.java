@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.controller.AdminController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import java.util.ArrayList;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +32,8 @@ public class AdminScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmBaseDados = new javax.swing.JMenu();
         jmGuiche = new javax.swing.JMenuItem();
@@ -53,32 +55,42 @@ public class AdminScreen extends PassControlPanel
 
         jmBaseDados.setMnemonic('B');
         jmBaseDados.setText("Administrar      ");
+        jmBaseDados.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
         jmGuiche.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.ALT_MASK));
+        jmGuiche.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmGuiche.setMnemonic('G');
         jmGuiche.setText("Guichê");
-        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmGuiche.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmGuicheActionPerformed(evt);
             }
         });
         jmBaseDados.add(jmGuiche);
 
         jmUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        jmUser.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmUser.setMnemonic('U');
         jmUser.setText("Usuário");
-        jmUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmUser.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmUserActionPerformed(evt);
             }
         });
         jmBaseDados.add(jmUser);
 
         jmServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
+        jmServicos.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmServicos.setMnemonic('s');
         jmServicos.setText("Serviços");
-        jmServicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmServicos.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmServicosActionPerformed(evt);
             }
         });
@@ -86,12 +98,16 @@ public class AdminScreen extends PassControlPanel
 
         jmImagem.setMnemonic('I');
         jmImagem.setText("Imagem           ");
+        jmImagem.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
         jmAlterImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
+        jmAlterImage.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAlterImage.setMnemonic('I');
         jmAlterImage.setText("Alterar imagem principal");
-        jmAlterImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAlterImage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAlterImageActionPerformed(evt);
             }
         });
@@ -99,42 +115,55 @@ public class AdminScreen extends PassControlPanel
 
         jmApresentacao.setMnemonic('A');
         jmApresentacao.setText("Apresentação            ");
+        jmApresentacao.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
         jmAddImage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAddImage.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAddImage.setMnemonic('d');
         jmAddImage.setText("Adicionar imagem");
-        jmAddImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAddImage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAddImageActionPerformed(evt);
             }
         });
         jmApresentacao.add(jmAddImage);
 
         jmListImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmListImages.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmListImages.setMnemonic('L');
         jmListImages.setText("Listar imagens");
-        jmListImages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmListImages.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmListImagesActionPerformed(evt);
             }
         });
         jmApresentacao.add(jmListImages);
 
         jmRemoveImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmRemoveImages.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmRemoveImages.setMnemonic('R');
         jmRemoveImages.setText("Remover imagem");
-        jmRemoveImages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmRemoveImages.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmRemoveImagesActionPerformed(evt);
             }
         });
         jmApresentacao.add(jmRemoveImages);
 
         jmAlterTime.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAlterTime.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAlterTime.setMnemonic('t');
         jmAlterTime.setText("Alterar tempo da apresentação");
-        jmAlterTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAlterTime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAlterTimeActionPerformed(evt);
             }
         });
@@ -142,22 +171,29 @@ public class AdminScreen extends PassControlPanel
 
         jmGerenAuto.setMnemonic('G');
         jmGerenAuto.setText("Gerenciamento da Fila      ");
+        jmGerenAuto.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
         jmAutomatic.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmAutomatic.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAutomatic.setMnemonic('A');
         jmAutomatic.setText("Gerenciamento Automático");
-        jmAutomatic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAutomatic.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAutomaticActionPerformed(evt);
             }
         });
         jmGerenAuto.add(jmAutomatic);
 
         jmManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jmManual.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmManual.setMnemonic('M');
         jmManual.setText("Gerenciamento Manual");
-        jmManual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmManual.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmManualActionPerformed(evt);
             }
         });
@@ -225,6 +261,14 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmServicosActionPerformed
 
     private void jmAlterImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterImageActionPerformed
+       if(controller.alterImage())
+       {
+           JOptionPane.showMessageDialog(null, "Imagem alterada com sucesso!");
+       }
+       else
+       {
+           JOptionPane.showMessageDialog(null, "Imagem não alterada!");
+       }
     }//GEN-LAST:event_jmAlterImageActionPerformed
 
     private void jmAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAddImageActionPerformed
