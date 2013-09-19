@@ -1,6 +1,8 @@
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -21,7 +23,9 @@ public class QueuePushScreen extends PassControlPanel
         super("Escolha de Serviços", new QueuePushController());
         this.controller = (QueuePushController) getPanelController();
         initComponents();
-        jpSenha.setVisible(false);
+        jpSecundario.setVisible(false);
+        jmVoltar.setVisible(false);
+        jSeparator1.setVisible(false);
     }
 
     /**
@@ -31,160 +35,166 @@ public class QueuePushScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmChooseService = new javax.swing.JMenu();
-        jmInsert = new javax.swing.JMenuItem();
-        jpSenha = new javax.swing.JPanel();
-        jpClientes = new javax.swing.JPanel();
+        jmNovoCliente = new javax.swing.JMenuItem();
+        jmNovoAtendimento = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jmVoltar = new javax.swing.JMenuItem();
+        jlAdminPic = new javax.swing.JLabel();
+        jpBarraLateral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfCadastro = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        tfNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        tfTelefone = new javax.swing.JTextField();
-        jbLoad = new javax.swing.JButton();
-        jpServicos = new javax.swing.JPanel();
-        cbServices = new javax.swing.JComboBox();
-        jbInsert = new javax.swing.JButton();
+        jbNovoCliente = new javax.swing.JButton();
+        jbNovoAtendimento = new javax.swing.JButton();
+        jpSecundario = new javax.swing.JPanel();
 
         jmChooseService.setMnemonic('e');
-        jmChooseService.setText("Escolha de Serviço");
+        jmChooseService.setText("Recepção");
+        jmChooseService.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
-        jmInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
-        jmInsert.setMnemonic('i');
-        jmInsert.setText("Inserir");
-        jmInsert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmInsertActionPerformed(evt);
+        jmNovoCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        jmNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jmNovoCliente.setMnemonic('c');
+        jmNovoCliente.setText("Novo cliente");
+        jmNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmNovoClienteActionPerformed(evt);
             }
         });
-        jmChooseService.add(jmInsert);
+        jmChooseService.add(jmNovoCliente);
+
+        jmNovoAtendimento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jmNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jmNovoAtendimento.setMnemonic('a');
+        jmNovoAtendimento.setText("Novo Atendimento");
+        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmNovoAtendimentoActionPerformed(evt);
+            }
+        });
+        jmChooseService.add(jmNovoAtendimento);
+        jmChooseService.add(jSeparator1);
+
+        jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
+        jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jmVoltar.setText("Voltar");
+        jmVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jmVoltarActionPerformed(evt);
+            }
+        });
+        jmChooseService.add(jmVoltar);
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(null);
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jpSenha.setBackground(new java.awt.Color(255, 255, 0));
+        jlAdminPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
+        add(jlAdminPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 11, -1, -1));
 
-        javax.swing.GroupLayout jpSenhaLayout = new javax.swing.GroupLayout(jpSenha);
-        jpSenha.setLayout(jpSenhaLayout);
-        jpSenhaLayout.setHorizontalGroup(
-            jpSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+        jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
+
+        javax.swing.GroupLayout jpBarraLateralLayout = new javax.swing.GroupLayout(jpBarraLateral);
+        jpBarraLateral.setLayout(jpBarraLateralLayout);
+        jpBarraLateralLayout.setHorizontalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
         );
-        jpSenhaLayout.setVerticalGroup(
-            jpSenhaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpBarraLateralLayout.setVerticalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
+
+        add(jpBarraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 11, -1, 290));
+
+        jLabel1.setBackground(new java.awt.Color(150, 150, 150));
+        jLabel1.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(200, 200, 200));
+        jLabel1.setText("RECEPÇÃO");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 11, -1, -1));
+
+        jbNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
+        jbNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbNovoCliente.setText("Novo Cliente");
+        jbNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbNovoClienteActionPerformed(evt);
+            }
+        });
+        add(jbNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 221, 37));
+
+        jbNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
+        jbNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbNovoAtendimento.setText("Novo Atendimento");
+        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbNovoAtendimentoActionPerformed(evt);
+            }
+        });
+        add(jbNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 221, 37));
+
+        javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
+        jpSecundario.setLayout(jpSecundarioLayout);
+        jpSecundarioLayout.setHorizontalGroup(
+            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
-
-        add(jpSenha);
-        jpSenha.setBounds(506, 111, 410, 300);
-
-        jpClientes.setBackground(new java.awt.Color(255, 255, 255));
-        jpClientes.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Square721 BT", 1, 12), new java.awt.Color(0, 152, 191))); // NOI18N
-
-        jLabel1.setText("Cadastro:");
-
-        jLabel2.setText("Nome:");
-
-        jLabel3.setText("Telefone:");
-
-        jbLoad.setText("Carregar");
-
-        javax.swing.GroupLayout jpClientesLayout = new javax.swing.GroupLayout(jpClientes);
-        jpClientes.setLayout(jpClientesLayout);
-        jpClientesLayout.setHorizontalGroup(
-            jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpClientesLayout.createSequentialGroup()
-                .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)))
-                .addGap(18, 18, 18)
-                .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpClientesLayout.createSequentialGroup()
-                        .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                            .addComponent(tfTelefone, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 838, Short.MAX_VALUE))
-        );
-        jpClientesLayout.setVerticalGroup(
-            jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpClientesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(tfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbLoad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(26, 26, 26)
-                .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(30, 30, 30)
-                .addGroup(jpClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(19, 19, 19))
+        jpSecundarioLayout.setVerticalGroup(
+            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 440, Short.MAX_VALUE)
         );
 
-        add(jpClientes);
-        jpClientes.setBounds(10, 11, 1347, 227);
-
-        jpServicos.setBackground(new java.awt.Color(255, 255, 255));
-        jpServicos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Serviço", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Square721 BT", 1, 12), new java.awt.Color(0, 152, 191))); // NOI18N
-
-        cbServices.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Serviço 1", "Serviço 2", "Serviço 3", "Serviço 4" }));
-
-        jbInsert.setText("Inserir");
-
-        javax.swing.GroupLayout jpServicosLayout = new javax.swing.GroupLayout(jpServicos);
-        jpServicos.setLayout(jpServicosLayout);
-        jpServicosLayout.setHorizontalGroup(
-            jpServicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpServicosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbServices, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(856, Short.MAX_VALUE))
-        );
-        jpServicosLayout.setVerticalGroup(
-            jpServicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpServicosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpServicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbServices)
-                    .addComponent(jbInsert, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
-                .addContainerGap(281, Short.MAX_VALUE))
-        );
-
-        add(jpServicos);
-        jpServicos.setBounds(10, 256, 1349, 352);
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 440));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmInsertActionPerformed
-        controller.insert();
-    }//GEN-LAST:event_jmInsertActionPerformed
+    private void jmNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNovoClienteActionPerformed
+        novoCliente();
+    }//GEN-LAST:event_jmNovoClienteActionPerformed
+
+    private void jbNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoClienteActionPerformed
+    {//GEN-HEADEREND:event_jbNovoClienteActionPerformed
+        novoCliente();
+    }//GEN-LAST:event_jbNovoClienteActionPerformed
+
+    private void jbNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoAtendimentoActionPerformed
+    {//GEN-HEADEREND:event_jbNovoAtendimentoActionPerformed
+        novoAtendimento();
+    }//GEN-LAST:event_jbNovoAtendimentoActionPerformed
+
+    private void jmNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmNovoAtendimentoActionPerformed
+    {//GEN-HEADEREND:event_jmNovoAtendimentoActionPerformed
+        novoAtendimento();
+    }//GEN-LAST:event_jmNovoAtendimentoActionPerformed
+
+    private void jmVoltarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmVoltarActionPerformed
+    {//GEN-HEADEREND:event_jmVoltarActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }//GEN-LAST:event_jmVoltarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox cbServices;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton jbInsert;
-    private javax.swing.JButton jbLoad;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JButton jbNovoAtendimento;
+    private javax.swing.JButton jbNovoCliente;
+    private javax.swing.JLabel jlAdminPic;
     private javax.swing.JMenu jmChooseService;
-    private javax.swing.JMenuItem jmInsert;
-    private javax.swing.JPanel jpClientes;
-    private javax.swing.JPanel jpSenha;
-    private javax.swing.JPanel jpServicos;
-    private javax.swing.JTextField tfCadastro;
-    private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfTelefone;
+    private javax.swing.JMenuItem jmNovoAtendimento;
+    private javax.swing.JMenuItem jmNovoCliente;
+    private javax.swing.JMenuItem jmVoltar;
+    private javax.swing.JPanel jpBarraLateral;
+    private javax.swing.JPanel jpSecundario;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -194,5 +204,27 @@ public class QueuePushScreen extends PassControlPanel
         retorno.add(jmChooseService);
 
         return retorno;
+    }
+
+    private void novoCliente()
+    {
+        jpSecundario.setVisible(true);
+        jbNovoAtendimento.setVisible(false);
+        jbNovoCliente.setVisible(false);
+        jSeparator1.setVisible(true);
+        jmVoltar.setVisible(true);
+        jmNovoAtendimento.setEnabled(false);
+        jmNovoCliente.setEnabled(false);
+    }
+
+    private void novoAtendimento()
+    {
+        jpSecundario.setVisible(true);
+        jbNovoAtendimento.setVisible(false);
+        jbNovoCliente.setVisible(false);
+        jSeparator1.setVisible(true);
+        jmVoltar.setVisible(true);
+        jmNovoAtendimento.setEnabled(false);
+        jmNovoCliente.setEnabled(false);
     }
 }

@@ -1,10 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.QueuePushScreen;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
-import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
-import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientFromRegistration;
-import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientResponse;
 import javax.swing.JPanel;
 
 /**
@@ -24,9 +20,8 @@ public class QueuePushController extends PassControlController
 
     public void insert()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     /**
      * FLUXO:
      * Ao inserir o cliente
