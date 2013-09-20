@@ -32,6 +32,7 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemo
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateUser;
+import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -62,7 +63,7 @@ public class ClientAdministratorListeners implements ClientListeners
         
         ///Comuns
 //        AdministratorSetAutomaticQueueChooser
-//        AdministradorSetMainImage
+        server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
     }
     
     //User Listeners
@@ -242,6 +243,28 @@ public class ClientAdministratorListeners implements ClientListeners
             AdministratorListBalconyResponse administratorListBalconyResponse = new AdministratorListBalconyResponse(beans);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, administratorListBalconyResponse);
         }       
+    }
+
+    private static class MainImageSetterListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+            MainImageSetter mainImageSetter = (MainImageSetter)message;
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+
+            //Confirma o recebimento da resposta
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, mainImageSetter, MessageActors.AdministratorActor);
+            server.addResponseToSend(socket, confirmationResponse);
+            
+            //TODO Tenho que salvar a imagem aqui na pasta do projeto
+            //...
+            
+            //Repasso a imagem para os demais atores
+            mainImageSetter.setFrom(MessageActors.ServerActor);
+            mainImageSetter.setFrom(MessageActors.AllActors);
+            server.addBroadcastToSend(mainImageSetter);
+        } 
     }
         
 }

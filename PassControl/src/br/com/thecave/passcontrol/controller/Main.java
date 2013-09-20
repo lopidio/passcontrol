@@ -1,10 +1,12 @@
 package br.com.thecave.passcontrol.controller;
 
+import br.com.thecave.passcontrol.component.util.ClientMainImageSwitcherListener;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
+import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -43,6 +45,9 @@ public class Main
                 23073);
         mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         mainFrame.setVisible(true);
+        
+        //Adiciona o trocador de imagem
+        communicationThread.addMessageListener(new ClientMainImageSwitcherListener(), MainImageSetter.class);
     }
 
     public static void main( String args[] )

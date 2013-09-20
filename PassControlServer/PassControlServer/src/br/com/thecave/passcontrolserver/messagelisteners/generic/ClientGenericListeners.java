@@ -18,6 +18,8 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -46,9 +48,10 @@ public class ClientGenericListeners implements ClientListeners
         {
             ClientLoginRequest initRequest = (ClientLoginRequest)message;
 
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            
             //Inicializa com uma mensagem default
             ClientLoginResponse response = new ClientLoginResponse(null, message.getFrom());
-
 
             //Verifica se é super usuário
             if (isSuperUser(initRequest.getUser(), initRequest.getPassword()))
@@ -66,7 +69,7 @@ public class ClientGenericListeners implements ClientListeners
                 if (bean != null)
                 {
                     //Se o usuário já está logado
-                    if (PassControlServer.getInstance().getServer().isUserLogged(bean))
+                    if (server.isUserLogged(bean))
                     {
                         response.setComment("Usuário já está logado!");
                     }
@@ -89,11 +92,19 @@ public class ClientGenericListeners implements ClientListeners
             if (response.getUser() != null)
             {
                 //Registra o login!
-                PassControlServer.getInstance().getServer().userLogin(socket, response.getUser());
+                server.userLogin(socket, response.getUser());
             }
 
             //Devolve a mensagem para o servidor
-            PassControlServer.getInstance().getServer().addResponseToSend(socket, response);        
+            server.addResponseToSend(socket, response);  
+            
+            //Envia a imagem principal
+            MainImageSetter mainImageSetter = new MainImageSetter(null, null);
+            mainImageSetter.setFrom(MessageActors.ServerActor);
+            mainImageSetter.setFrom(MessageActors.AllActors);
+            
+            //Avisa o cliente para mudar a imagem principal
+            server.addResponseToSend(socket, mainImageSetter);            
         }
 
         /**

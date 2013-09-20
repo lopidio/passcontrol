@@ -35,8 +35,7 @@ public class QueuePushScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jmChooseService = new javax.swing.JMenu();
         jmNovoCliente = new javax.swing.JMenuItem();
@@ -58,10 +57,8 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoCliente.setMnemonic('c');
         jmNovoCliente.setText("Novo cliente");
-        jmNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmNovoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmNovoClienteActionPerformed(evt);
             }
         });
@@ -71,10 +68,8 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoAtendimento.setMnemonic('a');
         jmNovoAtendimento.setText("Novo Atendimento");
-        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -84,10 +79,8 @@ public class QueuePushScreen extends PassControlPanel
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -123,10 +116,8 @@ public class QueuePushScreen extends PassControlPanel
         jbNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoCliente.setText("Novo Cliente");
-        jbNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbNovoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoClienteActionPerformed(evt);
             }
         });
@@ -135,10 +126,8 @@ public class QueuePushScreen extends PassControlPanel
         jbNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoAtendimento.setText("Novo Atendimento");
-        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoAtendimentoActionPerformed(evt);
             }
         });
