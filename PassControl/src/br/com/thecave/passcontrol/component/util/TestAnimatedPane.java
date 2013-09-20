@@ -53,7 +53,7 @@ public class TestAnimatedPane {
             Dimension size = getPreferredSize();
 
             Rectangle from = new Rectangle(size.width, (size.height - 50) / 2, 50, 50);
-            Rectangle to = new Rectangle((size.width - 50) / 2, (size.height - 50) / 2, 50, 50);
+            Rectangle to = new Rectangle((size.width - 50) / 2, (size.height - 50) / 2, 0, 0);
 
             Animate animate = new Animate(panel, from, to);
             animate.start();

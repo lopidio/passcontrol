@@ -1,31 +1,18 @@
 package br.com.thecave.passcontrol.component.util;
 
+
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
-import java.awt.AlphaComposite;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 public class ButtonTest {
-
-    private JFrame frame;
-    private FaderJPanel softButton1;
-
-    public void createAndShowGUI() {
-        softButton1 = new FaderJPanel();
-        softButton1.setBackground(Color.GREEN);
-        frame = new JFrame();
-        frame.getContentPane().setLayout(new java.awt.GridLayout(2, 2, 10, 10));
-        frame.add(softButton1);
-        frame.setSize(700, 300);
-        frame.setLocation(150, 100);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        softButton1.fadeIn(3); //seconds
-
-    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -37,125 +24,91 @@ public class ButtonTest {
         });
     }
 
-    private static class FaderJPanel extends JPanel 
-    {
+    private JFrame frame;
+    private JButton opaqueButton1;
+    private JButton opaqueButton2;
+    private SoftJButton softButton1;
+    private SoftJButton softButton2;
 
-        private static class FaderIn extends Fader
-        {
-            public FaderIn(float seconds, FaderJPanel panelOwner) 
-            {
-                super(seconds, panelOwner, true);
-            }
+    public void createAndShowGUI() {
+        opaqueButton1 = new JButton("Opaque Button");
+        opaqueButton2 = new JButton("Opaque Button");
+        softButton1 = new SoftJButton("Transparent Button");
+        softButton2 = new SoftJButton("Transparent Button");
+        opaqueButton1.setBackground(Color.GREEN);
+        softButton1.setBackground(Color.GREEN);
+        frame = new JFrame();
+        frame.getContentPane().setLayout(new java.awt.GridLayout(2, 2, 10, 10));
+        frame.add(opaqueButton1);
+        frame.add(softButton1);
+        frame.add(opaqueButton2);
+        frame.add(softButton2);
+        frame.setSize(567, 350);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        Timer alphaChanger = new Timer(30, new ActionListener() {
 
-        }
-        private static class FaderOut extends Fader
-        {
-            public FaderOut(float seconds, FaderJPanel panelOwner) 
-            {
-                super(seconds, panelOwner, false);
-            }
-        }        
-        
-        private abstract static class Fader implements ActionListener
-        {
-            private float alpha;
-            private boolean faderIn; //false quando é fader out
-            private float durationMilliseconds;
-            private long startTime;;
-            Timer alphaChanger;            
-            FaderJPanel panelOwner;
+            private float incrementer = -.03f;
 
-            public Fader(float seconds, FaderJPanel panelOwner, boolean faderIn ) 
-            {
-                alphaChanger = new Timer(0, this);
-                
-                this.panelOwner = panelOwner;
-                this.durationMilliseconds = seconds*1000;
-                this.faderIn = faderIn;
-                if (faderIn)
-                    alpha = 0;
-                else
-                    alpha = 1f;
-                startTime = System.currentTimeMillis();
-                alphaChanger.start();                  
-            }
-            
             @Override
-            public void actionPerformed(ActionEvent e) 
-            {
-                float millisSinceBeginning = System.currentTimeMillis() - startTime;
-                alpha = (float)millisSinceBeginning/durationMilliseconds;
-                
-                if (isFaderOut())
-                    alpha = 1 - alpha;
-                System.out.println("AlphaAP: " + alpha);
-                //Condição de término
-                if (alpha > 1.0f || alpha < 0) 
-                {
-                    //Finaliza o valor do alpha
-                    alpha = alpha > 1 ? 1 : 0;
-                    try 
-                    {
-                        alphaChanger.stop();
-                    }
-                    catch (Throwable ex) 
-                    {
-                        Logger.getLogger(ButtonTest.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    finally
-                    {
-                        panelOwner.setAlpha(alpha);                                                
-                    }
+            public void actionPerformed(ActionEvent e) {
+                float newAlpha = softButton1.getAlpha() + incrementer;
+                if (newAlpha < 0) {
+                    newAlpha = 0;
+                    incrementer = -incrementer;
+                } else if (newAlpha > 1f) {
+                    newAlpha = 1f;
+                    incrementer = -incrementer;
                 }
-                panelOwner.setAlpha(alpha);
-            }         
-            public float getAlpha() 
-            {
-                return alpha;
+                softButton1.setAlpha(newAlpha);
+                softButton2.setAlpha(newAlpha);
             }
-            public boolean isFaderIn()
-            {
-                return faderIn;
-            }
-            public boolean isFaderOut()
-            {
-                return !faderIn;
-            }            
-                
-        }
-        
+        });
+        alphaChanger.start();
+    }
+
+    public static class SoftJButton extends JPanel {
+        private static final JButton lafDeterminer = new JButton();
+        private static final long serialVersionUID = 1L;
+        private boolean rectangularLAF;
         private float alpha = 1f;
 
-        public float getAlpha() 
-        {
+        public SoftJButton() {
+            this(null);
+        }
+
+        public SoftJButton(String text) {
+            
+            setOpaque(false);
+            lafDeterminer.setFocusPainted(false);            
+        }
+
+        public float getAlpha() {
             return alpha;
         }
 
-        public void setAlpha(float alpha)
-        {
+        public void setAlpha(float alpha) {
             this.alpha = alpha;
             repaint();
         }
-        
-        //seconds
-        public void fadeIn(float seconds) 
-        {
-            new FaderIn(seconds, this);  
-        }
 
-        public void fadeOut(float seconds) 
-        {
-            new FaderOut(seconds, this);  
+        @Override
+        public void paintComponent(java.awt.Graphics g) {
+            java.awt.Graphics2D g2 = (java.awt.Graphics2D) g;
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            if (rectangularLAF && isBackgroundSet()) {
+                Color c = getBackground();
+                g2.setColor(c);
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+            super.paintComponent(g2);
         }
 
         @Override
-        public void paintComponent(java.awt.Graphics graphics)
-        {
-            java.awt.Graphics2D graphics2D = (java.awt.Graphics2D) graphics;
-            graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)alpha));
-            super.paintComponent(graphics2D);
-            System.out.println("AlphaFJP: " + alpha);            
+        public void updateUI() {
+            super.updateUI();
+            lafDeterminer.updateUI();
+            rectangularLAF = lafDeterminer.isOpaque();
         }
-
     }
 }

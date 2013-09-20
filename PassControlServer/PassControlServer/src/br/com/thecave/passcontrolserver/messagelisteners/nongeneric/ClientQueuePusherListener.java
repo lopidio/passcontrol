@@ -16,6 +16,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
+import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddClient;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientFromRegistration;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientResponse;
@@ -33,6 +34,7 @@ public class ClientQueuePusherListener implements ClientListeners
     {
         server.addMessageListener(new QueuePusherAddQueueElementListener(), QueuePusherAddQueueElement.class);        
         server.addMessageListener(new QueuePusherLoadClientFromRegistrationListener(), QueuePusherLoadClientFromRegistration.class);        
+        server.addMessageListener(new QueuePusherAddClientListener(), QueuePusherAddClient.class);        
     }
 
     private static class QueuePusherAddQueueElementListener implements PassControlMessageListener
@@ -84,6 +86,24 @@ public class ClientQueuePusherListener implements ClientListeners
             ClientBean clientBean = ClientDAO.selectFromRegister(loadClient.getRegister());
             QueuePusherLoadClientResponse clientResponse = new QueuePusherLoadClientResponse(clientBean);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, clientResponse);
+        }
+    }
+
+    private static class QueuePusherAddClientListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) {
+            //Retorna um cliente do registro
+            QueuePusherAddClient queuePusherAddClient = (QueuePusherAddClient)message;
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, queuePusherAddClient, MessageActors.QueuePushActor);
+           
+            if (!ClientDAO.insert(queuePusherAddClient.getClientBean()))
+            {
+                confirmationResponse.setStatusOperation(false);
+                confirmationResponse.setComment("Erro ao inserir cliente!");
+            }
+            
+            PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
         }
     }
     
