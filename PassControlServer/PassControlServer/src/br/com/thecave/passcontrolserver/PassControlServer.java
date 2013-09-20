@@ -8,6 +8,7 @@ import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationT
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
+import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePusherListener;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -53,6 +54,8 @@ public class PassControlServer {
         new ClientAdministratorListeners().addListenersCallback(server);
         new ClientBalconyListeners().addListenersCallback(server);
         new ClientGenericListeners().addListenersCallback(server);
+        new ClientQueuePusherListener().addListenersCallback(server);
+        
         new Thread(server).start();
     }
 

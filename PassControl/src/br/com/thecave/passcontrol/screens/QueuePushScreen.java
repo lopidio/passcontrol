@@ -3,6 +3,7 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
+import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 
@@ -293,7 +294,12 @@ public class QueuePushScreen extends PassControlPanel
 
     private void jbInserirNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbInserirNovoClienteActionPerformed
     {//GEN-HEADEREND:event_jbInserirNovoClienteActionPerformed
-        // TODO add your handling code here:
+        ClientBean bean = new ClientBean();
+        // validar campos posteriormente
+        bean.setName(tfNomeNovoCliente.getText());
+        bean.setRegister(tfCadastroNovoCliente.getText());
+        bean.setTelefone(tfTelefoneNovoCliente.getText());
+        controller.insertNewClient(bean);
     }//GEN-LAST:event_jbInserirNovoClienteActionPerformed
 
     private void tfCadastroNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfCadastroNovoClienteActionPerformed
