@@ -23,9 +23,12 @@ public class QueuePushScreen extends PassControlPanel
         super("Escolha de Serviços", new QueuePushController());
         this.controller = (QueuePushController) getPanelController();
         initComponents();
-        jpSecundario.setVisible(false);
+        jpNovoCliente.setVisible(false);
+        jpNovoAtendimento.setVisible(false);
         jmVoltar.setVisible(false);
         jSeparator1.setVisible(false);
+        tfNomeNovoAtendimento.setEnabled(false);
+        tfTelefoneNovoAtendimento.setEnabled(false);
     }
 
     /**
@@ -35,7 +38,8 @@ public class QueuePushScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmChooseService = new javax.swing.JMenu();
         jmNovoCliente = new javax.swing.JMenuItem();
@@ -47,7 +51,25 @@ public class QueuePushScreen extends PassControlPanel
         jLabel1 = new javax.swing.JLabel();
         jbNovoCliente = new javax.swing.JButton();
         jbNovoAtendimento = new javax.swing.JButton();
-        jpSecundario = new javax.swing.JPanel();
+        jpNovoAtendimento = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        tfCadastroNovoAtendimento = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        tfNomeNovoAtendimento = new javax.swing.JTextField();
+        tfTelefoneNovoAtendimento = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        cbServico = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jbInserirNovoAtendimento = new javax.swing.JButton();
+        jpNovoCliente = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        tfCadastroNovoCliente = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfNomeNovoCliente = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tfTelefoneNovoCliente = new javax.swing.JTextField();
+        jbInserirNovoCliente = new javax.swing.JButton();
 
         jmChooseService.setMnemonic('e');
         jmChooseService.setText("Recepção");
@@ -57,8 +79,10 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoCliente.setMnemonic('c');
         jmNovoCliente.setText("Novo cliente");
-        jmNovoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmNovoClienteActionPerformed(evt);
             }
         });
@@ -68,8 +92,10 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoAtendimento.setMnemonic('a');
         jmNovoAtendimento.setText("Novo Atendimento");
-        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -79,8 +105,10 @@ public class QueuePushScreen extends PassControlPanel
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -116,35 +144,126 @@ public class QueuePushScreen extends PassControlPanel
         jbNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoCliente.setText("Novo Cliente");
-        jbNovoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbNovoClienteActionPerformed(evt);
             }
         });
-        add(jbNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 221, 37));
+        add(jbNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 221, 37));
 
         jbNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoAtendimento.setText("Novo Atendimento");
-        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbNovoAtendimentoActionPerformed(evt);
             }
         });
         add(jbNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 221, 37));
 
-        javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
-        jpSecundario.setLayout(jpSecundarioLayout);
-        jpSecundarioLayout.setHorizontalGroup(
-            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        jpSecundarioLayout.setVerticalGroup(
-            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
-        );
+        jpNovoAtendimento.setPreferredSize(new java.awt.Dimension(320, 196));
+        jpNovoAtendimento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 440));
+        jLabel5.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel5.setText("Cadastro:");
+        jpNovoAtendimento.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
+
+        tfCadastroNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfCadastroNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                tfCadastroNovoAtendimentoActionPerformed(evt);
+            }
+        });
+        jpNovoAtendimento.add(tfCadastroNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 11, 184, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small.png"))); // NOI18N
+        jpNovoAtendimento.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 11, -1, 24));
+
+        jLabel7.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel7.setText("Nome:");
+        jpNovoAtendimento.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
+
+        tfNomeNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jpNovoAtendimento.add(tfNomeNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 53, 220, -1));
+
+        tfTelefoneNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jpNovoAtendimento.add(tfTelefoneNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 104, 220, -1));
+
+        jLabel8.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel8.setText("Telefone:");
+        jpNovoAtendimento.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 107, -1, -1));
+
+        cbServico.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        cbServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpNovoAtendimento.add(cbServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(86, 146, 220, -1));
+
+        jLabel9.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel9.setText("Serviço:");
+        jpNovoAtendimento.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 149, -1, -1));
+
+        jbInserirNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
+        jbInserirNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbInserirNovoAtendimento.setText("Inserir");
+        jbInserirNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbInserirNovoAtendimentoActionPerformed(evt);
+            }
+        });
+        jpNovoAtendimento.add(jbInserirNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 188, 221, 37));
+
+        add(jpNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 320, 240));
+
+        jpNovoCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel2.setText("Cadastro:");
+        jpNovoCliente.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
+
+        tfCadastroNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                tfCadastroNovoClienteActionPerformed(evt);
+            }
+        });
+        jpNovoCliente.add(tfCadastroNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 11, 210, -1));
+
+        jLabel3.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel3.setText("Nome:");
+        jpNovoCliente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
+
+        tfNomeNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jpNovoCliente.add(tfNomeNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 53, 210, -1));
+
+        jLabel4.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel4.setText("Telefone:");
+        jpNovoCliente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 106, -1, -1));
+
+        tfTelefoneNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jpNovoCliente.add(tfTelefoneNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 103, 210, -1));
+
+        jbInserirNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
+        jbInserirNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbInserirNovoCliente.setText("Inserir");
+        jbInserirNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbInserirNovoClienteActionPerformed(evt);
+            }
+        });
+        jpNovoCliente.add(jbInserirNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 159, 221, 37));
+
+        add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 320, 240));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNovoClienteActionPerformed
@@ -172,9 +291,40 @@ public class QueuePushScreen extends PassControlPanel
         Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
     }//GEN-LAST:event_jmVoltarActionPerformed
 
+    private void jbInserirNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbInserirNovoClienteActionPerformed
+    {//GEN-HEADEREND:event_jbInserirNovoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbInserirNovoClienteActionPerformed
+
+    private void tfCadastroNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfCadastroNovoClienteActionPerformed
+    {//GEN-HEADEREND:event_tfCadastroNovoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCadastroNovoClienteActionPerformed
+
+    private void tfCadastroNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfCadastroNovoAtendimentoActionPerformed
+    {//GEN-HEADEREND:event_tfCadastroNovoAtendimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCadastroNovoAtendimentoActionPerformed
+
+    private void jbInserirNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbInserirNovoAtendimentoActionPerformed
+    {//GEN-HEADEREND:event_jbInserirNovoAtendimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbInserirNovoAtendimentoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cbServico;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JButton jbInserirNovoAtendimento;
+    private javax.swing.JButton jbInserirNovoCliente;
     private javax.swing.JButton jbNovoAtendimento;
     private javax.swing.JButton jbNovoCliente;
     private javax.swing.JLabel jlAdminPic;
@@ -183,7 +333,14 @@ public class QueuePushScreen extends PassControlPanel
     private javax.swing.JMenuItem jmNovoCliente;
     private javax.swing.JMenuItem jmVoltar;
     private javax.swing.JPanel jpBarraLateral;
-    private javax.swing.JPanel jpSecundario;
+    private javax.swing.JPanel jpNovoAtendimento;
+    private javax.swing.JPanel jpNovoCliente;
+    private javax.swing.JTextField tfCadastroNovoAtendimento;
+    private javax.swing.JTextField tfCadastroNovoCliente;
+    private javax.swing.JTextField tfNomeNovoAtendimento;
+    private javax.swing.JTextField tfNomeNovoCliente;
+    private javax.swing.JTextField tfTelefoneNovoAtendimento;
+    private javax.swing.JTextField tfTelefoneNovoCliente;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -197,23 +354,28 @@ public class QueuePushScreen extends PassControlPanel
 
     private void novoCliente()
     {
-        jpSecundario.setVisible(true);
+        jpNovoCliente.setVisible(true);
         jbNovoAtendimento.setVisible(false);
         jbNovoCliente.setVisible(false);
         jSeparator1.setVisible(true);
         jmVoltar.setVisible(true);
         jmNovoAtendimento.setEnabled(false);
         jmNovoCliente.setEnabled(false);
+        jpNovoCliente.setVisible(true);
     }
 
     private void novoAtendimento()
     {
-        jpSecundario.setVisible(true);
         jbNovoAtendimento.setVisible(false);
         jbNovoCliente.setVisible(false);
         jSeparator1.setVisible(true);
         jmVoltar.setVisible(true);
         jmNovoAtendimento.setEnabled(false);
         jmNovoCliente.setEnabled(false);
+        jpNovoAtendimento.setVisible(true);
+        
+        // carregar os serviços e jogar no comboBox
+        controller.defineServicos(cbServico);
+                
     }
 }
