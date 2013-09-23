@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.controller.AdminController;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddSlideImage;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveSlideImage;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetMainImage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import java.awt.Image;
@@ -312,7 +313,7 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmAlterImageActionPerformed
 
     private void jmAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAddImageActionPerformed
-     // altera a imagem da tela
+
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
         chooser.setFileFilter(filter);
@@ -337,6 +338,27 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmAddImageActionPerformed
 
     private void jmRemoveImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRemoveImagesActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(null);
+        if ( returnVal == JFileChooser.APPROVE_OPTION )
+        {
+            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().getName());
+            AdministratorRemoveSlideImage slideImage = new AdministratorRemoveSlideImage(img , 
+                    chooser.getSelectedFile().getName());
+            ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                    sendMessageToServerAndWaitForResponseOrTimeout(slideImage, ConfirmationResponse.class, 2000);
+            
+            if(response != null)
+            {
+                JOptionPane.showMessageDialog(null, "Imagem removida com sucesso!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Conexão perdida com o servidor!");
+            }
+        }
     }//GEN-LAST:event_jmRemoveImagesActionPerformed
 
     private void jmAlterTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterTimeActionPerformed

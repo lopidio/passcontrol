@@ -30,6 +30,7 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorList
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalconyResponse;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveService;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveSlideImage;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateUser;
@@ -66,6 +67,7 @@ public class ClientAdministratorListeners implements ClientListeners
 //        AdministratorSetAutomaticQueueChooser
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
         server.addMessageListener(new AdministratorAddSlideAnimation(), AdministratorAddSlideImage.class);
+        server.addMessageListener(new AdministratorRemoveSlideAnimation(), AdministratorRemoveSlideImage.class);
     }
     
     //User Listeners
@@ -284,6 +286,21 @@ public class ClientAdministratorListeners implements ClientListeners
             server.addResponseToSend(socket, confirmationResponse);
         }
     }
-        
+
+    private static class AdministratorRemoveSlideAnimation implements PassControlMessageListener
+    {
+        public AdministratorRemoveSlideAnimation()
+        {
+        }
+
+        @Override
+        public void onMessageReceive( PassControlMessage message, Socket socket )
+        {
+            //Confirma o recebimento da resposta
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            server.addResponseToSend(socket, confirmationResponse);
+        }
+    }
 }
 
