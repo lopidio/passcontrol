@@ -4,7 +4,10 @@ import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.ClientBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
+import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import java.util.ArrayList;
+import javax.print.attribute.standard.Severity;
 import javax.swing.JMenu;
 
 /**
@@ -15,6 +18,8 @@ public class QueuePushScreen extends PassControlPanel
 {
 
     QueuePushController controller = null;
+    ClientBean clientBean;
+    ServiceBean serviceBean;
 
     /**
      * Creates new form AdminScreen
@@ -184,6 +189,13 @@ public class QueuePushScreen extends PassControlPanel
         jpNovoAtendimento.add(tfCadastroNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 11, 184, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small.png"))); // NOI18N
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jLabel6MouseClicked(evt);
+            }
+        });
         jpNovoAtendimento.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 11, -1, 24));
 
         jLabel7.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -300,6 +312,8 @@ public class QueuePushScreen extends PassControlPanel
         bean.setRegister(tfCadastroNovoCliente.getText());
         bean.setTelefone(tfTelefoneNovoCliente.getText());
         controller.insertNewClient(bean);
+        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
     }//GEN-LAST:event_jbInserirNovoClienteActionPerformed
 
     private void tfCadastroNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfCadastroNovoClienteActionPerformed
@@ -314,8 +328,27 @@ public class QueuePushScreen extends PassControlPanel
 
     private void jbInserirNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbInserirNovoAtendimentoActionPerformed
     {//GEN-HEADEREND:event_jbInserirNovoAtendimentoActionPerformed
-        // TODO add your handling code here:
+        // pegando o usuário logado
+        UserBean userBean = Main.getInstance().getCurrentUser();
+        // pegando o bean dos clientes
+        serviceBean = controller.getService(cbServico.getSelectedItem().toString());
+        
+        if(controller.insertNewAtendimento(clientBean, userBean, serviceBean))
+        {
+            
+        }
     }//GEN-LAST:event_jbInserirNovoAtendimentoActionPerformed
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jLabel6MouseClicked
+    {//GEN-HEADEREND:event_jLabel6MouseClicked
+        clientBean = controller.loadRegister(tfCadastroNovoAtendimento.getText());
+        if(clientBean != null)
+        {
+            tfCadastroNovoAtendimento.setText(clientBean.getRegister());
+            tfNomeNovoAtendimento.setText(clientBean.getName());
+            tfTelefoneNovoAtendimento.setText(clientBean.getTelefone());
+        }
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbServico;
