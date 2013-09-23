@@ -85,6 +85,14 @@ public class ClientQueuePusherListener implements ClientListeners
             QueuePusherLoadClientFromRegistration loadClient = (QueuePusherLoadClientFromRegistration)message;
             ClientBean clientBean = ClientDAO.selectFromRegister(loadClient.getRegister());
             QueuePusherLoadClientResponse clientResponse = new QueuePusherLoadClientResponse(clientBean);
+            if(clientBean == null)
+            {
+                clientResponse.setComment("Nenhum Registro encontrado!");
+            }
+            else
+            {
+                clientResponse.setComment("Registro encontrado com sucesso!");
+            } 
             PassControlServer.getInstance().getServer().addResponseToSend(socket, clientResponse);
         }
     }
