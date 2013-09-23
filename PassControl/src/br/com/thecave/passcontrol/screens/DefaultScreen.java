@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.plaf.FontUIResource;
 
 /**
  *

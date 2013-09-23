@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
-import br.com.thecave.passcontrol.component.util.ClientMainImageSwitcherListener;
+import br.com.thecave.passcontrol.component.util.ClientMainImageSwitcher;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
@@ -40,6 +40,7 @@ public class Main
 
         mainFrame = new MainFrame();
 
+        //TODO Ler IP e porta do arquivo de configuração
         communicationThread = new ClientCommunicationThread(
                 "localhost",
                 23073);
@@ -47,7 +48,7 @@ public class Main
         mainFrame.setVisible(true);
         
         //Adiciona o trocador de imagem
-        communicationThread.addMessageListener(new ClientMainImageSwitcherListener(), MainImageSetter.class);
+        communicationThread.addMessageListener(ClientMainImageSwitcher.getInstance(), MainImageSetter.class);
     }
 
     public static void main( String args[] )
