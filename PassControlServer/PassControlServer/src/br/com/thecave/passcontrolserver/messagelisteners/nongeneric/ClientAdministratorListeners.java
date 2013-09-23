@@ -25,6 +25,7 @@ import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientListeners;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddService;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddSlideImage;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalconyResponse;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveBalcony;
@@ -64,6 +65,7 @@ public class ClientAdministratorListeners implements ClientListeners
         ///Comuns
 //        AdministratorSetAutomaticQueueChooser
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
+        server.addMessageListener(new AdministratorAddSlideAnimation(), AdministratorAddSlideImage.class);
     }
     
     //User Listeners
@@ -265,6 +267,22 @@ public class ClientAdministratorListeners implements ClientListeners
             mainImageSetter.setFrom(MessageActors.AllActors);
             server.addBroadcastToSend(mainImageSetter);
         } 
+    }
+
+    private static class AdministratorAddSlideAnimation implements PassControlMessageListener
+    {
+        public AdministratorAddSlideAnimation()
+        {
+        }
+
+        @Override
+        public void onMessageReceive( PassControlMessage message, Socket socket )
+        {
+            //Confirma o recebimento da resposta
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            server.addResponseToSend(socket, confirmationResponse);
+        }
     }
         
 }

@@ -58,10 +58,10 @@ public class ServiceCrud extends PassControlPanel
         jbRemove = new javax.swing.JButton();
 
         jmAdmin.setText("Administrar");
-        jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+        jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
         jmAdminstrador.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
-        jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+        jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAdminstrador.setMnemonic('a');
         jmAdminstrador.setText("Administrador");
         jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
@@ -74,7 +74,7 @@ public class ServiceCrud extends PassControlPanel
         jmAdmin.add(jmAdminstrador);
 
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
-        jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
+        jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
         jmVoltar.addActionListener(new java.awt.event.ActionListener()

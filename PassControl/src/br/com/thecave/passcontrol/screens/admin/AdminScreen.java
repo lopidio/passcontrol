@@ -1,10 +1,19 @@
 package br.com.thecave.passcontrol.screens.admin;
 
 import br.com.thecave.passcontrol.controller.AdminController;
+import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddSlideImage;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetMainImage;
+import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
+import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -43,7 +52,6 @@ public class AdminScreen extends PassControlPanel
         jmAlterImage = new javax.swing.JMenuItem();
         jmApresentacao = new javax.swing.JMenu();
         jmAddImage = new javax.swing.JMenuItem();
-        jmListImages = new javax.swing.JMenuItem();
         jmRemoveImages = new javax.swing.JMenuItem();
         jmAlterTime = new javax.swing.JMenuItem();
         jmGerenAuto = new javax.swing.JMenu();
@@ -52,6 +60,11 @@ public class AdminScreen extends PassControlPanel
         jlImage = new javax.swing.JLabel();
         ifGuiche = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
+        jpBarraLateral = new javax.swing.JPanel();
+        btGuiche = new javax.swing.JButton();
+        btServicos = new javax.swing.JButton();
+        btUsuario = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jmBaseDados.setMnemonic('B');
         jmBaseDados.setText("Administrar      ");
@@ -130,19 +143,6 @@ public class AdminScreen extends PassControlPanel
         });
         jmApresentacao.add(jmAddImage);
 
-        jmListImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jmListImages.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jmListImages.setMnemonic('L');
-        jmListImages.setText("Listar imagens");
-        jmListImages.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jmListImagesActionPerformed(evt);
-            }
-        });
-        jmApresentacao.add(jmListImages);
-
         jmRemoveImages.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jmRemoveImages.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmRemoveImages.setMnemonic('R');
@@ -200,10 +200,12 @@ public class AdminScreen extends PassControlPanel
         jmGerenAuto.add(jmManual);
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_big.png"))); // NOI18N
+        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
         jlImage.setToolTipText("");
+        add(jlImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         ifGuiche.setVisible(true);
 
@@ -226,26 +228,64 @@ public class AdminScreen extends PassControlPanel
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(ifGuiche, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1748, Short.MAX_VALUE)
-                .addContainerGap())
+        add(ifGuiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0));
+
+        jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
+
+        javax.swing.GroupLayout jpBarraLateralLayout = new javax.swing.GroupLayout(jpBarraLateral);
+        jpBarraLateral.setLayout(jpBarraLateralLayout);
+        jpBarraLateralLayout.setHorizontalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlImage, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(ifGuiche, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        jpBarraLateralLayout.setVerticalGroup(
+            jpBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
         );
+
+        add(jpBarraLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 11, -1, 290));
+
+        btGuiche.setBackground(new java.awt.Color(45, 123, 142));
+        btGuiche.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        btGuiche.setText("Guichê");
+        btGuiche.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btGuicheActionPerformed(evt);
+            }
+        });
+        add(btGuiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 176, -1));
+
+        btServicos.setBackground(new java.awt.Color(45, 123, 142));
+        btServicos.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        btServicos.setText("Serviços");
+        btServicos.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btServicosActionPerformed(evt);
+            }
+        });
+        add(btServicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 176, -1));
+
+        btUsuario.setBackground(new java.awt.Color(45, 123, 142));
+        btUsuario.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        btUsuario.setText("Usuários");
+        btUsuario.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btUsuarioActionPerformed(evt);
+            }
+        });
+        add(btUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 176, -1));
+
+        jLabel2.setBackground(new java.awt.Color(150, 150, 150));
+        jLabel2.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(200, 200, 200));
+        jLabel2.setText("ADMINISTRADOR");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
@@ -272,11 +312,29 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmAlterImageActionPerformed
 
     private void jmAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAddImageActionPerformed
+     // altera a imagem da tela
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(null);
+        if ( returnVal == JFileChooser.APPROVE_OPTION )
+        {
+            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().getName());
+            AdministratorAddSlideImage slideImage = new AdministratorAddSlideImage(img , 
+                    chooser.getSelectedFile().getName());
+            ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                    sendMessageToServerAndWaitForResponseOrTimeout(slideImage, ConfirmationResponse.class, 2000);
+            
+            if(response != null)
+            {
+                JOptionPane.showMessageDialog(null, "Imagem adicionada com sucesso!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Conexão perdida com o servidor!");
+            }
+        }        
     }//GEN-LAST:event_jmAddImageActionPerformed
-
-    private void jmListImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmListImagesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmListImagesActionPerformed
 
     private void jmRemoveImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRemoveImagesActionPerformed
     }//GEN-LAST:event_jmRemoveImagesActionPerformed
@@ -289,9 +347,29 @@ public class AdminScreen extends PassControlPanel
 
     private void jmManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmManualActionPerformed
     }//GEN-LAST:event_jmManualActionPerformed
+
+    private void btUsuarioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btUsuarioActionPerformed
+    {//GEN-HEADEREND:event_btUsuarioActionPerformed
+        controller.openUserCrud();
+    }//GEN-LAST:event_btUsuarioActionPerformed
+
+    private void btServicosActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btServicosActionPerformed
+    {//GEN-HEADEREND:event_btServicosActionPerformed
+        controller.openServiceCrud();
+    }//GEN-LAST:event_btServicosActionPerformed
+
+    private void btGuicheActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btGuicheActionPerformed
+    {//GEN-HEADEREND:event_btGuicheActionPerformed
+        controller.openBalconyCrud();
+    }//GEN-LAST:event_btGuicheActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btGuiche;
+    private javax.swing.JButton btServicos;
+    private javax.swing.JButton btUsuario;
     private javax.swing.JInternalFrame ifGuiche;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jlImage;
     private javax.swing.JMenuItem jmAddImage;
     private javax.swing.JMenuItem jmAlterImage;
@@ -302,11 +380,11 @@ public class AdminScreen extends PassControlPanel
     private javax.swing.JMenu jmGerenAuto;
     private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmImagem;
-    private javax.swing.JMenuItem jmListImages;
     private javax.swing.JMenuItem jmManual;
     private javax.swing.JMenuItem jmRemoveImages;
     private javax.swing.JMenuItem jmServicos;
     private javax.swing.JMenuItem jmUser;
+    private javax.swing.JPanel jpBarraLateral;
     // End of variables declaration//GEN-END:variables
 
     @Override
