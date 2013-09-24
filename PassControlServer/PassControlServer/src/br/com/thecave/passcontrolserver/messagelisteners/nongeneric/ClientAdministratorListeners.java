@@ -35,7 +35,7 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetA
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateUser;
-import br.com.thecave.passcontrolserver.util.NextQueueChooser;
+import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -281,7 +281,7 @@ public class ClientAdministratorListeners implements ClientListeners
             AdministratorSetAutomaticQueueChooser chooserMessage = (AdministratorSetAutomaticQueueChooser)message;
             
             //Altera a configuração
-            NextQueueChooser.getInstance().setOn(chooserMessage.isIsOn());
+            QueueElementHandler.getInstance().setAutomaticChooseOn(chooserMessage.isIsOn());
             
             //Confirma o recebimento da resposta            
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);

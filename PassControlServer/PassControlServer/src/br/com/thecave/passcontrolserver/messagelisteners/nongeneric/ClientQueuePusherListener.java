@@ -52,10 +52,6 @@ public class ClientQueuePusherListener implements ClientListeners
             String clientName = "";
             if (clientBean != null)
             {
-                ClientDAO.insert(null);
-                //Atualizo o ID. :D
-                clientBean = ClientDAO.selectFromRegister(clientBean.getRegister());
-                queuesManagerBean.setIdClient(clientBean.getId());
                 clientName = clientBean.getName();
             }
 

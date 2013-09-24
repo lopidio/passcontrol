@@ -17,7 +17,6 @@ import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNextElement;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,12 +25,15 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author guilherme
  */
-public class NextQueueChooser implements Runnable
+public class QueueElementHandler implements Runnable
 {
+    public static final int AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID = 0;
+    public static final int QUEUE_ELEMENT_SKIPPED_BALCONY_ID = -1;
+    
     /**
      * Indica se a escolha é automática (true) ou manual (false)
      */
-    private boolean on;
+    private boolean automaticChooseOn;
     
     /**
      * Indica qual prioridade deve ser atendida na poróxima chamada
@@ -46,21 +48,21 @@ public class NextQueueChooser implements Runnable
     /**
      * Singleton properties
      */
-    private static NextQueueChooser instance = null;
-    public synchronized static NextQueueChooser getInstance()
+    private static QueueElementHandler instance = null;
+    public synchronized static QueueElementHandler getInstance()
     {
         if (instance == null)
-            instance = new NextQueueChooser();
+            instance = new QueueElementHandler();
         return instance;
     }
 
     /**
      * Constructor
      */
-    private NextQueueChooser() 
+    private QueueElementHandler() 
     {
         //Começa como falso.. Só pra ver qual é.
-        this.on = false;
+        this.automaticChooseOn = false;
         this.nextPriority = 4; //Alta
         waitingBalconys = new ConcurrentHashMap<>(); //
     }
@@ -98,7 +100,8 @@ public class NextQueueChooser implements Runnable
     private QueuesManagerBean prepareSelectedQueuesManageElement(BalconyBean balconyBean, QueuesManagerBean selectedManagerBean)
     {
         //Seto a hora da escolha
-        selectedManagerBean.setCheckout(new Date());
+        //A hora de escolha vai ser setada ao guichê pressionar "Iniciar atendimento"
+//        selectedManagerBean.setCheckout(new Date());
         //Seto o Id do guichê
         selectedManagerBean.setIdBalcony(balconyBean.getId());
         //salvo as alterações no banco.
@@ -206,7 +209,7 @@ public class NextQueueChooser implements Runnable
         
         QueuesManagerBean chosenClient = null;
         //Se a escolhar for manual
-        if (on)
+        if (automaticChooseOn)
         {
             //Retorna nulo caso a tenha mudado a forma de escolha (autmática para manual)
             chosenClient = manualChoose(balconyBean, managerBeans);
@@ -215,20 +218,20 @@ public class NextQueueChooser implements Runnable
         {
             chosenClient = automaticChoose(balconyBean, managerBeans);
             //É zero quando a escolha foi automática
-            chosenClient.setIdUserCheckout(0);
+            chosenClient.setIdUserCheckout(AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID);
         }
         
         return prepareSelectedQueuesManageElement(balconyBean, chosenClient);
     }
     
-    public boolean isOn() 
+    public boolean isAutomaticChooseOn() 
     {
-        return on;
+        return automaticChooseOn;
     }
 
-    public void setOn(boolean on) 
+    public void setAutomaticChooseOn(boolean automaticChooseOn) 
     {
-        this.on = on;
+        this.automaticChooseOn = automaticChooseOn;
     }
 
     @Override
