@@ -5,10 +5,12 @@ import br.com.thecave.passcontrol.screens.admin.BalconyCrud;
 import br.com.thecave.passcontrol.screens.admin.ServiceCrud;
 import br.com.thecave.passcontrol.screens.admin.UserCrud;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetAutomaticQueueChooser;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -68,4 +70,16 @@ public class AdminController extends PassControlController
          
         return false;
     }
+
+    public boolean setQueueAutomaticChooser(boolean selected) 
+    {
+        AdministratorSetAutomaticQueueChooser automaticQueueChooser = new AdministratorSetAutomaticQueueChooser(selected);
+        ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(automaticQueueChooser, ConfirmationResponse.class, 1000);
+        if(confirmationResponse != null && confirmationResponse.getStatusOperation())
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

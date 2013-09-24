@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.thecave.passcontrol.component.util;
+package br.com.thecave.passcontrol.utils;
 
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
@@ -18,25 +18,28 @@ import javax.swing.ImageIcon;
  *
  * @author lopidio
  */
-public class ClientMainImageSwitcher implements PassControlMessageListener
+public class InitialConfigsLoader implements PassControlMessageListener
 {
-    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage";
+    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage.png";
     private Image mainImage = null;
     /**
      * Singleton properties
      */
-    private static ClientMainImageSwitcher instance = null;
-    public static synchronized ClientMainImageSwitcher getInstance()
+    private static InitialConfigsLoader instance = null;
+    public static synchronized InitialConfigsLoader getInstance()
     {
         if (instance == null)
-            instance = new ClientMainImageSwitcher();
+            instance = new InitialConfigsLoader();
         return instance;
     }
 
-    public ClientMainImageSwitcher() 
+    public InitialConfigsLoader() 
     {
         //carrega a imagem principal
         mainImage = new ImageIcon(MAIN_IMAGE_PATH).getImage();
+        
+        //Carrega também o arquivo de configuração!!
+        
     }
     
     public void requestRefreshMainImage()
@@ -47,7 +50,6 @@ public class ClientMainImageSwitcher implements PassControlMessageListener
     
     public Image getMainImage()
     {
-        
         return mainImage;
     }
 
@@ -59,6 +61,14 @@ public class ClientMainImageSwitcher implements PassControlMessageListener
         
         //Simplesmente salva a imagem aqui
         FileUtils.saveImage(mainImage, MAIN_IMAGE_PATH);
+    }
+
+    public void initialize() 
+    {
+        Main.getInstance().getCommunicationThread().addMessageListener(InitialConfigsLoader.getInstance(), MainImageSetter.class);                
+        //ConfigurationFile.class
+        
+        //Carregar esse também
     }
         
 }

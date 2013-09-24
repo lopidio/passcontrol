@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
-import br.com.thecave.passcontrol.component.util.ClientMainImageSwitcher;
+import br.com.thecave.passcontrol.utils.InitialConfigsLoader;
 import br.com.thecave.passcontrol.screens.DefaultScreen;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
@@ -95,16 +95,13 @@ public class Main
                 //Creates
                 Main main = getInstance();
                 new Thread(main.communicationThread).start();
-                //Adiciona o trocador de imagem
-                main.communicationThread.addMessageListener(ClientMainImageSwitcher.getInstance(), MainImageSetter.class);                
+                //Adiciona o carregador de arquivo de configuração
+                InitialConfigsLoader.getInstance().initialize();
                 
                 //Inicia os dois panels principais
                 main.mainFrame.activatePassControlTopBar(new LoginTopBar());
                 main.mainFrame.setEnableNavigatorMenu(false);        
                 main.mainFrame.activatePassControlPanel(new DefaultScreen());
-
-//                new Thread(PresentationControler.getInstance()).start();
-//                PresentationControler.getInstance().setLabel(getInstance().adminScreen.getLbImage());
             }
         });
     }

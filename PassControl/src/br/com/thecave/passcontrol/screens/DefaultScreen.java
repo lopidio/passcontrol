@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.component.util.ClientMainImageSwitcher;
+import br.com.thecave.passcontrol.utils.InitialConfigsLoader;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -26,9 +26,9 @@ public class DefaultScreen extends PassControlPanel
         //TODO criar imagem principal default dentro dos recursos!
 
         //Atualizo a imagem principal
-        ClientMainImageSwitcher.getInstance().requestRefreshMainImage();        
+        InitialConfigsLoader.getInstance().requestRefreshMainImage();        
         //Seto a imagem principal
-        jlImageCenter.setIcon(new ImageIcon(ClientMainImageSwitcher.getInstance().getMainImage()));
+        jlImageCenter.setIcon(new ImageIcon(InitialConfigsLoader.getInstance().getMainImage()));
     }
 
     

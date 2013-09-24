@@ -31,10 +31,11 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorList
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveSlideImage;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetAutomaticQueueChooser;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateUser;
-import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
+import br.com.thecave.passcontrolserver.util.NextQueueChooser;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -63,8 +64,8 @@ public class ClientAdministratorListeners implements ClientListeners
         server.addMessageListener(new UpdateBalconyListener(), AdministratorUpdateBalcony.class);
         server.addMessageListener(new RemoveBalconyListener(), AdministratorRemoveBalcony.class);
         
-        ///Comuns
-//        AdministratorSetAutomaticQueueChooser
+        ///Comuns        
+        server.addMessageListener(new AdministratorSetAutomaticQueueChooserListener(), AdministratorSetAutomaticQueueChooser.class);
         server.addMessageListener(new AdministratorAddSlideAnimation(), AdministratorAddSlideImage.class);
         server.addMessageListener(new AdministratorRemoveSlideAnimation(), AdministratorRemoveSlideImage.class);
     }
@@ -250,10 +251,6 @@ public class ClientAdministratorListeners implements ClientListeners
 
     private static class AdministratorAddSlideAnimation implements PassControlMessageListener
     {
-        public AdministratorAddSlideAnimation()
-        {
-        }
-
         @Override
         public void onMessageReceive( PassControlMessage message, Socket socket )
         {
@@ -266,10 +263,6 @@ public class ClientAdministratorListeners implements ClientListeners
 
     private static class AdministratorRemoveSlideAnimation implements PassControlMessageListener
     {
-        public AdministratorRemoveSlideAnimation()
-        {
-        }
-
         @Override
         public void onMessageReceive( PassControlMessage message, Socket socket )
         {
@@ -277,6 +270,30 @@ public class ClientAdministratorListeners implements ClientListeners
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
             server.addResponseToSend(socket, confirmationResponse);
+        }
+    }
+
+    private static class AdministratorSetAutomaticQueueChooserListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive( PassControlMessage message, Socket socket )
+        {
+            AdministratorSetAutomaticQueueChooser chooserMessage = (AdministratorSetAutomaticQueueChooser)message;
+            
+            //Altera a configuração
+            NextQueueChooser.getInstance().setOn(chooserMessage.isIsOn());
+            
+            //Confirma o recebimento da resposta            
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            server.addResponseToSend(socket, confirmationResponse);
+            
+            //TODO salvar isso no arquivo!!
+            
+            //Informa à todos os queuespops
+            chooserMessage.setFrom(MessageActors.ServerActor);
+            chooserMessage.setTo(MessageActors.QueuePopActor);
+            server.addBroadcastToSend(chooserMessage);
         }
     }
 }
