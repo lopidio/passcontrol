@@ -165,40 +165,10 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="jmAutomatic">
-          <Properties>
-            <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-              <KeyStroke key="Ctrl+Alt+A"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Square721 BT" size="14" style="0"/>
-            </Property>
-            <Property name="mnemonic" type="int" value="65"/>
-            <Property name="text" type="java.lang.String" value="Gerenciamento Autom&#xe1;tico"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmAutomaticActionPerformed"/>
-          </Events>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jmManual">
-          <Properties>
-            <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-              <KeyStroke key="Ctrl+Alt+M"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Square721 BT" size="14" style="0"/>
-            </Property>
-            <Property name="mnemonic" type="int" value="77"/>
-            <Property name="text" type="java.lang.String" value="Gerenciamento Manual"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmManualActionPerformed"/>
-          </Events>
-        </MenuItem>
         <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jcbAutomatic">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="PassControlFont.getInstance().getSizedFont(14)" type="code"/>
+              <Connection code="PassControlFont.getInstance().getSizedFont(15)" type="code"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Gerenciamento autom&#xe1;tico"/>
@@ -209,6 +179,9 @@
         </MenuItem>
         <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jcbManual">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="PassControlFont.getInstance().getSizedFont(15)" type="code"/>
+            </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Gerenciamento manual"/>
           </Properties>

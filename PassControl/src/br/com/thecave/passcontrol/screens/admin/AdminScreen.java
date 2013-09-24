@@ -58,8 +58,6 @@ public class AdminScreen extends PassControlPanel
         jmRemoveImages = new javax.swing.JMenuItem();
         jmAlterTime = new javax.swing.JMenuItem();
         jmGerenAuto = new javax.swing.JMenu();
-        jmAutomatic = new javax.swing.JMenuItem();
-        jmManual = new javax.swing.JMenuItem();
         jcbAutomatic = new javax.swing.JCheckBoxMenuItem();
         jcbManual = new javax.swing.JCheckBoxMenuItem();
         jlImage = new javax.swing.JLabel();
@@ -164,29 +162,7 @@ public class AdminScreen extends PassControlPanel
         jmGerenAuto.setText("Gerenciamento da Fila      ");
         jmGerenAuto.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
 
-        jmAutomatic.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jmAutomatic.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jmAutomatic.setMnemonic('A');
-        jmAutomatic.setText("Gerenciamento Automático");
-        jmAutomatic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmAutomaticActionPerformed(evt);
-            }
-        });
-        jmGerenAuto.add(jmAutomatic);
-
-        jmManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jmManual.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jmManual.setMnemonic('M');
-        jmManual.setText("Gerenciamento Manual");
-        jmManual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmManualActionPerformed(evt);
-            }
-        });
-        jmGerenAuto.add(jmManual);
-
-        jcbAutomatic.setFont(PassControlFont.getInstance().getSizedFont(14));
+        jcbAutomatic.setFont(PassControlFont.getInstance().getSizedFont(15));
         jcbAutomatic.setSelected(true);
         jcbAutomatic.setText("Gerenciamento automático");
         jcbAutomatic.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +172,7 @@ public class AdminScreen extends PassControlPanel
         });
         jmGerenAuto.add(jcbAutomatic);
 
+        jcbManual.setFont(PassControlFont.getInstance().getSizedFont(15));
         jcbManual.setSelected(true);
         jcbManual.setText("Gerenciamento manual");
         jcbManual.addActionListener(new java.awt.event.ActionListener() {
@@ -362,12 +339,6 @@ public class AdminScreen extends PassControlPanel
     private void jmAlterTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterTimeActionPerformed
     }//GEN-LAST:event_jmAlterTimeActionPerformed
 
-    private void jmAutomaticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAutomaticActionPerformed
-    }//GEN-LAST:event_jmAutomaticActionPerformed
-
-    private void jmManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmManualActionPerformed
-    }//GEN-LAST:event_jmManualActionPerformed
-
     private void btUsuarioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btUsuarioActionPerformed
     {//GEN-HEADEREND:event_btUsuarioActionPerformed
         controller.openUserCrud();
@@ -428,12 +399,10 @@ public class AdminScreen extends PassControlPanel
     private javax.swing.JMenuItem jmAlterImage;
     private javax.swing.JMenuItem jmAlterTime;
     private javax.swing.JMenu jmApresentacao;
-    private javax.swing.JMenuItem jmAutomatic;
     private javax.swing.JMenu jmBaseDados;
     private javax.swing.JMenu jmGerenAuto;
     private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmImagem;
-    private javax.swing.JMenuItem jmManual;
     private javax.swing.JMenuItem jmRemoveImages;
     private javax.swing.JMenuItem jmServicos;
     private javax.swing.JMenuItem jmUser;
