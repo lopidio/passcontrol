@@ -249,7 +249,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
                     try {
                         sendMessage(socket, response);
                     } catch (IOException ex) {
-                        Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+//                        Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }                
     

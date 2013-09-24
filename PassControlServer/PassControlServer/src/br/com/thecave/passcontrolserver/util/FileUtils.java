@@ -1,6 +1,5 @@
 package br.com.thecave.passcontrolserver.util;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -37,13 +36,12 @@ public class FileUtils
     
     public static boolean saveImage(Image image, String imageName) 
     {
-        String[] dottedSplittedName = imageName.split(".");
-        if (dottedSplittedName.length <= 1)
-            return false;
-        String extension = dottedSplittedName[dottedSplittedName.length - 1];
         try {
-            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null),image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
-            ImageIO.write(bufferedImage, extension, new File(imageName));
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null),image.getHeight(null), BufferedImage.TYPE_3BYTE_BGR);
+
+            ImageIO.write(bufferedImage, "jpg",new File(imageName));
+            ImageIO.write(bufferedImage, "gif",new File(imageName));
+            ImageIO.write(bufferedImage, "png",new File(imageName));            
             return true;
         } catch (IOException ex) {
             Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);

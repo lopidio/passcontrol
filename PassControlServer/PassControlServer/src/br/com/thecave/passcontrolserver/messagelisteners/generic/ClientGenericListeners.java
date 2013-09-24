@@ -18,6 +18,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.FileUtils;
@@ -32,7 +33,7 @@ import javax.swing.ImageIcon;
  */
 public class ClientGenericListeners implements ClientListeners
 {
-    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage.png";
+    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage";
     
     @Override
     public void addListenersCallback(ServerCommunicationThread server) 
@@ -41,6 +42,7 @@ public class ClientGenericListeners implements ClientListeners
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
+        server.addMessageListener(new MainImageRequestListener(), MainImageRequest.class);
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener
@@ -99,15 +101,7 @@ public class ClientGenericListeners implements ClientListeners
             }
 
             //Devolve a mensagem para o servidor
-            server.addResponseToSend(socket, response);  
-            
-            //Envia a imagem principal
-            MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(MAIN_IMAGE_PATH));
-            mainImageSetter.setFrom(MessageActors.ServerActor);
-            mainImageSetter.setFrom(MessageActors.AllActors);
-            
-            //Avisa o cliente para mudar a imagem principal
-            server.addResponseToSend(socket, mainImageSetter);            
+            server.addResponseToSend(socket, response);      
         }
 
         /**
@@ -179,5 +173,23 @@ public class ClientGenericListeners implements ClientListeners
             server.addResponseToSend(socket, confirmationResponse);            
         } 
     }        
+
+    private static class MainImageRequestListener implements PassControlMessageListener
+    {
+
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+            //Envia a imagem principal
+            MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(MAIN_IMAGE_PATH));
+            mainImageSetter.setFrom(MessageActors.ServerActor);
+            mainImageSetter.setTo(MessageActors.AllActors);
+            
+            //Avisa o cliente para mudar a imagem principal
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();            
+            server.addResponseToSend(socket, mainImageSetter);                
+        }
+
+    }
 
 }

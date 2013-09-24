@@ -23,10 +23,15 @@ public class DefaultScreen extends PassControlPanel
         super("Sistema Gerenciador de Filas", null);
         initComponents();
         
+        //TODO criar imagem principal default dentro dos recursos!
+
+        //Atualizo a imagem principal
+        ClientMainImageSwitcher.getInstance().requestRefreshMainImage();        
         //Seto a imagem principal
         jlImageCenter.setIcon(new ImageIcon(ClientMainImageSwitcher.getInstance().getMainImage()));
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

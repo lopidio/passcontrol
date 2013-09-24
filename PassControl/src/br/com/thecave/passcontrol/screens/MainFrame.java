@@ -25,10 +25,6 @@ public final class MainFrame extends javax.swing.JFrame
 
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.Y_AXIS));
         passControlPanel.setLayout(new BoxLayout(passControlPanel, BoxLayout.Y_AXIS));
-        activatePassControlPanel(new DefaultScreen());
-        activatePassControlTopBar(new LoginTopBar());
-        setEnableNavigatorMenu(false);
-
     }
 
     public void activatePassControlPanel( PassControlPanel newPassControlPanel )

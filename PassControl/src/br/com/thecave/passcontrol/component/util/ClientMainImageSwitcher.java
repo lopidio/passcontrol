@@ -4,6 +4,8 @@
  */
 package br.com.thecave.passcontrol.component.util;
 
+import br.com.thecave.passcontrol.controller.Main;
+import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
@@ -18,7 +20,7 @@ import javax.swing.ImageIcon;
  */
 public class ClientMainImageSwitcher implements PassControlMessageListener
 {
-    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage.png";
+    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage";
     private Image mainImage = null;
     /**
      * Singleton properties
@@ -37,8 +39,15 @@ public class ClientMainImageSwitcher implements PassControlMessageListener
         mainImage = new ImageIcon(MAIN_IMAGE_PATH).getImage();
     }
     
+    public void requestRefreshMainImage()
+    {
+        MainImageRequest mainImageRequest = new MainImageRequest();
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(mainImageRequest);
+    }
+    
     public Image getMainImage()
     {
+        
         return mainImage;
     }
 

@@ -1,9 +1,11 @@
 package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.component.util.ClientMainImageSwitcher;
+import br.com.thecave.passcontrol.screens.DefaultScreen;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
+import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
@@ -45,10 +47,7 @@ public class Main
                 "localhost",
                 23073);
         mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        mainFrame.setVisible(true);
-        
-        //Adiciona o trocador de imagem
-        communicationThread.addMessageListener(ClientMainImageSwitcher.getInstance(), MainImageSetter.class);
+        mainFrame.setVisible(true);       
     }
 
     public static void main( String args[] )
@@ -94,9 +93,17 @@ public class Main
             public void run()
             {
                 //Creates
-                Main app = getInstance();
-                new Thread(app.communicationThread).start();
-                new Thread(PresentationControler.getInstance()).start();
+                Main main = getInstance();
+                new Thread(main.communicationThread).start();
+                //Adiciona o trocador de imagem
+                main.communicationThread.addMessageListener(ClientMainImageSwitcher.getInstance(), MainImageSetter.class);                
+                
+                //Inicia os dois panels principais
+                main.mainFrame.activatePassControlTopBar(new LoginTopBar());
+                main.mainFrame.setEnableNavigatorMenu(false);        
+                main.mainFrame.activatePassControlPanel(new DefaultScreen());
+
+//                new Thread(PresentationControler.getInstance()).start();
 //                PresentationControler.getInstance().setLabel(getInstance().adminScreen.getLbImage());
             }
         });

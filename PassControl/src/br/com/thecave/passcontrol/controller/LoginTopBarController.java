@@ -30,7 +30,7 @@ public class LoginTopBarController extends PassControlController
 
     public void performLogin()
     {
-        if (false)
+        if (true)
         {
             Main main = Main.getInstance();
 
