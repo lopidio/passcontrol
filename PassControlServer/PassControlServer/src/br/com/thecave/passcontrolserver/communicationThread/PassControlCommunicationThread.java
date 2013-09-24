@@ -267,8 +267,8 @@ public abstract class PassControlCommunicationThread implements Runnable {
      */
     protected void flushBuffer()
     {
+        sendResponsesOnBuffer();        
         sendMessagesBroadcastOnBuffer();
-        sendResponsesOnBuffer();
     }
     
     /**

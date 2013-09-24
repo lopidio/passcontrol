@@ -5,10 +5,9 @@ import br.com.thecave.passcontrol.screens.admin.BalconyCrud;
 import br.com.thecave.passcontrol.screens.admin.ServiceCrud;
 import br.com.thecave.passcontrol.screens.admin.UserCrud;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
-import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetMainImage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
-import java.awt.Image;
-import java.awt.Toolkit;
+import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -51,16 +50,22 @@ public class AdminController extends PassControlController
         // altera a imagem da tela
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
+        chooser.setMultiSelectionEnabled(false);
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(null);
         if ( returnVal == JFileChooser.APPROVE_OPTION )
         {
-            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().getName());
-            AdministratorSetMainImage setMainImage = new AdministratorSetMainImage(img, chooser.getSelectedFile().getName());
+            ImageIcon imageIcon = new ImageIcon(chooser.getSelectedFile().getAbsolutePath());
+            MainImageSetter mainImageSetter = new MainImageSetter(imageIcon);
+
             ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                    sendMessageToServerAndWaitForResponseOrTimeout(setMainImage, ConfirmationResponse.class, 2000);
-            return response.getStatusOperation();
+                    sendMessageToServerAndWaitForResponseOrTimeout(mainImageSetter, ConfirmationResponse.class, 2000);
+            if (response != null)
+            {
+                return response.getStatusOperation();
+            }
         }
+         
         return false;
     }
 }

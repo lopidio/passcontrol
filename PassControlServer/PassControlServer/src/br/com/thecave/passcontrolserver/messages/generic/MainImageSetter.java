@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrolserver.messages.generic;
 
-import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,51 +14,27 @@ public class MainImageSetter extends PassControlMessage{
     /**
      * Representa a própria imagem
      */
-    Image image;
-    
-    /**
-     * Armazena o nome em que a imagem deverá ser salva
-     */
-    String imageName;
+    ImageIcon imageIcon;
 
-    public MainImageSetter(Image image, String imageName) {
+    public MainImageSetter(ImageIcon imageIcon) {
         super(MessageActors.ServerActor, MessageActors.AllActors);
-        this.image = image;
-        this.imageName = imageName;
+        this.imageIcon = imageIcon;
     }
     
     /**
      * Getter da própria imagem
-     * @return image
+     * @return imageIcon
      */
-    public Image getImage() {
-        return image;
+    public ImageIcon getImageIcon() {
+        return imageIcon;
     }
 
     /**
      * Setter da própria imagem
-     * @param image imagem
+     * @param imageIcon imagem
      */
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImageIcon(ImageIcon imageIcon) {
+        this.imageIcon = imageIcon;
     }
-
-    /**
-     * Retorna o nome da imagem
-     * @return imageName
-     */
-    public String getImageName() {
-        return imageName;
-    }
-
-    /**
-     * Altera o nome da imagem
-     * @param imageName novo nome da imagem
-     */
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
-    
     
 }

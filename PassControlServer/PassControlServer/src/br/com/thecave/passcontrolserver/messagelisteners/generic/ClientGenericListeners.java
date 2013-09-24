@@ -20,9 +20,11 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.util.FileUtils;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.net.Socket;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -30,6 +32,7 @@ import java.util.ArrayList;
  */
 public class ClientGenericListeners implements ClientListeners
 {
+    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage.png";
     
     @Override
     public void addListenersCallback(ServerCommunicationThread server) 
@@ -37,7 +40,7 @@ public class ClientGenericListeners implements ClientListeners
         server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
-
+        server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener
@@ -99,7 +102,7 @@ public class ClientGenericListeners implements ClientListeners
             server.addResponseToSend(socket, response);  
             
             //Envia a imagem principal
-            MainImageSetter mainImageSetter = new MainImageSetter(null, null);
+            MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(MAIN_IMAGE_PATH));
             mainImageSetter.setFrom(MessageActors.ServerActor);
             mainImageSetter.setFrom(MessageActors.AllActors);
             
@@ -155,6 +158,26 @@ public class ClientGenericListeners implements ClientListeners
         }       
     }
 
-        
-    
+    private static class MainImageSetterListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+            MainImageSetter mainImageSetter = (MainImageSetter)message;
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+
+            //Salvo a imagem
+            FileUtils.saveImage(mainImageSetter.getImageIcon().getImage(), MAIN_IMAGE_PATH);
+            
+            //Repasso a imagem para os demais atores
+            mainImageSetter.setFrom(MessageActors.ServerActor);
+            mainImageSetter.setTo(MessageActors.AllActors);
+            server.addBroadcastToSend(mainImageSetter);
+            
+            //Confirma o recebimento da resposta
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, mainImageSetter, MessageActors.AdministratorActor);
+            server.addResponseToSend(socket, confirmationResponse);            
+        } 
+    }        
+
 }

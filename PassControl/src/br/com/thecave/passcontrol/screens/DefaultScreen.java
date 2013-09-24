@@ -1,7 +1,9 @@
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.component.util.ClientMainImageSwitcher;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
@@ -20,6 +22,7 @@ public class DefaultScreen extends PassControlPanel
         //Acho que não preciso de controller
         super("Sistema Gerenciador de Filas", null);
         initComponents();
+        jlImageCenter.setIcon(new ImageIcon(ClientMainImageSwitcher.getInstance().getMainImage()));
     }
 
     /**

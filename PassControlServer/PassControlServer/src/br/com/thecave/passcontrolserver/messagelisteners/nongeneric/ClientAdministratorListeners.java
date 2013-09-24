@@ -65,7 +65,6 @@ public class ClientAdministratorListeners implements ClientListeners
         
         ///Comuns
 //        AdministratorSetAutomaticQueueChooser
-        server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
         server.addMessageListener(new AdministratorAddSlideAnimation(), AdministratorAddSlideImage.class);
         server.addMessageListener(new AdministratorRemoveSlideAnimation(), AdministratorRemoveSlideImage.class);
     }
@@ -247,28 +246,6 @@ public class ClientAdministratorListeners implements ClientListeners
             AdministratorListBalconyResponse administratorListBalconyResponse = new AdministratorListBalconyResponse(beans);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, administratorListBalconyResponse);
         }       
-    }
-
-    private static class MainImageSetterListener implements PassControlMessageListener
-    {
-        @Override
-        public void onMessageReceive(PassControlMessage message, Socket socket) 
-        {
-            MainImageSetter mainImageSetter = (MainImageSetter)message;
-            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-
-            //Confirma o recebimento da resposta
-            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, mainImageSetter, MessageActors.AdministratorActor);
-            server.addResponseToSend(socket, confirmationResponse);
-            
-            //TODO Tenho que salvar a imagem aqui na pasta do projeto
-            //...
-            
-            //Repasso a imagem para os demais atores
-            mainImageSetter.setFrom(MessageActors.ServerActor);
-            mainImageSetter.setFrom(MessageActors.AllActors);
-            server.addBroadcastToSend(mainImageSetter);
-        } 
     }
 
     private static class AdministratorAddSlideAnimation implements PassControlMessageListener
