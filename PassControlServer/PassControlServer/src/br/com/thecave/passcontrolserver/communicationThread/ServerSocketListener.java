@@ -42,7 +42,6 @@ public class ServerSocketListener implements Runnable
         this.port = port;
         this.owner = owner;
         serverSocket = new ServerSocket(port);
-
     }
     
     @Override

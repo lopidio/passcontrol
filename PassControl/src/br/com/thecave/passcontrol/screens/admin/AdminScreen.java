@@ -9,6 +9,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
@@ -318,8 +319,7 @@ public class AdminScreen extends PassControlPanel
         int returnVal = chooser.showOpenDialog(null);
         if ( returnVal == JFileChooser.APPROVE_OPTION )
         {
-            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().getName());
-            AdministratorAddSlideImage slideImage = new AdministratorAddSlideImage(img , 
+            AdministratorAddSlideImage slideImage = new AdministratorAddSlideImage(new ImageIcon(chooser.getSelectedFile().getAbsolutePath()) , 
                     chooser.getSelectedFile().getName());
             ConfirmationResponse response = Main.getInstance().getCommunicationThread().
                     sendMessageToServerAndWaitForResponseOrTimeout(slideImage, ConfirmationResponse.class, 2000);

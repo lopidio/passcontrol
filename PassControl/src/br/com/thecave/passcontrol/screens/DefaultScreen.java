@@ -22,6 +22,8 @@ public class DefaultScreen extends PassControlPanel
         //Acho que não preciso de controller
         super("Sistema Gerenciador de Filas", null);
         initComponents();
+        
+        //Seto a imagem principal
         jlImageCenter.setIcon(new ImageIcon(ClientMainImageSwitcher.getInstance().getMainImage()));
     }
 

@@ -4,7 +4,6 @@
  */
 package br.com.thecave.passcontrol.component.util;
 
-import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
