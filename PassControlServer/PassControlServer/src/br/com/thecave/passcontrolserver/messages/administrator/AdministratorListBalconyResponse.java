@@ -5,9 +5,11 @@
 package br.com.thecave.passcontrolserver.messages.administrator;
 
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -15,19 +17,20 @@ import java.util.ArrayList;
  */
 public class AdministratorListBalconyResponse  extends PassControlMessage
 {
-    ArrayList<BalconyBean> balconyBeans;
+    HashMap<BalconyBean, ArrayList<ServiceBean>> balconyServiceBeans;
 
-    public AdministratorListBalconyResponse(ArrayList<BalconyBean> balconyBeans) {
+    public AdministratorListBalconyResponse(HashMap<BalconyBean, ArrayList<ServiceBean>> balconyServiceBeans) {
         super(MessageActors.ServerActor, MessageActors.AdministratorActor);
-        this.balconyBeans = balconyBeans;
+        this.balconyServiceBeans = balconyServiceBeans;
     }
 
-    public ArrayList<BalconyBean> getBalconyBeans() {
-        return balconyBeans;
+    public HashMap<BalconyBean, ArrayList<ServiceBean>> getBalconyServiceBeans() {
+        return balconyServiceBeans;
     }
 
-    public void setBalconyBeans(ArrayList<BalconyBean> balconyBeans) {
-        this.balconyBeans = balconyBeans;
+    public void setBalconyServiceBeans(HashMap<BalconyBean, ArrayList<ServiceBean>> balconyServiceBeans) {
+        this.balconyServiceBeans = balconyServiceBeans;
     }
+
     
 }

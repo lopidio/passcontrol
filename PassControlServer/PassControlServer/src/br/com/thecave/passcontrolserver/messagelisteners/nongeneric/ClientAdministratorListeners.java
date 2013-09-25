@@ -42,6 +42,7 @@ import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronize
 import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -249,8 +250,18 @@ public class ClientAdministratorListeners implements ClientListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
 //            AdministratorListBalcony administratorListBalcony = (AdministratorListBalcony)message;
-            ArrayList<BalconyBean> beans = BalconyDAO.selectAll();
-            AdministratorListBalconyResponse administratorListBalconyResponse = new AdministratorListBalconyResponse(beans);
+            ArrayList<BalconyBean> balconyBeans = BalconyDAO.selectAll();
+            HashMap<BalconyBean, ArrayList<ServiceBean>> balconyServiceBeans = new HashMap<>();
+            
+            if (balconyBeans != null)
+            {
+                for (BalconyBean balconyBean : balconyBeans) 
+                {
+                    balconyServiceBeans.put(balconyBean, BalconyTypesServiceDAO.selectServicesFromBalconyId(balconyBean));
+                }
+            }
+            
+            AdministratorListBalconyResponse administratorListBalconyResponse = new AdministratorListBalconyResponse(balconyServiceBeans);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, administratorListBalconyResponse);
         }       
     }
