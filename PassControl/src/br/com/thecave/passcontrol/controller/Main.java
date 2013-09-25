@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
-import br.com.thecave.passcontrol.utils.InitialConfigsLoader;
+import br.com.thecave.passcontrol.utils.PassControlConfiguration;
 import br.com.thecave.passcontrol.screens.DefaultScreen;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
@@ -96,7 +96,7 @@ public class Main
                 Main main = getInstance();
                 new Thread(main.communicationThread).start();
                 //Adiciona o carregador de arquivo de configuração
-                InitialConfigsLoader.getInstance().initialize();
+                PassControlConfiguration.getInstance().initialize();
                 
                 //Inicia os dois panels principais
                 main.mainFrame.activatePassControlTopBar(new LoginTopBar());

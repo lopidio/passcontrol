@@ -1,7 +1,8 @@
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.utils.InitialConfigsLoader;
+import br.com.thecave.passcontrol.utils.PassControlConfiguration;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -23,12 +24,15 @@ public class DefaultScreen extends PassControlPanel
         super("Sistema Gerenciador de Filas", null);
         initComponents();
         
-        //TODO criar imagem principal default dentro dos recursos!
-
         //Atualizo a imagem principal
-        InitialConfigsLoader.getInstance().requestRefreshMainImage();        
+        PassControlConfiguration.getInstance().requestRefreshMainImage();        
         //Seto a imagem principal
-        jlImageCenter.setIcon(new ImageIcon(InitialConfigsLoader.getInstance().getMainImage()));
+        
+        Image mainImage = PassControlConfiguration.getInstance().getMainImage();
+        if (mainImage != null)
+        {
+            jlImageCenter.setIcon(new ImageIcon(mainImage));
+        }
     }
 
     
@@ -48,7 +52,7 @@ public class DefaultScreen extends PassControlPanel
         jlImageCenter.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jlImageCenter.setForeground(new java.awt.Color(27, 147, 134));
         jlImageCenter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImageCenter.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\splash.png")); // NOI18N
+        jlImageCenter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/splash.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

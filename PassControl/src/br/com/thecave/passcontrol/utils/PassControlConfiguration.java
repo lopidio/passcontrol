@@ -18,25 +18,28 @@ import javax.swing.ImageIcon;
  *
  * @author lopidio
  */
-public class InitialConfigsLoader implements PassControlMessageListener
+public class PassControlConfiguration implements PassControlMessageListener
 {
     private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage.png";
     private Image mainImage = null;
     /**
      * Singleton properties
      */
-    private static InitialConfigsLoader instance = null;
-    public static synchronized InitialConfigsLoader getInstance()
+    private static PassControlConfiguration instance = null;
+    public static synchronized PassControlConfiguration getInstance()
     {
         if (instance == null)
-            instance = new InitialConfigsLoader();
+            instance = new PassControlConfiguration();
         return instance;
     }
 
-    public InitialConfigsLoader() 
+    public PassControlConfiguration() 
     {
         //carrega a imagem principal
         mainImage = new ImageIcon(MAIN_IMAGE_PATH).getImage();
+        //A imagem não foi carregada com sucesso :/
+        if (mainImage.getWidth(null) == -1 && mainImage.getHeight(null) == -1)
+            mainImage = null;
         
         //Carrega também o arquivo de configuração!!
         
@@ -65,7 +68,7 @@ public class InitialConfigsLoader implements PassControlMessageListener
 
     public void initialize() 
     {
-        Main.getInstance().getCommunicationThread().addMessageListener(InitialConfigsLoader.getInstance(), MainImageSetter.class);                
+        Main.getInstance().getCommunicationThread().addMessageListener(PassControlConfiguration.getInstance(), MainImageSetter.class);                
         //ConfigurationFile.class
         
         //Carregar esse também

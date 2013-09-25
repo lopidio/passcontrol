@@ -48,6 +48,9 @@
           <Color blue="86" green="93" red="1b" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/splash.png"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

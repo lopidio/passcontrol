@@ -163,10 +163,10 @@ public class ClientGenericListeners implements ClientListeners
             //Salvo a imagem
             FileUtils.saveImage(mainImageSetter.getImageIcon().getImage(), MAIN_IMAGE_PATH);
             
-//            //Repasso a imagem para os demais atores
-//            mainImageSetter.setFrom(MessageActors.ServerActor);
-//            mainImageSetter.setTo(MessageActors.AllActors);
-//            server.addBroadcastToSend(mainImageSetter);
+            //Repasso a imagem para os demais atores
+            mainImageSetter.setFrom(MessageActors.ServerActor);
+            mainImageSetter.setTo(MessageActors.AllActors);
+            server.addBroadcastToSend(mainImageSetter);
             
             //Confirma o recebimento da resposta
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, mainImageSetter, MessageActors.AdministratorActor);
