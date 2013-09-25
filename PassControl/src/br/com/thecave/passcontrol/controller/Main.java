@@ -6,9 +6,7 @@ import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationT
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
-import br.com.thecave.passcontrol.viewer.PresentationControler;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
-import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -96,7 +94,7 @@ public class Main
                 Main main = getInstance();
                 new Thread(main.communicationThread).start();
                 //Adiciona o carregador de arquivo de configuração
-                PassControlConfigurationSynchronizer.getInstance().initialize();
+                PassControlConfigurationSynchronizer.getInstance().addClientListeners(main.communicationThread);
                 
                 //Inicia os dois panels principais
                 main.mainFrame.activatePassControlTopBar(new LoginTopBar());

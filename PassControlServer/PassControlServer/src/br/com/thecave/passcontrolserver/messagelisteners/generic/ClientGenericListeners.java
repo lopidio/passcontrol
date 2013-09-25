@@ -22,6 +22,7 @@ import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.FileUtils;
+import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ import javax.swing.ImageIcon;
  */
 public class ClientGenericListeners implements ClientListeners
 {
-    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage.png";
     
     @Override
     public void addListenersCallback(ServerCommunicationThread server) 
@@ -159,14 +159,10 @@ public class ClientGenericListeners implements ClientListeners
         {
             MainImageSetter mainImageSetter = (MainImageSetter)message;
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-
-            //Salvo a imagem
-            FileUtils.saveImage(mainImageSetter.getImageIcon().getImage(), MAIN_IMAGE_PATH);
             
-            //Repasso a imagem para os demais atores
-            mainImageSetter.setFrom(MessageActors.ServerActor);
-            mainImageSetter.setTo(MessageActors.AllActors);
-            server.addBroadcastToSend(mainImageSetter);
+            //Altero a imagem e mando para os clientes
+            PassControlConfigurationSynchronizer.getInstance().saveMainImage(mainImageSetter.getImageIcon().getImage());
+            PassControlConfigurationSynchronizer.getInstance().sendMainImageToClients(server);
             
             //Confirma o recebimento da resposta
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, mainImageSetter, MessageActors.AdministratorActor);
@@ -181,7 +177,7 @@ public class ClientGenericListeners implements ClientListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
             //Envia a imagem principal
-            MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(MAIN_IMAGE_PATH));
+            MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(PassControlConfigurationSynchronizer.getInstance().getMainImage()));
             mainImageSetter.setFrom(MessageActors.ServerActor);
             mainImageSetter.setTo(MessageActors.AllActors);
             

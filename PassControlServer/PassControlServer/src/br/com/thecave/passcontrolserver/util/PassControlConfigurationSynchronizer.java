@@ -9,8 +9,10 @@ import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationT
 import br.com.thecave.passcontrolserver.messages.generic.ConfigurationFileAlterationMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
+import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,7 +21,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import javax.swing.ImageIcon;
-import sun.applet.Main;
 
 /**
  *
@@ -61,13 +62,19 @@ public final class PassControlConfigurationSynchronizer
         MainImageRequest mainImageRequest = new MainImageRequest();
         clientCommunicationThread.addBroadcastToSend(mainImageRequest);
     }
+
+    public void requestRefreshConfigurationFile(ClientCommunicationThread clientCommunicationThread)
+    {
+        RequestConfigurationFile requestConfigurationFile = new RequestConfigurationFile();
+        clientCommunicationThread.addBroadcastToSend(requestConfigurationFile);
+    }
     
     public Image getMainImage()
     {
         return mainImage;
     }
 
-    public void initializeAsClient(ClientCommunicationThread clientCommunicationThread) 
+    public void addClientListeners(ClientCommunicationThread clientCommunicationThread) 
     {
         //Adiciona os listeners
         clientCommunicationThread.addMessageListener(new PassControlMessageListener() 
@@ -119,12 +126,10 @@ public final class PassControlConfigurationSynchronizer
         }catch(IOException i)
         {
             i.printStackTrace();
-            return;
         }catch(ClassNotFoundException c)
         {
             System.out.println("Arquivo de configuração não encontrado");
             c.printStackTrace();
-            return;
          }        
     }
     
@@ -145,6 +150,21 @@ public final class PassControlConfigurationSynchronizer
 
     public ConfigurationFile getConfigurationFile() {
         return configurationFile;
+    }
+    
+    public void saveMainImage(Image image)
+    {
+        //Salvo a imagem
+        mainImage = image;
+        FileUtils.saveImage(image, MAIN_IMAGE_PATH);        
+    }
+
+    public void sendMainImageToClients(ServerCommunicationThread serverCommunicationThread) 
+    {
+        MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(mainImage));
+
+        //Repasso a imagem para os demais atores
+        serverCommunicationThread.addBroadcastToSend(mainImageSetter);
     }
     
 }
