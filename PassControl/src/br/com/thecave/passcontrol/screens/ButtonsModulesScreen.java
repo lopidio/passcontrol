@@ -141,6 +141,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         setBackground(new java.awt.Color(255, 255, 255));
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
+        jbBalcony.setToolTipText("Clique para abrir a tela do guichê.");
         jbBalcony.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbBalcony.setEnabled(false);
         jbBalcony.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButtons_Balcony_Over.png"))); // NOI18N
