@@ -26,8 +26,7 @@ public class DefaultScreen extends PassControlPanel
         
         //Atualizo a imagem principal
         PassControlConfiguration.getInstance().requestRefreshMainImage();        
-        //Seto a imagem principal
-        
+        //Seto a imagem principal (caso diferente da default)
         Image mainImage = PassControlConfiguration.getInstance().getMainImage();
         if (mainImage != null)
         {
