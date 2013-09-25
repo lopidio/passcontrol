@@ -60,11 +60,9 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmViewer = new javax.swing.JMenuItem();
         jmQueuePush = new javax.swing.JMenuItem();
         jmQueuePop = new javax.swing.JMenuItem();
-        jmConfig = new javax.swing.JMenuItem();
         jbBalcony = new javax.swing.JButton();
         jbViewer = new javax.swing.JButton();
         jbAdd = new javax.swing.JButton();
-        jbConfig = new javax.swing.JButton();
         jbAdmin = new javax.swing.JButton();
         jbRemove = new javax.swing.JButton();
 
@@ -140,24 +138,13 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
         jmModules.add(jmQueuePop);
 
-        jmConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        jmConfig.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jmConfig.setMnemonic('c');
-        jmConfig.setText("Configurações");
-        jmConfig.setEnabled(false);
-        jmConfig.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jmConfigActionPerformed(evt);
-            }
-        });
-        jmModules.add(jmConfig);
-
         setBackground(new java.awt.Color(255, 255, 255));
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
+        jbBalcony.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbBalcony.setEnabled(false);
+        jbBalcony.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButtons_Balcony_Over.png"))); // NOI18N
+        jbBalcony.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Balcony_Clicked.png"))); // NOI18N
         jbBalcony.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -167,7 +154,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/viewer_button.png"))); // NOI18N
+        jbViewer.setToolTipText("Clique para abrir a tela de visualizador.");
+        jbViewer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbViewer.setEnabled(false);
+        jbViewer.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Visualizador_Over.png"))); // NOI18N
+        jbViewer.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Visualizador_Clicked.png"))); // NOI18N
         jbViewer.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -177,7 +168,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
+        jbAdd.setToolTipText("Clique para abrir a tela de recepção.");
+        jbAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAdd.setEnabled(false);
+        jbAdd.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Over.png"))); // NOI18N
+        jbAdd.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Clicked.png"))); // NOI18N
         jbAdd.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -186,18 +181,12 @@ public class ButtonsModulesScreen extends PassControlPanel
             }
         });
 
-        jbConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/config_button.png"))); // NOI18N
-        jbConfig.setEnabled(false);
-        jbConfig.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jbConfigActionPerformed(evt);
-            }
-        });
-
-        jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
+        jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
+        jbAdmin.setToolTipText("Clique aqui para tela de administração.");
+        jbAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAdmin.setEnabled(false);
+        jbAdmin.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Over.png"))); // NOI18N
+        jbAdmin.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Clicked.png"))); // NOI18N
         jbAdmin.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -207,7 +196,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
+        jbRemove.setToolTipText("Clique para abrir a tela de remoção da fila.");
+        jbRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbRemove.setEnabled(false);
+        jbRemove.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Remover_Over.png"))); // NOI18N
+        jbRemove.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Remover_Clicked.png"))); // NOI18N
         jbRemove.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -221,18 +214,19 @@ public class ButtonsModulesScreen extends PassControlPanel
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(255, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(255, Short.MAX_VALUE)
+                        .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(420, 420, 420)
+                        .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(244, 244, 244))
         );
         layout.setVerticalGroup(
@@ -245,9 +239,8 @@ public class ButtonsModulesScreen extends PassControlPanel
                     .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(307, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -272,10 +265,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         openQueuePop();
     }//GEN-LAST:event_jbRemoveActionPerformed
 
-    private void jbConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfigActionPerformed
-        openConfig();
-    }//GEN-LAST:event_jbConfigActionPerformed
-
     private void jmAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAdminActionPerformed
         openAdmin();
     }//GEN-LAST:event_jmAdminActionPerformed
@@ -296,18 +285,13 @@ public class ButtonsModulesScreen extends PassControlPanel
         openQueuePop();
     }//GEN-LAST:event_jmQueuePopActionPerformed
 
-    private void jmConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConfigActionPerformed
-        openConfig();
-    }//GEN-LAST:event_jmConfigActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAdd;
     private javax.swing.JButton jbAdmin;
     private javax.swing.JButton jbBalcony;
-    private javax.swing.JButton jbConfig;
     private javax.swing.JButton jbRemove;
     private javax.swing.JButton jbViewer;
     private javax.swing.JMenuItem jmAdmin;
-    private javax.swing.JMenuItem jmConfig;
     private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmModules;
     private javax.swing.JMenuItem jmQueuePop;
@@ -349,11 +333,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
     }
 
-    private void openConfig()
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ConfigScreen());
-    }
-
     private void verifyPermissions()
     {
         int permissionCode = Main.getInstance().getCurrentUser().getType();
@@ -382,11 +361,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         {
             jbRemove.setEnabled(true);
             jmQueuePop.setEnabled(true);
-        }
-        if ( userPermission.hasConfigPermission() )// É capaz de entrar na opção jbConfig
-        {
-            jbConfig.setEnabled(true);
-            jmConfig.setEnabled(true);
         }
     }
 }
