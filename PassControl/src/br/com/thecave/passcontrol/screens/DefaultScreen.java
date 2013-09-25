@@ -39,7 +39,8 @@ public class DefaultScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jlImageCenter = new javax.swing.JLabel();
 
@@ -48,7 +49,7 @@ public class DefaultScreen extends PassControlPanel
         jlImageCenter.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jlImageCenter.setForeground(new java.awt.Color(27, 147, 134));
         jlImageCenter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImageCenter.setIcon(new javax.swing.ImageIcon("E:\\Developer\\Repositorio\\PassControl\\PassControl\\imgs\\resources\\splash.png")); // NOI18N
+        jlImageCenter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/splash.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

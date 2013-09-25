@@ -60,11 +60,9 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmViewer = new javax.swing.JMenuItem();
         jmQueuePush = new javax.swing.JMenuItem();
         jmQueuePop = new javax.swing.JMenuItem();
-        jmConfig = new javax.swing.JMenuItem();
         jbBalcony = new javax.swing.JButton();
         jbViewer = new javax.swing.JButton();
         jbAdd = new javax.swing.JButton();
-        jbConfig = new javax.swing.JButton();
         jbAdmin = new javax.swing.JButton();
         jbRemove = new javax.swing.JButton();
 
@@ -140,20 +138,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
         jmModules.add(jmQueuePop);
 
-        jmConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
-        jmConfig.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jmConfig.setMnemonic('c');
-        jmConfig.setText("Configurações");
-        jmConfig.setEnabled(false);
-        jmConfig.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jmConfigActionPerformed(evt);
-            }
-        });
-        jmModules.add(jmConfig);
-
         setBackground(new java.awt.Color(255, 255, 255));
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
@@ -186,16 +170,6 @@ public class ButtonsModulesScreen extends PassControlPanel
             }
         });
 
-        jbConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/config_button.png"))); // NOI18N
-        jbConfig.setEnabled(false);
-        jbConfig.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jbConfigActionPerformed(evt);
-            }
-        });
-
         jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
         jbAdmin.setEnabled(false);
         jbAdmin.addActionListener(new java.awt.event.ActionListener()
@@ -221,18 +195,19 @@ public class ButtonsModulesScreen extends PassControlPanel
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(255, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(255, Short.MAX_VALUE)
+                        .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(420, 420, 420)
+                        .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(244, 244, 244))
         );
         layout.setVerticalGroup(
@@ -245,9 +220,8 @@ public class ButtonsModulesScreen extends PassControlPanel
                     .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(307, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -272,10 +246,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         openQueuePop();
     }//GEN-LAST:event_jbRemoveActionPerformed
 
-    private void jbConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfigActionPerformed
-        openConfig();
-    }//GEN-LAST:event_jbConfigActionPerformed
-
     private void jmAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAdminActionPerformed
         openAdmin();
     }//GEN-LAST:event_jmAdminActionPerformed
@@ -296,18 +266,13 @@ public class ButtonsModulesScreen extends PassControlPanel
         openQueuePop();
     }//GEN-LAST:event_jmQueuePopActionPerformed
 
-    private void jmConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConfigActionPerformed
-        openConfig();
-    }//GEN-LAST:event_jmConfigActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbAdd;
     private javax.swing.JButton jbAdmin;
     private javax.swing.JButton jbBalcony;
-    private javax.swing.JButton jbConfig;
     private javax.swing.JButton jbRemove;
     private javax.swing.JButton jbViewer;
     private javax.swing.JMenuItem jmAdmin;
-    private javax.swing.JMenuItem jmConfig;
     private javax.swing.JMenuItem jmGuiche;
     private javax.swing.JMenu jmModules;
     private javax.swing.JMenuItem jmQueuePop;
@@ -349,11 +314,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
     }
 
-    private void openConfig()
-    {
-        Main.getInstance().getMainFrame().activatePassControlPanel(new ConfigScreen());
-    }
-
     private void verifyPermissions()
     {
         int permissionCode = Main.getInstance().getCurrentUser().getType();
@@ -382,11 +342,6 @@ public class ButtonsModulesScreen extends PassControlPanel
         {
             jbRemove.setEnabled(true);
             jmQueuePop.setEnabled(true);
-        }
-        if ( userPermission.hasConfigPermission() )// É capaz de entrar na opção jbConfig
-        {
-            jbConfig.setEnabled(true);
-            jmConfig.setEnabled(true);
         }
     }
 }
