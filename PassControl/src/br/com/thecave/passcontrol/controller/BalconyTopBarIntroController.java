@@ -3,6 +3,7 @@ package br.com.thecave.passcontrol.controller;
 import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalconyResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
@@ -10,6 +11,7 @@ import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -24,7 +26,7 @@ public class BalconyTopBarIntroController extends PassControlController
     
     BalconyTopBarIntro topBarIntro = null;
     BalconyInitResponse balconyInitResponse = null;
-    private ArrayList<BalconyBean> balconysBeans;
+    private ArrayList<BalconyBean> balconysBeans = new ArrayList<>();
 
     @Override
     public void initialize()
@@ -75,7 +77,11 @@ public class BalconyTopBarIntroController extends PassControlController
         AdministratorListBalconyResponse response = Main.getInstance().
                 getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listBalcony, AdministratorListBalconyResponse.class, 2000);
 
-        balconysBeans = response.getBalconyBeans();
+        for (Map.Entry<BalconyBean, ArrayList<ServiceBean>> entry : response.getBalconyServiceBeans().entrySet()) 
+        {
+            BalconyBean balconys = entry.getKey();
+            balconysBeans.add(balconys);
+        }
     }
 
     public void defineCBNames( JComboBox cbBalconyName )
