@@ -27,12 +27,8 @@ public class DefaultScreen extends PassControlPanel
         
         //Atualizo a imagem principal
         PassControlConfigurationSynchronizer.getInstance().requestRefreshMainImage(Main.getInstance().getCommunicationThread());        
-        //Seto a imagem principal (caso diferente da default)
-        Image mainImage = PassControlConfigurationSynchronizer.getInstance().getMainImage();
-        if (mainImage != null)
-        {
-            jlImageCenter.setIcon(new ImageIcon(mainImage));
-        }
+        jlImageCenter.setIcon(new ImageIcon(PassControlConfigurationSynchronizer.getInstance().getMainImage()));
+
     }
 
     

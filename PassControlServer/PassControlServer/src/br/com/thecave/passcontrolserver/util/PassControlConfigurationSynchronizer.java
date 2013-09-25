@@ -9,7 +9,6 @@ import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationT
 import br.com.thecave.passcontrolserver.messages.generic.ConfigurationFileAlterationMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
-import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
@@ -46,10 +45,10 @@ public final class PassControlConfigurationSynchronizer
     public PassControlConfigurationSynchronizer() 
     {
         //carrega a imagem principal
-        mainImage = new ImageIcon(MAIN_IMAGE_PATH).getImage();
-        //A imagem não foi carregada com sucesso :/
+        ImageIcon newImage = new ImageIcon(MAIN_IMAGE_PATH);
+        //A imagem não foi carregada com sucesso :/. Então carrega o default
         if (mainImage.getWidth(null) == -1 && mainImage.getHeight(null) == -1)
-            mainImage = null;
+            mainImage = new ImageIcon(getClass().getResource("/resources/splash.png")).getImage();        
         
         //Carrega também o arquivo de configuração!!
         configurationFile = new ConfigurationFile();
