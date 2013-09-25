@@ -5,10 +5,8 @@
 package br.com.thecave.passcontrolserver.communicationThread;
 
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
-import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;

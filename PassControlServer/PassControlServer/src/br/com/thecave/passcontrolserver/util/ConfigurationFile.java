@@ -1,7 +1,8 @@
 package br.com.thecave.passcontrolserver.util;
 
+import java.awt.Image;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Classe para leitura e escrita do xml de configuração a ser adotado pelo sistema
@@ -19,14 +20,14 @@ public class ConfigurationFile implements Serializable
     private int slideShowSpeed;
     private String ipServer;
     private String portServer;
-    private ArrayList<String> imgsSlide;
+    private HashMap<String, Image> imgsSlide;
     
     /**
      * Construtor privado da classe 
      */
     public ConfigurationFile()
     {
-        imgsSlide = new ArrayList<String>();
+        imgsSlide = new HashMap<>();
     }
 
     public boolean isGerenciamentoAutomatico() {
@@ -86,20 +87,10 @@ public class ConfigurationFile implements Serializable
         this.portServer = portServer;
     }
 
-    /**
-     * @return the imgsSlide
-     */
-    public ArrayList<String> getImgsSlide()
-    {
+    public HashMap<String, Image> getImgsSlide() {
         return imgsSlide;
     }
 
-    /**
-     * @param imgsSlide the imgsSlide to set
-     */
-    public void setImgsSlide( ArrayList<String> imgsSlide )
-    {
-        this.imgsSlide = imgsSlide;
-    }
+
 }
 

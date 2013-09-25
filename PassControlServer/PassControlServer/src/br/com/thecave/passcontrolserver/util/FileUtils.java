@@ -88,4 +88,18 @@ public class FileUtils
         return stringBuilder.toString();
     }
 
+    public static boolean deleteFile(String filename)
+    {
+    	try{
+ 
+            File file = new File(filename);
+
+            if(file.delete())
+            {
+                return true;
+            }
+    	}catch(Exception e){
+    	}   
+        return false;        
+    }
 }

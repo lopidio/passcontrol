@@ -36,6 +36,9 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetT
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateUser;
+import br.com.thecave.passcontrolserver.util.ConfigurationFile;
+import br.com.thecave.passcontrolserver.util.FileUtils;
+import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -46,6 +49,7 @@ import java.util.ArrayList;
  */
 public class ClientAdministratorListeners implements ClientListeners
 {
+    final static String IMAGES_SLIDE_PATH = "imgs/slide/";
     @Override
     public void addListenersCallback(ServerCommunicationThread server)
     {        
@@ -256,9 +260,20 @@ public class ClientAdministratorListeners implements ClientListeners
         @Override
         public void onMessageReceive( PassControlMessage message, Socket socket )
         {
-            //Confirma o recebimento da resposta
-            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            AdministratorAddSlideImage administratorAddSlideImage = (AdministratorAddSlideImage)message;
+            //Confirma o recebimento da resposta
+            
+            //Salva a imagem na pasta correta
+            boolean status = FileUtils.saveImage(administratorAddSlideImage.getImage().getImage(), IMAGES_SLIDE_PATH + administratorAddSlideImage.getFileName());
+
+            //Altero o arquivo de configurações e mando para os clientes
+            ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+            configurationFile.getImgsSlide().put(administratorAddSlideImage.getFileName(), administratorAddSlideImage.getImage().getImage());
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
+
+            //Envio a resposta para o administrador
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(status, message, MessageActors.AdministratorActor);
             server.addResponseToSend(socket, confirmationResponse);
         }
     }
@@ -268,10 +283,22 @@ public class ClientAdministratorListeners implements ClientListeners
         @Override
         public void onMessageReceive( PassControlMessage message, Socket socket )
         {
-            //Confirma o recebimento da resposta
-            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            AdministratorRemoveSlideImage administratorRemoveSlideImage = (AdministratorRemoveSlideImage)message;
+            //Confirma o recebimento da resposta
+            
+            //Salva a imagem na pasta correta
+            boolean status = FileUtils.deleteFile(IMAGES_SLIDE_PATH + administratorRemoveSlideImage.getFileName());
+
+            //Altero o arquivo de configurações e mando para os clientes
+            ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+            configurationFile.getImgsSlide().remove(administratorRemoveSlideImage.getFileName());
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
+
+            //Envio a resposta para o administrador
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(status, administratorRemoveSlideImage, MessageActors.AdministratorActor);
             server.addResponseToSend(socket, confirmationResponse);
+
         }
     }
 
@@ -290,12 +317,11 @@ public class ClientAdministratorListeners implements ClientListeners
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
             server.addResponseToSend(socket, confirmationResponse);
             
-            //TODO salvar isso no arquivo!!
-            
-            //Informa à todos os queuespops
-            chooserMessage.setFrom(MessageActors.ServerActor);
-            chooserMessage.setTo(MessageActors.QueuePopActor);
-            server.addBroadcastToSend(chooserMessage);
+            //Altero o arquivo de configurações e mando para os clientes
+            ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+            configurationFile.setGerenciamentoAutomatico(chooserMessage.isIsOn());
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
+
         }
     }
 
@@ -304,11 +330,18 @@ public class ClientAdministratorListeners implements ClientListeners
         @Override
         public void onMessageReceive( PassControlMessage message, Socket socket )
         {
-            //TODO: implements
+            AdministratorSetTimeSlideInterval administratorSetTimeSlideInterval = (AdministratorSetTimeSlideInterval)message;
+            
             //Confirma o recebimento da resposta            
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
             server.addResponseToSend(socket, confirmationResponse);
+
+            //Altero o arquivo de configurações e mando para os clientes
+            ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+            configurationFile.setSlideShowSpeed(administratorSetTimeSlideInterval.getTimeInterval());
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
+            
         }
     }
 }

@@ -2,7 +2,6 @@ package br.com.thecave.passcontrolserver.messages.administrator;
 
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
-import java.awt.Image;
 
 /**
  *
@@ -10,13 +9,21 @@ import java.awt.Image;
  */
 public class AdministratorRemoveSlideImage extends PassControlMessage
 {
-    Image image;
     String fileName;
 
-    public AdministratorRemoveSlideImage(Image image, String fileName) 
+    public AdministratorRemoveSlideImage( String fileName) 
     {
         super(MessageActors.AdministratorActor, MessageActors.ServerActor);
-        this.image      = image;
         this.fileName   = fileName;
     }    
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+    
+    
 }

@@ -355,8 +355,7 @@ public class AdminScreen extends PassControlPanel
         if ( returnVal == JFileChooser.APPROVE_OPTION )
         {
             Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().getName());
-            AdministratorRemoveSlideImage slideImage = new AdministratorRemoveSlideImage(img , 
-                    chooser.getSelectedFile().getName());
+            AdministratorRemoveSlideImage slideImage = new AdministratorRemoveSlideImage(chooser.getSelectedFile().getName());
             ConfirmationResponse response = Main.getInstance().getCommunicationThread().
                     sendMessageToServerAndWaitForResponseOrTimeout(slideImage, ConfirmationResponse.class, 2000);
             
