@@ -141,7 +141,10 @@ public class ButtonsModulesScreen extends PassControlPanel
         setBackground(new java.awt.Color(255, 255, 255));
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
+        jbBalcony.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbBalcony.setEnabled(false);
+        jbBalcony.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButtons_Balcony_Over.png"))); // NOI18N
+        jbBalcony.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Balcony_Clicked.png"))); // NOI18N
         jbBalcony.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -151,7 +154,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/viewer_button.png"))); // NOI18N
+        jbViewer.setToolTipText("Clique para abrir a tela de visualizador.");
+        jbViewer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbViewer.setEnabled(false);
+        jbViewer.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Visualizador_Over.png"))); // NOI18N
+        jbViewer.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Visualizador_Clicked.png"))); // NOI18N
         jbViewer.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -161,7 +168,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
+        jbAdd.setToolTipText("Clique para abrir a tela de recepção.");
+        jbAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAdd.setEnabled(false);
+        jbAdd.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Over.png"))); // NOI18N
+        jbAdd.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Clicked.png"))); // NOI18N
         jbAdd.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -170,8 +181,12 @@ public class ButtonsModulesScreen extends PassControlPanel
             }
         });
 
-        jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
+        jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
+        jbAdmin.setToolTipText("Clique aqui para tela de administração.");
+        jbAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbAdmin.setEnabled(false);
+        jbAdmin.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Over.png"))); // NOI18N
+        jbAdmin.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Clicked.png"))); // NOI18N
         jbAdmin.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -181,7 +196,11 @@ public class ButtonsModulesScreen extends PassControlPanel
         });
 
         jbRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
+        jbRemove.setToolTipText("Clique para abrir a tela de remoção da fila.");
+        jbRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbRemove.setEnabled(false);
+        jbRemove.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Remover_Over.png"))); // NOI18N
+        jbRemove.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Remover_Clicked.png"))); // NOI18N
         jbRemove.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
