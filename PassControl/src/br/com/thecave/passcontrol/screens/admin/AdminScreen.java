@@ -45,7 +45,8 @@ public class AdminScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmBaseDados = new javax.swing.JMenu();
         jmGuiche = new javax.swing.JMenuItem();
@@ -77,8 +78,10 @@ public class AdminScreen extends PassControlPanel
         jmGuiche.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmGuiche.setMnemonic('G');
         jmGuiche.setText("Guichê");
-        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmGuiche.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmGuicheActionPerformed(evt);
             }
         });
@@ -88,8 +91,10 @@ public class AdminScreen extends PassControlPanel
         jmUser.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmUser.setMnemonic('U');
         jmUser.setText("Usuário");
-        jmUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmUser.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmUserActionPerformed(evt);
             }
         });
@@ -99,8 +104,10 @@ public class AdminScreen extends PassControlPanel
         jmServicos.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmServicos.setMnemonic('s');
         jmServicos.setText("Serviços");
-        jmServicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmServicos.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmServicosActionPerformed(evt);
             }
         });
@@ -114,8 +121,10 @@ public class AdminScreen extends PassControlPanel
         jmAlterImage.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAlterImage.setMnemonic('I');
         jmAlterImage.setText("Alterar imagem principal");
-        jmAlterImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAlterImage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAlterImageActionPerformed(evt);
             }
         });
@@ -129,8 +138,10 @@ public class AdminScreen extends PassControlPanel
         jmAddImage.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAddImage.setMnemonic('d');
         jmAddImage.setText("Adicionar imagem");
-        jmAddImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAddImage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAddImageActionPerformed(evt);
             }
         });
@@ -140,8 +151,10 @@ public class AdminScreen extends PassControlPanel
         jmRemoveImages.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmRemoveImages.setMnemonic('R');
         jmRemoveImages.setText("Remover imagem");
-        jmRemoveImages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmRemoveImages.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmRemoveImagesActionPerformed(evt);
             }
         });
@@ -151,8 +164,10 @@ public class AdminScreen extends PassControlPanel
         jmAlterTime.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAlterTime.setMnemonic('t');
         jmAlterTime.setText("Alterar tempo da apresentação");
-        jmAlterTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAlterTime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAlterTimeActionPerformed(evt);
             }
         });
@@ -165,8 +180,10 @@ public class AdminScreen extends PassControlPanel
         jcbAutomatic.setFont(PassControlFont.getInstance().getSizedFont(15));
         jcbAutomatic.setSelected(true);
         jcbAutomatic.setText("Gerenciamento automático");
-        jcbAutomatic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jcbAutomatic.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jcbAutomaticActionPerformed(evt);
             }
         });
@@ -175,8 +192,10 @@ public class AdminScreen extends PassControlPanel
         jcbManual.setFont(PassControlFont.getInstance().getSizedFont(15));
         jcbManual.setSelected(true);
         jcbManual.setText("Gerenciamento manual");
-        jcbManual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jcbManual.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jcbManualActionPerformed(evt);
             }
         });
@@ -231,8 +250,10 @@ public class AdminScreen extends PassControlPanel
         btGuiche.setBackground(new java.awt.Color(45, 123, 142));
         btGuiche.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btGuiche.setText("Guichê");
-        btGuiche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btGuiche.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btGuicheActionPerformed(evt);
             }
         });
@@ -241,8 +262,10 @@ public class AdminScreen extends PassControlPanel
         btServicos.setBackground(new java.awt.Color(45, 123, 142));
         btServicos.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btServicos.setText("Serviços");
-        btServicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btServicos.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btServicosActionPerformed(evt);
             }
         });
@@ -251,8 +274,10 @@ public class AdminScreen extends PassControlPanel
         btUsuario.setBackground(new java.awt.Color(45, 123, 142));
         btUsuario.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btUsuario.setText("Usuários");
-        btUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btUsuario.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btUsuarioActionPerformed(evt);
             }
         });
@@ -337,6 +362,7 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmRemoveImagesActionPerformed
 
     private void jmAlterTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterTimeActionPerformed
+        controller.alterTime();
     }//GEN-LAST:event_jmAlterTimeActionPerformed
 
     private void btUsuarioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btUsuarioActionPerformed

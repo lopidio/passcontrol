@@ -6,8 +6,10 @@ import br.com.thecave.passcontrol.screens.admin.ServiceCrud;
 import br.com.thecave.passcontrol.screens.admin.UserCrud;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetAutomaticQueueChooser;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetTimeSlideInterval;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
+import br.com.thecave.passcontrolserver.util.Validation;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -80,6 +82,37 @@ public class AdminController extends PassControlController
             return true;
         }
         return false;
+    }
+
+    public void alterTime()
+    {
+        int newTime;
+        String time = JOptionPane.showInputDialog("Insira o tempo de intervalo que deseja para a apresentação");
+        
+        while( !Validation.isDigit(time) )
+        {
+            time = JOptionPane.showInputDialog("Insira o tempo de intervalo que deseja para a apresentação");
+        }
+               
+        newTime = Integer.parseInt(time);
+        
+        AdministratorSetTimeSlideInterval timeSlideInterval = new AdministratorSetTimeSlideInterval(newTime);
+        ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(timeSlideInterval, ConfirmationResponse.class, 2000);
+        if(confirmationResponse == null)
+        {
+            JOptionPane.showMessageDialog(null, "Comunicação com servidor comprometida!");
+        }
+        else
+        {
+            if(confirmationResponse.getStatusOperation())
+            {
+                JOptionPane.showMessageDialog(null, "Tempo alterado com sucesso!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Tempo não foi alterado!");
+            }
+        }
     }
 
 }

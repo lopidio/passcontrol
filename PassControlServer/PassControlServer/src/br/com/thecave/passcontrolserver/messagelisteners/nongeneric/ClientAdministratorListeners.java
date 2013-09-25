@@ -32,6 +32,7 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemo
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveSlideImage;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetAutomaticQueueChooser;
+import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetTimeSlideInterval;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateService;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateUser;
@@ -68,6 +69,7 @@ public class ClientAdministratorListeners implements ClientListeners
         server.addMessageListener(new AdministratorSetAutomaticQueueChooserListener(), AdministratorSetAutomaticQueueChooser.class);
         server.addMessageListener(new AdministratorAddSlideAnimation(), AdministratorAddSlideImage.class);
         server.addMessageListener(new AdministratorRemoveSlideAnimation(), AdministratorRemoveSlideImage.class);
+        server.addMessageListener(new AdministratorSetTimeIntervalAnimation(), AdministratorSetTimeSlideInterval.class);
     }
     
     //User Listeners
@@ -294,6 +296,19 @@ public class ClientAdministratorListeners implements ClientListeners
             chooserMessage.setFrom(MessageActors.ServerActor);
             chooserMessage.setTo(MessageActors.QueuePopActor);
             server.addBroadcastToSend(chooserMessage);
+        }
+    }
+
+    private static class AdministratorSetTimeIntervalAnimation implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive( PassControlMessage message, Socket socket )
+        {
+            //TODO: implements
+            //Confirma o recebimento da resposta            
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            server.addResponseToSend(socket, confirmationResponse);
         }
     }
 }
