@@ -3,7 +3,10 @@ package br.com.thecave.passcontrolserver.util;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,6 +61,31 @@ public class FileUtils
             Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public static String loadFile( String file )
+    {
+        BufferedReader reader;
+        String line;
+        StringBuilder  stringBuilder = new StringBuilder();
+        try
+        {
+            reader = new BufferedReader( new FileReader (file));
+            while( ( line = reader.readLine() ) != null ) 
+            {
+                stringBuilder.append( line );
+            }
+        }
+        catch ( FileNotFoundException ex )
+        {
+            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch ( IOException ex )
+        {
+            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+
+        return stringBuilder.toString();
     }
 
 }

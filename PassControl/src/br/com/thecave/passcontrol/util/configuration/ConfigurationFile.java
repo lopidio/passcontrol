@@ -1,7 +1,6 @@
 package br.com.thecave.passcontrol.util.configuration;
 
-import br.com.thecave.passcontrolserver.util.FileUtils;
-import com.thoughtworks.xstream.XStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +10,7 @@ import java.util.ArrayList;
  * 
  * @author Antonio Arleudo da Costa
  */
-public class ConfigurationFile 
+public class ConfigurationFile implements Serializable
 {
     //==========================================================================
     // Atributos a serem mapeados
@@ -22,8 +21,6 @@ public class ConfigurationFile
     private String portServer;
     private ArrayList<String> imgsSlide;
     
-    private static ConfigurationFile instance;
-    
     /**
      * Construtor privado da classe 
      */
@@ -32,24 +29,6 @@ public class ConfigurationFile
         imgsSlide = new ArrayList<String>();
     }
     
-    /**
-     * Metodo para recuperar a instância da classe de configuração
-     * @return 
-     */
-    public static ConfigurationFile getInstance()
-    {
-        if(instance == null)
-            instance = new ConfigurationFile();
-        return instance;
-    }
-    public void toXml()
-    {
-        XStream xstream = new XStream();
-        xstream.alias("config", ConfigurationFile.class);        
-        String xml = xstream.toXML(this);
-        FileUtils.saveFile("config/config_pass_control.xml", xml);
-    }
-
     /**
      * @return the gerenciamento
      */
