@@ -126,8 +126,11 @@ public final class PassControlConfigurationSynchronizer
         }catch(IOException i)
         {
             i.printStackTrace();
+            System.out.println("Arquivo de configuração corrompido!");
+            configurationFile = new ConfigurationFile();
         }catch(ClassNotFoundException c)
         {
+            configurationFile = new ConfigurationFile();
             System.out.println("Arquivo de configuração não encontrado");
             c.printStackTrace();
          }        
