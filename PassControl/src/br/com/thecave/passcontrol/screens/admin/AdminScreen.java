@@ -7,6 +7,8 @@ import br.com.thecave.passcontrol.utils.PassControlFont;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddSlideImage;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveSlideImage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import br.com.thecave.passcontrolserver.util.ConfigurationFile;
+import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -33,9 +35,17 @@ public class AdminScreen extends PassControlPanel
         super("Administrador", new AdminController());
         controller = (AdminController) getPanelController();
         initComponents();
-        
-        //TODO
-        //Carregar as paradas dos arquivos
+        ConfigurationFile configFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+        if(configFile.isGerenciamentoAutomatico())
+        {
+            jcbAutomatic.setSelected(true);
+            jcbManual.setSelected(false);
+        }
+        else
+        {
+            jcbAutomatic.setSelected(false);
+            jcbManual.setSelected(true);
+        }
     }
 
     /**
@@ -205,7 +215,7 @@ public class AdminScreen extends PassControlPanel
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button_1.png"))); // NOI18N
+        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
         jlImage.setToolTipText("");
         add(jlImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
