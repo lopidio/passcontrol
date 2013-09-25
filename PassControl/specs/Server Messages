@@ -44,27 +44,27 @@ From client:
 	-BalconyInit //Verifica número do balcão
 	-BalconyInitResponse //Sim ou não (o Server garante que o balcão não esteja em uso)
 	-BalconyPopQueue //Olá, server, sou tal guichê, estou livre, por favor, me envie um cliente...
-	BalconyPopQueueResponse //Olá, balcony, eis seu cliente (QueueManagerBean)"24-B Caminhão da casa"
-	BalconyLastPoppedQueue //Olá, server, chama o último que eu chamei (ou o próprio Balcony já diz qual deseja rechamar.. Tipo: 24-B[QueueManagerBean])(então o servidor repassará o chamado para o Viewer) aí, por favor.
+	-BalconyPopQueueResponse //Olá, balcony, eis seu cliente (QueueManagerBean)"24-B Caminhão da casa"
+	-BalconyLastPoppedQueue //Olá, server, chama o último que eu chamei (ou o próprio Balcony já diz qual deseja rechamar.. Tipo: 24-B[QueueManagerBean])(então o servidor repassará o chamado para o Viewer) aí, por favor.
 
 ##################################################################
 ####################### Queue Pop ################################
 
 From client:
-	QueuePopPopQueue //Olá, server, retire esse elemento da fila: "..." (passCode, coluna da tabela QUEUE_MANAGER)
-	QueuePopPopRecordResponse //Ok (caso seja possível)
+	-QueuePopPopQueue //Olá, server, retire esse elemento da fila: "..." (passCode, coluna da tabela QUEUE_MANAGER)
+	-QueuePopPopRecordResponse //Ok (caso seja possível)
 
 From server:
-	QueuePopRefreshQueue //Atualiza toda a lista de filas (para caso haja mais de um QueuePop em funcionamento) List<Queue<QueueManageBean> >
+	QueuePopRefreshQueue //Atualiza toda a lista de filas (para caso haja mais de um QueuePop em funcionamento) List<QueueManageBean, Balcony, ClientName>
 
 ##################################################################
 ####################### Queue Push ###############################
 
 From client:
-	QueuePushVerifyClientRecord //Olá, server, tal registro já está cadastrado no banco? (usado pra preencher automaticamente os outros campos do cliente)
-	QueuePushVerifyClientRecordResponse //Olá, cliente, sim, eis o nome e o telefone. (ClientBean)
-	QueuePushInserQueueElement //Olá, server, insira esse cliente na fila. (ClientBean)
-	QueuePushInserQueueElementResponse //Olá, cliente, cliente inserido com sucesso, eis o código dele: "23-B"
+	-QueuePushVerifyClientRecord //Olá, server, tal registro já está cadastrado no banco? (usado pra preencher automaticamente os outros campos do cliente)
+	-QueuePushVerifyClientRecordResponse //Olá, cliente, sim, eis o nome e o telefone. (ClientBean)
+	-QueuePushInserQueueElement //Olá, server, insira esse cliente na fila. (ClientBean)
+	-QueuePushInserQueueElementResponse //Olá, cliente, cliente inserido com sucesso, eis o código dele: "23-B"
 
 ##################################################################
 ####################### Administrator ############################
@@ -83,8 +83,8 @@ From client:
 	AdministratorListSlidesImage //List<ImageBytes ImageName>
 	AdministratorRemoveSlideImage //ImageName
 	AdministratorSetSlideShowTime //int
-	AdministratorSetAutoQueueManagement //bool
-	AdministratorSetMainImage //ImageBytes
+	-AdministratorSetAutoQueueManagement //bool
+	-AdministratorSetMainImage //ImageBytes
 
 #################################################################
 

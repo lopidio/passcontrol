@@ -1,4 +1,4 @@
-package br.com.thecave.passcontrol.util.configuration;
+package br.com.thecave.passcontrolserver.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class ConfigurationFile implements Serializable
     //==========================================================================
     // Atributos a serem mapeados
     //==========================================================================
-    private boolean gerenciamento;
+    private boolean gerenciamentoAutomatico;
     private int slideShowSpeed;
     private String ipServer;
     private String portServer;
@@ -24,26 +24,19 @@ public class ConfigurationFile implements Serializable
     /**
      * Construtor privado da classe 
      */
-    private ConfigurationFile()
+    public ConfigurationFile()
     {
         imgsSlide = new ArrayList<String>();
     }
-    
-    /**
-     * @return the gerenciamento
-     */
-    public boolean getGerenciamento()
-    {
-        return gerenciamento;
+
+    public boolean isGerenciamentoAutomatico() {
+        return gerenciamentoAutomatico;
     }
 
-    /**
-     * @param gerenciamento the gerenciamento to set
-     */
-    public void setGerenciamento( boolean gerenciamento )
-    {
-        this.gerenciamento = gerenciamento;
+    public void setGerenciamentoAutomatico(boolean gerenciamentoAutomatico) {
+        this.gerenciamentoAutomatico = gerenciamentoAutomatico;
     }
+    
 
     /**
      * @return the slideShowSpeed

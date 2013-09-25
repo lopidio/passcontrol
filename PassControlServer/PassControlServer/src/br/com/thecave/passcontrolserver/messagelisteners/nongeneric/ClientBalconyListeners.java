@@ -278,6 +278,8 @@ public class ClientBalconyListeners implements ClientListeners
         {
             //O atendimento foi finalizado
             //Não sei o que fazer aqui. :D
+            
+            //A não ser que criemos uma coluna HoraEncerramento, ou coisa parecida...
         }
     }
 
