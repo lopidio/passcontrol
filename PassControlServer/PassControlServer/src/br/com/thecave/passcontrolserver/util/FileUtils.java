@@ -23,7 +23,7 @@ public class FileUtils
         PrintWriter saida = null;
         try 
         {
-            writer = new FileWriter(new File(path),true);
+            writer = new FileWriter(new File(path),false);
             saida = new PrintWriter(writer);
             saida.println(content);
             writer.close();

@@ -1,0 +1,11 @@
+<config>
+  <gerenciamento>true</gerenciamento>
+  <slideShowSpeed>123</slideShowSpeed>
+  <ipServer>192.168.0.1</ipServer>
+  <portServer>123456</portServer>
+  <imgsSlide>
+    <string>primeira</string>
+    <string>segunda</string>
+    <string>terceira</string>
+  </imgsSlide>
+</config>
