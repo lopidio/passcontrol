@@ -16,6 +16,7 @@ import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
+import br.com.thecave.passcontrolserver.messages.generic.ClientLoginReset;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
@@ -38,6 +39,7 @@ public class ClientGenericListeners implements ClientListeners
     public void addListenersCallback(ServerCommunicationThread server) 
     {
         server.addMessageListener(new ClientLoginMessageListener(), ClientLoginRequest.class);
+        server.addMessageListener(new ClientLoginResetListener(), ClientLoginReset.class);
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
@@ -186,6 +188,21 @@ public class ClientGenericListeners implements ClientListeners
             server.addResponseToSend(socket, mainImageSetter);                
         }
 
+    }
+
+    private static class ClientLoginResetListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive( PassControlMessage message, Socket socket )
+        {
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            
+            //TODO: implemente guigui            
+            
+            //Confirma o recebimento da resposta
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
+            server.addResponseToSend(socket, confirmationResponse);    
+        }
     }
 
 }

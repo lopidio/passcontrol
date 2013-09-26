@@ -89,7 +89,8 @@ public class ResetTopBar extends PassControlTopBar
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOkActionPerformed
-        resetTopBarControler.performReset();
+        String name = jtfLogin.getText();
+        resetTopBarControler.performReset(name);
     }//GEN-LAST:event_jbOkActionPerformed
 
     private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed

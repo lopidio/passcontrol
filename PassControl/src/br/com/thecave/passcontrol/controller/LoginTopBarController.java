@@ -73,7 +73,6 @@ public class LoginTopBarController extends PassControlController
 
     public void resetPassword()
     {
-        //Simples assim
         Main.getInstance().getMainFrame().activatePassControlTopBar(new ResetTopBar());
     }
 }
