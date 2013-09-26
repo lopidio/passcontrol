@@ -6,11 +6,8 @@ package br.com.thecave.passcontrolserver.communicationThread;
 
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *

@@ -2,10 +2,8 @@ package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrol.topbar.ResetTopBar;
-import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLoginReset;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
-import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,29 +22,26 @@ public class ResetTopBarControler extends PassControlController
         resetTopBar = (ResetTopBar) passControlPanel;
     }
 
-    public void performReset(String name)
+ public void performReset(String username)
     {
-        ClientLoginReset loginReset = new ClientLoginReset(MessageActors.AllActors, name);
-        ClientCommunicationThread thread = Main.getInstance().getCommunicationThread();
-        ConfirmationResponse response = thread.sendMessageToServerAndWaitForResponseOrTimeout(loginReset, ConfirmationResponse.class, 2000);
-        
-        if(response == null)
+        ClientLoginReset recoverClientMessage = new ClientLoginReset(username);
+        ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(recoverClientMessage, ConfirmationResponse.class, 3000);
+        if (confirmationResponse != null)
         {
-            JOptionPane.showMessageDialog(null, "Conexão com servidor comprometida!");
-        }
-        else
-        {
-            if(response.getStatusOperation())
+            if (confirmationResponse.getStatusOperation())
             {
-                JOptionPane.showMessageDialog(null, "Sua senha foi enviada para o email cadastrado");
+                JOptionPane.showMessageDialog(null, confirmationResponse.getComment(), "Senha reenviada", JOptionPane.OK_OPTION);
+                Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());                
             }
             else
             {
-                JOptionPane.showMessageDialog(null, response.getComment());
+                JOptionPane.showMessageDialog(null, confirmationResponse.getComment(), "Erro", JOptionPane.ERROR_MESSAGE);                
             }
         }
-        
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new LoginTopBar());
+        else
+        {
+            JOptionPane.showMessageDialog(null, "conexão com o servidor comprometida", "Erro", JOptionPane.ERROR_MESSAGE);                            
+        }
     }
 
     public void backToLoginTopbar()

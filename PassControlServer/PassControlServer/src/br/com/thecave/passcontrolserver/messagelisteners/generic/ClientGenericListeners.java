@@ -22,10 +22,14 @@ import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.util.EMailSender;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.ImageIcon;
 
 /**
@@ -193,15 +197,36 @@ public class ClientGenericListeners implements ClientListeners
     private static class ClientLoginResetListener implements PassControlMessageListener
     {
         @Override
-        public void onMessageReceive( PassControlMessage message, Socket socket )
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
-            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            //Envia a imagem principal
+            ClientLoginReset recoverClientMessage = (ClientLoginReset)message;
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(false, recoverClientMessage, MessageActors.AdministratorActor);
+
             
-            //TODO: implemente guigui            
+            UserBean userBean = UserDAO.selectFromName(recoverClientMessage.getUser());
+            if (userBean != null)
+            {
+                try 
+                {
+                    EMailSender.sendEMail(userBean.getEmail(), "Recuperação de senha do [Gerenciamento de Filas]", "Email enviado automaticamente. Não carece de resposta.\n Caso não tenha requisitado a recuperação de senha, descondidere este email.\n\n\nSua senha é: " + userBean.getPassword());
+                    confirmationResponse.setStatusOperation(true);
+                    confirmationResponse.setComment("Recuperação enviada para: "+ userBean.getEmail());
+                }
+                catch (MessagingException ex) 
+                {
+                    Logger.getLogger(ClientGenericListeners.class.getName()).log(Level.SEVERE, null, ex);
+                    confirmationResponse.setComment("Email inválido");
+                }
+            }
+            else
+            {
+                confirmationResponse.setComment("O usuário de nome: "+userBean.getName()+" não consta no registro");                
+            }
             
             //Confirma o recebimento da resposta
-            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
-            server.addResponseToSend(socket, confirmationResponse);    
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();                        
+            server.addResponseToSend(socket, confirmationResponse);              
         }
     }
 

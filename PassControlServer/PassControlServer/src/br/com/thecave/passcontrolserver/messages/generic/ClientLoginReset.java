@@ -8,8 +8,8 @@ public class ClientLoginReset extends PassControlMessage
 {
     String user;
     
-    public ClientLoginReset(MessageActors from, String user) {
-        super(from, MessageActors.ServerActor);
+    public ClientLoginReset(String user) {
+        super(MessageActors.NotIdentified, MessageActors.ServerActor);
         this.user = user;
     }
     
