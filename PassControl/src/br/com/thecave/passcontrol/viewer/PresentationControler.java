@@ -45,11 +45,11 @@ public class PresentationControler implements Runnable
         this.images = images;
     }
     /**
-     * 
+     * in miliseconds
      */
     public void setTime(long newTime)
     {
-        this.timePresentation = newTime * 1000;
+        this.timePresentation = newTime;
     }
     /**
      * 
@@ -116,7 +116,7 @@ public class PresentationControler implements Runnable
                 index++;
                 for ( PresentationControllerObserver observer : presentationControllerObservers )
                 {
-                    observer.onChange(getCurrentImage());
+                    observer.onAnimationChange(getCurrentImage());
                 }
                 watchdog = new Watchdog(timePresentation);                
            }

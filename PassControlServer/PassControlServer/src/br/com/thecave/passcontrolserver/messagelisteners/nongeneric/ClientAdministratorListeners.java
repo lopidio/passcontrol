@@ -17,7 +17,6 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorList
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveUser;
 import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
-import br.com.thecave.passcontrolserver.db.bean.BalconyTypesServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
 import br.com.thecave.passcontrolserver.db.dao.BalconyTypesServiceDAO;
@@ -304,7 +303,7 @@ public class ClientAdministratorListeners implements ClientListeners
             PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
             //Envio a resposta para o administrador
-            ConfirmationResponse confirmationResponse = new ConfirmationResponse(status, message, MessageActors.AdministratorActor);
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
             server.addResponseToSend(socket, confirmationResponse);
         }
     }

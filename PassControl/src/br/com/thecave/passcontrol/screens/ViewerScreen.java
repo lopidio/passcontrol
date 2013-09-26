@@ -21,7 +21,7 @@ public class ViewerScreen extends PassControlPanel
         super("Visualizador", new ViewerController());
         this.controller = (ViewerController) getPanelController();
         initComponents();
-
+        jpQueueInfoBig.setVisible(false);
     }
 
     /**
@@ -44,10 +44,13 @@ public class ViewerScreen extends PassControlPanel
         jpQueueInfoBig.setMaximumSize(new java.awt.Dimension(350, 210));
         jpQueueInfoBig.setMinimumSize(new java.awt.Dimension(350, 210));
         jpQueueInfoBig.setPreferredSize(new java.awt.Dimension(350, 210));
-        jpQueueInfoBig.add(lblSlide);
-
         add(jpQueueInfoBig);
         jpQueueInfoBig.setBounds(490, 190, 350, 210);
+
+        lblSlide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSlide.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(lblSlide);
+        lblSlide.setBounds(0, 0, 1370, 800);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jpQueueInfoBig;

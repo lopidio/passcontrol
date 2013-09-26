@@ -95,6 +95,7 @@ public class AdminController extends PassControlController
         }
                
         newTime = Integer.parseInt(time);
+        newTime *= 1000;
         
         AdministratorSetTimeSlideInterval timeSlideInterval = new AdministratorSetTimeSlideInterval(newTime);
         ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(timeSlideInterval, ConfirmationResponse.class, 2000);

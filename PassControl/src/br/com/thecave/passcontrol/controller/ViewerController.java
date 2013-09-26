@@ -45,11 +45,14 @@ public class ViewerController extends PassControlController implements Presentat
         super.initialize();
         ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
         presentationControler = new PresentationControler();
+        presentationControler.addObserver(this);
         presentationControler.setTime(configurationFile.getSlideShowSpeed());
+        screen.setPresentationImage(presentationControler.getCurrentImage());
         for ( Map.Entry<String, ImageIcon> en : configurationFile.getImgsSlide().entrySet() )
         {
             presentationControler.addImage(en.getValue().getImage());
         }
+        new Thread(presentationControler).start();
     }
 
     @Override
@@ -68,7 +71,7 @@ public class ViewerController extends PassControlController implements Presentat
     }
 
     @Override
-    public void onChange( Image img )
+    public void onAnimationChange( Image img )
     {
         screen.setPresentationImage(img);
     }

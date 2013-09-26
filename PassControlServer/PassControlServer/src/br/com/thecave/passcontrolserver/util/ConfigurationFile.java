@@ -29,7 +29,7 @@ public class ConfigurationFile implements Serializable
     public ConfigurationFile()
     {
         gerenciamentoAutomatico = true;
-        slideShowSpeed = 60;
+        slideShowSpeed = 5000;
         ipServer = "127.0.0.1";
         portServer = "23073";
         imgsSlide = new HashMap<>();
