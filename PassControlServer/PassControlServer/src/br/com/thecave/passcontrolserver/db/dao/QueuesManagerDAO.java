@@ -41,7 +41,6 @@ public class QueuesManagerDAO
                                                         "INT_ID_CLIENT," +
                                                         "DT_CHECKIN," + 
                                                         "DT_CHECKOUT," + 
-                                                        "DT_END_SERVICE," +
                                                         "TX_PASS_NUMBER) " +
                                                         "VALUES (" + 
                                                         bean.getIdService() + ", " + 
@@ -51,7 +50,6 @@ public class QueuesManagerDAO
                                                         bean.getIdClient() + ", " +
                                                         bean.getCheckin() + ", " +
                                                         bean.getCheckout() + ", " +  
-                                                        bean.getEndService()+ ", " +
                                                         "'" + bean.getPassNumber()+ "' );";
             stmt.executeUpdate(sql);           
 
@@ -92,7 +90,6 @@ public class QueuesManagerDAO
                          "',INT_ID_CLIENT = '"+ bean.getIdClient() +
                          "',DT_CHECKIN = '" + bean.getCheckin() +
                          "',DT_CHECKOUT = '" + bean.getCheckout() +
-                         "',DT_END_SERVICE = '" + bean.getEndService()+
                          "',TX_PASS_NUMBER = '" + bean.getPassNumber() +
                          "' WHERE INT_ID=" + bean.getId() + ";";
 
@@ -178,7 +175,6 @@ public class QueuesManagerDAO
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getDate("DT_CHECKIN"));
                 bean.setCheckout(rs.getDate("DT_CHECKOUT"));
-                bean.setEndService(rs.getDate("DT_END_SERVICE"));
             }
             
             stmt.close();
@@ -228,7 +224,6 @@ public class QueuesManagerDAO
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getDate("DT_CHECKIN"));
                 bean.setCheckout(rs.getDate("DT_CHECKOUT"));
-                bean.setCheckout(rs.getDate("DT_END_SERVICE"));
                 retorno.add(bean);
             }
             

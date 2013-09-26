@@ -41,10 +41,6 @@ public class QueuesManagerBean extends TableBean
      */
     private Date checkout;
     /**
-     * Guarda o valor da variavel [DT_END_SERVICE] da tabela TB_QUEUES_MANAGER
-     */
-    private Date endService;
-    /**
      * Guarda o valor da variavel [TX_PASS_NUMBER] da tabela TB_QUEUES_MANAGER
      */
     private String passNumber;
@@ -173,22 +169,6 @@ public class QueuesManagerBean extends TableBean
      */
     public void setPassNumber(String passNumber) {
         this.passNumber = passNumber;
-    }
-
-    /**
-     * @return the endService
-     */
-    public Date getEndService()
-    {
-        return endService;
-    }
-
-    /**
-     * @param endService the endService to set
-     */
-    public void setEndService( Date endService )
-    {
-        this.endService = endService;
     }
 
 }
