@@ -4,8 +4,6 @@ import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 /**
  *
@@ -16,29 +14,19 @@ public class PresentationControler implements Runnable
     //----------------------------------------------------------------------------
     private ArrayList<Image> images;
     private long timePresentation;
-    private static PresentationControler instance;
     private int index;
-    private JLabel label;
+    private ArrayList<PresentationControllerObserver> presentationControllerObservers;
     //----------------------------------------------------------------------------
     // Construtor
     //----------------------------------------------------------------------------
-    private PresentationControler()
+    public PresentationControler()
     {
         images = new ArrayList<>();
         index = 0;
         timePresentation = 5000;
         Image img = Toolkit.getDefaultToolkit().getImage("imgs/presentation/quadro.jpg");
         images.add(img);
-        //Não preciso instanciar Label aqui? Oo
-    }
-    /**
-     * 
-     */
-    public static PresentationControler getInstance()
-    {
-        if(instance == null)
-            instance = new PresentationControler();
-        return instance;
+        presentationControllerObservers = new ArrayList<>();
     }
     //----------------------------------------------------------------------------
     /**
@@ -71,11 +59,6 @@ public class PresentationControler implements Runnable
         return this.timePresentation;
     }
     
-    public void setLabel(JLabel label)
-    {
-        this.label = label;
-    }
-    //----------------------------------------------------------------------------
     /**
      * Adiciona uma imagem no final da lista
      */
@@ -131,15 +114,23 @@ public class PresentationControler implements Runnable
             if(watchdog.hasTimedOut())
             {
                 index++;
-                Image img = getCurrentImage();
-                if(img != null && label != null)
+                for ( PresentationControllerObserver observer : presentationControllerObservers )
                 {
-                    ImageIcon ic = new ImageIcon(img);
-                    label.setIcon(ic);
+                    observer.onChange(getCurrentImage());
                 }
-                watchdog = new Watchdog(timePresentation);
+                watchdog = new Watchdog(timePresentation);                
            }
         }
+    }
+    //----------------------------------------------------------------------------
+    public void addObserver(PresentationControllerObserver observer)
+    {
+        this.presentationControllerObservers.add(observer);
+    }
+    //----------------------------------------------------------------------------
+    public void removeObserver(PresentationControllerObserver observer)
+    {
+        presentationControllerObservers.remove(observer);
     }
     //----------------------------------------------------------------------------
 }

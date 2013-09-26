@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.component.util.QueueElementInfo;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
@@ -7,7 +8,7 @@ import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import java.util.ArrayList;
-import javax.print.attribute.standard.Severity;
+import javax.swing.BoxLayout;
 import javax.swing.JMenu;
 
 /**
@@ -35,6 +36,9 @@ public class QueuePushScreen extends PassControlPanel
         jSeparator1.setVisible(false);
         tfNomeNovoAtendimento.setEnabled(false);
         tfTelefoneNovoAtendimento.setEnabled(false);
+        jpQueueInfo.setVisible(false);
+        
+        jpQueueInfo.setLayout(new BoxLayout(jpQueueInfo, BoxLayout.Y_AXIS));
     }
 
     /**
@@ -76,6 +80,7 @@ public class QueuePushScreen extends PassControlPanel
         jLabel4 = new javax.swing.JLabel();
         tfTelefoneNovoCliente = new javax.swing.JTextField();
         jbInserirNovoCliente = new javax.swing.JButton();
+        jpQueueInfo = new javax.swing.JPanel();
 
         jmChooseService.setMnemonic('e');
         jmChooseService.setText("Recepção");
@@ -277,6 +282,21 @@ public class QueuePushScreen extends PassControlPanel
         jpNovoCliente.add(jbInserirNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 159, 221, 37));
 
         add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 320, 240));
+
+        jpQueueInfo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jpQueueInfoLayout = new javax.swing.GroupLayout(jpQueueInfo);
+        jpQueueInfo.setLayout(jpQueueInfoLayout);
+        jpQueueInfoLayout.setHorizontalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 410, Short.MAX_VALUE)
+        );
+        jpQueueInfoLayout.setVerticalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+
+        add(jpQueueInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 410, 240));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNovoClienteActionPerformed
@@ -374,6 +394,7 @@ public class QueuePushScreen extends PassControlPanel
     private javax.swing.JPanel jpBarraLateral;
     private javax.swing.JPanel jpNovoAtendimento;
     private javax.swing.JPanel jpNovoCliente;
+    private javax.swing.JPanel jpQueueInfo;
     private javax.swing.JTextField tfCadastroNovoAtendimento;
     private javax.swing.JTextField tfCadastroNovoCliente;
     private javax.swing.JTextField tfNomeNovoAtendimento;
@@ -401,6 +422,7 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoAtendimento.setEnabled(false);
         jmNovoCliente.setEnabled(false);
         jpNovoCliente.setVisible(true);
+        jpQueueInfo.setVisible(false);
     }
 
     private void novoAtendimento()
@@ -412,9 +434,16 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoAtendimento.setEnabled(false);
         jmNovoCliente.setEnabled(false);
         jpNovoAtendimento.setVisible(true);
+        jpQueueInfo.setVisible(false);
         
         // carregar os serviços e jogar no comboBox
         controller.defineServicos(cbServico);
                 
+    }
+
+    public void showQueueElementInfo( QueueElementInfo elementInfo )
+    {
+        jpQueueInfo.add(elementInfo);
+        jpQueueInfo.setVisible(true);
     }
 }

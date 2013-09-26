@@ -153,7 +153,9 @@ public class QueuePushController extends PassControlController
             // TODO: atualizar o info
             QueueElementInfo elementInfo = new QueueElementInfo(response.getClientName(), 
                                                 response.getServiceType(), 
-                                                response.getQueuesManagerBean().getPassNumber());
+                                                response.getQueuesManagerBean().getPassNumber(),
+                                                response.getBalconyNumber());
+            screen.showQueueElementInfo(elementInfo);
             return true;
         }
     }

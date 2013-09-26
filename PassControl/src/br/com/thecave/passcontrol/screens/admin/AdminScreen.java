@@ -389,7 +389,7 @@ public class AdminScreen extends PassControlPanel
     
     
     private void jcbManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbManualActionPerformed
-        boolean retorno = controller.setQueueAutomaticChooser(jcbAutomatic.isSelected());
+        boolean retorno = controller.setQueueAutomaticChooser(false);
         jcbAutomatic.setSelected(!jcbManual.isSelected());
 
         if (retorno)
@@ -404,7 +404,7 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jcbManualActionPerformed
 
     private void jcbAutomaticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAutomaticActionPerformed
-        boolean retorno = controller.setQueueAutomaticChooser(jcbAutomatic.isSelected());
+        boolean retorno = controller.setQueueAutomaticChooser(true);
         jcbManual.setSelected(!jcbAutomatic.isSelected());
         
         if (retorno)

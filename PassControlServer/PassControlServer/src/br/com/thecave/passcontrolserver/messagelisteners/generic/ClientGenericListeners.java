@@ -161,6 +161,7 @@ public class ClientGenericListeners implements ClientListeners
             
             //Altero a imagem e mando para os clientes
             PassControlConfigurationSynchronizer.getInstance().saveMainImage(mainImageSetter.getImageIcon().getImage());
+            PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             PassControlConfigurationSynchronizer.getInstance().sendMainImageToClients(server);
             
             //Confirma o recebimento da resposta

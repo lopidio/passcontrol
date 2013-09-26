@@ -13,15 +13,14 @@ import javax.swing.JPanel;
 public class QueueElementInfoBig extends JPanel
 {
 
-    public QueueElementInfoBig( String clientName, String queueName, String userPass )
+    public QueueElementInfoBig( String clientName, String queueName, String userPass, String balconyName )
     {
-
         initComponents();
 
         txtFila.setText(queueName);
         txtNome.setText(clientName);
+        txtGuiche.setText(balconyName);
         txtSenha.setText(userPass);
-
     }
 
     /**
@@ -31,14 +30,17 @@ public class QueueElementInfoBig extends JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jSeparator1 = new javax.swing.JSeparator();
-        lblSenha = new javax.swing.JLabel();
+        lblGuiche = new javax.swing.JLabel();
         lblFila = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JLabel();
         txtFila = new javax.swing.JLabel();
+        txtGuiche = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
         txtSenha = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 232, 29));
@@ -53,10 +55,10 @@ public class QueueElementInfoBig extends JPanel
         add(jSeparator1);
         jSeparator1.setBounds(20, 80, 320, 14);
 
-        lblSenha.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        lblSenha.setText("Senha:");
-        add(lblSenha);
-        lblSenha.setBounds(10, 10, 60, 21);
+        lblGuiche.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        lblGuiche.setText("Guiche:");
+        add(lblGuiche);
+        lblGuiche.setBounds(160, 10, 70, 24);
 
         lblFila.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         lblFila.setText("Fila:");
@@ -78,20 +80,33 @@ public class QueueElementInfoBig extends JPanel
         txtFila.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtFila.setText("Prioritária");
         add(txtFila);
-        txtFila.setBounds(0, 110, 350, 42);
+        txtFila.setBounds(0, 110, 350, 47);
+
+        txtGuiche.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtGuiche.setText("B13");
+        add(txtGuiche);
+        txtGuiche.setBounds(190, 30, 150, 40);
+
+        lblSenha.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        lblSenha.setText("Senha:");
+        add(lblSenha);
+        lblSenha.setBounds(10, 10, 60, 24);
 
         txtSenha.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtSenha.setText("48");
         add(txtSenha);
-        txtSenha.setBounds(0, 30, 350, 40);
+        txtSenha.setBounds(20, 30, 150, 40);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblFila;
+    private javax.swing.JLabel lblGuiche;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel txtFila;
+    private javax.swing.JLabel txtGuiche;
     private javax.swing.JLabel txtNome;
     private javax.swing.JLabel txtSenha;
     // End of variables declaration//GEN-END:variables
