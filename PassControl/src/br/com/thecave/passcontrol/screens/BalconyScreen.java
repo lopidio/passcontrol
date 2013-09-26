@@ -22,6 +22,7 @@ public class BalconyScreen extends PassControlPanel
         super("Guichê", new BalconyController());
         controller = (BalconyController) getPanelController();
         initComponents();
+        jpQueueInfo.setVisible(false);
     }
     
     public void enableButtons(boolean enable)
@@ -49,6 +50,7 @@ public class BalconyScreen extends PassControlPanel
         btRepetir = new javax.swing.JButton();
         btEncerrar = new javax.swing.JButton();
         btEsperar = new javax.swing.JButton();
+        jpQueueInfo = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -120,6 +122,19 @@ public class BalconyScreen extends PassControlPanel
             }
         });
 
+        jpQueueInfo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jpQueueInfoLayout = new javax.swing.GroupLayout(jpQueueInfo);
+        jpQueueInfo.setLayout(jpQueueInfoLayout);
+        jpQueueInfoLayout.setHorizontalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 475, Short.MAX_VALUE)
+        );
+        jpQueueInfoLayout.setVerticalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 327, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,14 +148,18 @@ public class BalconyScreen extends PassControlPanel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btChamar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btEsperar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(708, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btChamar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btEsperar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jpQueueInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,34 +171,39 @@ public class BalconyScreen extends PassControlPanel
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btChamar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btEsperar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(499, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btChamar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btEsperar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jpQueueInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btChamarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btChamarActionPerformed
     {//GEN-HEADEREND:event_btChamarActionPerformed
+        controller.callNextClient();
+        btChamar.setEnabled(false);
     }//GEN-LAST:event_btChamarActionPerformed
 
     private void btRepetirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btRepetirActionPerformed
     {//GEN-HEADEREND:event_btRepetirActionPerformed
-        // TODO add your handling code here:
+        controller.recallNextClient();
     }//GEN-LAST:event_btRepetirActionPerformed
 
     private void btEncerrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btEncerrarActionPerformed
     {//GEN-HEADEREND:event_btEncerrarActionPerformed
-        // TODO add your handling code here:
+        controller.finalizeServiceClient();
     }//GEN-LAST:event_btEncerrarActionPerformed
 
     private void btEsperarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btEsperarActionPerformed
     {//GEN-HEADEREND:event_btEsperarActionPerformed
-        // TODO add your handling code here:
+        controller.putClientOnWaitting();
     }//GEN-LAST:event_btEsperarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -190,6 +214,7 @@ public class BalconyScreen extends PassControlPanel
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jlBalcony;
     private javax.swing.JPanel jpBarraLateral;
+    private javax.swing.JPanel jpQueueInfo;
     // End of variables declaration//GEN-END:variables
 
     public void initialize( BalconyBean balconyBean )
@@ -200,7 +225,10 @@ public class BalconyScreen extends PassControlPanel
     public void showPanelQueueInfo( BalconyShowClientMessage response )
     {
         QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber());
-        //jpSenha.add(queueElementInfoBig);
-        //jpSenha.setVisible(true);
+        jpQueueInfo.add(queueElementInfoBig);
+        jpQueueInfo.setVisible(true);
+        btEncerrar.setEnabled(true);
+        btEsperar.setEnabled(true);
+        btRepetir.setEnabled(true);
     }
 }

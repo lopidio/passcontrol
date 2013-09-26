@@ -2,9 +2,11 @@ package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientRequest;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyFinalizeCurrentClient;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientInit;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconySkipCurrentClient;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
@@ -36,6 +38,7 @@ public class BalconyController extends PassControlController
     private BalconyScreen screen;
     private BalconyShowClientMessage lastCalledClient = null;
     private BalconyBean balconyBean = null;
+    private QueuesManagerBean queuesManagerBean = null;
 
     @Override
     public void setPassControlPanel( JPanel passControlPanel )
@@ -45,7 +48,6 @@ public class BalconyController extends PassControlController
 
     public void recallNextClient()
     {
-
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(lastCalledClient, ConfirmationResponse.class, 1000);
         if ( response != null )
         {
@@ -58,6 +60,7 @@ public class BalconyController extends PassControlController
 
     public void callNextClient()
     {
+        queuesManagerBean = null;
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyBean);
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 1000);
         if ( response != null )
@@ -85,6 +88,7 @@ public class BalconyController extends PassControlController
         //Recebo um cliente para atender...
         //Mostra o cliente
         BalconyShowClientMessage received = (BalconyShowClientMessage) message;
+        queuesManagerBean = received.getQueuesManagerBean();
         showBalconyClient(received);
     }
 
@@ -107,4 +111,48 @@ public class BalconyController extends PassControlController
         lastCalledClient.setTo(MessageActors.ServerActor);
         screen.showPanelQueueInfo(showClientMessage);
     }    
+
+    public void finalizeServiceClient()
+    {
+        BalconyFinalizeCurrentClient finalizeCurrentClient = new BalconyFinalizeCurrentClient(queuesManagerBean);
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(finalizeCurrentClient, ConfirmationResponse.class, 1000);
+    
+        if(response == null)
+        {
+            JOptionPane.showMessageDialog(null, "Conexão com o servidor comprometida!");
+        }
+        else
+        {
+            if(response.getStatusOperation())
+            {
+                JOptionPane.showMessageDialog(null, "Atendimento encerrado!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, response.getComment());
+            }
+        }
+    }
+
+    public void putClientOnWaitting()
+    {
+        BalconySkipCurrentClient skipCurrentClient = new BalconySkipCurrentClient(queuesManagerBean);
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(skipCurrentClient, ConfirmationResponse.class, 1000);
+    
+        if(response == null)
+        {
+            JOptionPane.showMessageDialog(null, "Conexão com o servidor comprometida!");
+        }
+        else
+        {
+            if(response.getStatusOperation())
+            {
+                JOptionPane.showMessageDialog(null, "Cliente colocado na espera!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, response.getComment());
+            }
+        }
+    }
 }
