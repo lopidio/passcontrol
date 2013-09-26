@@ -9,8 +9,6 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemo
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -354,10 +352,9 @@ public class AdminScreen extends PassControlPanel
         int returnVal = chooser.showOpenDialog(null);
         if ( returnVal == JFileChooser.APPROVE_OPTION )
         {
-            Image img = Toolkit.getDefaultToolkit().getImage(chooser.getSelectedFile().getName());
-            AdministratorRemoveSlideImage slideImage = new AdministratorRemoveSlideImage(chooser.getSelectedFile().getName());
+            AdministratorRemoveSlideImage removeSlideImage = new AdministratorRemoveSlideImage(chooser.getSelectedFile().getName());
             ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                    sendMessageToServerAndWaitForResponseOrTimeout(slideImage, ConfirmationResponse.class, 2000);
+                    sendMessageToServerAndWaitForResponseOrTimeout(removeSlideImage, ConfirmationResponse.class, 2000);
             
             if(response != null && response.getStatusOperation())
             {
