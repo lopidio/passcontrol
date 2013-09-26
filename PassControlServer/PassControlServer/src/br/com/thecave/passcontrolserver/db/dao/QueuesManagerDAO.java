@@ -278,4 +278,40 @@ public class QueuesManagerDAO
           return false;
         }  
     }    
+
+    public static int getCountOfClientsOfServiceToday(int serviceId)
+    {
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return 0;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT COUNT(*) FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY = 0 AND INT_ID_SERVICE = "+serviceId+" LIMIT 1;";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            boolean retorno = false;
+            if(rs.next())
+            {
+                retorno = true;
+            }
+            
+            stmt.close();
+            conn.close();
+            return 0;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return 0;
+        }  
+        
+    }
 }

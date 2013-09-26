@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrolserver;
 
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
@@ -34,6 +35,15 @@ public class PassControlServer {
 
     public static String generatePassNumber(QueuePusherAddQueueElement addQueueElement) 
     {
+        final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        String prefixCode = "";
+        for (int i = addQueueElement.getServiceBean().getId(); i >0; ++i)
+        {
+            prefixCode += alphabet.charAt(i%alphabet.length());
+            i %= alphabet.length();
+        }
+        prefixCode += "-";
+        int id = QueuesManagerDAO.getCountOfClientsOfServiceToday(addQueueElement.getServiceBean().getId());
         return "1";
     }
     
