@@ -15,7 +15,6 @@ public class UserPermission
     public final static UserPermission VIEWER_PERMISSION_MASK  = new UserPermission(4);
     public final static UserPermission PUSHER_PERMISSION_MASK  = new UserPermission(8);
     public final static UserPermission POPPER_PERMISSION_MASK  = new UserPermission(16);
-    public final static UserPermission CONFIG_PERMISSION_MASK  = new UserPermission(32);
     public final static UserPermission ALL_PERMISSION_MASK  = new UserPermission(63); //SOmatório anterior
         
     private int permissionCode = 0;       
@@ -53,12 +52,7 @@ public class UserPermission
     public boolean hasPopperPermission()
     {
         return (permissionCode & POPPER_PERMISSION_MASK.permissionCode) == POPPER_PERMISSION_MASK.permissionCode;
-    }
-    public boolean hasConfigPermission()
-    {
-        return (permissionCode & CONFIG_PERMISSION_MASK.permissionCode) == CONFIG_PERMISSION_MASK.permissionCode;
-    }
-      
+    } 
     public UserPermission addPermission(UserPermission newPermission)
     {
         permissionCode = (permissionCode | newPermission.permissionCode);

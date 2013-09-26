@@ -5,6 +5,7 @@ import br.com.thecave.passcontrol.controller.UserCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
@@ -348,10 +349,15 @@ public class UserCrud extends PassControlPanel
             bean.setName(cbName.getSelectedItem().toString());
             bean.setLogin(tfLogin.getText());
             bean.setPassword(new String(tfSenha.getPassword()));
+            UserPermission permission = new UserPermission();
+            permission.addPermission(UserPermission.BALCONY_PERMISSION_MASK).
+                       addPermission(UserPermission.POPPER_PERMISSION_MASK).
+                       addPermission(UserPermission.PUSHER_PERMISSION_MASK).
+                       addPermission(UserPermission.VIEWER_PERMISSION_MASK);
             if(rbAdmin.isSelected())
-                bean.setType(0);
+                bean.setType(UserPermission.ADMIN_PERMISSION_MASK.getPermissionCode());
             else
-                bean.setType(1);
+                bean.setType(permission.getPermissionCode());
             ret = controller.saveUser(bean);
         }
         // se tiver clicado em editar
