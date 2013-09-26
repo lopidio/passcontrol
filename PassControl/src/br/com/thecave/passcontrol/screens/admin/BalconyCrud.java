@@ -473,11 +473,17 @@ public class BalconyCrud extends PassControlPanel
 
     private void selectCheckBoxFromServicesList( ArrayList<ServiceBean> services )
     {
+        //Desseleciona todos, antes
+        for (JCheckBox box : checkBoxs) 
+        {
+            box.setSelected(false);
+        }
         if (services != null)
         {
             for ( ServiceBean serviceBean : services )
             {
                 JCheckBox box = getCheckBoxFromServices(serviceBean);
+                //Seleciona os que devem ser selecionados
                 if(box != null)
                 {
                     box.setSelected(true);

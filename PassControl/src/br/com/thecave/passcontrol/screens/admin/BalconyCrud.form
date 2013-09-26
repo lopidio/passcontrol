@@ -205,7 +205,7 @@
                   <Component id="cbBalconysName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="jpServices" min="-2" pref="191" max="-2" attributes="0"/>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jbAdicionar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbRemove" alignment="3" min="-2" max="-2" attributes="0"/>

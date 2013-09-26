@@ -165,12 +165,12 @@ public final class BalconyCrudController extends PassControlController
 
         if ( response.getStatusOperation() )
         {
-            JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
             return true;
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar registros!");
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar registro!");
             return false;
         }
     }

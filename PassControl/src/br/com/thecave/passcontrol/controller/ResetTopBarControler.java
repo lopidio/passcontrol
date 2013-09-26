@@ -22,10 +22,10 @@ public class ResetTopBarControler extends PassControlController
         resetTopBar = (ResetTopBar) passControlPanel;
     }
 
- public void performReset(String username)
+    public void performReset(String username)
     {
         ClientLoginReset recoverClientMessage = new ClientLoginReset(username);
-        ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(recoverClientMessage, ConfirmationResponse.class, 3000);
+        ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(recoverClientMessage, ConfirmationResponse.class, 10000);
         if (confirmationResponse != null)
         {
             if (confirmationResponse.getStatusOperation())
