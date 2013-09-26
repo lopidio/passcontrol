@@ -1,12 +1,14 @@
 package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.controller.Main;
+import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -91,7 +93,10 @@ public class DefaultScreen extends PassControlPanel
             @Override
             public void actionPerformed( java.awt.event.ActionEvent evt )
             {
-//                jmAdminActionPerformed(evt);
+                String ip = JOptionPane.showInputDialog("Digite o IP do servidor!");
+                ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+                file.setIpServer(ip);
+                PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             }
         });
         jmServerConfig.add(jmIP);
@@ -105,7 +110,10 @@ public class DefaultScreen extends PassControlPanel
             @Override
             public void actionPerformed( java.awt.event.ActionEvent evt )
             {
-//                jmGuicheActionPerformed(evt);
+                String port = JOptionPane.showInputDialog("Digite a porta do servidor!");
+                ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+                file.setIpServer(port);
+                PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             }
         });
         jmServerConfig.add(jmPort);

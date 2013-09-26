@@ -1,15 +1,14 @@
 package br.com.thecave.passcontrolserver.util;
 
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 /**
- * Classe para leitura e escrita do xml de configuração a ser adotado pelo sistema
- * esse xml contem dados de cada um dos modulos do sistema
- * desde ip a informações mais específicas de comportamento.
- * 
+ * Classe para leitura e escrita do xml de configuração a ser adotado pelo
+ * sistema esse xml contem dados de cada um dos modulos do sistema desde ip a
+ * informações mais específicas de comportamento.
+ *
  * @author Antonio Arleudo da Costa
  */
 public class ConfigurationFile implements Serializable
@@ -17,14 +16,15 @@ public class ConfigurationFile implements Serializable
     //==========================================================================
     // Atributos a serem mapeados
     //==========================================================================
+
     private boolean gerenciamentoAutomatico;
     private int slideShowSpeed;
     private String ipServer;
     private String portServer;
     private HashMap<String, ImageIcon> imgsSlide;
-    
+
     /**
-     * Construtor privado da classe 
+     * Construtor privado da classe
      */
     public ConfigurationFile()
     {
@@ -35,14 +35,16 @@ public class ConfigurationFile implements Serializable
         imgsSlide = new HashMap<>();
     }
 
-    public boolean isGerenciamentoAutomatico() {
+    public boolean isGerenciamentoAutomatico()
+    {
         return gerenciamentoAutomatico;
     }
 
-    public void setGerenciamentoAutomatico(boolean gerenciamentoAutomatico) {
+    public void setGerenciamentoAutomatico( boolean gerenciamentoAutomatico )
+    {
         this.gerenciamentoAutomatico = gerenciamentoAutomatico;
     }
-    
+
     /**
      * @return the slideShowSpeed
      */
@@ -91,10 +93,8 @@ public class ConfigurationFile implements Serializable
         this.portServer = portServer;
     }
 
-    public HashMap<String, ImageIcon> getImgsSlide() {
+    public HashMap<String, ImageIcon> getImgsSlide()
+    {
         return imgsSlide;
     }
-
-
 }
-
