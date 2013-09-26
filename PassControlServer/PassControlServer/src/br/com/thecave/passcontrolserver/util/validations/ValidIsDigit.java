@@ -13,6 +13,7 @@ import br.com.thecave.passcontrolserver.util.IValidation;
 public class ValidIsDigit implements IValidation
 {
     private String comment;
+    
     @Override
     public boolean valid( String toValid )
     {

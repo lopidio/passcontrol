@@ -7,6 +7,9 @@ import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.utils.PassControlFont;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
+import br.com.thecave.passcontrolserver.util.IValidation;
+import br.com.thecave.passcontrolserver.util.ValidationPerform;
+import br.com.thecave.passcontrolserver.util.validations.ValidIsEmpty;
 import static java.awt.Component.LEFT_ALIGNMENT;
 import static java.awt.Component.RIGHT_ALIGNMENT;
 import java.awt.FlowLayout;
@@ -344,13 +347,18 @@ public class BalconyCrud extends PassControlPanel
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
         String balconyName = "";
+        boolean retorno = false;
         if(cbBalconysName.getSelectedItem() != null)
             balconyName = cbBalconysName.getSelectedItem().toString();
         
+        // adicionando as validações
+        ArrayList<IValidation> validations = new ArrayList<>();
+        validations.add(new ValidIsEmpty());
+        
         // não permite inserir um registro com o nome vazio
-        while(balconyName.equals(""))
+        while( !ValidationPerform.valid(balconyName, validations))
         {
-            balconyName = JOptionPane.showInputDialog("Insira o nome do guichê!");
+            balconyName = JOptionPane.showInputDialog(ValidationPerform.getComment());
             if (balconyName == null)
                 return;
             DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
@@ -363,27 +371,27 @@ public class BalconyCrud extends PassControlPanel
         {
             JOptionPane.showMessageDialog(null, "É preciso selecionar serviço(s)", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
-        
-        // se tiver clicado em novo
-        boolean retorno;        
-        if(adicionarPage)
-        {
-            BalconyBean balconyBean = new BalconyBean();            
-            balconyBean.setNumber(cbBalconysName.getSelectedItem().toString());
-            retorno = controller.saveBalcony(balconyBean, arrayList);
-        }
-        // se tiver clicado em editar
         else
         {
-            // construindo o bean com as informações da tela
-            BalconyBean balconyBean = extractBeanFromSelectedComboBoxItem();
-            if (balconyBean == null)
+            // se tiver clicado em novo
+            if(adicionarPage)
             {
-                return;
-            }            
-            retorno = controller.updateBalcony(balconyBean, arrayList);
+                BalconyBean balconyBean = new BalconyBean();            
+                balconyBean.setNumber(cbBalconysName.getSelectedItem().toString());
+                retorno = controller.saveBalcony(balconyBean, arrayList);
+            }
+            // se tiver clicado em editar
+            else
+            {
+                // construindo o bean com as informações da tela
+                BalconyBean balconyBean = extractBeanFromSelectedComboBoxItem();
+                if (balconyBean == null)
+                {
+                    return;
+                }            
+                retorno = controller.updateBalcony(balconyBean, arrayList);
+            }
         }
-        
         //Analisa o retorno
         if(retorno)
         {

@@ -10,7 +10,6 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetT
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.util.IValidation;
-import br.com.thecave.passcontrolserver.util.Validation;
 import br.com.thecave.passcontrolserver.util.ValidationPerform;
 import br.com.thecave.passcontrolserver.util.validations.ValidIsDigit;
 import java.util.ArrayList;
