@@ -64,7 +64,6 @@ public class QueuePushScreen extends PassControlPanel
         jpNovoAtendimento = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tfCadastroNovoAtendimento = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tfNomeNovoAtendimento = new javax.swing.JTextField();
         tfTelefoneNovoAtendimento = new javax.swing.JTextField();
@@ -72,6 +71,7 @@ public class QueuePushScreen extends PassControlPanel
         cbServico = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         jbInserirNovoAtendimento = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jpNovoCliente = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         tfCadastroNovoCliente = new javax.swing.JTextField();
@@ -193,16 +193,6 @@ public class QueuePushScreen extends PassControlPanel
         });
         jpNovoAtendimento.add(tfCadastroNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 11, 184, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small.png"))); // NOI18N
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jLabel6MouseClicked(evt);
-            }
-        });
-        jpNovoAtendimento.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 11, -1, 24));
-
         jLabel7.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel7.setText("Nome:");
         jpNovoAtendimento.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
@@ -236,6 +226,19 @@ public class QueuePushScreen extends PassControlPanel
             }
         });
         jpNovoAtendimento.add(jbInserirNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 188, 221, 37));
+
+        jButton1.setBackground(new java.awt.Color(0, 153, 191));
+        jButton1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small.png"))); // NOI18N
+        jButton1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small_Clicked.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jpNovoAtendimento.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 30, 30));
 
         add(jpNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 320, 240));
 
@@ -359,25 +362,19 @@ public class QueuePushScreen extends PassControlPanel
         }
     }//GEN-LAST:event_jbInserirNovoAtendimentoActionPerformed
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jLabel6MouseClicked
-    {//GEN-HEADEREND:event_jLabel6MouseClicked
-        clientBean = controller.loadRegister(tfCadastroNovoAtendimento.getText());
-        if(clientBean != null)
-        {
-            tfCadastroNovoAtendimento.setText(clientBean.getRegister());
-            tfNomeNovoAtendimento.setText(clientBean.getName());
-            tfTelefoneNovoAtendimento.setText(clientBean.getTelefone());
-        }
-    }//GEN-LAST:event_jLabel6MouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbServico;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -445,5 +442,16 @@ public class QueuePushScreen extends PassControlPanel
     {
         jpQueueInfo.add(elementInfo);
         jpQueueInfo.setVisible(true);
+    }
+
+    private void searchRegister()
+    {
+        clientBean = controller.loadRegister(tfCadastroNovoAtendimento.getText());
+        if(clientBean != null)
+        {
+            tfCadastroNovoAtendimento.setText(clientBean.getRegister());
+            tfNomeNovoAtendimento.setText(clientBean.getName());
+            tfTelefoneNovoAtendimento.setText(clientBean.getTelefone());
+        }
     }
 }
