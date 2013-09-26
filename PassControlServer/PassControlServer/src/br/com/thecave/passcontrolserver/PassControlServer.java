@@ -44,7 +44,7 @@ public class PassControlServer {
         }
         prefixCode += "-";
         int id = QueuesManagerDAO.getCountOfClientsOfServiceToday(addQueueElement.getServiceBean().getId());
-        return "1";
+        return prefixCode+id;
     }
     
     /**

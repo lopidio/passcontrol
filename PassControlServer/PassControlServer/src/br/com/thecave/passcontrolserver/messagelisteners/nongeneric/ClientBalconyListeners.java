@@ -264,7 +264,7 @@ public class ClientBalconyListeners implements ClientListeners
         {
             //Atendimento vai começar (seto a hora que começou)
             BalconyInitCurrentClient balconyInitCurrentClient = (BalconyInitCurrentClient)message;
-            balconyInitCurrentClient.getQueuesManagerBean().setCheckout(new Date());
+            balconyInitCurrentClient.getQueuesManagerBean().setCheckout(QueuesManagerDAO.dateFormat.format(new Date()));
             boolean status = QueuesManagerDAO.update(balconyInitCurrentClient.getQueuesManagerBean());
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(status, balconyInitCurrentClient, MessageActors.BalconyActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);

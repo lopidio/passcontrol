@@ -7,7 +7,9 @@ import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -15,6 +17,8 @@ import java.util.ArrayList;
  */
 public class QueuesManagerDAO 
 {
+    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddkkmmss");
+
     /**
      * Metodo para persistir um QueuesManagerBean na tabela Tb_QUEUES_MANAGER
      * @param bean Objeto QueuesManagerBean a ser inserido
@@ -47,9 +51,9 @@ public class QueuesManagerDAO
                                                         bean.getIdBalcony() + ", " +
                                                         bean.getIdUserCheckin() + ", " +
                                                         bean.getIdUserCheckout() + ", " +
-                                                        bean.getIdClient() + ", " +
-                                                        bean.getCheckin() + ", " +
-                                                        bean.getCheckout() + ", " +  
+                                                        bean.getIdClient() + ", '" +
+                                                        bean.getCheckin() + "', '" +
+                                                        bean.getCheckout() + "', " +  
                                                         "'" + bean.getPassNumber()+ "' );";
             stmt.executeUpdate(sql);           
 
@@ -60,7 +64,7 @@ public class QueuesManagerDAO
         } 
         catch ( Exception e ) 
         {
-          //TODO: logar erro
+          e.printStackTrace();
           ConnectionDataBase.getInstance().closeConnection();
           return false;
         }
@@ -83,11 +87,11 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "UPDATE TB_QUEUES_MANAGER SET INT_ID_SERVICE = '"+ bean.getIdService() + 
-                         "',INT_ID_BALCONY = " + bean.getIdBalcony() + 
-                         ",INT_ID_USER_CHECKIN = '"+ bean.getIdUserCheckin() + 
-                         "',INT_ID_USER_CHECKOUT = '" + bean.getIdUserCheckout() + 
-                         "',INT_ID_CLIENT = '"+ bean.getIdClient() +
+            String sql = "UPDATE TB_QUEUES_MANAGER SET INT_ID_SERVICE = "+ bean.getIdService() + 
+                         ",INT_ID_BALCONY = " + bean.getIdBalcony() + 
+                         ",INT_ID_USER_CHECKIN = "+ bean.getIdUserCheckin() + 
+                         ",INT_ID_USER_CHECKOUT = " + bean.getIdUserCheckout() + 
+                         ",INT_ID_CLIENT = '"+ bean.getIdClient() +
                          "',DT_CHECKIN = '" + bean.getCheckin() +
                          "',DT_CHECKOUT = '" + bean.getCheckout() +
                          "',TX_PASS_NUMBER = '" + bean.getPassNumber() +
@@ -173,8 +177,8 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
-                bean.setCheckin(rs.getDate("DT_CHECKIN"));
-                bean.setCheckout(rs.getDate("DT_CHECKOUT"));
+                bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setCheckout(rs.getString("DT_CHECKOUT"));
             }
             
             stmt.close();
@@ -188,6 +192,18 @@ public class QueuesManagerDAO
           return null;
         }  
     }    
+    
+    public static void main(String[] args)
+    {
+//        QueuesManagerBean bean = new QueuesManagerBean();
+//        bean.setIdBalcony(1);
+//        bean.setIdClient(0);
+//        bean.setIdService(1);
+//        bean.setPassNumber("asd");
+//        bean.setCheckin(dateFormat.format(new Date()));
+//        QueuesManagerDAO.insert(bean);
+        System.out.println(QueuesManagerDAO.getCountOfClientsOfServiceToday(1));
+    }
     
     /**
      * Método para recuperar todos os elementos passíveis de atendimento por um certo guichê ordenados por ordem de chegada
@@ -222,8 +238,8 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
-                bean.setCheckin(rs.getDate("DT_CHECKIN"));
-                bean.setCheckout(rs.getDate("DT_CHECKOUT"));
+                bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setCheckout(rs.getString("DT_CHECKOUT"));
                 retorno.add(bean);
             }
             
@@ -281,30 +297,34 @@ public class QueuesManagerDAO
 
     public static int getCountOfClientsOfServiceToday(int serviceId)
     {
+        int retorno = 0;
         try
         {
         // pegar a conexão com o banco
             Connection conn = ConnectionDataBase.getInstance().getConnection();
             if(conn == null)
-                return 0;
+                return retorno;
             
             Statement stmt;
             conn.setAutoCommit(false);
+            
+            SimpleDateFormat todayFormatter = new SimpleDateFormat("dd");
+            String today = "______" + todayFormatter.format(new Date()) + "______"; //yyyymm dd hhmmss
 
             stmt = conn.createStatement();
-            String sql = "SELECT COUNT(*) FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY = 0 AND INT_ID_SERVICE = "+serviceId+" LIMIT 1;";
+            String sql = "SELECT COUNT(*) as COUNT FROM TB_QUEUES_MANAGER WHERE INT_ID_SERVICE = "+serviceId+" AND DT_CHECKIN LIKE '" +  today + "';";
 
             ResultSet rs = stmt.executeQuery(sql);
             
-            boolean retorno = false;
+            
             if(rs.next())
             {
-                retorno = true;
+                retorno = rs.getInt("COUNT");
             }
             
             stmt.close();
             conn.close();
-            return 0;
+            return retorno;
         }
         catch ( Exception e ) 
         {

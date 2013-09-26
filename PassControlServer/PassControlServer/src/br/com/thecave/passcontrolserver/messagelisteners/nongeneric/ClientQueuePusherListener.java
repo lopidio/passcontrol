@@ -55,7 +55,7 @@ public class ClientQueuePusherListener implements ClientListeners
                 clientName = clientBean.getName();
             }
 
-            queuesManagerBean.setCheckin(new Date());            
+            queuesManagerBean.setCheckin(QueuesManagerDAO.dateFormat.format(new Date()));            
             queuesManagerBean.setIdService(addQueueElement.getServiceBean().getId());
             queuesManagerBean.setIdUserCheckin(addQueueElement.getUserBean().getId());
             

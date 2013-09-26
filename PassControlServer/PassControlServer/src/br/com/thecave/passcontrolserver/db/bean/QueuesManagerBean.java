@@ -35,11 +35,11 @@ public class QueuesManagerBean extends TableBean
     /**
      * Guarda o valor da variavel [DT_CHECKIN] da tabela TB_QUEUES_MANAGER
      */
-    private Date checkin;
+    private String checkin;
     /**
      * Guarda o valor da variavel [DT_CHECKOUT] da tabela TB_QUEUES_MANAGER
      */
-    private Date checkout;
+    private String checkout;
     /**
      * Guarda o valor da variavel [TX_PASS_NUMBER] da tabela TB_QUEUES_MANAGER
      */
@@ -132,28 +132,28 @@ public class QueuesManagerBean extends TableBean
     /**
      * @return the checkin
      */
-    public Date getCheckin() {
+    public String getCheckin() {
         return checkin;
     }
 
     /**
      * @param checkin the checkin to set
      */
-    public void setCheckin(Date checkin) {
+    public void setCheckin(String checkin) {
         this.checkin = checkin;
     }
 
     /**
      * @return the checkout
      */
-    public Date getCheckout() {
+    public String getCheckout() {
         return checkout;
     }
 
     /**
      * @param checkout the checkout to set
      */
-    public void setCheckout(Date checkout) {
+    public void setCheckout(String checkout) {
         this.checkout = checkout;
     }
 
