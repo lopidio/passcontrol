@@ -32,8 +32,9 @@ public class PassControlServer {
         return singletonInstance;
     }
 
-    public static String generatePassNumber(QueuePusherAddQueueElement addQueueElement) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static String generatePassNumber(QueuePusherAddQueueElement addQueueElement) 
+    {
+        return "1";
     }
     
     /**

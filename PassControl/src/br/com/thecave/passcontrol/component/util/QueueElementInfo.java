@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrol.component.util;
 
 import java.awt.Color;
@@ -78,7 +74,7 @@ public class QueueElementInfo extends JPanel
     }
     FadeInOutAction fader = null;
 
-    public QueueElementInfo( String clientName, String queueName, String userPass )
+    public QueueElementInfo( String clientName, String queueName, String userPass, String balconyName )
     {
 
         initComponents();
@@ -86,6 +82,7 @@ public class QueueElementInfo extends JPanel
         txtFila.setText(queueName);
         txtNome.setText(clientName);
         txtSenha.setText(userPass);
+        txtGuiche.setText(balconyName);
 
     }
 
@@ -114,14 +111,17 @@ public class QueueElementInfo extends JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jSeparator1 = new javax.swing.JSeparator();
-        lblSenha = new javax.swing.JLabel();
+        lblGuiche = new javax.swing.JLabel();
         lblFila = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JLabel();
         txtFila = new javax.swing.JLabel();
+        txtGuiche = new javax.swing.JLabel();
+        lblSenha1 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 232, 29));
@@ -129,17 +129,17 @@ public class QueueElementInfo extends JPanel
         setForeground(new java.awt.Color(255, 100, 60));
         setMaximumSize(new java.awt.Dimension(250, 150));
         setMinimumSize(new java.awt.Dimension(250, 150));
-        setPreferredSize(new java.awt.Dimension(250, 150));
+        setPreferredSize(new java.awt.Dimension(250, 95));
         setLayout(null);
 
         jSeparator1.setToolTipText("");
         add(jSeparator1);
-        jSeparator1.setBounds(10, 50, 230, 14);
+        jSeparator1.setBounds(10, 50, 260, 14);
 
-        lblSenha.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        lblSenha.setText("Senha:");
-        add(lblSenha);
-        lblSenha.setBounds(10, 10, 36, 15);
+        lblGuiche.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblGuiche.setText("Guichê:");
+        add(lblGuiche);
+        lblGuiche.setBounds(120, 10, 50, 16);
 
         lblFila.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         lblFila.setText("Fila:");
@@ -155,26 +155,39 @@ public class QueueElementInfo extends JPanel
         txtNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtNome.setText("Leudinho");
         add(txtNome);
-        txtNome.setBounds(0, 120, 250, 19);
+        txtNome.setBounds(0, 120, 280, 19);
 
         txtFila.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         txtFila.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtFila.setText("Prioritária");
         add(txtFila);
-        txtFila.setBounds(0, 60, 250, 29);
+        txtFila.setBounds(20, 60, 250, 32);
+
+        txtGuiche.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtGuiche.setText("B13");
+        add(txtGuiche);
+        txtGuiche.setBounds(170, 10, 100, 40);
+
+        lblSenha1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblSenha1.setText("Senha:");
+        add(lblSenha1);
+        lblSenha1.setBounds(10, 10, 39, 16);
 
         txtSenha.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtSenha.setText("43");
         add(txtSenha);
-        txtSenha.setBounds(0, 10, 250, 40);
+        txtSenha.setBounds(0, 10, 160, 40);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblFila;
+    private javax.swing.JLabel lblGuiche;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblSenha1;
     private javax.swing.JLabel txtFila;
+    private javax.swing.JLabel txtGuiche;
     private javax.swing.JLabel txtNome;
     private javax.swing.JLabel txtSenha;
     // End of variables declaration//GEN-END:variables
