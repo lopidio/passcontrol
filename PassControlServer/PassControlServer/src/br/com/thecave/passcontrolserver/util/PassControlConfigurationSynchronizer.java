@@ -101,7 +101,9 @@ public final class PassControlConfigurationSynchronizer
             public void onMessageReceive(PassControlMessage message, Socket socket) 
             {
                 //Carrega o novo arquivo de configuração
-                loadConfigurationFile();
+                ConfigurationFileAlterationMessage configurationFileAlterationMessage = (ConfigurationFileAlterationMessage)message;
+                configurationFile = configurationFileAlterationMessage.getConfigurationFile();
+                saveConfigurationFile();
             }
         }, ConfigurationFileAlterationMessage.class);                       
     }
@@ -128,6 +130,7 @@ public final class PassControlConfigurationSynchronizer
         }catch(IOException | ClassNotFoundException exc)
         {
             configurationFile = new ConfigurationFile();
+            saveConfigurationFile();
             System.out.println("Arquivo de configuração recriado");
          }        
     }

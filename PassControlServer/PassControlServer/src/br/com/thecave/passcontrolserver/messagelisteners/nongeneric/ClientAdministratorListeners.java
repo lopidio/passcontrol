@@ -296,6 +296,7 @@ public class ClientAdministratorListeners implements ClientListeners
             //Altero o arquivo de configurações e mando para os clientes
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
             configurationFile.getImgsSlide().put(administratorAddSlideImage.getFileName(), administratorAddSlideImage.getImage().getImage());
+            PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
             //Envio a resposta para o administrador
@@ -319,6 +320,7 @@ public class ClientAdministratorListeners implements ClientListeners
             //Altero o arquivo de configurações e mando para os clientes
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
             configurationFile.getImgsSlide().remove(administratorRemoveSlideImage.getFileName());
+            PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
             //Envio a resposta para o administrador
@@ -346,6 +348,7 @@ public class ClientAdministratorListeners implements ClientListeners
             //Altero o arquivo de configurações e mando para os clientes
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
             configurationFile.setGerenciamentoAutomatico(chooserMessage.isIsOn());
+            PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
         }
@@ -366,6 +369,7 @@ public class ClientAdministratorListeners implements ClientListeners
             //Altero o arquivo de configurações e mando para os clientes
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
             configurationFile.setSlideShowSpeed(administratorSetTimeSlideInterval.getTimeInterval());
+            PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
             
         }

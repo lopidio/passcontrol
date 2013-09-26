@@ -28,7 +28,8 @@ public class QueuePopScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jlImage = new javax.swing.JLabel();
 
@@ -36,10 +37,10 @@ public class QueuePopScreen extends PassControlPanel
         setLayout(null);
 
         jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_big.png"))); // NOI18N
+        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
         jlImage.setToolTipText("");
         add(jlImage);
-        jlImage.setBounds(10, 11, 1347, 778);
+        jlImage.setBounds(10, 11, 250, 150);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlImage;
