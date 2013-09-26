@@ -224,7 +224,7 @@ public class BalconyScreen extends PassControlPanel
 
     public void showPanelQueueInfo( BalconyShowClientMessage response )
     {
-        QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber());
+        QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber(), response.getBalconyNumber());
         jpQueueInfo.add(queueElementInfoBig);
         jpQueueInfo.setVisible(true);
         btEncerrar.setEnabled(true);
