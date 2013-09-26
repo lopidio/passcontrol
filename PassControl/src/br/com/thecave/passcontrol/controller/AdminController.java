@@ -9,7 +9,11 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetA
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorSetTimeSlideInterval;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
+import br.com.thecave.passcontrolserver.util.IValidation;
 import br.com.thecave.passcontrolserver.util.Validation;
+import br.com.thecave.passcontrolserver.util.ValidationPerform;
+import br.com.thecave.passcontrolserver.util.validations.ValidIsDigit;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -88,8 +92,9 @@ public class AdminController extends PassControlController
     {
         int newTime;
         String time = JOptionPane.showInputDialog("Insira o tempo de intervalo que deseja para a apresentação");
-        
-        while( !Validation.isDigit(time) )
+        ArrayList<IValidation> validations = new ArrayList<IValidation>();
+        validations.add(new ValidIsDigit());
+        while( !ValidationPerform.valid(time, validations ))
         {
             time = JOptionPane.showInputDialog("Insira o tempo de intervalo que deseja para a apresentação");
         }
