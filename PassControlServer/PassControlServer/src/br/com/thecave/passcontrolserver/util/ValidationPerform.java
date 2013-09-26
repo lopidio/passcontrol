@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class ValidationPerform
 {
-    private static String coment;
+    private static String coment = "";
     
     public static boolean valid(String toValid, ArrayList<IValidation> validations)
     {
@@ -16,7 +16,10 @@ public class ValidationPerform
         {
             if(!validation.valid(toValid))
             {
-                coment += validation.getComment() + "\n";
+                if(!coment.equals(validation.getComment()))
+                {
+                    coment += validation.getComment();
+                }
                 return false;
             }
         }
