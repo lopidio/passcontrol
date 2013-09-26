@@ -19,7 +19,6 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceRespon
 import br.com.thecave.passcontrolserver.messages.generic.ClientLoginReset;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
-import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.EMailSender;
@@ -47,7 +46,6 @@ public class ClientGenericListeners implements ClientListeners
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
-        server.addMessageListener(new MainImageRequestListener(), MainImageRequest.class);
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener
@@ -166,9 +164,9 @@ public class ClientGenericListeners implements ClientListeners
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
             
             //Altero a imagem e mando para os clientes
-            PassControlConfigurationSynchronizer.getInstance().saveMainImage(mainImageSetter.getImageIcon().getImage());
+            PassControlConfigurationSynchronizer.getInstance().getConfigurationFile().setMainImage(mainImageSetter.getImageIcon());
             PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
-            PassControlConfigurationSynchronizer.getInstance().sendMainImageToClients(server);
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
             
             //Confirma o recebimento da resposta
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, mainImageSetter, MessageActors.AdministratorActor);

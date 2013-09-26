@@ -19,6 +19,7 @@ public class ConfigurationFile implements Serializable
 
     private boolean gerenciamentoAutomatico;
     private int slideShowSpeed;
+    private ImageIcon mainImage;
     private String ipServer;
     private String portServer;
     private HashMap<String, ImageIcon> imgsSlide;
@@ -33,6 +34,7 @@ public class ConfigurationFile implements Serializable
         ipServer = "127.0.0.1";
         portServer = "23073";
         imgsSlide = new HashMap<>();
+        mainImage = new ImageIcon(getClass().getResource("/resources/splash.png"));
     }
 
     public boolean isGerenciamentoAutomatico()
@@ -97,4 +99,14 @@ public class ConfigurationFile implements Serializable
     {
         return imgsSlide;
     }
+
+    public ImageIcon getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(ImageIcon mainImage) {
+        this.mainImage = mainImage;
+    }
+    
+    
 }

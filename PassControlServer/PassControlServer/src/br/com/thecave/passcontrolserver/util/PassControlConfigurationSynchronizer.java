@@ -7,8 +7,6 @@ package br.com.thecave.passcontrolserver.util;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.generic.ConfigurationFileAlterationMessage;
-import br.com.thecave.passcontrolserver.messages.generic.MainImageRequest;
-import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
@@ -19,15 +17,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import javax.swing.ImageIcon;
 
 /**
  *
  * @author lopidio
  */
-public final class PassControlConfigurationSynchronizer
+public final class PassControlConfigurationSynchronizer implements PassControlMessageListener
 {
-    private final static String MAIN_IMAGE_PATH = "imgs/main/mainImage.png";
     private final static String CONFIGURATION_FILE_PATH = "config/configuration.ser";
     private Image mainImage = null;
     private ConfigurationFile configurationFile;
@@ -44,25 +40,9 @@ public final class PassControlConfigurationSynchronizer
 
     public PassControlConfigurationSynchronizer() 
     {
-        //carrega a imagem principal
-        ImageIcon newImage = new ImageIcon(MAIN_IMAGE_PATH);
-        //A imagem não foi carregada com sucesso :/. Então carrega o default
-        if (newImage.getIconWidth()== -1 && newImage.getIconHeight() == -1)
-        {
-            newImage = new ImageIcon(getClass().getResource("/resources/splash.png"));
-            //Salva a imagem no canto devido
-            FileUtils.saveImage(newImage.getImage(), MAIN_IMAGE_PATH);
-        }
-        mainImage = newImage.getImage();
         //Carrega também o arquivo de configuração!!
         loadConfigurationFile();
         
-    }
-    
-    public void requestRefreshMainImage(ClientCommunicationThread clientCommunicationThread)
-    {
-        MainImageRequest mainImageRequest = new MainImageRequest();
-        clientCommunicationThread.addBroadcastToSend(mainImageRequest);
     }
 
     public void requestRefreshConfigurationFile(ClientCommunicationThread clientCommunicationThread)
@@ -75,37 +55,19 @@ public final class PassControlConfigurationSynchronizer
     {
         return mainImage;
     }
+    
+    @Override
+    public void onMessageReceive(PassControlMessage message, Socket socket) 
+    {
+        //Carrega o novo arquivo de configuração
+        ConfigurationFileAlterationMessage configurationFileAlterationMessage = (ConfigurationFileAlterationMessage)message;
+        configurationFile = configurationFileAlterationMessage.getConfigurationFile();
+        saveConfigurationFile();
+    }    
 
     public void addClientListeners(ClientCommunicationThread clientCommunicationThread) 
     {
-        //Adiciona os listeners
-        clientCommunicationThread.addMessageListener(new PassControlMessageListener() 
-        {
-
-            @Override
-            public void onMessageReceive(PassControlMessage message, Socket socket) 
-            {
-                //Carrega a nova imagem principal
-                MainImageSetter mainImageSetter = (MainImageSetter)message;
-                mainImage = mainImageSetter.getImageIcon().getImage();
-
-                //Simplesmente salva a imagem aqui
-                FileUtils.saveImage(mainImage, MAIN_IMAGE_PATH);            
-            }
-        }, MainImageSetter.class);                
-        
-        
-        clientCommunicationThread.addMessageListener(new PassControlMessageListener() 
-        {
-            @Override
-            public void onMessageReceive(PassControlMessage message, Socket socket) 
-            {
-                //Carrega o novo arquivo de configuração
-                ConfigurationFileAlterationMessage configurationFileAlterationMessage = (ConfigurationFileAlterationMessage)message;
-                configurationFile = configurationFileAlterationMessage.getConfigurationFile();
-                saveConfigurationFile();
-            }
-        }, ConfigurationFileAlterationMessage.class);                       
+        clientCommunicationThread.addMessageListener(this, ConfigurationFileAlterationMessage.class); 
     }
 
     /**
@@ -132,7 +94,8 @@ public final class PassControlConfigurationSynchronizer
             configurationFile = new ConfigurationFile();
             saveConfigurationFile();
             System.out.println("Arquivo de configuração recriado");
-         }        
+        }        
+        mainImage = configurationFile.getMainImage().getImage();
     }
     
     public void saveConfigurationFile()
@@ -152,21 +115,5 @@ public final class PassControlConfigurationSynchronizer
 
     public ConfigurationFile getConfigurationFile() {
         return configurationFile;
-    }
-    
-    public void saveMainImage(Image image)
-    {
-        //Salvo a imagem
-        mainImage = image;
-        FileUtils.saveImage(image, MAIN_IMAGE_PATH);        
-    }
-
-    public void sendMainImageToClients(ServerCommunicationThread serverCommunicationThread) 
-    {
-        MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(mainImage));
-
-        //Repasso a imagem para os demais atores
-        serverCommunicationThread.addBroadcastToSend(mainImageSetter);
-    }
-    
+    }    
 }
