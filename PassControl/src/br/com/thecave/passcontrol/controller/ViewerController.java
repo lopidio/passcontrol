@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
+import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.screens.ViewerScreen;
 import br.com.thecave.passcontrol.viewer.PresentationControler;
 import br.com.thecave.passcontrol.viewer.PresentationControllerObserver;
@@ -35,7 +36,6 @@ public class ViewerController extends PassControlController implements Presentat
     {
         super.addMessageListeners();
         ClientCommunicationThread communicationThread = Main.getInstance().getCommunicationThread();
-        //BalconyShowClientMessage received = (BalconyShowClientMessage) message;
         communicationThread.addMessageListener(this, BalconyShowClientMessage.class);
     }
 
@@ -68,6 +68,14 @@ public class ViewerController extends PassControlController implements Presentat
     public void onMessageReceive( PassControlMessage message, Socket socket )
     {
         super.onMessageReceive(message, socket);
+        BalconyShowClientMessage received = (BalconyShowClientMessage) message;
+        
+        QueueElementInfoBig elementInfoBig = new QueueElementInfoBig(received.getClientName(), 
+                                                                     received.getServiceType(), 
+                                                                     received.getQueuesManagerBean().getPassNumber(),
+                                                                     received.getBalconyNumber());
+        
+        screen.showQueueElelentInfo(elementInfoBig);        
     }
 
     @Override

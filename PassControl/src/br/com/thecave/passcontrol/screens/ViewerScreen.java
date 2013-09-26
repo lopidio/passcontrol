@@ -1,7 +1,10 @@
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.ViewerController;
 import java.awt.Image;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -60,5 +63,21 @@ public class ViewerScreen extends PassControlPanel
     public void setPresentationImage( Image img )
     {
         lblSlide.setIcon(new ImageIcon(img));
+    }
+
+    public void showQueueElelentInfo( QueueElementInfoBig elementInfoBig )
+    {
+        jpQueueInfoBig.setVisible(true);
+        jpQueueInfoBig.add(elementInfoBig);
+        try
+        {
+            Thread.sleep(10000);
+            jpQueueInfoBig.removeAll();
+            jpQueueInfoBig.setVisible(false);
+        }
+        catch ( InterruptedException ex )
+        {
+            Logger.getLogger(ViewerScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
