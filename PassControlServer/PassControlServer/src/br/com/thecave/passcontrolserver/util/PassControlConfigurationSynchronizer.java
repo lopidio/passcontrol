@@ -45,13 +45,16 @@ public final class PassControlConfigurationSynchronizer
     public PassControlConfigurationSynchronizer() 
     {
         //carrega a imagem principal
-        //ImageIcon newImage = new ImageIcon(MAIN_IMAGE_PATH);
+        ImageIcon newImage = new ImageIcon(MAIN_IMAGE_PATH);
         //A imagem não foi carregada com sucesso :/. Então carrega o default
-        //if (newImage.getImage().getWidth(null) == -1 && newImage.getImage().getHeight(null) == -1)
-            mainImage = new ImageIcon(getClass().getResource("src/resources/splash.png")).getImage();        
-        
+        if (newImage.getIconWidth()== -1 && newImage.getIconHeight() == -1)
+        {
+            newImage = new ImageIcon(getClass().getResource("/resources/splash.png"));
+            //Salva a imagem no canto devido
+            FileUtils.saveImage(newImage.getImage(), MAIN_IMAGE_PATH);
+        }
+        mainImage = newImage.getImage();
         //Carrega também o arquivo de configuração!!
-        configurationFile = new ConfigurationFile();
         loadConfigurationFile();
         
     }
@@ -122,14 +125,10 @@ public final class PassControlConfigurationSynchronizer
             configurationFile = (ConfigurationFile) in.readObject();
             in.close();
             fileIn.close();
-        }catch(IOException i)
-        {
-            System.out.println("Arquivo de configuração corrompido!");
-            configurationFile = new ConfigurationFile();
-        }catch(ClassNotFoundException c)
+        }catch(IOException | ClassNotFoundException exc)
         {
             configurationFile = new ConfigurationFile();
-            System.out.println("Arquivo de configuração não encontrado");
+            System.out.println("Arquivo de configuração recriado");
          }        
     }
     

@@ -181,7 +181,7 @@ public class BalconyTypesServiceDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY="+balconyBean.getId()+";";
+            String sql = "SELECT * FROM TB_SERVICE WHERE INT_ID = (SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY="+balconyBean.getId()+");";
 
             ResultSet rs = stmt.executeQuery(sql);
             
@@ -241,4 +241,34 @@ public class BalconyTypesServiceDAO {
           ConnectionDataBase.getInstance().closeConnection();
           return false;
         }
-    }}
+    }
+
+    public static boolean deleteAllFromBalcony(BalconyBean balconyBean) 
+    {
+     try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return false;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "DELETE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = " + balconyBean.getId() + ";";
+
+            stmt.executeUpdate(sql);
+            conn.commit();          
+            stmt.close();
+            conn.close();
+            return true;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return false;
+        }  
+    }
+}

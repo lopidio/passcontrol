@@ -200,11 +200,19 @@ public class ClientAdministratorListeners implements ClientListeners
         {
             AdministratorAddBalcony addServiceMessage = (AdministratorAddBalcony)message;
             boolean status = false;
-            for (ServiceBean serviceBeans : addServiceMessage.getServiceBeans()) 
+            status = BalconyDAO.insert(addServiceMessage.getBalconyBean());
+            BalconyBean insertedBean = BalconyDAO.selectFromNumber(addServiceMessage.getBalconyBean().getNumber());
+            if (insertedBean != null)
             {
-                status = BalconyTypesServiceDAO.insert(addServiceMessage.getBalconyBean(), serviceBeans);
+                for (ServiceBean serviceBeans : addServiceMessage.getServiceBeans()) 
+                {
+                    status = status && BalconyTypesServiceDAO.insert(insertedBean, serviceBeans);
+                }
             }
-            status = status && BalconyDAO.insert(addServiceMessage.getBalconyBean());
+            else
+            {
+                status = false;
+            }
             ConfirmationResponse response = new ConfirmationResponse(status, message, MessageActors.AdministratorActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
         }       
@@ -217,6 +225,11 @@ public class ClientAdministratorListeners implements ClientListeners
         {
             AdministratorUpdateBalcony administratorUpdateBalcony = (AdministratorUpdateBalcony)message;
             boolean status = BalconyDAO.update(administratorUpdateBalcony.getBalconyBean());
+            for (ServiceBean serviceBeans: administratorUpdateBalcony.getServices()) 
+            {
+                status = status && BalconyTypesServiceDAO.insert(administratorUpdateBalcony.getBalconyBean(), serviceBeans);
+            }
+
             ConfirmationResponse response = new ConfirmationResponse(status, message, MessageActors.AdministratorActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);
         }       
@@ -232,6 +245,7 @@ public class ClientAdministratorListeners implements ClientListeners
             ConfirmationResponse response = new ConfirmationResponse(false, message, MessageActors.AdministratorActor);
             if (ClientBalconyListeners.getUsedBalconys().get(administratorRemoveBalcony.getBalconyBean()) != null)
             {
+                BalconyTypesServiceDAO.deleteAllFromBalcony(administratorRemoveBalcony.getBalconyBean());
                 response.setComment("Não foi possível deletar guichê. Guichê em uso no momento");
             }
             else
@@ -257,7 +271,8 @@ public class ClientAdministratorListeners implements ClientListeners
             {
                 for (BalconyBean balconyBean : balconyBeans) 
                 {
-                    balconyServiceBeans.put(balconyBean, BalconyTypesServiceDAO.selectServicesFromBalconyId(balconyBean));
+                    ArrayList<ServiceBean> serviceBeans = BalconyTypesServiceDAO.selectServicesFromBalconyId(balconyBean);
+                    balconyServiceBeans.put(balconyBean, serviceBeans);
                 }
             }
             

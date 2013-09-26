@@ -200,5 +200,42 @@ public class BalconyDAO {
           return null;
         }            
     }
+
+    public static BalconyBean selectFromNumber(String number) 
+    {
+        BalconyBean bean = null;
+        try
+        {
+        // pegar a conexão com o bancos
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_BALCONY WHERE TX_NUMBER='" + number +"';";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                bean = new BalconyBean();
+                bean.setId(rs.getInt("INT_ID"));    
+                bean.setNumber(rs.getString("TX_NUMBER"));
+            }
+            
+            stmt.close();
+            conn.close();
+            return bean;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }     
+    }
         
 }

@@ -55,7 +55,6 @@ public class FileUtils
             g.dispose();        
 
             ImageIO.write(bufferedImage, "png",new File(imageName));            
-            ImageIO.write(bufferedImage, "jpg",new File(imageName));            
             return true;
         } catch (IOException ex) {
             Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);

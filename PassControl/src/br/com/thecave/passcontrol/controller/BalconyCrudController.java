@@ -24,48 +24,75 @@ import javax.swing.JPanel;
  *
  * @author Arleudo
  */
-public class BalconyCrudController extends PassControlController
+public final class BalconyCrudController extends PassControlController
 {
 
     BalconyCrud screen;
+    /**
+     * Todos os guichês disponívels
+     */
     ArrayList<BalconyBean> balconys;
+    /**
+     * Todos os guichês disponíveis
+     */
     ArrayList<ServiceBean> services;
+    /**
+     * Mapa de serviços para os guichês
+     */
     private HashMap<BalconyBean, ArrayList<ServiceBean>> map;
 
     @Override
     public void setPassControlPanel( JPanel passControlPanel )
     {
         this.screen = (BalconyCrud) passControlPanel;
-        balconys = new ArrayList<>();
-        services = new ArrayList<>();
     }
 
-    public void loadBalconys()
+    public BalconyCrudController() 
+    {
+        balconys = new ArrayList<>();
+        services = new ArrayList<>();
+        map = new HashMap<>();
+    }
+    
+    
+
+    public void loadBalconysAndMap()
     {
         AdministratorListBalcony listBalcony = new AdministratorListBalcony();
         AdministratorListBalconyResponse response = Main.getInstance().
                 getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listBalcony, AdministratorListBalconyResponse.class, 2000);
 
-        map = response.getBalconyServiceBeans();
-        for (Map.Entry<BalconyBean, ArrayList<ServiceBean>> entry : getMap().entrySet()) 
+        if (response != null)
         {
-            BalconyBean balcon = entry.getKey();
-            balconys.add(balcon);
+            map = response.getBalconyServiceBeans();
+            for (Map.Entry<BalconyBean, ArrayList<ServiceBean>> entry : map.entrySet()) 
+            {
+                BalconyBean balcon = entry.getKey();
+                balconys.add(balcon);
+            }
         }
     }
     
-    public void loadServices()
+    public void refreshAttributes()
+    {
+        loadBalconysAndMap();
+        loadServices();
+    }
+    
+    private void loadServices()
     {
         ClientListService listService = new ClientListService(MessageActors.AdministratorActor);
         ClientListServiceResponse response = Main.getInstance().
                 getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, ClientListServiceResponse.class, 2000);
 
-        services = response.getListService();
+        if (response != null)
+        {
+            services = response.getListService();
+        }
     }
 
     public ArrayList<ServiceBean> getServices()
     {
-        loadServices();
         return services;
     }
 
@@ -110,7 +137,6 @@ public class BalconyCrudController extends PassControlController
 
     public void defineCBNames( JComboBox cbBalconyName )
     {
-        loadBalconys();
         DefaultComboBoxModel model = new DefaultComboBoxModel();
 
         for ( BalconyBean bean : balconys )
@@ -120,9 +146,8 @@ public class BalconyCrudController extends PassControlController
         cbBalconyName.setModel(model);
     }
 
-    public BalconyBean extractBeanFromName( String name )
+    public BalconyBean getBalconyBeanFromName( String name )
     {
-        loadBalconys();
         for ( BalconyBean bean : getBalconyBeans() )
         {
             if ( bean.getNumber().equals(name) )
@@ -150,12 +175,13 @@ public class BalconyCrudController extends PassControlController
         }
     }
 
-    /**
-     * @return the map
-     */
-    public HashMap<BalconyBean, ArrayList<ServiceBean>> getMap()
+    public ArrayList<ServiceBean> getServicesFromBalcony(BalconyBean balconyBean)
     {
-        return map;
+        if (balconyBean != null)
+        {
+            return map.get(balconyBean);
+        }
+        return null;
     }
-
+    
 }

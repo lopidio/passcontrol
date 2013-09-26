@@ -24,8 +24,10 @@ import javax.swing.JOptionPane;
 public class BalconyCrud extends PassControlPanel 
 {
     BalconyCrudController controller = null;
-    private boolean insert;
+    private boolean adicionarPage;
     private ArrayList<JCheckBox> checkBoxs;
+    Box leftBox;
+    Box rightBox;
     /**
      * Creates new form AdminScreen
      */
@@ -34,11 +36,21 @@ public class BalconyCrud extends PassControlPanel
         super("Cadastro de Usuários", new BalconyCrudController());
         this.controller = (BalconyCrudController) getPanelController();        
         initComponents();
-        jpSecundario.setVisible(false);        
-        defineCBNames();
-        defineServices();
+        jpSecundario.setVisible(false);     
+        scrollPanel.setLayout(new FlowLayout());        
+
+        leftBox = Box.createVerticalBox();
+        leftBox.setAlignmentX(LEFT_ALIGNMENT);        
+        rightBox = Box.createVerticalBox();
+        rightBox.setAlignmentX(RIGHT_ALIGNMENT);        
+        scrollPanel.add(leftBox);
+        scrollPanel.add(Box.createHorizontalStrut(20));
+        scrollPanel.add(rightBox);        
     }
     
+    /**
+     * Cria um checkbox para cada serviço
+     */
     private ArrayList<JCheckBox> createCheckBoxFromServicesList(ArrayList<ServiceBean> servicesBean)
     {
         ArrayList<JCheckBox> retorno = new ArrayList<>(servicesBean.size());
@@ -52,27 +64,21 @@ public class BalconyCrud extends PassControlPanel
     
     private void defineServices()
     {
-        Box panel1 = Box.createVerticalBox();
-        panel1.setAlignmentX(LEFT_ALIGNMENT);        
-        Box panel2 = Box.createVerticalBox();
-        panel2.setAlignmentX(RIGHT_ALIGNMENT);        
-        jPanel1.setLayout(new FlowLayout());
-        jPanel1.add(panel1);
-        jPanel1.add(Box.createHorizontalStrut(20));
-        jPanel1.add(panel2);
-        
+        leftBox.removeAll();
+        rightBox.removeAll();
         checkBoxs = createCheckBoxFromServicesList(controller.getServices());
         for (int i = 0; i < checkBoxs.size(); ++i)
         {
             JCheckBox box = checkBoxs.get(i);
             box.setFont(PassControlFont.getInstance().getSizedFont(14));
+            //Os pares ficam na esquerda e tal...
             if (i%2 == 0)
             {
-                panel1.add(box);                
+                leftBox.add(box);                
             }
             else
             {
-                panel2.add(box);                                
+                rightBox.add(box);                                
             }
         }
     }
@@ -84,8 +90,7 @@ public class BalconyCrud extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jmAdmin = new javax.swing.JMenu();
         jmAdminstrador = new javax.swing.JMenuItem();
@@ -99,10 +104,10 @@ public class BalconyCrud extends PassControlPanel
         jpSecundario = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jbAdicionar = new javax.swing.JButton();
-        cbName = new javax.swing.JComboBox();
+        cbBalconysName = new javax.swing.JComboBox();
         jbRemove = new javax.swing.JButton();
         jpServices = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        scrollPanel = new javax.swing.JPanel();
 
         jmAdmin.setText("Administrar");
         jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -111,10 +116,8 @@ public class BalconyCrud extends PassControlPanel
         jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAdminstrador.setMnemonic('a');
         jmAdminstrador.setText("Administrador");
-        jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmAdminstrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmAdminstradorActionPerformed(evt);
             }
         });
@@ -124,10 +127,8 @@ public class BalconyCrud extends PassControlPanel
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -163,10 +164,8 @@ public class BalconyCrud extends PassControlPanel
         jbEditar.setBackground(new java.awt.Color(45, 123, 142));
         jbEditar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbEditar.setText("Editar");
-        jbEditar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEditarActionPerformed(evt);
             }
         });
@@ -175,10 +174,8 @@ public class BalconyCrud extends PassControlPanel
         jbNovo.setBackground(new java.awt.Color(45, 123, 142));
         jbNovo.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovo.setText("Novo");
-        jbNovo.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoActionPerformed(evt);
             }
         });
@@ -190,48 +187,42 @@ public class BalconyCrud extends PassControlPanel
         jbAdicionar.setBackground(new java.awt.Color(45, 123, 142));
         jbAdicionar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbAdicionar.setText("Adicionar");
-        jbAdicionar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAdicionarActionPerformed(evt);
             }
         });
 
-        cbName.setEditable(true);
-        cbName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                cbNameActionPerformed(evt);
+        cbBalconysName.setEditable(true);
+        cbBalconysName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        cbBalconysName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbBalconysName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBalconysNameActionPerformed(evt);
             }
         });
 
         jbRemove.setBackground(new java.awt.Color(45, 123, 142));
         jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbRemove.setText("Remover");
-        jbRemove.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRemoveActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout scrollPanelLayout = new javax.swing.GroupLayout(scrollPanel);
+        scrollPanel.setLayout(scrollPanelLayout);
+        scrollPanelLayout.setHorizontalGroup(
+            scrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 278, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        scrollPanelLayout.setVerticalGroup(
+            scrollPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 189, Short.MAX_VALUE)
         );
 
-        jpServices.setViewportView(jPanel1);
+        jpServices.setViewportView(scrollPanel);
 
         javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
         jpSecundario.setLayout(jpSecundarioLayout);
@@ -247,7 +238,7 @@ public class BalconyCrud extends PassControlPanel
                     .addGroup(jpSecundarioLayout.createSequentialGroup()
                         .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(cbName, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbBalconysName, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jpServices, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -258,10 +249,10 @@ public class BalconyCrud extends PassControlPanel
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbBalconysName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jpServices, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdicionar)
                     .addComponent(jbRemove))
@@ -278,10 +269,17 @@ public class BalconyCrud extends PassControlPanel
         jbEditar.setVisible(false);
         jbRemove.setVisible(false);
         jbAdicionar.setEnabled(true);
-        cbName.setModel(new DefaultComboBoxModel());
+        cbBalconysName.setModel(new DefaultComboBoxModel());
         jmVoltar.setVisible(true);
-        insert = true;
+        adicionarPage = true;
         jbAdicionar.setText("Adicionar");
+        controller.refreshAttributes();
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("");
+        cbBalconysName.setModel(model);
+        
+        defineServices();        
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jmAdminstradorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmAdminstradorActionPerformed
@@ -303,15 +301,18 @@ public class BalconyCrud extends PassControlPanel
         jbNovo.setVisible(false);
         jbEditar.setVisible(false);
         jmVoltar.setVisible(true);
-        controller.defineCBNames(cbName);
         jbRemove.setVisible(true);
-        insert = false;
+        adicionarPage = false;
         
         // carregar a tela com as informações
-        BalconyBean bean = extractBeanIdFromCombo();
-        ArrayList<ServiceBean> services = controller.getMap().get(bean);
+        controller.refreshAttributes();
+        controller.defineCBNames(cbBalconysName);
         
-        selectCheckBoxFromList(services);
+        defineServices();
+        
+        BalconyBean bean = extractBeanFromSelectedComboBoxItem();
+        ArrayList<ServiceBean> services = controller.getServicesFromBalcony(bean);
+        selectCheckBoxFromServicesList(services);
         
     }//GEN-LAST:event_jbEditarActionPerformed
 
@@ -327,52 +328,66 @@ public class BalconyCrud extends PassControlPanel
     
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
-        String s = "";
-        BalconyBean bean = new BalconyBean();
-        boolean ret;
-        if(cbName.getSelectedItem() != null)
-            s = cbName.getSelectedItem().toString();
+        String balconyName = "";
+        if(cbBalconysName.getSelectedItem() != null)
+            balconyName = cbBalconysName.getSelectedItem().toString();
         
         // não permite inserir um registro com o nome vazio
-        while(s.equals(""))
+        while(balconyName.equals(""))
         {
-            s = JOptionPane.showInputDialog("Insira o nome do usuário!");
+            balconyName = JOptionPane.showInputDialog("Insira o nome do guichê!");
+            if (balconyName == null)
+                return;
             DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
-            boxModel.addElement(s);
-            cbName.setModel(boxModel);
+            boxModel.addElement(balconyName);
+            cbBalconysName.setModel(boxModel);
         }
-        // construindo o bean com as informações da tela
-        bean = extractBeanIdFromCombo();
+
+        ArrayList<ServiceBean> arrayList = getSelectedServices();
+        if (arrayList.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "É preciso selecionar serviço(s)", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
         
         // se tiver clicado em novo
-        if(insert)
+        boolean retorno;        
+        if(adicionarPage)
         {
-            bean = new BalconyBean();
-            bean.setNumber(cbName.getSelectedItem().toString());
-            ArrayList<ServiceBean> arrayList = new ArrayList<ServiceBean>();            
-            arrayList = getSelectedServices();
-            
-            ret = controller.saveBalcony(bean, arrayList);
+            BalconyBean balconyBean = new BalconyBean();            
+            balconyBean.setNumber(cbBalconysName.getSelectedItem().toString());
+            retorno = controller.saveBalcony(balconyBean, arrayList);
         }
         // se tiver clicado em editar
         else
         {
-            ArrayList<ServiceBean> arrayList = new ArrayList<ServiceBean>();            
-            arrayList = getSelectedServices();
-            ret = controller.updateBalcony(bean, arrayList);
+            // construindo o bean com as informações da tela
+            BalconyBean balconyBean = extractBeanFromSelectedComboBoxItem();
+            if (balconyBean == null)
+            {
+                return;
+            }            
+            retorno = controller.updateBalcony(balconyBean, arrayList);
         }
-        if(ret)
+        
+        //Analisa o retorno
+        if(retorno)
+        {
             voltar(); // limpa a tela
+        }
     }//GEN-LAST:event_jbAdicionarActionPerformed
 
-    private void cbNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbNameActionPerformed
-    {//GEN-HEADEREND:event_cbNameActionPerformed
-        sincronizeCampos();
-    }//GEN-LAST:event_cbNameActionPerformed
+    private void cbBalconysNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbBalconysNameActionPerformed
+    {//GEN-HEADEREND:event_cbBalconysNameActionPerformed
+        if (!adicionarPage)
+        {
+            BalconyBean selectedBalconyBean = extractBeanFromSelectedComboBoxItem();
+            selectCheckBoxFromServicesList(controller.getServicesFromBalcony(selectedBalconyBean));
+        }
+    }//GEN-LAST:event_cbBalconysNameActionPerformed
 
     private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbRemoveActionPerformed
     {//GEN-HEADEREND:event_jbRemoveActionPerformed
-        BalconyBean bean = extractBeanIdFromCombo();
+        BalconyBean bean = extractBeanFromSelectedComboBoxItem();
         if(bean != null)
         {
             controller.deleteBalcony(bean);
@@ -384,10 +399,9 @@ public class BalconyCrud extends PassControlPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgPermissao;
-    private javax.swing.JComboBox cbName;
+    private javax.swing.JComboBox cbBalconysName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbAdicionar;
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbNovo;
@@ -399,6 +413,7 @@ public class BalconyCrud extends PassControlPanel
     private javax.swing.JPanel jpBarraLateral;
     private javax.swing.JPanel jpSecundario;
     private javax.swing.JScrollPane jpServices;
+    private javax.swing.JPanel scrollPanel;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -410,27 +425,12 @@ public class BalconyCrud extends PassControlPanel
         return ret;
     }
 
-    private void defineCBNames()
-    {
-        controller.defineCBNames(cbName);
-        sincronizeCampos();
-    }
-    
-    private void sincronizeCampos()
-    {
-        BalconyBean bean = extractBeanIdFromCombo();
-        if(bean != null)
-        {
-        }
-    }
 
-    private BalconyBean extractBeanIdFromCombo()
+    private BalconyBean extractBeanFromSelectedComboBoxItem()
     {
-        BalconyCrudController ret = new BalconyCrudController();
-        controller.loadBalconys();
         for(BalconyBean bean : controller.getBalconyBeans())
         {
-            if(bean.getNumber().equals(cbName.getSelectedItem().toString()))
+            if(bean.getNumber().equals(cbBalconysName.getSelectedItem().toString()))
                 return bean;
         }
         return null;
@@ -442,7 +442,7 @@ public class BalconyCrud extends PassControlPanel
         Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
     }
 
-    private ArrayList<ServiceBean>  getSelectedServices( )
+    private ArrayList<ServiceBean> getSelectedServices( )
     {
         ArrayList<ServiceBean> arrayList = new ArrayList<>();
         // pegando somente os serviços selecionados
@@ -456,14 +456,17 @@ public class BalconyCrud extends PassControlPanel
         return arrayList;
     }
 
-    private void selectCheckBoxFromList( ArrayList<ServiceBean> services )
+    private void selectCheckBoxFromServicesList( ArrayList<ServiceBean> services )
     {
-        for ( ServiceBean serviceBean : services )
+        if (services != null)
         {
-            JCheckBox box = getCheckBoxFromServices(serviceBean);
-            if(box != null)
+            for ( ServiceBean serviceBean : services )
             {
-                box.setSelected(true);
+                JCheckBox box = getCheckBoxFromServices(serviceBean);
+                if(box != null)
+                {
+                    box.setSelected(true);
+                }
             }
         }
     }
