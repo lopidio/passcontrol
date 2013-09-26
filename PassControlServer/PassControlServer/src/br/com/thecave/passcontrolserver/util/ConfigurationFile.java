@@ -3,6 +3,7 @@ package br.com.thecave.passcontrolserver.util;
 import java.awt.Image;
 import java.io.Serializable;
 import java.util.HashMap;
+import javax.swing.ImageIcon;
 
 /**
  * Classe para leitura e escrita do xml de configuração a ser adotado pelo sistema
@@ -20,7 +21,7 @@ public class ConfigurationFile implements Serializable
     private int slideShowSpeed;
     private String ipServer;
     private String portServer;
-    private HashMap<String, Image> imgsSlide;
+    private HashMap<String, ImageIcon> imgsSlide;
     
     /**
      * Construtor privado da classe 
@@ -90,7 +91,7 @@ public class ConfigurationFile implements Serializable
         this.portServer = portServer;
     }
 
-    public HashMap<String, Image> getImgsSlide() {
+    public HashMap<String, ImageIcon> getImgsSlide() {
         return imgsSlide;
     }
 

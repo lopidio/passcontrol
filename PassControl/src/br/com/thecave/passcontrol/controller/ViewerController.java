@@ -11,6 +11,7 @@ import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronize
 import java.awt.Image;
 import java.net.Socket;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -45,9 +46,9 @@ public class ViewerController extends PassControlController implements Presentat
         ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
         presentationControler = new PresentationControler();
         presentationControler.setTime(configurationFile.getSlideShowSpeed());
-        for ( Map.Entry<String, Image> en : configurationFile.getImgsSlide().entrySet() )
+        for ( Map.Entry<String, ImageIcon> en : configurationFile.getImgsSlide().entrySet() )
         {
-            presentationControler.addImage(en.getValue());
+            presentationControler.addImage(en.getValue().getImage());
         }
     }
 

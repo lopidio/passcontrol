@@ -44,6 +44,7 @@ import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -294,11 +295,11 @@ public class ClientAdministratorListeners implements ClientListeners
             //Confirma o recebimento da resposta
             
             //Salva a imagem na pasta correta
-            boolean status = FileUtils.saveImage(administratorAddSlideImage.getImage().getImage(), IMAGES_SLIDE_PATH + administratorAddSlideImage.getFileName());
+//            boolean status = FileUtils.saveImage(administratorAddSlideImage.getImage().getImage(), IMAGES_SLIDE_PATH + administratorAddSlideImage.getFileName());
 
             //Altero o arquivo de configurações e mando para os clientes
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-            configurationFile.getImgsSlide().put(administratorAddSlideImage.getFileName(), administratorAddSlideImage.getImage().getImage());
+            configurationFile.getImgsSlide().put(administratorAddSlideImage.getFileName(), new ImageIcon(administratorAddSlideImage.getImage().getImage()));
             PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
