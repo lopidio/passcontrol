@@ -74,7 +74,7 @@
     <Component class="javax.swing.JLabel" name="jlAdminPic">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/admin_button_1.png"/>
+          <Image iconType="3" name="/resources/admin_button.png"/>
         </Property>
       </Properties>
       <Constraints>

@@ -8,8 +8,13 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorList
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalconyResponse;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveBalcony;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorUpdateBalcony;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
+import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -24,12 +29,15 @@ public class BalconyCrudController extends PassControlController
 
     BalconyCrud screen;
     ArrayList<BalconyBean> balconys;
+    ArrayList<ServiceBean> services;
+    private HashMap<BalconyBean, ArrayList<ServiceBean>> map;
 
     @Override
     public void setPassControlPanel( JPanel passControlPanel )
     {
         this.screen = (BalconyCrud) passControlPanel;
         balconys = new ArrayList<>();
+        services = new ArrayList<>();
     }
 
     public void loadBalconys()
@@ -38,7 +46,27 @@ public class BalconyCrudController extends PassControlController
         AdministratorListBalconyResponse response = Main.getInstance().
                 getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listBalcony, AdministratorListBalconyResponse.class, 2000);
 
-        balconys = response.getBalconyBeans();
+        map = response.getBalconyServiceBeans();
+        for (Map.Entry<BalconyBean, ArrayList<ServiceBean>> entry : getMap().entrySet()) 
+        {
+            BalconyBean balcon = entry.getKey();
+            balconys.add(balcon);
+        }
+    }
+    
+    public void loadServices()
+    {
+        ClientListService listService = new ClientListService(MessageActors.AdministratorActor);
+        ClientListServiceResponse response = Main.getInstance().
+                getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, ClientListServiceResponse.class, 2000);
+
+        services = response.getListService();
+    }
+
+    public ArrayList<ServiceBean> getServices()
+    {
+        loadServices();
+        return services;
     }
 
     public boolean saveBalcony( BalconyBean balconyBean, ArrayList<ServiceBean> typesServiceBean )
@@ -121,4 +149,13 @@ public class BalconyCrudController extends PassControlController
             return false;
         }
     }
+
+    /**
+     * @return the map
+     */
+    public HashMap<BalconyBean, ArrayList<ServiceBean>> getMap()
+    {
+        return map;
+    }
+
 }

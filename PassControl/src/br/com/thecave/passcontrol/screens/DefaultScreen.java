@@ -3,7 +3,6 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import java.awt.Font;
-import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;

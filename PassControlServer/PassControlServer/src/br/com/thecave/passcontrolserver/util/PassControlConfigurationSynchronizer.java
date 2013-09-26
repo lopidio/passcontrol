@@ -45,10 +45,10 @@ public final class PassControlConfigurationSynchronizer
     public PassControlConfigurationSynchronizer() 
     {
         //carrega a imagem principal
-        ImageIcon newImage = new ImageIcon(MAIN_IMAGE_PATH);
+        //ImageIcon newImage = new ImageIcon(MAIN_IMAGE_PATH);
         //A imagem não foi carregada com sucesso :/. Então carrega o default
-        if (mainImage.getWidth(null) == -1 && mainImage.getHeight(null) == -1)
-            mainImage = new ImageIcon(getClass().getResource("/resources/splash.png")).getImage();        
+        //if (newImage.getImage().getWidth(null) == -1 && newImage.getImage().getHeight(null) == -1)
+            mainImage = new ImageIcon(getClass().getResource("src/resources/splash.png")).getImage();        
         
         //Carrega também o arquivo de configuração!!
         configurationFile = new ConfigurationFile();
