@@ -161,50 +161,6 @@ public class BalconyTypesServiceDAO {
           return null;
         }            
     }    
-    
-    /**
-     * Método para recuperar os tipos que determinado guichê atende
-     * @param balconyBean bean que se deseja saber os serviços
-     * @return vetor de ids do Service
-     */
-    public static ArrayList<ServiceBean> selectServicesFromBalconyId(BalconyBean balconyBean)
-    {
-        ArrayList<ServiceBean> retorno = new ArrayList<>();
-        try
-        {
-        // pegar a conexão com o banco
-            Connection conn = ConnectionDataBase.getInstance().getConnection();
-            if(conn == null)
-                return null;
-            
-            Statement stmt;
-            conn.setAutoCommit(false);
-
-            stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_SERVICE WHERE INT_ID = (SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY="+balconyBean.getId()+");";
-
-            ResultSet rs = stmt.executeQuery(sql);
-            
-            while(rs.next())
-            {
-                ServiceBean novoBean = new ServiceBean();                
-                novoBean.setId(rs.getInt("INT_ID"));
-                novoBean.setName(rs.getString("TX_NAME"));
-                novoBean.setPriority(rs.getInt("INT_PRIORITY"));                
-                retorno.add(novoBean);
-            }
-            
-            stmt.close();
-            conn.close();
-            return retorno;
-        }
-        catch ( Exception e ) 
-        {
-            //TODO: logar erro
-          ConnectionDataBase.getInstance().closeConnection();
-          return retorno;
-        }            
-    }
 
     /**
      * Metodo para persistir um BalconyTypesServiceBean na tabela TB_BALCONY_TYPES_SERVICE
@@ -257,6 +213,73 @@ public class BalconyTypesServiceDAO {
 
             stmt = conn.createStatement();
             String sql = "DELETE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = " + balconyBean.getId() + ";";
+
+            stmt.executeUpdate(sql);
+            conn.commit();          
+            stmt.close();
+            conn.close();
+            return true;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return false;
+        }  
+    }
+
+    public static ArrayList<BalconyTypesServiceBean> selectFomBalcony(BalconyBean balconyBean)
+    {
+        ArrayList<BalconyTypesServiceBean> retorno = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID=_BALCONY"+balconyBean.getId()+";";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                BalconyTypesServiceBean bean = new BalconyTypesServiceBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
+                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
+                retorno.add(bean);
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        } 
+    }
+
+    public static boolean deleteAllFromServiceId(ServiceBean bean) {
+     try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return false;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "DELETE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_SERVICE = " + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          

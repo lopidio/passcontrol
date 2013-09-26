@@ -17,6 +17,7 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorList
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveUser;
 import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
+import br.com.thecave.passcontrolserver.db.bean.BalconyTypesServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.BalconyDAO;
 import br.com.thecave.passcontrolserver.db.dao.BalconyTypesServiceDAO;
@@ -61,7 +62,7 @@ public class ClientAdministratorListeners implements ClientListeners
         server.addMessageListener(new RemoveUserListener(), AdministratorRemoveUser.class);
         ///Service
         server.addMessageListener(new AddServiceListener(), AdministratorAddService.class);
-                    //Listar serviço é mensagem genérica
+        //Listar serviço é mensagem genérica
         server.addMessageListener(new UpdateServiceListener(), AdministratorUpdateService.class);
         server.addMessageListener(new RemoveServiceListener(), AdministratorRemoveService.class);
         ///Balcony
@@ -160,6 +161,7 @@ public class ClientAdministratorListeners implements ClientListeners
                 
                 if (ServiceDAO.delete(bean))
                 {
+                    BalconyTypesServiceDAO.deleteAllFromServiceId(bean);
                     response.setStatusOperation(true);
                     response.setComment("Serviço deletado com sucesso");
                 }
@@ -225,9 +227,10 @@ public class ClientAdministratorListeners implements ClientListeners
         {
             AdministratorUpdateBalcony administratorUpdateBalcony = (AdministratorUpdateBalcony)message;
             boolean status = BalconyDAO.update(administratorUpdateBalcony.getBalconyBean());
-            for (ServiceBean serviceBeans: administratorUpdateBalcony.getServices()) 
+            BalconyTypesServiceDAO.deleteAllFromBalcony(administratorUpdateBalcony.getBalconyBean());
+            for (ServiceBean serviceBean: administratorUpdateBalcony.getServices()) 
             {
-                status = status && BalconyTypesServiceDAO.insert(administratorUpdateBalcony.getBalconyBean(), serviceBeans);
+                status = status && BalconyTypesServiceDAO.insert(administratorUpdateBalcony.getBalconyBean(), serviceBean);
             }
 
             ConfirmationResponse response = new ConfirmationResponse(status, message, MessageActors.AdministratorActor);
@@ -269,10 +272,22 @@ public class ClientAdministratorListeners implements ClientListeners
             
             if (balconyBeans != null)
             {
+                //PAra todos os guichês
                 for (BalconyBean balconyBean : balconyBeans) 
                 {
-                    ArrayList<ServiceBean> serviceBeans = BalconyTypesServiceDAO.selectServicesFromBalconyId(balconyBean);
-                    balconyServiceBeans.put(balconyBean, serviceBeans);
+                    ArrayList<BalconyTypesServiceBean> balconyTypesServiceBeans = BalconyTypesServiceDAO.selectFomBalcony(balconyBean);
+                    ArrayList<ServiceBean> servicesFromBalcony = new ArrayList<>(balconyTypesServiceBeans.size());
+                    //Para todos serviços daquele guichê
+                    for (BalconyTypesServiceBean balconyTypesServiceBean : balconyTypesServiceBeans) 
+                    {
+                        ServiceBean serviceBean = ServiceDAO.selectFromId(balconyTypesServiceBean.getIdService());
+                        if (serviceBean != null)
+                        {
+                            servicesFromBalcony.add(serviceBean);
+                        }
+                    }
+                    balconyServiceBeans.put(balconyBean, servicesFromBalcony);                        
+                    
                 }
             }
             
