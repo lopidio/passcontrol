@@ -27,6 +27,10 @@ public class ConfigurationFile implements Serializable
      */
     public ConfigurationFile()
     {
+        gerenciamentoAutomatico = true;
+        slideShowSpeed = 60;
+        ipServer = "127.0.0.1";
+        portServer = "23073";
         imgsSlide = new HashMap<>();
     }
 
@@ -38,7 +42,6 @@ public class ConfigurationFile implements Serializable
         this.gerenciamentoAutomatico = gerenciamentoAutomatico;
     }
     
-
     /**
      * @return the slideShowSpeed
      */

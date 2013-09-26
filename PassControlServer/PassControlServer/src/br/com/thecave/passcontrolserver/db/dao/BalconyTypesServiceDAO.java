@@ -294,4 +294,43 @@ public class BalconyTypesServiceDAO {
           return false;
         }  
     }
+
+    public static ArrayList<ServiceBean> selectAllServicesFromBalcony(BalconyBean balconyBean)
+    {
+        ArrayList<ServiceBean> retorno = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT s.INT_ID as INT_ID, s.TX_NAME as TX_NAME, s.INT_PRIORITY as INT_PRIORITY FROM TB_SERVICE s, (SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as btt WHERE s.INT_ID = btt.INT_ID_SERVICE";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                ServiceBean bean = new ServiceBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setName(rs.getString("TX_NAME"));
+                bean.setPriority(rs.getInt("INT_PRIORITY"));
+                retorno.add(bean);
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            System.out.println(e.getMessage());
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }         
+    }
 }

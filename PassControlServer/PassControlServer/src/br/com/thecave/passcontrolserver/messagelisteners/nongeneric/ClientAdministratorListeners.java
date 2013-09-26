@@ -275,19 +275,7 @@ public class ClientAdministratorListeners implements ClientListeners
                 //PAra todos os guichês
                 for (BalconyBean balconyBean : balconyBeans) 
                 {
-                    ArrayList<BalconyTypesServiceBean> balconyTypesServiceBeans = BalconyTypesServiceDAO.selectFomBalcony(balconyBean);
-                    ArrayList<ServiceBean> servicesFromBalcony = new ArrayList<>(balconyTypesServiceBeans.size());
-                    //Para todos serviços daquele guichê
-                    for (BalconyTypesServiceBean balconyTypesServiceBean : balconyTypesServiceBeans) 
-                    {
-                        ServiceBean serviceBean = ServiceDAO.selectFromId(balconyTypesServiceBean.getIdService());
-                        if (serviceBean != null)
-                        {
-                            servicesFromBalcony.add(serviceBean);
-                        }
-                    }
-                    balconyServiceBeans.put(balconyBean, servicesFromBalcony);                        
-                    
+                    balconyServiceBeans.put(balconyBean, BalconyTypesServiceDAO.selectAllServicesFromBalcony(balconyBean));                        
                 }
             }
             
