@@ -1,7 +1,6 @@
 package br.com.thecave.passcontrolserver.db.bean;
 
 import java.util.Date;
-import javax.xml.crypto.Data;
 
 /**
  * Classe que irá guardar os dados da tabela TB_QUEUES_MANAGER no banco "queue_manager.db"
@@ -41,6 +40,10 @@ public class QueuesManagerBean extends TableBean
      * Guarda o valor da variavel [DT_CHECKOUT] da tabela TB_QUEUES_MANAGER
      */
     private Date checkout;
+    /**
+     * Guarda o valor da variavel [DT_END_SERVICE] da tabela TB_QUEUES_MANAGER
+     */
+    private Date endService;
     /**
      * Guarda o valor da variavel [TX_PASS_NUMBER] da tabela TB_QUEUES_MANAGER
      */
@@ -170,6 +173,22 @@ public class QueuesManagerBean extends TableBean
      */
     public void setPassNumber(String passNumber) {
         this.passNumber = passNumber;
+    }
+
+    /**
+     * @return the endService
+     */
+    public Date getEndService()
+    {
+        return endService;
+    }
+
+    /**
+     * @param endService the endService to set
+     */
+    public void setEndService( Date endService )
+    {
+        this.endService = endService;
     }
 
 }

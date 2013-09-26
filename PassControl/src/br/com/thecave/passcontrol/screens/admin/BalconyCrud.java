@@ -90,7 +90,8 @@ public class BalconyCrud extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmAdmin = new javax.swing.JMenu();
         jmAdminstrador = new javax.swing.JMenuItem();
@@ -116,8 +117,10 @@ public class BalconyCrud extends PassControlPanel
         jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAdminstrador.setMnemonic('a');
         jmAdminstrador.setText("Administrador");
-        jmAdminstrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminstradorActionPerformed(evt);
             }
         });
@@ -127,8 +130,10 @@ public class BalconyCrud extends PassControlPanel
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -164,8 +169,10 @@ public class BalconyCrud extends PassControlPanel
         jbEditar.setBackground(new java.awt.Color(45, 123, 142));
         jbEditar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbEditar.setText("Editar");
-        jbEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbEditar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbEditarActionPerformed(evt);
             }
         });
@@ -174,8 +181,10 @@ public class BalconyCrud extends PassControlPanel
         jbNovo.setBackground(new java.awt.Color(45, 123, 142));
         jbNovo.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovo.setText("Novo");
-        jbNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbNovo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbNovoActionPerformed(evt);
             }
         });
@@ -187,8 +196,10 @@ public class BalconyCrud extends PassControlPanel
         jbAdicionar.setBackground(new java.awt.Color(45, 123, 142));
         jbAdicionar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbAdicionar.setText("Adicionar");
-        jbAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbAdicionarActionPerformed(evt);
             }
         });
@@ -196,8 +207,10 @@ public class BalconyCrud extends PassControlPanel
         cbBalconysName.setEditable(true);
         cbBalconysName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbBalconysName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbBalconysName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cbBalconysName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 cbBalconysNameActionPerformed(evt);
             }
         });
@@ -205,8 +218,10 @@ public class BalconyCrud extends PassControlPanel
         jbRemove.setBackground(new java.awt.Color(45, 123, 142));
         jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbRemove.setText("Remover");
-        jbRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbRemove.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbRemoveActionPerformed(evt);
             }
         });
@@ -252,7 +267,7 @@ public class BalconyCrud extends PassControlPanel
                 .addComponent(cbBalconysName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jpServices, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdicionar)
                     .addComponent(jbRemove))
