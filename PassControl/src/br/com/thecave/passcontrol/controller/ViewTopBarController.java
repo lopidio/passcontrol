@@ -118,15 +118,16 @@ public class ViewTopBarController extends PassControlController implements Anima
     {
         JPanel scrollablePanel = viewTopBar.getScrollableQueueInfoPanel();        
         System.out.println("Tamanho: " + scrollablePanel.getWidth());
-        if (scrollablePanel.getWidth() > ViewTopBar.SCROLL_PANEL_WITDH)
+        int totalLargura = queueElementInfos.size()*QueueElementInfo.size.x;
+        if (totalLargura > ViewTopBar.SCROLL_PANEL_WITDH)
         {
-
-            int excesso = scrollablePanel.getWidth() - ViewTopBar.SCROLL_PANEL_WITDH;
+            int excesso = totalLargura - ViewTopBar.SCROLL_PANEL_WITDH;
+            scrollablePanel.setSize(totalLargura, scrollablePanel.getHeight());
+            
             //segundos por elemento
             int duration = 500*queueElementInfos.size();
             Rectangle from = new Rectangle(0, 0, scrollablePanel.getWidth(), scrollablePanel.getHeight());
             Rectangle to = new Rectangle(-excesso, 0, scrollablePanel.getWidth(), scrollablePanel.getHeight());            
-            
             //Para a animação anterior
             if (queueElementAnimator != null)
                 queueElementAnimator.stop();

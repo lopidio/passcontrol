@@ -3,9 +3,10 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.ViewerController;
 import java.awt.Image;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 /**
  *
@@ -69,11 +70,22 @@ public class ViewerScreen extends PassControlPanel
     {
         jpQueueInfoBig.setVisible(true);
         jpQueueInfoBig.add(elementInfoBig);
+        
+        Timer disappearTime = new Timer(5000, new ActionListener() 
+            {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jpQueueInfoBig.removeAll();
+                jpQueueInfoBig.setVisible(false);
+            }});
+        disappearTime.setDelay(5000);
+        disappearTime.start();
+                
+        
 //        try
 //        {
 //            Thread.sleep(10000);
-            jpQueueInfoBig.removeAll();
-            jpQueueInfoBig.setVisible(false);
+
 //        }
 //        catch ( InterruptedException ex )
 //        {
