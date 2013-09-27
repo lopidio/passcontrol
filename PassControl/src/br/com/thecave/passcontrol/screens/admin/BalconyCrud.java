@@ -73,7 +73,7 @@ public class BalconyCrud extends PassControlPanel
         for (int i = 0; i < checkBoxs.size(); ++i)
         {
             JCheckBox box = checkBoxs.get(i);
-            box.setFont(PassControlFont.getInstance().getSizedFont(14));
+            box.setFont(new PassControlFont().getSizedFont(14));
             //Os pares ficam na esquerda e tal...
             if (i%2 == 0)
             {

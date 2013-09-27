@@ -7,13 +7,20 @@ package br.com.thecave.passcontrolserver.communicationThread;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.util.ConfigurationFile;
+import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,13 +52,40 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     public ServerCommunicationThread(int port) throws IOException
     {
         markToReset = false;
+        ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+        configurationFile.setPortServer(""+port); //Cast pra String
+        configurationFile.setIpServer(getLocalIp());
+
         serverSocketListener = new ServerSocketListener(port, this);
         setHeartBeat(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
         //Executa a thread que escuta a porta
         new Thread(serverSocketListener).start();
         clientsList = new ConcurrentHashMap<>();
     }
-
+    
+    private String getLocalIp()
+    {
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()){
+                NetworkInterface current = interfaces.nextElement();
+                if (!current.isUp() || current.isLoopback() || current.isVirtual()) 
+                    continue;
+                Enumeration<InetAddress> addresses = current.getInetAddresses();
+                while (addresses.hasMoreElements()){
+                    InetAddress current_addr = addresses.nextElement();
+                    if (current_addr.isLoopbackAddress()) 
+                        continue;
+                    if (current_addr instanceof Inet4Address)
+                        return current_addr.getHostAddress();
+                }
+            
+            }
+        } catch (SocketException ex) {
+            Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";                
+    }
     /**
      * Interrompe a thread
      */

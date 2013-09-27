@@ -21,19 +21,8 @@ public class PassControlFont
      * Fonte em si
      */
     Font font;
-    
-    /**
-     * Propriedades singleton
-     */
-    private static PassControlFont singleton = null;
-    public synchronized static PassControlFont getInstance()
-    {
-        if (singleton == null)
-            singleton = new PassControlFont();
-        return singleton;
-    }
 
-    private PassControlFont() 
+    public PassControlFont() 
     {
         try 
         {

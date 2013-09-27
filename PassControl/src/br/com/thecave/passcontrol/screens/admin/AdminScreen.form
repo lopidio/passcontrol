@@ -168,7 +168,7 @@
         <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jcbAutomatic">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="PassControlFont.getInstance().getSizedFont(15)" type="code"/>
+              <Connection code="new PassControlFont().getSizedFont(15)" type="code"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Gerenciamento autom&#xe1;tico"/>
@@ -180,7 +180,7 @@
         <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jcbManual">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="PassControlFont.getInstance().getSizedFont(15)" type="code"/>
+              <Connection code="new PassControlFont().getSizedFont(15)" type="code"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Gerenciamento manual"/>
