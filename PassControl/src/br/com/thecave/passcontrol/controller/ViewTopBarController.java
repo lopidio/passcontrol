@@ -110,22 +110,27 @@ public class ViewTopBarController extends PassControlController implements Anima
         for (QueueElementInfo queueElementInfo : queueElementInfos) 
         {
             scrollablePanel.add(queueElementInfo);
-        }        
-        startAnimation();
+        }  
+        scrollablePanel.revalidate();
+        scrollablePanel.repaint();
+        startAnimation(3000);
     }
     
-    private void startAnimation()
+    private void startAnimation(int initialDelay)
     {
+        //Utilizado para definir a duração da animação
+        final int millisecondsPerExcedentPixel = 10;
         JPanel scrollablePanel = viewTopBar.getScrollableQueueInfoPanel();        
-        System.out.println("Tamanho: " + scrollablePanel.getWidth());
-        int totalLargura = queueElementInfos.size()*QueueElementInfo.size.x;
+        int totalLargura = queueElementInfos.size()*QueueElementInfo.SIZE.width;
+        System.out.println("Qtde: " + queueElementInfos.size() + " Tamanho: " + totalLargura + " Máximo: " + ViewTopBar.SCROLL_PANEL_WITDH);
         if (totalLargura > ViewTopBar.SCROLL_PANEL_WITDH)
         {
             int excesso = totalLargura - ViewTopBar.SCROLL_PANEL_WITDH;
+            int duration = millisecondsPerExcedentPixel*excesso;            
+            System.out.println("duration:" + duration);            
             scrollablePanel.setSize(totalLargura, scrollablePanel.getHeight());
-            
+            //130, posição x do pai (outter)
             //segundos por elemento
-            int duration = 500*queueElementInfos.size();
             Rectangle from = new Rectangle(0, 0, scrollablePanel.getWidth(), scrollablePanel.getHeight());
             Rectangle to = new Rectangle(-excesso, 0, scrollablePanel.getWidth(), scrollablePanel.getHeight());            
             //Para a animação anterior
@@ -135,7 +140,6 @@ public class ViewTopBarController extends PassControlController implements Anima
             queueElementAnimator.setRunTime(duration);
             queueElementAnimator.setObserver(this);
             queueElementAnimator.start();   
-            System.out.println("duration:" + duration + " excedente: " + excesso);
         }
         
     }
@@ -143,13 +147,8 @@ public class ViewTopBarController extends PassControlController implements Anima
     @Override
     public void onAnimationEnd() 
     {
-        try {
-            //Anima novamente
-            Thread.sleep(5000);
-            startAnimation();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ViewTopBarController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //Anima novamente
+        startAnimation(3000);
     }
     
     

@@ -38,6 +38,8 @@ public class AnimationUtil
     
     public void start() {
         timer = new Timer(30, new ActionListener() {
+            
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 long duration = System.currentTimeMillis() - startTime;
@@ -57,21 +59,17 @@ public class AnimationUtil
         });
         timer.setRepeats(true);
         timer.setCoalesce(true);
-        timer.setInitialDelay(0);
         startTime = System.currentTimeMillis();
         timer.start();
     }
-
-
+    
     public static Rectangle calculateProgress(Rectangle startBounds, Rectangle targetBounds, double progress) {
 
         Rectangle bounds = new Rectangle();
 
         if (startBounds != null && targetBounds != null) {
-
             bounds.setLocation(calculateProgress(startBounds.getLocation(), targetBounds.getLocation(), progress));
             bounds.setSize(calculateProgress(startBounds.getSize(), targetBounds.getSize(), progress));
-
         }
 
         return bounds;

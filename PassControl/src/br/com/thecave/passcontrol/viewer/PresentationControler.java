@@ -119,7 +119,7 @@ public class PresentationControler implements Runnable
                 index++;
                 for ( PresentationControllerObserver observer : presentationControllerObservers )
                 {
-                    observer.onAnimationChange(getCurrentImage());
+                    observer.onPresentationChange(getCurrentImage());
                 }
                 watchdog = new Watchdog(timePresentation);                
            }

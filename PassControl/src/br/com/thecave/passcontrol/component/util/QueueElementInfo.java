@@ -1,9 +1,9 @@
 package br.com.thecave.passcontrol.component.util;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -15,7 +15,7 @@ import javax.swing.Timer;
  */
 public class QueueElementInfo extends JPanel
 {
-    public static final Point size = new Point(286, 150);
+    public static final Dimension SIZE = new QueueElementInfo(null, null, null, null).getPreferredSize();
 
     private static class FadeInOutAction implements ActionListener
     {

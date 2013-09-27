@@ -80,7 +80,7 @@ public class ViewerController extends PassControlController implements Presentat
     }
 
     @Override
-    public void onAnimationChange( Image img )
+    public void onPresentationChange( Image img )
     {
         screen.setPresentationImage(img);
     }

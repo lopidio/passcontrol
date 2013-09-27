@@ -64,6 +64,8 @@ public class ViewerScreen extends PassControlPanel
     public void setPresentationImage( Image img )
     {
         lblSlide.setIcon(new ImageIcon(img));
+        lblSlide.revalidate();
+        lblSlide.repaint();;
     }
 
     public void showQueueElelentInfo( QueueElementInfoBig elementInfoBig )
@@ -78,8 +80,10 @@ public class ViewerScreen extends PassControlPanel
                 jpQueueInfoBig.removeAll();
                 jpQueueInfoBig.setVisible(false);
             }});
-        disappearTime.setDelay(5000);
+//        disappearTime.setDelay(5000);
         disappearTime.start();
+        jpQueueInfoBig.revalidate();
+        jpQueueInfoBig.repaint();;        
                 
         
 //        try

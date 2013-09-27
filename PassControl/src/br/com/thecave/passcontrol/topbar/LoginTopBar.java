@@ -50,8 +50,7 @@ public class LoginTopBar extends PassControlTopBar
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
@@ -84,20 +83,16 @@ public class LoginTopBar extends PassControlTopBar
         add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 6, 222, 116));
 
         jtfLogin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jtfLogin.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        jtfLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfLoginKeyTyped(evt);
             }
         });
         add(jtfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1127, 9, 236, -1));
 
         jtfSenha.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jtfSenha.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyTyped(java.awt.event.KeyEvent evt)
-            {
+        jtfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtfSenhaKeyTyped(evt);
             }
         });
@@ -106,10 +101,8 @@ public class LoginTopBar extends PassControlTopBar
         jbOk.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbOk.setText("OK");
         jbOk.setEnabled(false);
-        jbOk.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbOkActionPerformed(evt);
             }
         });
@@ -128,11 +121,9 @@ public class LoginTopBar extends PassControlTopBar
         lbForgottPassword.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
         lbForgottPassword.setForeground(new java.awt.Color(255, 255, 255));
         lbForgottPassword.setText("Esqueceu a senha?");
-        lbForgottPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lbForgottPassword.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        lbForgottPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbForgottPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbForgottPasswordMouseClicked(evt);
             }
         });

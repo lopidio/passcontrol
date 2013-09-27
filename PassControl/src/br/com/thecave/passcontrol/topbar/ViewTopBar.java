@@ -100,7 +100,7 @@ public class ViewTopBar extends PassControlTopBar
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        add(jpOutterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 0, 1220, 100));
+        add(jpOutterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 1220, 100));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlBarra;

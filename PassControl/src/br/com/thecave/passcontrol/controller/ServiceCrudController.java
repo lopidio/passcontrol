@@ -38,7 +38,10 @@ public class ServiceCrudController extends PassControlController
         ClientListServiceResponse response = Main.getInstance().
                 getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listService, ClientListServiceResponse.class, 2000);
 
-        servicos = response.getListService();
+        if (response != null)
+        {
+            servicos = response.getListService();
+        }
     }
 
     public ArrayList<ServiceBean> getServices()

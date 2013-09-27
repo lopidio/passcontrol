@@ -8,5 +8,5 @@ import java.awt.Image;
  */
 public interface PresentationControllerObserver
 {
-    public void onAnimationChange(Image img);    
+    public void onPresentationChange(Image img);    
 }
