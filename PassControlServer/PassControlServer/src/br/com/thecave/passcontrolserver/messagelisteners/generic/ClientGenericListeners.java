@@ -21,6 +21,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
 import br.com.thecave.passcontrolserver.util.EMailSender;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.UserPermission;
@@ -46,6 +47,7 @@ public class ClientGenericListeners implements ClientListeners
         server.addMessageListener(new ClientLogoffMessageListener(), ClientLogoff.class);
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
+        server.addMessageListener(new RequestConfigurationFileListener(), RequestConfigurationFile.class);
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener
@@ -174,20 +176,14 @@ public class ClientGenericListeners implements ClientListeners
         } 
     }        
 
-    private static class MainImageRequestListener implements PassControlMessageListener
+    private static class RequestConfigurationFileListener implements PassControlMessageListener
     {
 
         @Override
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
-            //Envia a imagem principal
-            MainImageSetter mainImageSetter = new MainImageSetter(new ImageIcon(PassControlConfigurationSynchronizer.getInstance().getMainImage()));
-            mainImageSetter.setFrom(MessageActors.ServerActor);
-            mainImageSetter.setTo(MessageActors.AllActors);
-            
-            //Avisa o cliente para mudar a imagem principal
-            ServerCommunicationThread server = PassControlServer.getInstance().getServer();            
-            server.addResponseToSend(socket, mainImageSetter);                
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);               
         }
 
     }

@@ -129,10 +129,6 @@ public class QueuePushController extends PassControlController
             {
                 return serviceBean;
             }
-            else
-            {
-                return null;
-            }
         }
         return null;
     }

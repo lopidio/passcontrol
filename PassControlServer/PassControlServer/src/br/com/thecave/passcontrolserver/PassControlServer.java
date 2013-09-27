@@ -11,6 +11,7 @@ import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericLi
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePusherListener;
+import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientViewerListener;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
@@ -43,7 +44,7 @@ public class PassControlServer {
         for (int i = addQueueElement.getServiceBean().getId(); i >0; ++i)
         {
             prefixCode += alphabet.charAt(i%alphabet.length());
-            i %= alphabet.length();
+            i /= alphabet.length();
         }
         prefixCode += "-";
         int id = QueuesManagerDAO.getCountOfClientsOfServiceToday(addQueueElement.getServiceBean().getId());
@@ -69,6 +70,7 @@ public class PassControlServer {
         new ClientBalconyListeners().addListenersCallback(server);
         new ClientGenericListeners().addListenersCallback(server);
         new ClientQueuePusherListener().addListenersCallback(server);
+        new ClientViewerListener().addListenersCallback(server);
         
         new Thread(server).start();
         

@@ -7,6 +7,7 @@ package br.com.thecave.passcontrolserver.util;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.generic.ConfigurationFileAlterationMessage;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
 import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
@@ -116,4 +117,10 @@ public final class PassControlConfigurationSynchronizer implements PassControlMe
     public ConfigurationFile getConfigurationFile() {
         return configurationFile;
     }    
+
+    public void sendConfigurationFileToViewers(ServerCommunicationThread server) {
+        ConfigurationFileAlterationMessage alterationMessage = new ConfigurationFileAlterationMessage(configurationFile);
+        alterationMessage.setTo(MessageActors.ViewerActor);
+        server.addBroadcastToSend(alterationMessage);
+    }
 }
