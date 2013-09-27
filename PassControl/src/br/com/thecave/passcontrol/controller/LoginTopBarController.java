@@ -36,7 +36,7 @@ public class LoginTopBarController extends PassControlController
 
             MainFrame mainFrame = main.getMainFrame();
             UserBean bean = new UserBean();
-            bean.setName("Guigui");
+            bean.setName("Arleudo");
             bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());// Somatório (0,5) (2^x) = 63
             main.setCurrentUser(bean);
             mainFrame.activatePassControlPanel(new ButtonsModulesScreen());

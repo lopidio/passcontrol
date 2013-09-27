@@ -5,6 +5,9 @@ import br.com.thecave.passcontrol.controller.ServiceCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
+import br.com.thecave.passcontrolserver.util.IValidation;
+import br.com.thecave.passcontrolserver.util.ValidationPerform;
+import br.com.thecave.passcontrolserver.util.validations.ValidIsEmpty;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
@@ -268,8 +271,11 @@ public class ServiceCrud extends PassControlPanel
         if(cbName.getSelectedItem() != null)
             s = cbName.getSelectedItem().toString();
         
+        ArrayList<IValidation> validations = new ArrayList<>();
+        validations.add(new ValidIsEmpty());
+        
         // não permite inserir um registro com o nome vazio
-        while(s.equals(""))
+        while( !ValidationPerform.valid(s, validations) )
         {
             s = JOptionPane.showInputDialog("Insira o nome do serviço!");
             DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
