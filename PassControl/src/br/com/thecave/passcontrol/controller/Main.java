@@ -7,6 +7,7 @@ import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
+import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -39,11 +40,11 @@ public class Main
     {
 
         mainFrame = new MainFrame();
-
-        //TODO Ler IP e porta do arquivo de configuração
+        ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+        
         communicationThread = new ClientCommunicationThread(
-                "localhost",
-                23073);
+                configurationFile.getIpServer(),
+                Integer.parseInt(configurationFile.getPortServer()));
         mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         mainFrame.setVisible(true);       
     }
