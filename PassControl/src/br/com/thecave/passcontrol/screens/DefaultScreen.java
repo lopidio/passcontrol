@@ -112,7 +112,7 @@ public class DefaultScreen extends PassControlPanel
             {
                 String port = JOptionPane.showInputDialog("Digite a porta do servidor!");
                 ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-                file.setIpServer(port);
+                file.setPortServer(port);
                 PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             }
         });
