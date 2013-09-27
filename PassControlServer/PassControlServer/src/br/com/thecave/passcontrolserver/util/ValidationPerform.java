@@ -16,10 +16,7 @@ public class ValidationPerform
         {
             if(!validation.valid(toValid))
             {
-                if(!coment.equals(validation.getComment()))
-                {
-                    coment += validation.getComment();
-                }
+                coment = validation.getComment();
                 return false;
             }
         }
