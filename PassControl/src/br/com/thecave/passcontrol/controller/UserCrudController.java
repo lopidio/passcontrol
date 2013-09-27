@@ -68,15 +68,23 @@ public class UserCrudController extends PassControlController
                     sendMessageToServerAndWaitForResponseOrTimeout(addUser,
                     ConfirmationResponse.class,
                     2000);
-            if ( response.getStatusOperation() )
+            if(response == null)
             {
-                JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
-                return true;
+                JOptionPane.showMessageDialog(null, "Conexão com servidor comprometida!");
+                return false;
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar registro!");
-                return false;
+                if ( response.getStatusOperation() )
+                {
+                    JOptionPane.showMessageDialog(null, "Registro salvo com sucesso!");
+                    return true;
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Erro ao salvar registro!");
+                    return false;
+                }
             }
         }
         else
@@ -104,14 +112,23 @@ public class UserCrudController extends PassControlController
                         sendMessageToServerAndWaitForResponseOrTimeout(update,
                         ConfirmationResponse.class,
                         2000);
-                if ( response.getStatusOperation() )
+                
+                if(response != null)
                 {
-                    JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
-                    return true;
+                    if ( response.getStatusOperation() )
+                    {
+                        JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!");
+                        return true;
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Erro ao atualizar registro!");
+                        return false;
+                    }
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "Erro ao atualizar registro!");
+                    JOptionPane.showMessageDialog(null, "Conexão com servidor comprometida!");
                     return false;
                 }
             }
@@ -131,13 +148,21 @@ public class UserCrudController extends PassControlController
                 sendMessageToServerAndWaitForResponseOrTimeout(removeUser,
                 ConfirmationResponse.class,
                 2000);
-        if ( response.getStatusOperation() )
+        
+        if(response == null)
         {
-            JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Conexão com servidor comprometida!");
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
+            if ( response.getStatusOperation() )
+            {
+                JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
+            }
         }
     }
 

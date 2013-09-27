@@ -5,7 +5,12 @@ import br.com.thecave.passcontrol.controller.UserCrudController;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.util.IValidation;
 import br.com.thecave.passcontrolserver.util.UserPermission;
+import br.com.thecave.passcontrolserver.util.ValidationPerform;
+import br.com.thecave.passcontrolserver.util.validations.ValidIsEmpty;
+import br.com.thecave.passcontrolserver.util.validations.ValidPasswordSize;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
@@ -330,14 +335,21 @@ public class UserCrud extends PassControlPanel
         if(cbName.getSelectedItem() != null)
             s = cbName.getSelectedItem().toString();
         
+        //criando as validações
+        ArrayList<IValidation> validations = new ArrayList<>();
+        validations.add(new ValidIsEmpty());        
+        
         // não permite inserir um registro com o nome vazio
-        while(s.equals(""))
+        while( !ValidationPerform.valid(s, validations))
         {
-            s = JOptionPane.showInputDialog("Insira o nome do usuário!");
+            s = JOptionPane.showInputDialog(ValidationPerform.getComment());
             DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
             boxModel.addElement(s);
             cbName.setModel(boxModel);
         }
+        validLogin(validations);
+        validEmail(validations);
+        validSenha(validations);
         // construindo o bean com as informações da tela
         bean = extractBeanIdFromCombo();
         
@@ -471,5 +483,33 @@ public class UserCrud extends PassControlPanel
     {
         Main.getInstance().getMainFrame().activatePassControlPanel(new UserCrud());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }
+
+    private void validLogin( ArrayList<IValidation> validations ) throws HeadlessException
+    {
+        // não permite login em branco
+        while(!ValidationPerform.valid(tfLogin.getText(), validations))
+        {
+            tfLogin.setText(JOptionPane.showInputDialog(ValidationPerform.getComment()));
+        }
+    }
+
+    private void validEmail( ArrayList<IValidation> validations ) throws HeadlessException
+    {
+        // não permite email em branco
+        while(!ValidationPerform.valid(tfEmail.getText(), validations))
+        {
+            tfEmail.setText(JOptionPane.showInputDialog(ValidationPerform.getComment()));
+        }
+    }
+
+    private void validSenha( ArrayList<IValidation> validations ) throws HeadlessException
+    {
+        // não permite senha em branco nem menor que 6 digitos
+        validations.add(new ValidPasswordSize());
+        while(!ValidationPerform.valid(new String(tfSenha.getPassword()), validations))
+        {
+            tfSenha.setText(JOptionPane.showInputDialog(ValidationPerform.getComment()));
+        }
     }
 }
