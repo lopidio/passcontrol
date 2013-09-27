@@ -141,7 +141,7 @@ public class QueuePushController extends PassControlController
 
         if ( response == null )
         {
-            JOptionPane.showMessageDialog(null, "Conexão com o servidor interrompida!");
+            JOptionPane.showMessageDialog(null, "Operação expirou o tempo limite");
             return false;
         }
         else

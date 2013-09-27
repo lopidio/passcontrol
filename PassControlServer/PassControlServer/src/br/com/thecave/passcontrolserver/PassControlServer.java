@@ -41,7 +41,7 @@ public class PassControlServer {
     {
         final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         String prefixCode = "";
-        for (int i = addQueueElement.getServiceBean().getId(); i >0; ++i)
+        for (int i = addQueueElement.getServiceBean().getId(); i > 0;)
         {
             prefixCode += alphabet.charAt(i%alphabet.length());
             i /= alphabet.length();
@@ -74,13 +74,14 @@ public class PassControlServer {
         
         new Thread(server).start();
         
-        Integer serviceId = 0;
+        Integer count = 0;
         while(true)
         {
-            ++serviceId;
-            serviceId %= 3;
-            Thread.sleep(20000);
-            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru", serviceId.toString(), "asd", new QueuesManagerBean(), MessageActors.AllActors, MessageActors.AllActors);
+            ++count;
+            Thread.sleep(30000);
+            Integer serviceId = count%10;
+            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru"+count, serviceId+"", "c"+count, new QueuesManagerBean(), MessageActors.ServerActor, MessageActors.AllActors);
+            server.addBroadcastToSend(showClientMessage);
         }
     }
 

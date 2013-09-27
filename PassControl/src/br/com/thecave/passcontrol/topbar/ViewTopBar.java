@@ -14,6 +14,7 @@ import javax.swing.JPanel;
  */
 public class ViewTopBar extends PassControlTopBar
 {
+    public final static int SCROLL_PANEL_WITDH = 1220;
     ViewTopBarController viewTopBarController;
 
     /**
@@ -43,9 +44,9 @@ public class ViewTopBar extends PassControlTopBar
 
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
-        jlIcon1 = new javax.swing.JLabel();
         jlBarra1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jlIcon1 = new javax.swing.JLabel();
+        jpOutterPanel = new javax.swing.JPanel();
         jpScrollableQueueInfoPanel = new javax.swing.JPanel();
 
         jlIcon.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -55,57 +56,58 @@ public class ViewTopBar extends PassControlTopBar
         jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
 
         setBackground(new java.awt.Color(0, 153, 193));
-
-        jlIcon1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jlIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+        setForeground(new java.awt.Color(0, 153, 193));
+        setPreferredSize(new java.awt.Dimension(1351, 95));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlBarra1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlBarra1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
+        add(jlBarra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, -10, 10, 116));
 
-        jScrollPane1.setBackground(new java.awt.Color(0, 133, 163));
-        jScrollPane1.setForeground(new java.awt.Color(0, 133, 163));
+        jlIcon1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jlIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+        add(jlIcon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 106, 116));
+
+        jpOutterPanel.setBackground(new java.awt.Color(0, 153, 193));
+        jpOutterPanel.setForeground(new java.awt.Color(0, 153, 193));
+        jpOutterPanel.setMaximumSize(new java.awt.Dimension(1120, 95));
+        jpOutterPanel.setMinimumSize(new java.awt.Dimension(1120, 95));
+        jpOutterPanel.setPreferredSize(new java.awt.Dimension(1220, 95));
+
+        jpScrollableQueueInfoPanel.setBackground(new java.awt.Color(0, 143, 193));
 
         javax.swing.GroupLayout jpScrollableQueueInfoPanelLayout = new javax.swing.GroupLayout(jpScrollableQueueInfoPanel);
         jpScrollableQueueInfoPanel.setLayout(jpScrollableQueueInfoPanelLayout);
         jpScrollableQueueInfoPanelLayout.setHorizontalGroup(
             jpScrollableQueueInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1210, Short.MAX_VALUE)
+            .addGap(0, 1220, Short.MAX_VALUE)
         );
         jpScrollableQueueInfoPanelLayout.setVerticalGroup(
             jpScrollableQueueInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 114, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jpScrollableQueueInfoPanel);
+        javax.swing.GroupLayout jpOutterPanelLayout = new javax.swing.GroupLayout(jpOutterPanel);
+        jpOutterPanel.setLayout(jpOutterPanelLayout);
+        jpOutterPanelLayout.setHorizontalGroup(
+            jpOutterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpScrollableQueueInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jpOutterPanelLayout.setVerticalGroup(
+            jpOutterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpOutterPanelLayout.createSequentialGroup()
+                .addComponent(jpScrollableQueueInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlBarra1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1212, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlIcon1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlBarra1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        add(jpOutterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 0, 1220, 100));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlBarra;
     private javax.swing.JLabel jlBarra1;
     private javax.swing.JLabel jlIcon;
     private javax.swing.JLabel jlIcon1;
+    private javax.swing.JPanel jpOutterPanel;
     private javax.swing.JPanel jpScrollableQueueInfoPanel;
     // End of variables declaration//GEN-END:variables
 }

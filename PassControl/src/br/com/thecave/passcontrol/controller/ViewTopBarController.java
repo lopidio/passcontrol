@@ -4,24 +4,30 @@
  */
 package br.com.thecave.passcontrol.controller;
 
+import br.com.thecave.passcontrol.component.util.AnimationUtil;
+import br.com.thecave.passcontrol.component.util.AnimationUtilObserver;
 import br.com.thecave.passcontrol.component.util.QueueElementInfo;
 import br.com.thecave.passcontrol.topbar.ViewTopBar;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.viewer.ViewerQueueRequest;
 import br.com.thecave.passcontrolserver.messages.viewer.ViewerQueueResponse;
+import java.awt.Rectangle;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
  *
  * @author lopidio
  */
-public class ViewTopBarController extends PassControlController
+public class ViewTopBarController extends PassControlController implements AnimationUtilObserver
 {
     ViewTopBar viewTopBar;
     ArrayList<QueueElementInfo> queueElementInfos;
+    AnimationUtil queueElementAnimator = null;
 
     public ViewTopBarController() 
     {
@@ -104,6 +110,44 @@ public class ViewTopBarController extends PassControlController
         for (QueueElementInfo queueElementInfo : queueElementInfos) 
         {
             scrollablePanel.add(queueElementInfo);
+        }        
+        startAnimation();
+    }
+    
+    private void startAnimation()
+    {
+        JPanel scrollablePanel = viewTopBar.getScrollableQueueInfoPanel();        
+        System.out.println("Tamanho: " + scrollablePanel.getWidth());
+        if (scrollablePanel.getWidth() > ViewTopBar.SCROLL_PANEL_WITDH)
+        {
+
+            int excesso = scrollablePanel.getWidth() - ViewTopBar.SCROLL_PANEL_WITDH;
+            //segundos por elemento
+            int duration = 500*queueElementInfos.size();
+            Rectangle from = new Rectangle(0, 0, scrollablePanel.getWidth(), scrollablePanel.getHeight());
+            Rectangle to = new Rectangle(-excesso, 0, scrollablePanel.getWidth(), scrollablePanel.getHeight());            
+            
+            //Para a animação anterior
+            if (queueElementAnimator != null)
+                queueElementAnimator.stop();
+            queueElementAnimator = new AnimationUtil(scrollablePanel, from, to);
+            queueElementAnimator.setRunTime(duration);
+            queueElementAnimator.setObserver(this);
+            queueElementAnimator.start();   
+            System.out.println("duration:" + duration + " excedente: " + excesso);
+        }
+        
+    }
+
+    @Override
+    public void onAnimationEnd() 
+    {
+        try {
+            //Anima novamente
+            Thread.sleep(5000);
+            startAnimation();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ViewTopBarController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

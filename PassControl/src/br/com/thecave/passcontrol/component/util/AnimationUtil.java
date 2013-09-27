@@ -18,11 +18,12 @@ import javax.swing.Timer;
  */
 public class AnimationUtil 
 {
+    private AnimationUtilObserver observer;
     private int runTime = 2000;
     private JPanel panel;
     private Rectangle from;
     private Rectangle to;
-
+    Timer timer ;
     private long startTime;
 
     public AnimationUtil(JPanel panel, Rectangle from, Rectangle to) {
@@ -36,14 +37,19 @@ public class AnimationUtil
     }
     
     public void start() {
-        Timer timer = new Timer(40, new ActionListener() {
+        timer = new Timer(30, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 long duration = System.currentTimeMillis() - startTime;
                 double progress = (double)duration / (double)runTime;
                 if (progress > 1f) {
                     progress = 1f;
-                    ((Timer)e.getSource()).stop();
+                    if (timer != null)
+                    {
+                        if (observer != null)
+                            observer.onAnimationEnd();
+                        timer.stop();
+                    }
                 }
                 Rectangle target = calculateProgress(from, to, progress);
                 panel.setBounds(target);
@@ -111,4 +117,17 @@ public class AnimationUtil
 
         return size;
     }    
+
+    public void stop() 
+    {
+        if (timer != null)
+        {
+            timer.stop();
+        }
+    }
+
+    public void setObserver(AnimationUtilObserver observer) {
+        this.observer = observer;
+    }
+    
 }

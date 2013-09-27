@@ -69,15 +69,15 @@ public class ViewerScreen extends PassControlPanel
     {
         jpQueueInfoBig.setVisible(true);
         jpQueueInfoBig.add(elementInfoBig);
-        try
-        {
-            Thread.sleep(10000);
+//        try
+//        {
+//            Thread.sleep(10000);
             jpQueueInfoBig.removeAll();
             jpQueueInfoBig.setVisible(false);
-        }
-        catch ( InterruptedException ex )
-        {
-            Logger.getLogger(ViewerScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        }
+//        catch ( InterruptedException ex )
+//        {
+//            Logger.getLogger(ViewerScreen.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

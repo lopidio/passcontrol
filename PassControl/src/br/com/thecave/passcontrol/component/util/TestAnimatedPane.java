@@ -29,8 +29,8 @@ public class TestAnimatedPane {
                 }
                 
                 Point position = new Point(500, 500);
-                Rectangle from = new Rectangle(position.x, position.y, 300, 300);
-                Rectangle to = new Rectangle(position.x, position.y, 10, 10);
+                Rectangle from = new Rectangle(500, 100, position.x, position.y);
+                Rectangle to = new Rectangle(0, -100, position.x, position.y);
                 
 
                 JFrame frame = new JFrame("Test");
