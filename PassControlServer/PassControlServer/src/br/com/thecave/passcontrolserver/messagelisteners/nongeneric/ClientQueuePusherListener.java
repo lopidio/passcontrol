@@ -110,5 +110,5 @@ public class ClientQueuePusherListener implements ClientListeners
             PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
         }
     }
-    
+
 }

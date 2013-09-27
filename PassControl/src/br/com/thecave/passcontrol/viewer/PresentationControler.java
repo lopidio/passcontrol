@@ -16,11 +16,13 @@ public class PresentationControler implements Runnable
     private long timePresentation;
     private int index;
     private ArrayList<PresentationControllerObserver> presentationControllerObservers;
+    private boolean isRunning;
     //----------------------------------------------------------------------------
     // Construtor
     //----------------------------------------------------------------------------
     public PresentationControler()
     {
+        isRunning = false;
         images = new ArrayList<>();
         index = 0;
         timePresentation = 5000;
@@ -107,9 +109,10 @@ public class PresentationControler implements Runnable
     @Override
     public void run() 
     {
+        isRunning = true;
         // inicia o contador
         Watchdog watchdog = new Watchdog(timePresentation);
-        while(true)
+        while(isRunning)
         {         
             if(watchdog.hasTimedOut())
             {
@@ -133,4 +136,8 @@ public class PresentationControler implements Runnable
         presentationControllerObservers.remove(observer);
     }
     //----------------------------------------------------------------------------
+
+    public void stop() {
+        isRunning = false;
+    }
 }

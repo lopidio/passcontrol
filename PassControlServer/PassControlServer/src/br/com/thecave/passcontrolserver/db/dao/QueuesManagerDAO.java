@@ -4,6 +4,7 @@ import br.com.thecave.passcontrolserver.db.ConnectionDataBase;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -308,8 +309,8 @@ public class QueuesManagerDAO
             Statement stmt;
             conn.setAutoCommit(false);
             
-            SimpleDateFormat todayFormatter = new SimpleDateFormat("dd");
-            String today = "______" + todayFormatter.format(new Date()) + "______"; //yyyymm dd hhmmss
+            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
+            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
 
             stmt = conn.createStatement();
             String sql = "SELECT COUNT(*) as COUNT FROM TB_QUEUES_MANAGER WHERE INT_ID_SERVICE = "+serviceId+" AND DT_CHECKIN LIKE '" +  today + "';";
@@ -333,5 +334,52 @@ public class QueuesManagerDAO
           return 0;
         }  
         
+    }
+
+    public static ArrayList<QueuesManagerBean> selectLastCalledClientsFromEachServicesToday() {
+        ArrayList<QueuesManagerBean> retorno = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+            
+            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
+            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
+
+            stmt = conn.createStatement();
+            String sql = "SELECT MAX(DT_CHECKIN) as DT_CHECKIN, INT_ID, INT_ID_SERVICE , INT_ID_BALCONY, INT_ID_USER_CHECKIN , INT_ID_USER_CHECKOUT, INT_ID_CLIENT, DT_CHECKOUT ,TX_PASS_NUMBER FROM TB_QUEUES_MANAGER WHERE DT_CHECKIN LIKE  '"+today+"' GROUP BY INT_ID_SERVICE;";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            
+            if(rs.next())
+            {
+                QueuesManagerBean bean = new QueuesManagerBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
+                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
+                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
+                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
+                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
+                bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setCheckout(rs.getString("DT_CHECKOUT"));
+                retorno.add(bean);
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }  
     }
 }

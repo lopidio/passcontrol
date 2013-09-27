@@ -5,11 +5,14 @@
 package br.com.thecave.passcontrolserver;
 
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePusherListener;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -55,7 +58,7 @@ public class PassControlServer {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
+    public static void main(String[] args) throws InterruptedException 
     {
         ServerCommunicationThread server = getInstance().server;
         
@@ -68,6 +71,15 @@ public class PassControlServer {
         new ClientQueuePusherListener().addListenersCallback(server);
         
         new Thread(server).start();
+        
+        Integer serviceId = 0;
+        while(true)
+        {
+            ++serviceId;
+            serviceId %= 3;
+            Thread.sleep(20000);
+            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru", serviceId.toString(), "asd", new QueuesManagerBean(), MessageActors.AllActors, MessageActors.AllActors);
+        }
     }
 
     /**

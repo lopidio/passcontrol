@@ -73,11 +73,21 @@ public class QueueElementInfo extends JPanel
         }
     }
     FadeInOutAction fader = null;
+    
+    private String clientName;
+    private String queueName;
+    private String balconyName;
+    private String userPass;
+    
 
     public QueueElementInfo( String clientName, String queueName, String userPass, String balconyName )
     {
 
         initComponents();
+        this.clientName = clientName;
+        this.queueName = queueName;
+        this.balconyName = balconyName;
+        this.userPass = userPass;
 
         txtFila.setText(queueName);
         txtNome.setText(clientName);
@@ -104,6 +114,43 @@ public class QueueElementInfo extends JPanel
         }
     }
 
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+        txtNome.setText(clientName);
+    }
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+        txtFila.setText(queueName);
+    }
+
+    public String getBalconyName() {
+        return balconyName;
+        
+    }
+
+    public void setBalconyName(String balconyName) {
+        this.balconyName = balconyName;
+        txtGuiche.setText(balconyName);        
+    }
+
+    public String getUserPass() {
+        return userPass;
+    }
+
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+        txtSenha.setText(userPass);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

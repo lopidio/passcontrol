@@ -62,6 +62,7 @@ public class ViewerController extends PassControlController implements Presentat
         ClientCommunicationThread communicationThread = Main.getInstance().getCommunicationThread();
         //BalconyShowClientMessage received = (BalconyShowClientMessage) message;
         communicationThread.removeListener(this, BalconyShowClientMessage.class);
+        presentationControler.stop();
     }
 
     @Override
