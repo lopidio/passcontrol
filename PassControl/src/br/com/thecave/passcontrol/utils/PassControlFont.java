@@ -21,13 +21,13 @@ public class PassControlFont
      * Fonte em si
      */
     Font font;
-
+    
     public PassControlFont() 
     {
         try 
         {
             InputStream is = getClass().getResourceAsStream("/resources/Square721 BT Roman.ttf");
-            font = Font.createFont(Font.TRUETYPE_FONT, is);        
+            font = Font.createFont(Font.TRUETYPE_FONT, is); 
         } catch (FontFormatException ex) {
             Logger.getLogger(PassControlFont.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

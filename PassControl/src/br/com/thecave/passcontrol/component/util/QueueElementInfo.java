@@ -1,10 +1,8 @@
 package br.com.thecave.passcontrol.component.util;
 
 import br.com.thecave.passcontrol.utils.PassControlFont;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.Font;
 import javax.swing.JPanel;
 
 /**
@@ -97,49 +95,49 @@ public class QueueElementInfo extends JPanel
         setBackground(new java.awt.Color(255, 232, 29));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         setForeground(new java.awt.Color(255, 100, 60));
-        setMaximumSize(new java.awt.Dimension(250, 150));
-        setMinimumSize(new java.awt.Dimension(250, 150));
-        setPreferredSize(new java.awt.Dimension(250, 95));
+        setMaximumSize(new java.awt.Dimension(220, 128));
+        setMinimumSize(new java.awt.Dimension(220, 128));
+        setPreferredSize(new java.awt.Dimension(220, 128));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSeparator1.setToolTipText("");
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 210, 14));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 14));
 
-        lblGuiche.setFont(new PassControlFont().getSizedFont(8));
+        lblGuiche.setFont(new PassControlFont().getSizedFont(10).deriveFont(Font.BOLD));
         lblGuiche.setText("Guichê:");
         add(lblGuiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 50, -1));
 
-        lblFila.setFont(new PassControlFont().getSizedFont(8));
+        lblFila.setFont(new PassControlFont().getSizedFont(10).deriveFont(Font.BOLD));
         lblFila.setText("Fila:");
         add(lblFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        lblNome.setFont(new PassControlFont().getSizedFont(8));
-        lblNome.setText("Nome do cliente:");
+        lblNome.setFont(new PassControlFont().getSizedFont(10).deriveFont(Font.BOLD));
+        lblNome.setText("Cliente:");
         add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         txtNome.setFont(new PassControlFont().getSizedFont(18));
-        txtNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtNome.setText("Leudinho");
-        add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 190, -1));
+        add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 140, -1));
 
         txtFila.setFont(new PassControlFont().getSizedFont(18));
-        txtFila.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtFila.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtFila.setText("Prioritária");
-        add(txtFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 190, -1));
+        add(txtFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 170, -1));
 
-        txtGuiche.setFont(new PassControlFont().getSizedFont(24));
+        txtGuiche.setFont(new PassControlFont().getSizedFont(24).deriveFont(Font.BOLD));
         txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtGuiche.setText("B13");
-        add(txtGuiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 110, 30));
+        add(txtGuiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 110, 30));
 
-        lblSenha1.setFont(new PassControlFont().getSizedFont(8));
+        lblSenha1.setFont(new PassControlFont().getSizedFont(10).deriveFont(Font.BOLD));
         lblSenha1.setText("Senha:");
         add(lblSenha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        txtSenha.setFont(new PassControlFont().getSizedFont(24));
+        txtSenha.setFont(new PassControlFont().getSizedFont(24).deriveFont(Font.BOLD));
         txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtSenha.setText("43");
-        add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 110, 30));
+        add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 90, 30));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
