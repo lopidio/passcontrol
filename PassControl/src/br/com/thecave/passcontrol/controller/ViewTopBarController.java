@@ -86,7 +86,7 @@ public class ViewTopBarController extends PassControlController implements Anima
     {
         //Informo ao server que quero todos os últimos clientes de hoje de cada serviço
         ViewerQueueRequest viewerQueueRequest = new ViewerQueueRequest();
-        ViewerQueueResponse viewerQueueResponse = null;//Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(viewerQueueRequest, ViewerQueueResponse.class, 3000);
+        ViewerQueueResponse viewerQueueResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(viewerQueueRequest, ViewerQueueResponse.class, 3000);
         if (viewerQueueResponse != null)
         {
             for (BalconyShowClientMessage balconyShowClientMessage : viewerQueueResponse.getLastCalledClients()) 

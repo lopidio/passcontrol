@@ -47,8 +47,8 @@ public class ViewerController extends PassControlController implements Presentat
         super.initialize();
         
         RequestConfigurationFile requestConfigurationFile = new RequestConfigurationFile();
-        ConfigurationFileAlterationMessage message = null;//Main.getInstance().getCommunicationThread().
-                //sendMessageToServerAndWaitForResponseOrTimeout(requestConfigurationFile, ConfigurationFileAlterationMessage.class, 10000);
+        ConfigurationFileAlterationMessage message = Main.getInstance().getCommunicationThread().
+                sendMessageToServerAndWaitForResponseOrTimeout(requestConfigurationFile, ConfigurationFileAlterationMessage.class, 10000);
 
         //Se eu obtiver resposta, pego a resposta
         ConfigurationFile configurationFile;
