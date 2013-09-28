@@ -6,7 +6,9 @@ import br.com.thecave.passcontrol.viewer.PresentationControler;
 import br.com.thecave.passcontrol.viewer.PresentationControllerObserver;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import br.com.thecave.passcontrolserver.messages.generic.ConfigurationFileAlterationMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import java.awt.Image;
@@ -43,15 +45,31 @@ public class ViewerController extends PassControlController implements Presentat
     public void initialize()
     {
         super.initialize();
-        ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+        
+        RequestConfigurationFile requestConfigurationFile = new RequestConfigurationFile();
+        ConfigurationFileAlterationMessage message = null;//Main.getInstance().getCommunicationThread().
+                //sendMessageToServerAndWaitForResponseOrTimeout(requestConfigurationFile, ConfigurationFileAlterationMessage.class, 10000);
+
+        //Se eu obtiver resposta, pego a resposta
+        ConfigurationFile configurationFile;
+        if (message != null)
+        {
+            configurationFile = message.getConfigurationFile();
+        }
+        else //Se não, pego o já salvo na minha máquina
+        {
+            configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+        }
+        
         presentationControler = new PresentationControler();
         presentationControler.addObserver(this);
         presentationControler.setTime(configurationFile.getSlideShowSpeed());
-        screen.setPresentationImage(presentationControler.getCurrentImage());
-        for ( Map.Entry<String, ImageIcon> en : configurationFile.getImgsSlide().entrySet() )
+        for ( Map.Entry<String, ImageIcon> slides : configurationFile.getImgsSlide().entrySet() )
         {
-            presentationControler.addImage(en.getValue().getImage());
+            presentationControler.addImage(slides.getValue().getImage());
         }
+        //Adiciono a primeira imagem
+        screen.setPresentationImage(presentationControler.getCurrentImage());        
         new Thread(presentationControler).start();
     }
 

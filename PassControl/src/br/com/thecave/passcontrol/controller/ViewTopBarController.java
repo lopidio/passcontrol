@@ -15,8 +15,7 @@ import br.com.thecave.passcontrolserver.messages.viewer.ViewerQueueResponse;
 import java.awt.Rectangle;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.TimerTask;
 import javax.swing.JPanel;
 
 /**
@@ -87,7 +86,7 @@ public class ViewTopBarController extends PassControlController implements Anima
     {
         //Informo ao server que quero todos os últimos clientes de hoje de cada serviço
         ViewerQueueRequest viewerQueueRequest = new ViewerQueueRequest();
-        ViewerQueueResponse viewerQueueResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(viewerQueueRequest, ViewerQueueResponse.class, 3000);
+        ViewerQueueResponse viewerQueueResponse = null;//Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(viewerQueueRequest, ViewerQueueResponse.class, 3000);
         if (viewerQueueResponse != null)
         {
             for (BalconyShowClientMessage balconyShowClientMessage : viewerQueueResponse.getLastCalledClients()) 
@@ -113,10 +112,17 @@ public class ViewTopBarController extends PassControlController implements Anima
         }  
         scrollablePanel.revalidate();
         scrollablePanel.repaint();
-        startAnimation(3000);
+        
+        //Anima novamente daqui a 5 segundos
+        java.util.Timer timer = new java.util.Timer();
+        timer.schedule( new TimerTask(){
+           public void run() { 
+                startAnimation();
+           }
+         }, 5000);        
     }
     
-    private void startAnimation(int initialDelay)
+    private void startAnimation()
     {
         //Utilizado para definir a duração da animação
         final int millisecondsPerExcedentPixel = 10;
@@ -147,10 +153,14 @@ public class ViewTopBarController extends PassControlController implements Anima
     @Override
     public void onAnimationEnd() 
     {
-        //Anima novamente
-        startAnimation(3000);
+        
+        //Anima novamente daqui a 3 segundos
+        java.util.Timer timer = new java.util.Timer();
+        timer.schedule( new TimerTask(){
+           public void run() { 
+                startAnimation();
+           }
+         }, 3000);        
     }
-    
-    
     
 }

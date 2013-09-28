@@ -55,6 +55,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
         configurationFile.setPortServer(""+port); //Cast pra String
         configurationFile.setIpServer(getLocalIp());
+        System.out.println("IP do servidor: " + getLocalIp());
 
         serverSocketListener = new ServerSocketListener(port, this);
         setHeartBeat(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));

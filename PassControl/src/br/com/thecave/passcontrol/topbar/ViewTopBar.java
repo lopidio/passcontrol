@@ -57,16 +57,18 @@ public class ViewTopBar extends PassControlTopBar
 
         setBackground(new java.awt.Color(0, 153, 193));
         setForeground(new java.awt.Color(0, 153, 193));
-        setPreferredSize(new java.awt.Dimension(1351, 95));
+        setMaximumSize(new java.awt.Dimension(1376, 128));
+        setMinimumSize(new java.awt.Dimension(1376, 128));
+        setPreferredSize(new java.awt.Dimension(1376, 128));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlBarra1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlBarra1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
-        add(jlBarra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, -10, 10, 116));
+        add(jlBarra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, -10, 10, 160));
 
         jlIcon1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
-        add(jlIcon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 106, 116));
+        add(jlIcon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 106, 116));
 
         jpOutterPanel.setBackground(new java.awt.Color(0, 153, 193));
         jpOutterPanel.setForeground(new java.awt.Color(0, 153, 193));
@@ -84,7 +86,7 @@ public class ViewTopBar extends PassControlTopBar
         );
         jpScrollableQueueInfoPanelLayout.setVerticalGroup(
             jpScrollableQueueInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 131, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpOutterPanelLayout = new javax.swing.GroupLayout(jpOutterPanel);
@@ -95,12 +97,12 @@ public class ViewTopBar extends PassControlTopBar
         );
         jpOutterPanelLayout.setVerticalGroup(
             jpOutterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpOutterPanelLayout.createSequentialGroup()
+            .addGroup(jpOutterPanelLayout.createSequentialGroup()
                 .addComponent(jpScrollableQueueInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        add(jpOutterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 1220, 100));
+        add(jpOutterPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 1220, 130));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlBarra;

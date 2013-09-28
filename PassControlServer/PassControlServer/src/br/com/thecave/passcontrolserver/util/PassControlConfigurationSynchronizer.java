@@ -43,7 +43,7 @@ public final class PassControlConfigurationSynchronizer implements PassControlMe
     {
         //Carrega também o arquivo de configuração!!
         loadConfigurationFile();
-        
+//        System.out.println("Quantidade de slides da animação: " + configurationFile.getImgsSlide().size());
     }
 
     public void requestRefreshConfigurationFile(ClientCommunicationThread clientCommunicationThread)

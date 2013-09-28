@@ -26,8 +26,6 @@ public class PresentationControler implements Runnable
         images = new ArrayList<>();
         index = 0;
         timePresentation = 5000;
-        Image img = Toolkit.getDefaultToolkit().getImage("imgs/presentation/quadro.jpg");
-        images.add(img);
         presentationControllerObservers = new ArrayList<>();
     }
     //----------------------------------------------------------------------------
@@ -74,13 +72,8 @@ public class PresentationControler implements Runnable
      */
     public boolean remove(Image img)
     {
-        if(images.size() > 1)
-        {
-            images.remove(img);
-            return true;
-        }
-        else
-            return false;        
+        images.remove(img);
+        return true;
     }
     //----------------------------------------------------------------------------
     /**
@@ -88,7 +81,7 @@ public class PresentationControler implements Runnable
      */
     public boolean remove(int index)
     {
-        if(images.size() > 1 || index > -1)
+        if(!images.isEmpty() && index >= 0 && index < images.size())
         {
             images.remove(index);
             return true;
@@ -99,11 +92,9 @@ public class PresentationControler implements Runnable
     //----------------------------------------------------------------------------
     public Image getCurrentImage()
     {
-        if(index > images.size()-1)
-        {
-            index = 0;
-        }
-        return this.images.get(this.index);
+        if (images.isEmpty())
+            return null;
+        return images.get(index);
     }
     //----------------------------------------------------------------------------
     @Override
@@ -116,7 +107,12 @@ public class PresentationControler implements Runnable
         {         
             if(watchdog.hasTimedOut())
             {
-                index++;
+                ++index;
+                if (index >= images.size())
+                {
+                    index = 0;
+                }
+//                System.out.println("Animation index: " + index + "/" + images.size());                
                 for ( PresentationControllerObserver observer : presentationControllerObservers )
                 {
                     observer.onPresentationChange(getCurrentImage());

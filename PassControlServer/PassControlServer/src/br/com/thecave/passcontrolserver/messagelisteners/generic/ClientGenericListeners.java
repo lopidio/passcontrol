@@ -203,7 +203,13 @@ public class ClientGenericListeners implements ClientListeners
             {
                 try 
                 {
-                    EMailSender.sendEMail(userBean.getEmail(), "Recuperação de senha do [Gerenciamento de Filas]", "Email enviado automaticamente. Não carece de resposta.\n Caso não tenha requisitado a recuperação de senha, descondidere este email.\n\n\nSua senha é: " + userBean.getPassword());
+                    EMailSender.sendEMail(userBean.getEmail(), "Recuperação de senha do [Gerenciamento de Filas]",
+                                    "Email enviado automaticamente. Não carece de resposta.\n"
+                                  + "\n"
+                                  + "Caso não tenha requisitado a recuperação de senha, favor desconsiderar este email.\n"
+                                  + "\n"
+                                  + "\n"
+                                  + "Sua senha é: " + userBean.getPassword());
                     confirmationResponse.setStatusOperation(true);
                     confirmationResponse.setComment("Recuperação enviada para: "+ userBean.getEmail());
                 }
@@ -215,7 +221,7 @@ public class ClientGenericListeners implements ClientListeners
             }
             else
             {
-                confirmationResponse.setComment("O usuário de nome: "+userBean.getName()+" não consta no registro");                
+                confirmationResponse.setComment("O usuário de nome: "+recoverClientMessage.getUser()+" não consta no registro");                
             }
             
             //Confirma o recebimento da resposta

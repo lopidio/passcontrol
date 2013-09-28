@@ -67,6 +67,7 @@ public class LoginTopBar extends PassControlTopBar
         setBackground(new java.awt.Color(0, 153, 191));
         setForeground(new java.awt.Color(0, 153, 191));
         setMaximumSize(new java.awt.Dimension(1376, 128));
+        setMinimumSize(new java.awt.Dimension(1376, 128));
         setPreferredSize(new java.awt.Dimension(1376, 128));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

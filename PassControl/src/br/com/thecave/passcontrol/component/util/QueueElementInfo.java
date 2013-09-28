@@ -1,13 +1,11 @@
 package br.com.thecave.passcontrol.component.util;
 
+import br.com.thecave.passcontrol.utils.PassControlFont;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 /**
  *
@@ -17,65 +15,7 @@ public class QueueElementInfo extends JPanel
 {
     public static final Dimension SIZE = new QueueElementInfo(null, null, null, null).getPreferredSize();
 
-    private static class FadeInOutAction implements ActionListener
-    {
 
-        Timer timer = new Timer(0, this);
-        private float DELTA;
-        private float alpha;
-        private JPanel jPanel;
-
-        FadeInOutAction( JPanel jPanel, float DELTA ) throws Exception
-        {
-            this.DELTA = DELTA;
-            this.jPanel = jPanel;
-
-            if ( DELTA < 0 )
-            {
-                alpha = 1f;
-            }
-            else if ( DELTA > 0 )
-            {
-                alpha = 0;
-            }
-            else
-            {
-                throw new Exception("Delta inválido");
-            }
-            timer.start();
-        }
-
-        @Override
-        public void actionPerformed( ActionEvent ae )
-        {
-            alpha += DELTA;
-            if ( alpha < 0 || alpha > 1 )
-            {
-                timer.restart();
-                if ( DELTA < 0 )
-                {
-                    alpha = 1f;
-                }
-                else if ( DELTA > 0 )
-                {
-                    alpha = 0;
-                }
-            }
-            jPanel.repaint();
-        }
-
-        public float getAlpha()
-        {
-            return alpha;
-        }
-
-        public boolean isRunning()
-        {
-            return timer.isRunning();
-        }
-    }
-    FadeInOutAction fader = null;
-    
     private String clientName;
     private String queueName;
     private String balconyName;
@@ -96,24 +36,6 @@ public class QueueElementInfo extends JPanel
         txtSenha.setText(userPass);
         txtGuiche.setText(balconyName);
 
-    }
-
-    public void fadeIn( float DELTA ) throws Exception
-    {
-        fader = new FadeInOutAction(this, Math.abs(DELTA));
-
-    }
-
-    @Override
-    protected void paintComponent( Graphics g )
-    {
-        super.paintComponent(g);
-
-        if ( false && fader != null && fader.isRunning() )
-        {
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(new Color(g2d.getColor().getRed(), g2d.getColor().getGreen(), g2d.getColor().getBlue(), fader.getAlpha() * 255));
-        }
     }
 
     public String getClientName() {
@@ -160,8 +82,7 @@ public class QueueElementInfo extends JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
         lblGuiche = new javax.swing.JLabel();
@@ -179,55 +100,46 @@ public class QueueElementInfo extends JPanel
         setMaximumSize(new java.awt.Dimension(250, 150));
         setMinimumSize(new java.awt.Dimension(250, 150));
         setPreferredSize(new java.awt.Dimension(250, 95));
-        setLayout(null);
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSeparator1.setToolTipText("");
-        add(jSeparator1);
-        jSeparator1.setBounds(10, 50, 260, 14);
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 210, 14));
 
-        lblGuiche.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblGuiche.setFont(new PassControlFont().getSizedFont(8));
         lblGuiche.setText("Guichê:");
-        add(lblGuiche);
-        lblGuiche.setBounds(120, 10, 50, 16);
+        add(lblGuiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 50, -1));
 
-        lblFila.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblFila.setFont(new PassControlFont().getSizedFont(8));
         lblFila.setText("Fila:");
-        add(lblFila);
-        lblFila.setBounds(10, 50, 27, 18);
+        add(lblFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        lblNome.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblNome.setFont(new PassControlFont().getSizedFont(8));
         lblNome.setText("Nome do cliente:");
-        add(lblNome);
-        lblNome.setBounds(10, 90, 118, 18);
+        add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
-        txtNome.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        txtNome.setFont(new PassControlFont().getSizedFont(18));
         txtNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtNome.setText("Leudinho");
-        add(txtNome);
-        txtNome.setBounds(0, 120, 280, 19);
+        add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 190, -1));
 
-        txtFila.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        txtFila.setFont(new PassControlFont().getSizedFont(18));
         txtFila.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtFila.setText("Prioritária");
-        add(txtFila);
-        txtFila.setBounds(20, 60, 250, 32);
+        add(txtFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 190, -1));
 
-        txtGuiche.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtGuiche.setFont(new PassControlFont().getSizedFont(24));
+        txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtGuiche.setText("B13");
-        add(txtGuiche);
-        txtGuiche.setBounds(170, 10, 100, 40);
+        add(txtGuiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 110, 30));
 
-        lblSenha1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        lblSenha1.setFont(new PassControlFont().getSizedFont(8));
         lblSenha1.setText("Senha:");
-        add(lblSenha1);
-        lblSenha1.setBounds(10, 10, 39, 16);
+        add(lblSenha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        txtSenha.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtSenha.setFont(new PassControlFont().getSizedFont(24));
+        txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtSenha.setText("43");
-        add(txtSenha);
-        txtSenha.setBounds(0, 10, 160, 40);
+        add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 110, 30));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
