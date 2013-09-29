@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -203,13 +202,15 @@ public class ClientGenericListeners implements ClientListeners
             {
                 try 
                 {
-                    EMailSender.sendEMail(userBean.getEmail(), "Recuperação de senha do [Gerenciamento de Filas]",
+                    EMailSender.sendEMail(userBean.getEmail(), "[Gerenciamento de Filas] Recuperação de senha",
                                     "Email enviado automaticamente. Não carece de resposta.\n"
                                   + "\n"
                                   + "Caso não tenha requisitado a recuperação de senha, favor desconsiderar este email.\n"
                                   + "\n"
                                   + "\n"
-                                  + "Sua senha é: " + userBean.getPassword());
+                                  + "-----------------------------------------------------"
+                                  + "Sua senha é: " + userBean.getPassword()
+                                  + "-----------------------------------------------------");
                     confirmationResponse.setStatusOperation(true);
                     confirmationResponse.setComment("Recuperação enviada para: "+ userBean.getEmail());
                 }

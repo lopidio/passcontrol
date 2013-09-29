@@ -97,6 +97,8 @@ public class DefaultScreen extends PassControlPanel
                 ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
                 file.setIpServer(ip);
                 PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
+                //tento me conectar ao novo ip                
+                Main.getInstance().getCommunicationThread().refreshConnectionProperties();
             }
         });
         jmServerConfig.add(jmIP);
@@ -110,10 +112,20 @@ public class DefaultScreen extends PassControlPanel
             @Override
             public void actionPerformed( java.awt.event.ActionEvent evt )
             {
-                String port = JOptionPane.showInputDialog("Digite a porta do servidor!");
+                String portStr = JOptionPane.showInputDialog("Digite a porta do servidor!");
                 ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-                file.setPortServer(port);
-                PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
+                try
+                {
+                    int port = Integer.parseInt(portStr);
+                    file.setPortServer(port);
+                    PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
+                    //tento me conectar à nova porta
+                    Main.getInstance().getCommunicationThread().refreshConnectionProperties();
+                }
+                catch(NumberFormatException exc)
+                {
+                    
+                }
             }
         });
         jmServerConfig.add(jmPort);

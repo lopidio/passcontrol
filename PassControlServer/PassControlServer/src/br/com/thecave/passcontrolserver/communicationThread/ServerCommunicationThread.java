@@ -53,7 +53,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     {
         markToReset = false;
         ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-        configurationFile.setPortServer(""+port); //Cast pra String
+        configurationFile.setPortServer(port); 
         configurationFile.setIpServer(getLocalIp());
         System.out.println("IP do servidor: " + getLocalIp());
 

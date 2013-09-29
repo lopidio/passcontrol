@@ -21,7 +21,7 @@ public class ConfigurationFile implements Serializable
     private int slideShowSpeed;
     private ImageIcon mainImage;
     private String ipServer;
-    private String portServer;
+    private int portServer;
     private HashMap<String, ImageIcon> imgsSlide;
 
     /**
@@ -32,7 +32,7 @@ public class ConfigurationFile implements Serializable
         gerenciamentoAutomatico = true;
         slideShowSpeed = 5000;
         ipServer = "127.0.0.1";
-        portServer = "23073";
+        portServer = 23073;
         imgsSlide = new HashMap<>();
         mainImage = new ImageIcon(getClass().getResource("/resources/splash.png"));
     }
@@ -82,7 +82,7 @@ public class ConfigurationFile implements Serializable
     /**
      * @return the portServer
      */
-    public String getPortServer()
+    public int getPortServer()
     {
         return portServer;
     }
@@ -90,7 +90,7 @@ public class ConfigurationFile implements Serializable
     /**
      * @param portServer the portServer to set
      */
-    public void setPortServer( String portServer )
+    public void setPortServer( int portServer )
     {
         this.portServer = portServer;
     }

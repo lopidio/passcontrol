@@ -78,7 +78,7 @@ public class PassControlServer {
         while(true)
         {
             ++count;
-            Thread.sleep(10000);
+            Thread.sleep(30000);
             Integer serviceId = count%10;
             BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru"+count, serviceId+"", "c"+count, new QueuesManagerBean(), MessageActors.ServerActor, MessageActors.AllActors);
             server.addBroadcastToSend(showClientMessage);

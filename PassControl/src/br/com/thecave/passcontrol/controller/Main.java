@@ -42,9 +42,7 @@ public class Main
         mainFrame = new MainFrame();
         ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
         
-        communicationThread = new ClientCommunicationThread(
-                configurationFile.getIpServer(),
-                Integer.parseInt(configurationFile.getPortServer()));
+        communicationThread = new ClientCommunicationThread();
         mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         mainFrame.setVisible(true);       
     }

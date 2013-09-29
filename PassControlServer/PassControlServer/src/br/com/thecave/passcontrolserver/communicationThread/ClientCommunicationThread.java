@@ -6,10 +6,16 @@ package br.com.thecave.passcontrolserver.communicationThread;
 
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
+import br.com.thecave.passcontrolserver.util.ConfigurationFile;
+import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
+import java.net.InetSocketAddress;
+import java.net.NoRouteToHostException;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -56,11 +62,11 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
      * @param serverIP
      * @param port
      */
-    public ClientCommunicationThread(String serverIP, int port){
-        this.port = port;
-        this.serverIP = serverIP;
+    public ClientCommunicationThread()
+    {
         statusConnectionListeners = new ArrayList<>();
         setHeartBeat(new HeartBeatMessage(MessageActors.NotIdentified, MessageActors.ServerActor));
+        refreshConnectionProperties();
     }   
     
     /**
@@ -192,7 +198,12 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                 {
                     //Tenta estabelecer uma conexão
                     socket = null;
-                    socket = new Socket(serverIP, port); 
+                    
+                    SocketAddress sockaddr = new InetSocketAddress(serverIP, port);
+                    socket = new Socket();
+                    //Tenta durante 10 segundos...
+                    socket.connect(sockaddr, 10000);                    
+                    
                     connectionInstant = new Date();
                     System.out.println("Conexão estabelecida");
                     onChangeStatusConnection();                                                        
@@ -215,8 +226,13 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
                     flushBuffer();
                 }
             }
+            catch (NoRouteToHostException | ConnectException exc)
+            {
+                refreshConnectionProperties();
+            }
             catch (ClassNotFoundException | IOException exc) 
             {
+                exc.printStackTrace();
             }
             finally 
             {
@@ -224,6 +240,15 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
             }
         }
 
+    }
+    
+    public void refreshConnectionProperties()
+    {
+        ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+        port = configurationFile.getPortServer();
+        serverIP = configurationFile.getIpServer();   
+        System.out.println("IP do server: " + serverIP);
+        finalizeConnection();
     }
     
     /**
