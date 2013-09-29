@@ -44,29 +44,27 @@ public class LoginTopBarController extends PassControlController
         }
         else
         {
-            //TODO: remover SQL injection
-
-        Main main = Main.getInstance();
-        ClientLoginRequest initRequest = new ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
-        ClientLoginResponse clientLoginResponse = main.getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(initRequest, ClientLoginResponse.class, 3000);
-        if (clientLoginResponse != null)
-        {
-            if (clientLoginResponse.getUser() != null)
+            Main main = Main.getInstance();
+            ClientLoginRequest initRequest = new ClientLoginRequest(MessageActors.NotIdentified, loginTopBar.getUserName(), loginTopBar.getUserPassword());
+            ClientLoginResponse clientLoginResponse = main.getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(initRequest, ClientLoginResponse.class, 3000);
+            if (clientLoginResponse != null)
             {
-                MainFrame mainFrame = main.getMainFrame();
-                main.setCurrentUser(clientLoginResponse.getUser());
-                mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
-                mainFrame.activatePassControlTopBar(new MainTopBar());
+                if (clientLoginResponse.getUser() != null)
+                {
+                    MainFrame mainFrame = main.getMainFrame();
+                    main.setCurrentUser(clientLoginResponse.getUser());
+                    mainFrame.activatePassControlPanel(new ButtonsModulesScreen());
+                    mainFrame.activatePassControlTopBar(new MainTopBar());
+                }
+                else
+                {
+                    loginTopBar.incorrectUser(clientLoginResponse.getComment());
+                }
             }
             else
             {
-                loginTopBar.incorrectUser(clientLoginResponse.getComment());
+                JOptionPane.showMessageDialog(null, "Tempo de conexão expirado!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Tempo de conexão expirado!", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
         }
 
     }

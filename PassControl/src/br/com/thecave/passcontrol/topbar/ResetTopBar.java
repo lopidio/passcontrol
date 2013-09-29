@@ -30,8 +30,7 @@ public class ResetTopBar extends PassControlTopBar
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
@@ -62,10 +61,8 @@ public class ResetTopBar extends PassControlTopBar
 
         jbOk.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbOk.setText("OK");
-        jbOk.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbOkActionPerformed(evt);
             }
         });
@@ -78,10 +75,8 @@ public class ResetTopBar extends PassControlTopBar
 
         jbCancel.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbCancel.setText("Cancelar");
-        jbCancel.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCancelActionPerformed(evt);
             }
         });

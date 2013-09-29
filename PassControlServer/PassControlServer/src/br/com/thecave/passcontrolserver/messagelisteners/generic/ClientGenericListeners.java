@@ -73,7 +73,7 @@ public class ClientGenericListeners implements ClientListeners
             }
             else
             {
-                UserBean bean = UserDAO.selectFromName(initRequest.getUser());
+                UserBean bean = UserDAO.selectFromLogin(initRequest.getUser());
                 //Verifica se existe o usuário no banco
                 if (bean != null)
                 {
@@ -197,7 +197,7 @@ public class ClientGenericListeners implements ClientListeners
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(false, recoverClientMessage, MessageActors.AdministratorActor);
 
             
-            UserBean userBean = UserDAO.selectFromName(recoverClientMessage.getUser());
+            UserBean userBean = UserDAO.selectFromLogin(recoverClientMessage.getUser());
             if (userBean != null)
             {
                 try 

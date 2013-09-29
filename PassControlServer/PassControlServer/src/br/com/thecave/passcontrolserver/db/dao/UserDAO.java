@@ -171,11 +171,11 @@ public class UserDAO
         }            
     }
     /**
-     * Metodo para recuperar um UserBean a partir de seu id.
-     * @param name Nome do registro que se quer recuperar
+     * Metodo para recuperar um UserBean a partir de seu login.
+     * @param login Nome do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public static UserBean selectFromName(String name)
+    public static UserBean selectFromLogin(String login)
     {
         UserBean bean = null;
         try
@@ -189,7 +189,7 @@ public class UserDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_USER WHERE TX_NAME='" + name + "';";
+            String sql = "SELECT * FROM TB_USER WHERE TX_LOGIN='" + login + "';";
 
             ResultSet rs = stmt.executeQuery(sql);
             
