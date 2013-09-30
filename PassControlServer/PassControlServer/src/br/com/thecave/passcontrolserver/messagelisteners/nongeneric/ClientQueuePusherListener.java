@@ -16,6 +16,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
+import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperNewClientAdded;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddClient;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientFromRegistration;
@@ -61,15 +62,15 @@ public class ClientQueuePusherListener implements ClientListeners
             
             //Crio o número
             queuesManagerBean.setPassNumber(passNumber);
-            QueuesManagerDAO.insert(queuesManagerBean);
-            
+
             //Informo ao pusher que deu certo!!
             BalconyShowClientMessage response = new BalconyShowClientMessage(clientName, addQueueElement.getServiceBean().getName(), null, queuesManagerBean, MessageActors.ServerActor, MessageActors.QueuePushActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);                                
             
             ///Informo à todos os QueuePoppers pra inserir esse elemento
+            QueuePopperNewClientAdded queuePopperNewClientAdded = new QueuePopperNewClientAdded(queuesManagerBean, addQueueElement.getServiceBean().getId(), clientName, clientName, passNumber);
             response.setTo(MessageActors.QueuePopActor);
-            PassControlServer.getInstance().getServer().addBroadcastToSend(response);
+            PassControlServer.getInstance().getServer().addBroadcastToSend(queuePopperNewClientAdded);
         }
     }
 

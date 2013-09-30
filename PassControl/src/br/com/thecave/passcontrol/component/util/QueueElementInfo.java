@@ -1,6 +1,7 @@
 package br.com.thecave.passcontrol.component.util;
 
 import br.com.thecave.passcontrol.utils.PassControlFont;
+import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JPanel;
@@ -18,6 +19,8 @@ public class QueueElementInfo extends JPanel
     private String queueName;
     private String balconyName;
     private String userPass;
+    QueueElementInfoMouseClickedListener mouseClickedListener;
+    QueuesManagerBean queuesManagerBean;
     
 
     public QueueElementInfo( String clientName, String queueName, String userPass, String balconyName )
@@ -72,6 +75,16 @@ public class QueueElementInfo extends JPanel
         this.userPass = userPass;
         txtSenha.setText(userPass);
     }
+
+    public QueueElementInfoMouseClickedListener getMouseClickedListener() {
+        return mouseClickedListener;
+    }
+
+    public void setMouseClickedListener(QueueElementInfoMouseClickedListener mouseClickedListener) {
+        this.mouseClickedListener = mouseClickedListener;
+    }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,6 +111,11 @@ public class QueueElementInfo extends JPanel
         setMaximumSize(new java.awt.Dimension(220, 128));
         setMinimumSize(new java.awt.Dimension(220, 128));
         setPreferredSize(new java.awt.Dimension(220, 128));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSeparator1.setToolTipText("");
@@ -139,6 +157,25 @@ public class QueueElementInfo extends JPanel
         txtSenha.setText("43");
         add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 90, 30));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        if (mouseClickedListener != null)
+            mouseClickedListener.mouseClicked(this);
+    }//GEN-LAST:event_formMouseClicked
+
+    public static interface QueueElementInfoMouseClickedListener
+    {
+        public void mouseClicked(QueueElementInfo queueElementInfo);
+    }
+
+    public QueuesManagerBean getQueuesManagerBean() {
+        return queuesManagerBean;
+    }
+
+    public void setQueuesManagerBean(QueuesManagerBean queuesManagerBean) {
+        this.queuesManagerBean = queuesManagerBean;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblFila;

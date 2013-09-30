@@ -1,6 +1,12 @@
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.component.util.QueueElementInfo;
 import br.com.thecave.passcontrol.controller.QueuePopController;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+import javax.swing.Box;
+import javax.swing.JPanel;
 
 /**
  *
@@ -8,7 +14,9 @@ import br.com.thecave.passcontrol.controller.QueuePopController;
  */
 public class QueuePopScreen extends PassControlPanel
 {
-
+    ArrayList<ArrayList<QueueElementInfo>> queueElementInfos;
+    ArrayList<Box> queuesArea;
+    
     QueuePopController controller = null;
 
     /**
@@ -19,8 +27,65 @@ public class QueuePopScreen extends PassControlPanel
         super("Controle de Fila", new QueuePopController());
         this.controller = (QueuePopController) getPanelController();
         initComponents();
+        
+//        jpScrollableQueueInfoPanel.setLayout(new BoxLayout(jpScrollableQueueInfoPanel, BoxLayout.Y_AXIS)); //Talvez esse Layout seja o mais adequado
+        jpScrollablePane.setLayout(new FlowLayout());        
+
+        queueElementInfos = new ArrayList<>();
+        queuesArea = new ArrayList<>();
+        jpScrollablePane.add(Box.createHorizontalStrut(20)); //Adiciona um no começo
+        for (int i = 0; i < 5; i++) 
+        {
+            jpScrollablePane.add(queuesArea.get(i));
+            jpScrollablePane.add(Box.createHorizontalStrut(20));
+            
+            
+            //Aproveito o for para instanciar isso aqui também
+            queueElementInfos.set(i, new ArrayList<QueueElementInfo>());
+            
+        }
+      
     }
 
+    public ArrayList<ArrayList<QueueElementInfo>> getQueueElementInfos() {
+        return queueElementInfos;
+    }
+
+    public QueueElementInfo findQueueElementInfoFromPassNumber(String passNumber)
+    {
+        for (ArrayList<QueueElementInfo> arrayList : queueElementInfos) 
+        {
+            for (QueueElementInfo queueElementInfo : arrayList) 
+            {
+                //Se for esse mesmo
+                if (queueElementInfo.getUserPass().equals(passNumber))
+                {
+                    return queueElementInfo;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void disableAllQueueElementInfo()
+    {
+        for (ArrayList<QueueElementInfo> arrayList : queueElementInfos) 
+        {
+            for (QueueElementInfo queueElementInfo : arrayList) 
+            {
+                queueElementInfo.setEnabled(false);
+            }
+        }    
+    }    
+    
+    public ArrayList<Box> getQueuesArea() {
+        return queuesArea;
+    }
+
+    public JPanel getJpScrollablePane() {
+        return jpScrollablePane;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,7 +125,7 @@ public class QueuePopScreen extends PassControlPanel
 
         jOutterScrollPane.setViewportView(jpScrollablePane);
 
-        add(jOutterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 600, 290));
+        add(jOutterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 1080, 740));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jOutterScrollPane;
@@ -68,4 +133,5 @@ public class QueuePopScreen extends PassControlPanel
     private javax.swing.JPanel jpBarraLateral;
     private javax.swing.JPanel jpScrollablePane;
     // End of variables declaration//GEN-END:variables
+
 }

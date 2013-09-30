@@ -67,20 +67,6 @@ public class QueueElementHandler implements Runnable
         waitingBalconys = new ConcurrentHashMap<>(); //
     }
     
-    /**
-     * Percorre a lista de serviços e retorna o índice do primeiro serviço com aquela prioridade
-     * Retorna -1 caso não encontre
-     */
-    private static int getFirstServiceBeanFromPriority(ArrayList<ServiceBean> serviceBeans, int priority)
-    {
-        for (int i = 0; i < serviceBeans.size(); i++) 
-        {
-            if (serviceBeans.get(i).getPriority() == priority)
-                return i;
-        }
-        return -1;
-    }
-    
     private void updateNextPriority(int currentPriority)
     {
         switch (currentPriority)
@@ -114,45 +100,46 @@ public class QueueElementHandler implements Runnable
         return selectedManagerBean;
     }
     
-    private QueuesManagerBean automaticChoose(BalconyBean balconyBean, ArrayList<QueuesManagerBean> avaliableClients)
+    private QueuesManagerBean automaticChoose(BalconyBean balconyBean, HashMap<Integer, ArrayList<QueuesManagerBean>> avaliableClients)
     {
         //Pego os serviço de todos os clientes que se adequam
         ArrayList<ServiceBean> serviceBeans = new ArrayList<>(avaliableClients.size());
-        for (QueuesManagerBean queuesManagerBean : avaliableClients) 
+        
+        for (Map.Entry<Integer, ArrayList<QueuesManagerBean>> entry : avaliableClients.entrySet()) 
         {
-            serviceBeans.add(ServiceDAO.selectFromId(queuesManagerBean.getIdService()));
+            Integer priority = entry.getKey();
+            for (QueuesManagerBean queuesManagerBean : entry.getValue()) 
+            {
+                serviceBeans.add(ServiceDAO.selectFromId(queuesManagerBean.getIdService()));                    
+            }
+
         }
 
-        QueuesManagerBean selectedQueueManagerBean = null;
-        int selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 5); //Prioridade máxima
         //Se existir alguém com prioridade máxima
-        if (selectedIndex != -1)
+        if (!avaliableClients.get(5).isEmpty())
         {
-            selectedQueueManagerBean = avaliableClients.get(selectedIndex);
+            //Pego o primeiro
+            return avaliableClients.get(5).get(0);
         }
         else
         {
             //Tento para as prioridades Alta, média e baixa (A partir da última escolha...)
             for (int i = 0; i < 3; ++i)
             {
-                selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, nextPriority); //Próxima prioridade
-                //Se eu achar alguém dessa prioridade
-                if (selectedIndex != -1)
-                    selectedQueueManagerBean = avaliableClients.get(selectedIndex);
+                //Se existir algum com essa prioridade
+                if (!avaliableClients.get(nextPriority).isEmpty())
+                {
+                    return avaliableClients.get(nextPriority).get(0);
+                }
                 else //Altero a prioridade que eu quero
                     updateNextPriority(nextPriority);
             }
-            if (selectedQueueManagerBean == null)
-            {
-                selectedIndex = getFirstServiceBeanFromPriority(serviceBeans, 1); //Prioridade mínima
-                if (selectedIndex != -1)
-                {
-                    selectedQueueManagerBean = avaliableClients.get(selectedIndex);
-                }
-            }
+            //Se existe alguém com a prioridade mínima
+            if (!avaliableClients.get(0).isEmpty())
+                return avaliableClients.get(0).get(0);
         }
 
-        return selectedQueueManagerBean;
+        return null;
     }
     
     /**
@@ -161,7 +148,7 @@ public class QueueElementHandler implements Runnable
      * @param avaliableClients
      * @return 
      */
-    private QueuesManagerBean manualChoose(BalconyBean balconyBean, ArrayList<QueuesManagerBean> avaliableClients)
+    private QueuesManagerBean manualChoose(BalconyBean balconyBean, HashMap<Integer, ArrayList<QueuesManagerBean>> avaliableClients)
     {
         QueuePopperChooseNextElement chooseNextElement = new QueuePopperChooseNextElement(balconyBean, avaliableClients);
 
@@ -174,32 +161,41 @@ public class QueueElementHandler implements Runnable
         for (Map.Entry<Socket, BalconyShowClientMessage> entry : clientsResponse.entrySet()) 
         {
             Socket socket = entry.getKey();
-            BalconyShowClientMessage message = entry.getValue();
+            BalconyShowClientMessage clientRespose = entry.getValue();
 
             //Se existir a resposta
-            if (message != null)
+            if (clientRespose != null)
             {
                 //Informo ao popper que sua escolha foi bem sucedida
-                ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyShowClientMessage, MessageActors.QueuePopActor);
-                if (balconyShowClientMessage != null)
+                ConfirmationResponse confirmationResponse = new ConfirmationResponse(false, balconyShowClientMessage, MessageActors.QueuePopActor);
+                
+                QueuesManagerBean queuesManagerBean = QueuesManagerDAO.selectFromId(clientRespose.getQueuesManagerBean().getId());
+                if (queuesManagerBean.getIdBalcony() == 0 ) //Não foi escolhido ainda
                 {
-                    confirmationResponse.setStatusOperation(false);
-                    confirmationResponse.setComment("O cliente já foi escolhido através de outro removedor.");
+                    confirmationResponse.setStatusOperation(true);
                 }
+                else
+                {
+                    confirmationResponse.setComment("O cliente já foi escolhido através de outro removedor.");                    
+                }
+                
                 PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
 
                 //Informo que uma escolha já aconteceu
-                balconyShowClientMessage = message;
+                balconyShowClientMessage = clientRespose;
             }
 
         }
+        //Se não tiver nenhuma escolha ainda
+        if (balconyShowClientMessage == null)
+            return null;
         return balconyShowClientMessage.getQueuesManagerBean();
     }    
     
     private QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
     {   
         //Seleciona todos os clientes atendíveis para aquele guichê
-        ArrayList<QueuesManagerBean> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
+        HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
         
         //Não existe nenhum cliente que se adeque
         if (managerBeans.isEmpty())
@@ -208,19 +204,21 @@ public class QueueElementHandler implements Runnable
         }
         
         QueuesManagerBean chosenClient = null;
-        //Se a escolhar for manual
+        //Se a escolhar for automática
         if (automaticChooseOn)
-        {
-            //Retorna nulo caso a tenha mudado a forma de escolha (autmática para manual)
-            chosenClient = manualChoose(balconyBean, managerBeans);
-        }
-        else
         {
             chosenClient = automaticChoose(balconyBean, managerBeans);
             //É zero quando a escolha foi automática
-            chosenClient.setIdUserCheckout(AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID);
+            if (chosenClient != null)
+                chosenClient.setIdUserCheckout(AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID);
         }
-        
+        else
+        {
+            //Retorna nulo caso a tenha mudado a forma de escolha (automática para manual)
+            chosenClient = manualChoose(balconyBean, managerBeans);
+        }
+        if (chosenClient == null)
+            return null;
         return prepareSelectedQueuesManageElement(balconyBean, chosenClient);
     }
     

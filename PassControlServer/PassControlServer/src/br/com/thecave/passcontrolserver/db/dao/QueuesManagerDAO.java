@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -211,9 +212,14 @@ public class QueuesManagerDAO
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public static ArrayList<QueuesManagerBean> selectAvaliableTuplesFromBalcony(BalconyBean balconyBean)
+    public static HashMap<Integer, ArrayList<QueuesManagerBean>> selectAvaliableTuplesFromBalcony(BalconyBean balconyBean)
     {
-        ArrayList<QueuesManagerBean> retorno = new ArrayList<>();
+        //Uma lista para cada prioridade
+        HashMap<Integer, ArrayList<QueuesManagerBean>> retorno = new HashMap<>(5);
+        
+        
+        //TODO corrigir essa sql
+        
         try
         {
         // pegar a conexão com o banco
@@ -232,16 +238,16 @@ public class QueuesManagerDAO
             
             while(rs.next())
             {
-                QueuesManagerBean bean = new QueuesManagerBean();
-                bean.setId(rs.getInt("INT_ID"));
-                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
-                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
-                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
-                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
-                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
-                bean.setCheckin(rs.getString("DT_CHECKIN"));
-                bean.setCheckout(rs.getString("DT_CHECKOUT"));
-                retorno.add(bean);
+//                QueuesManagerBean bean = new QueuesManagerBean();
+//                bean.setId(rs.getInt("INT_ID"));
+//                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
+//                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
+//                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
+//                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
+//                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
+//                bean.setCheckin(rs.getString("DT_CHECKIN"));
+//                bean.setCheckout(rs.getString("DT_CHECKOUT"));
+//                retorno.add(bean);
             }
             
             stmt.close();

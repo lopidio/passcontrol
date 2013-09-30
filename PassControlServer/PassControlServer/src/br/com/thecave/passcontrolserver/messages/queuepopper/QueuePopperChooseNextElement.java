@@ -9,6 +9,7 @@ import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -24,14 +25,17 @@ public class QueuePopperChooseNextElement extends PassControlMessage
     /**
      * Possíveis tuplas
      */
-    ArrayList<QueuesManagerBean> managerBeans;
+    HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans;
 
-    public QueuePopperChooseNextElement(BalconyBean balconyBean, ArrayList<QueuesManagerBean> managerBeans) {
+    public QueuePopperChooseNextElement(BalconyBean balconyBean, HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans)
+    {
         super(MessageActors.ServerActor, MessageActors.QueuePopActor);
         this.balconyBean = balconyBean;
         this.managerBeans = managerBeans;
     }
 
+    
+    
     public BalconyBean getBalconyBean() {
         return balconyBean;
     }
@@ -40,12 +44,13 @@ public class QueuePopperChooseNextElement extends PassControlMessage
         this.balconyBean = balconyBean;
     }
 
-    public ArrayList<QueuesManagerBean> getManagerBeans() {
+    public HashMap<Integer, ArrayList<QueuesManagerBean>> getManagerBeans() {
         return managerBeans;
     }
 
-    public void setManagerBeans(ArrayList<QueuesManagerBean> managerBeans) {
+    public void setManagerBeans(HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans) {
         this.managerBeans = managerBeans;
     }
+
     
 }

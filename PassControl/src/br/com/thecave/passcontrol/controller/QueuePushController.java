@@ -146,7 +146,6 @@ public class QueuePushController extends PassControlController
         }
         else
         {
-            // TODO: atualizar o info
             QueueElementInfo elementInfo = new QueueElementInfo(response.getClientName(), 
                                                 response.getServiceType(), 
                                                 response.getQueuesManagerBean().getPassNumber(),

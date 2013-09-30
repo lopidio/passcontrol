@@ -356,10 +356,7 @@ public class QueuePushScreen extends PassControlPanel
         // pegando o bean dos clientes
         serviceBean = controller.getService(cbServico.getSelectedItem().toString());
         
-        if(controller.insertNewAtendimento(clientBean, userBean, serviceBean))
-        {
-            
-        }
+        controller.insertNewAtendimento(clientBean, userBean, serviceBean);
     }//GEN-LAST:event_jbInserirNovoAtendimentoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
