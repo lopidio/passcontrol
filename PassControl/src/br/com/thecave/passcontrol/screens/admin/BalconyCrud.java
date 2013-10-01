@@ -31,6 +31,7 @@ public class BalconyCrud extends PassControlPanel
     private ArrayList<JCheckBox> checkBoxs;
     Box leftBox;
     Box rightBox;
+    private boolean ready;
     /**
      * Creates new form AdminScreen
      */
@@ -40,7 +41,8 @@ public class BalconyCrud extends PassControlPanel
         this.controller = (BalconyCrudController) getPanelController();        
         initComponents();
         jpSecundario.setVisible(false);     
-        scrollPanel.setLayout(new FlowLayout());        
+        scrollPanel.setLayout(new FlowLayout()); 
+        jlErroName.setVisible(false);
 
         leftBox = Box.createVerticalBox();
         leftBox.setAlignmentX(LEFT_ALIGNMENT);        
@@ -112,6 +114,7 @@ public class BalconyCrud extends PassControlPanel
         jbRemove = new javax.swing.JButton();
         jpServices = new javax.swing.JScrollPane();
         scrollPanel = new javax.swing.JPanel();
+        jlErroName = new javax.swing.JLabel();
 
         jmAdmin.setText("Administrar");
         jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -242,6 +245,8 @@ public class BalconyCrud extends PassControlPanel
 
         jpServices.setViewportView(scrollPanel);
 
+        jlErroName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+
         javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
         jpSecundario.setLayout(jpSecundarioLayout);
         jpSecundarioLayout.setHorizontalGroup(
@@ -256,7 +261,10 @@ public class BalconyCrud extends PassControlPanel
                     .addGroup(jpSecundarioLayout.createSequentialGroup()
                         .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(cbBalconysName, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpSecundarioLayout.createSequentialGroup()
+                                .addComponent(cbBalconysName, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlErroName))
                             .addComponent(jpServices, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -267,7 +275,9 @@ public class BalconyCrud extends PassControlPanel
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbBalconysName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jlErroName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbBalconysName))
                 .addGap(32, 32, 32)
                 .addComponent(jpServices, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -354,42 +364,53 @@ public class BalconyCrud extends PassControlPanel
         // adicionando as validações
         ArrayList<IValidation> validations = new ArrayList<>();
         validations.add(new ValidIsEmpty());
+        if(!ValidationPerform.valid(balconyName, validations))
+        {
+            ready = false;
+            jlErroName.setVisible(true);
+            jlErroName.setToolTipText(ValidationPerform.getComment());
+        }
+        else
+        {
+            ready = true;
+        }
         
         // não permite inserir um registro com o nome vazio
-        while( !ValidationPerform.valid(balconyName, validations))
-        {
-            balconyName = JOptionPane.showInputDialog(ValidationPerform.getComment());
-            if (balconyName == null)
-                return;
-            DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
-            boxModel.addElement(balconyName);
-            cbBalconysName.setModel(boxModel);
-        }
+        if (balconyName == null)
+            return;
+        DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
+        boxModel.addElement(balconyName);
+        cbBalconysName.setModel(boxModel);
 
         ArrayList<ServiceBean> arrayList = getSelectedServices();
         if (arrayList.isEmpty())
         {
-            JOptionPane.showMessageDialog(null, "É preciso selecionar serviço(s)", "Erro!", JOptionPane.ERROR_MESSAGE);
+            jlErroName.setVisible(true);
+            String message = "<html>" + jlErroName.getToolTipText() + "<br>" + "É necessário escolher um serviço!" + "</html>";
+            jlErroName.setToolTipText(message);
         }
         else
         {
-            // se tiver clicado em novo
-            if(adicionarPage)
+            if(ready)
             {
-                BalconyBean balconyBean = new BalconyBean();            
-                balconyBean.setNumber(cbBalconysName.getSelectedItem().toString());
-                retorno = controller.saveBalcony(balconyBean, arrayList);
-            }
-            // se tiver clicado em editar
-            else
-            {
-                // construindo o bean com as informações da tela
-                BalconyBean balconyBean = extractBeanFromSelectedComboBoxItem();
-                if (balconyBean == null)
+                // se tiver clicado em novo
+                if(adicionarPage)
                 {
-                    return;
-                }            
-                retorno = controller.updateBalcony(balconyBean, arrayList);
+                    BalconyBean balconyBean = new BalconyBean();            
+                    balconyBean.setNumber(cbBalconysName.getSelectedItem().toString());
+                    retorno = controller.saveBalcony(balconyBean, arrayList);
+                }
+                // se tiver clicado em editar
+                else
+                {
+                    // construindo o bean com as informações da tela
+                    BalconyBean balconyBean = extractBeanFromSelectedComboBoxItem();
+                    if (balconyBean == null)
+                    {
+                        return;
+                    }            
+                    retorno = controller.updateBalcony(balconyBean, arrayList);
+                }
             }
         }
         //Analisa o retorno
@@ -430,6 +451,7 @@ public class BalconyCrud extends PassControlPanel
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbRemove;
     private javax.swing.JLabel jlAdminPic;
+    private javax.swing.JLabel jlErroName;
     private javax.swing.JMenu jmAdmin;
     private javax.swing.JMenuItem jmAdminstrador;
     private javax.swing.JMenuItem jmVoltar;
