@@ -243,6 +243,15 @@ public class QueueElementHandler implements Runnable
                 for (Map.Entry<BalconyBean, Socket> entry : waitingBalconys.entrySet()) 
                 {
                     BalconyBean balconyBean = entry.getKey();
+                    //Verifica se o guichê ainda está em uso
+                    if (ClientBalconyListeners.getUsedBalconys().get(balconyBean) == null)
+                    {
+                        System.out.println("Guichê: [" + balconyBean.getNumber()+ "] foi removido");                        
+                        waitingBalconys.remove(balconyBean);                         
+                        break;
+                    }
+                    
+                    
                     //Seleciono o melhor elemento para aquele guichê
                     QueuesManagerBean managerBean = chooseNextElement(balconyBean);
                     Socket socket = entry.getValue();                
@@ -252,6 +261,7 @@ public class QueueElementHandler implements Runnable
                     {
                         //Informo ao guichê
                         ClientBalconyListeners.sendBackElementQueueToBalcony(socket, managerBean);
+                        System.out.println("Cliente redirecionado para guichê: [" + balconyBean.getNumber()+ "]");                        
                         waitingBalconys.remove(balconyBean, socket);                        
                     }
                     
@@ -271,7 +281,7 @@ public class QueueElementHandler implements Runnable
         //Informa que existe um balcão esperando algum cliente
         synchronized (waitingBalconys)
         {
-            System.out.println("Guichê " + balconyBean.getNumber()+ " chamando o próximo");
+            System.out.println("Novo guichê: [" + balconyBean.getNumber()+ "]");
             
             waitingBalconys.put(balconyBean, socket);
         }

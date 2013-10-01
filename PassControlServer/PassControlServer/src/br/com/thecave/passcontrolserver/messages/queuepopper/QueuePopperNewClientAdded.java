@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrolserver.messages.queuepopper;
 
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
+import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 
@@ -16,7 +17,7 @@ public class QueuePopperNewClientAdded extends PassControlMessage
 {
     QueuesManagerBean queuesManagerBean;
     
-    int priority;
+    ServiceBean serviceBean;
 
     /**
      * Nome do cliente
@@ -24,27 +25,21 @@ public class QueuePopperNewClientAdded extends PassControlMessage
     String clientName;
     
     /**
-     * Tipo do serviço
-     */
-    String serviceType;
-
-    /**
      * O nome do balcão
      */
     String balconyNumber; 
 
-    public QueuePopperNewClientAdded(QueuesManagerBean queuesManagerBean, int priority, String clientName, String serviceType, String balconyNumber) 
+    public QueuePopperNewClientAdded(QueuesManagerBean queuesManagerBean, ServiceBean serviceBean, String clientName, String balconyNumber) 
     {
         super(MessageActors.ServerActor, MessageActors.QueuePopActor);
         this.queuesManagerBean = queuesManagerBean;
-        this.priority = priority;
+        this.serviceBean = serviceBean;
         this.clientName = clientName;
-        this.serviceType = serviceType;
         this.balconyNumber = balconyNumber;
     }
-    
-    
 
+    
+    
     public QueuesManagerBean getQueuesManagerBean() {
         return queuesManagerBean;
     }
@@ -53,12 +48,12 @@ public class QueuePopperNewClientAdded extends PassControlMessage
         this.queuesManagerBean = queuesManagerBean;
     }
 
-    public int getPriority() {
-        return priority;
+    public ServiceBean getServiceBean() {
+        return serviceBean;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setServiceBean(ServiceBean serviceBean) {
+        this.serviceBean = serviceBean;
     }
 
     public String getClientName() {
@@ -69,14 +64,6 @@ public class QueuePopperNewClientAdded extends PassControlMessage
         this.clientName = clientName;
     }
 
-    public String getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
-    }
-
     public String getBalconyNumber() {
         return balconyNumber;
     }
@@ -85,6 +72,5 @@ public class QueuePopperNewClientAdded extends PassControlMessage
         this.balconyNumber = balconyNumber;
     }
 
-    
     
 }

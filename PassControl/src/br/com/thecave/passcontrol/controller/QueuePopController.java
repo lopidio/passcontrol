@@ -9,8 +9,8 @@ import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNextElement;
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperNewClientAdded;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshAllRequest;
+import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshResponse;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,13 +38,15 @@ public class QueuePopController extends PassControlController implements QueueEl
     {
         Main.getInstance().getCommunicationThread().addMessageListener(this, QueuePopperChooseNextElement.class);
         Main.getInstance().getCommunicationThread().addMessageListener(this, QueuePopperNewClientAdded.class);
+        Main.getInstance().getCommunicationThread().addMessageListener(this, QueuePopperRefreshResponse.class);
     }
 
     @Override
     public void removeMessageListeners() 
     {
-        Main.getInstance().getCommunicationThread().addMessageListener(this, QueuePopperChooseNextElement.class);
-        Main.getInstance().getCommunicationThread().addMessageListener(this, QueuePopperNewClientAdded.class);
+        Main.getInstance().getCommunicationThread().removeListener(this, QueuePopperChooseNextElement.class);
+        Main.getInstance().getCommunicationThread().removeListener(this, QueuePopperNewClientAdded.class);
+        Main.getInstance().getCommunicationThread().removeListener(this, QueuePopperRefreshResponse.class);
     }
 
     @Override
@@ -58,28 +60,54 @@ public class QueuePopController extends PassControlController implements QueueEl
         }
         else if (message instanceof QueuePopperChooseNextElement)
         {
+            //Existe um balcony livre
             QueuePopperChooseNextElement addQueueElement = (QueuePopperChooseNextElement)message;
             
             //Informo quais o usuário pode escolher
             enablePossibleChoices(addQueueElement.getManagerBeans());
         }
+        else if (message instanceof QueuePopperRefreshResponse)        
+        {
+            queuePopScreen.clearAllQueues();
+            QueuePopperRefreshResponse refreshResponse = (QueuePopperRefreshResponse)message;            
+            for (QueuePopperNewClientAdded queuePopperNewClientAdded  : refreshResponse.getQueuePopperNewClientAdded()) 
+            {
+                addBalconyShowClient(queuePopperNewClientAdded);
+            }
+            
+        }
     }
 
     @Override
-    public void initialize() {
-        super.initialize(); //To change body of generated methods, choose Tools | Templates.
+    public void initialize() 
+    {
+        //Avisa que um novo queue popper tá na área
+        QueuePopperRefreshAllRequest request = new QueuePopperRefreshAllRequest();
+        QueuePopperRefreshResponse refreshResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(request, QueuePopperRefreshResponse.class, 2000);
+        if (refreshResponse != null)
+        {
+            for (QueuePopperNewClientAdded queuePopperNewClientAdded  : refreshResponse.getQueuePopperNewClientAdded()) 
+            {
+                addBalconyShowClient(queuePopperNewClientAdded);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Conexão com o server expirou");
+        }
     }
     
     public void addBalconyShowClient(QueuePopperNewClientAdded queuePopperNewClientAdded)
     {
         //Crio um QueueInfoPanel        
         QueueElementInfo queueElementInfo = new QueueElementInfo(queuePopperNewClientAdded.getClientName(), 
-                                                                queuePopperNewClientAdded.getServiceType(), 
+                                                                queuePopperNewClientAdded.getServiceBean().getName(),
                                                                 queuePopperNewClientAdded.getQueuesManagerBean().getPassNumber(),
                                                                 queuePopperNewClientAdded.getBalconyNumber());
-        
+        queueElementInfo.setQueuesManagerBean(queuePopperNewClientAdded.getQueuesManagerBean());
+        queueElementInfo.setEnabled(false);
         //Aramazeno na fila correta
-        Box queueAreaToAdd = queuePopScreen.getQueuesArea().get(queuePopperNewClientAdded.getPriority());
+        Box queueAreaToAdd = queuePopScreen.getQueuesBoxArea().get(queuePopperNewClientAdded.getServiceBean().getPriority() - 1);
         queueAreaToAdd.add(queueElementInfo);
         queueAreaToAdd.revalidate();
         queueAreaToAdd.repaint();
@@ -108,7 +136,6 @@ public class QueuePopController extends PassControlController implements QueueEl
                 if (queueElementInfo != null)
                 {
                     queueElementInfo.setEnabled(true);
-                    queueElementInfo.setQueuesManagerBean(queuesManagerBean);
                 }
             }            
         }
@@ -118,32 +145,35 @@ public class QueuePopController extends PassControlController implements QueueEl
     private void sendChosenElementToServer(QueueElementInfo queueElementInfo)
     {
         //removo esse da fila
-        Box parent = (Box) queueElementInfo.getParent();
-        //repaint e revalidate
-        parent.revalidate();
-        parent.repaint();
-        
-        //Informo ao servidor qual foi o meu escolhido
-        BalconyShowClientMessage balconyShowClientMessage = new BalconyShowClientMessage(queueElementInfo.getClientName(),
-                queueElementInfo.getQueueName(), queueElementInfo.getBalconyName(), queueElementInfo.getQueuesManagerBean(), MessageActors.QueuePopActor, MessageActors.ServerActor);
-
-        //E espera 3 segundos
-        ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyShowClientMessage, ConfirmationResponse.class, 3000);
-        
-        if (confirmationResponse != null)
+        if (queueElementInfo.isEnabled())
         {
-            if (confirmationResponse.getStatusOperation())
+            Box parent = (Box) queueElementInfo.getParent();
+            //repaint e revalidate
+            parent.revalidate();
+            parent.repaint();
+
+            //Informo ao servidor qual foi o meu escolhido
+            BalconyShowClientMessage balconyShowClientMessage = new BalconyShowClientMessage(queueElementInfo.getClientName(),
+                    queueElementInfo.getQueueName(), queueElementInfo.getBalconyName(), queueElementInfo.getQueuesManagerBean(), MessageActors.QueuePopActor, MessageActors.ServerActor);
+
+            //E espera 3 segundos
+            ConfirmationResponse confirmationResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyShowClientMessage, ConfirmationResponse.class, 3000);
+
+            if (confirmationResponse != null)
             {
-                JOptionPane.showConfirmDialog(null, "Operação bem sucedida");
+                if (confirmationResponse.getStatusOperation())
+                {
+                    JOptionPane.showConfirmDialog(null, "Operação bem sucedida");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, confirmationResponse.getComment());
+                }
             }
             else
             {
-                JOptionPane.showMessageDialog(null, confirmationResponse.getComment());
+                JOptionPane.showMessageDialog(null, "Comunicação com o servidor expirada");
             }
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Comunicação com o servidor expirada");
         }
     }
     

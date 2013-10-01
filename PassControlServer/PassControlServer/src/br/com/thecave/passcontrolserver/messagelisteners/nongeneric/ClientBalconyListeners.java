@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class ClientBalconyListeners implements ClientListeners
 {
-    private static HashMap<BalconyBean, Socket> unnavaliableBalconySocket = new HashMap<>();
+    private static HashMap<BalconyBean, Socket> usedBalconySocketList = new HashMap<>();
 
     @Override
     public void addListenersCallback(ServerCommunicationThread server)
@@ -82,7 +82,7 @@ public class ClientBalconyListeners implements ClientListeners
             {
                 refreshUnnavaliableBalconySocket();
                 //Removo os que já estão sendo usados 
-                for (Map.Entry<BalconyBean, Socket> unnavaliable : unnavaliableBalconySocket.entrySet()) 
+                for (Map.Entry<BalconyBean, Socket> unnavaliable : usedBalconySocketList.entrySet()) 
                 {
                     balconyBeans.remove(unnavaliable.getKey());
                 }
@@ -104,7 +104,7 @@ public class ClientBalconyListeners implements ClientListeners
         ArrayList<ClientUserSocketPair> balconysLoggedOnServer = PassControlServer.getInstance().getServer().getClientsList().get(MessageActors.BalconyActor); 
 
         //Copia de segurança
-        HashMap<BalconyBean, Socket> safeCopy = new HashMap<>(unnavaliableBalconySocket);
+        HashMap<BalconyBean, Socket> safeCopy = new HashMap<>(usedBalconySocketList);
         //Itero por todos os meus guichês
         for (Map.Entry<BalconyBean, Socket> entry : safeCopy.entrySet()) {
             BalconyBean balconyBean = entry.getKey();
@@ -120,7 +120,7 @@ public class ClientBalconyListeners implements ClientListeners
             }
             if (!existeUmCorrespondente)
             {
-                unnavaliableBalconySocket.remove(balconyBean);
+                usedBalconySocketList.remove(balconyBean);
             }
 
         }
@@ -138,10 +138,10 @@ public class ClientBalconyListeners implements ClientListeners
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.BalconyActor);
             
             //O guichê não está em uso
-            if (unnavaliableBalconySocket.get(balconyBean) == null)
+            if (usedBalconySocketList.get(balconyBean) == null)
             {
                 //Adiciono na lista de usados
-                unnavaliableBalconySocket.put(balconyBean, socket);
+                usedBalconySocketList.put(balconyBean, socket);
             }
             else
             {
@@ -254,7 +254,7 @@ public class ClientBalconyListeners implements ClientListeners
     {
         //Atualiza a lista
         refreshUnnavaliableBalconySocket();
-        return unnavaliableBalconySocket;
+        return usedBalconySocketList;
     }    
 
     private static class BalconyInitCurrentClientListener implements PassControlMessageListener

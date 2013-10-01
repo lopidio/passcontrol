@@ -4,7 +4,6 @@ import br.com.thecave.passcontrolserver.db.ConnectionDataBase;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -180,6 +179,7 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));
                 bean.setCheckout(rs.getString("DT_CHECKOUT"));
             }
             
@@ -194,18 +194,6 @@ public class QueuesManagerDAO
           return null;
         }  
     }    
-    
-    public static void main(String[] args)
-    {
-//        QueuesManagerBean bean = new QueuesManagerBean();
-//        bean.setIdBalcony(1);
-//        bean.setIdClient(0);
-//        bean.setIdService(1);
-//        bean.setPassNumber("asd");
-//        bean.setCheckin(dateFormat.format(new Date()));
-//        QueuesManagerDAO.insert(bean);
-        System.out.println(QueuesManagerDAO.getCountOfClientsOfServiceToday(1));
-    }
     
     /**
      * Método para recuperar todos os elementos passíveis de atendimento por um certo guichê ordenados por ordem de chegada
@@ -247,6 +235,7 @@ public class QueuesManagerDAO
 //                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
 //                bean.setCheckin(rs.getString("DT_CHECKIN"));
 //                bean.setCheckout(rs.getString("DT_CHECKOUT"));
+//                bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
 //                retorno.add(bean);
             }
             
@@ -373,6 +362,102 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
+                bean.setCheckout(rs.getString("DT_CHECKOUT"));
+                retorno.add(bean);
+            }
+            
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }  
+    }
+
+    public static QueuesManagerBean selectBeanFromPassNumberToday(String passNumber) 
+    {
+        QueuesManagerBean bean = null;
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
+            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
+            
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE TX_PASS_NUMBER='"+passNumber+"' AND DT_CHECKIN LIKE '"+today+"';";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                bean = new QueuesManagerBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
+                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
+                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
+                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
+                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
+                bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
+                bean.setCheckout(rs.getString("DT_CHECKOUT"));
+            }
+            
+            stmt.close();
+            conn.close();
+            return bean;
+        }
+        catch ( Exception e ) 
+        {
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }  
+    }
+
+    public static ArrayList<QueuesManagerBean> selectAllClientsWaitingtoday() 
+    {
+        ArrayList<QueuesManagerBean> retorno = new ArrayList<>();
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
+            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
+            
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY=0 AND DT_CHECKIN LIKE '"+today+"';";
+
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next())
+            {
+                QueuesManagerBean bean = new QueuesManagerBean();
+                bean.setId(rs.getInt("INT_ID"));
+                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
+                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
+                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
+                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
+                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
+                bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
                 bean.setCheckout(rs.getString("DT_CHECKOUT"));
                 retorno.add(bean);
             }

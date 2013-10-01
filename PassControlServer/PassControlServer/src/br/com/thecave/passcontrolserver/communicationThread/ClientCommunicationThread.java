@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  *
  * @author guilherme
  */
-public class ClientCommunicationThread extends PassControlCommunicationThread {
+public final class ClientCommunicationThread extends PassControlCommunicationThread {
 
     
     /**
@@ -246,8 +246,12 @@ public class ClientCommunicationThread extends PassControlCommunicationThread {
     {
         ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
         port = configurationFile.getPortServer();
+        String oldIP = serverIP;
         serverIP = configurationFile.getIpServer();   
-        System.out.println("IP do server: " + serverIP);
+        if (oldIP != serverIP)
+        {
+            System.out.println("IP do server: " + serverIP);
+        }
         finalizeConnection();
     }
     

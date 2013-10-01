@@ -41,8 +41,7 @@ public class ServiceCrud extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jmAdmin = new javax.swing.JMenu();
         jmAdminstrador = new javax.swing.JMenuItem();
@@ -67,10 +66,8 @@ public class ServiceCrud extends PassControlPanel
         jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAdminstrador.setMnemonic('a');
         jmAdminstrador.setText("Administrador");
-        jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmAdminstrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmAdminstradorActionPerformed(evt);
             }
         });
@@ -80,10 +77,8 @@ public class ServiceCrud extends PassControlPanel
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -119,10 +114,8 @@ public class ServiceCrud extends PassControlPanel
         jbEditar.setBackground(new java.awt.Color(45, 123, 142));
         jbEditar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbEditar.setText("Editar");
-        jbEditar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEditarActionPerformed(evt);
             }
         });
@@ -131,10 +124,8 @@ public class ServiceCrud extends PassControlPanel
         jbNovo.setBackground(new java.awt.Color(45, 123, 142));
         jbNovo.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovo.setText("Novo");
-        jbNovo.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoActionPerformed(evt);
             }
         });
@@ -147,15 +138,13 @@ public class ServiceCrud extends PassControlPanel
         jLabel3.setText("Prioridade");
 
         cbPrioridade.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Minima", "Baixa", "Média", "Alta", "Máxima" }));
+        cbPrioridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mínima", "Baixa", "Média", "Alta", "Máxima" }));
 
         jbAdicionar.setBackground(new java.awt.Color(45, 123, 142));
         jbAdicionar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbAdicionar.setText("Adicionar");
-        jbAdicionar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAdicionarActionPerformed(evt);
             }
         });
@@ -163,10 +152,8 @@ public class ServiceCrud extends PassControlPanel
         cbName.setEditable(true);
         cbName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        cbName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbNameActionPerformed(evt);
             }
         });
@@ -174,10 +161,8 @@ public class ServiceCrud extends PassControlPanel
         jbRemove.setBackground(new java.awt.Color(45, 123, 142));
         jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbRemove.setText("Remover");
-        jbRemove.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRemoveActionPerformed(evt);
             }
         });
@@ -191,7 +176,7 @@ public class ServiceCrud extends PassControlPanel
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpSecundarioLayout.createSequentialGroup()
                         .addComponent(jbAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpSecundarioLayout.createSequentialGroup()
                         .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +199,7 @@ public class ServiceCrud extends PassControlPanel
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdicionar)
                     .addComponent(jbRemove))

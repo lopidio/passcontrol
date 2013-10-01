@@ -10,11 +10,13 @@ import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
+import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePopperListener;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePusherListener;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientViewerListener;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
+import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,9 +72,11 @@ public class PassControlServer {
         new ClientBalconyListeners().addListenersCallback(server);
         new ClientGenericListeners().addListenersCallback(server);
         new ClientQueuePusherListener().addListenersCallback(server);
+        new ClientQueuePopperListener().addListenersCallback(server);
         new ClientViewerListener().addListenersCallback(server);
         
         new Thread(server).start();
+        new Thread(QueueElementHandler.getInstance()).start();
         
         Integer count = 0;
         while(true)

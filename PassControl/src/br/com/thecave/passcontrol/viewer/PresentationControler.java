@@ -107,10 +107,13 @@ public class PresentationControler implements Runnable
         {         
             if(watchdog.hasTimedOut())
             {
-                ++index;
                 if (index >= images.size())
                 {
                     index = 0;
+                }
+                else
+                {
+                    ++index;
                 }
 //                System.out.println("Animation index: " + index + "/" + images.size());                
                 for ( PresentationControllerObserver observer : presentationControllerObservers )

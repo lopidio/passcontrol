@@ -73,9 +73,8 @@ public class QueuePushController extends PassControlController
     public void insertNewClient( ClientBean bean )
     {
         QueuePusherAddClient addClient = new QueuePusherAddClient(bean);
-        ConfirmationResponse response;
         ClientCommunicationThread thread = Main.getInstance().getCommunicationThread();
-        response = thread.sendMessageToServerAndWaitForResponseOrTimeout(addClient, ConfirmationResponse.class, 2000);
+        ConfirmationResponse response = thread.sendMessageToServerAndWaitForResponseOrTimeout(addClient, ConfirmationResponse.class, 2000);
 
         if ( response == null )
         {

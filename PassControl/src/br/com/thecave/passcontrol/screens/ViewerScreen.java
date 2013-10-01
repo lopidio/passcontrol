@@ -61,9 +61,12 @@ public class ViewerScreen extends PassControlPanel
 
     public void setPresentationImage( Image img )
     {
-        lblSlide.setIcon(new ImageIcon(img));
-        lblSlide.revalidate();
-        lblSlide.repaint();;
+        if (img != null)
+        {
+            lblSlide.setIcon(new ImageIcon(img));
+            lblSlide.revalidate();
+            lblSlide.repaint();
+        }
     }
 
     public void showQueueElelentInfo( QueueElementInfoBig elementInfoBig )

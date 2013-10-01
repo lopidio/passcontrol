@@ -56,19 +56,24 @@ public class ClientQueuePusherListener implements ClientListeners
                 clientName = clientBean.getName();
             }
 
-            queuesManagerBean.setCheckin(QueuesManagerDAO.dateFormat.format(new Date()));            
+            String now = QueuesManagerDAO.dateFormat.format(new Date());
+            queuesManagerBean.setCheckin(now);            
             queuesManagerBean.setIdService(addQueueElement.getServiceBean().getId());
             queuesManagerBean.setIdUserCheckin(addQueueElement.getUserBean().getId());
-            
-            //Crio o número
             queuesManagerBean.setPassNumber(passNumber);
-
+            
+            
+            QueuesManagerDAO.insert(queuesManagerBean);
+            //recupero o ID do bicho
+            queuesManagerBean = QueuesManagerDAO.selectBeanFromPassNumberToday(passNumber);
+            
             //Informo ao pusher que deu certo!!
             BalconyShowClientMessage response = new BalconyShowClientMessage(clientName, addQueueElement.getServiceBean().getName(), null, queuesManagerBean, MessageActors.ServerActor, MessageActors.QueuePushActor);
             PassControlServer.getInstance().getServer().addResponseToSend(socket, response);                                
             
             ///Informo à todos os QueuePoppers pra inserir esse elemento
-            QueuePopperNewClientAdded queuePopperNewClientAdded = new QueuePopperNewClientAdded(queuesManagerBean, addQueueElement.getServiceBean().getId(), clientName, clientName, passNumber);
+            QueuePopperNewClientAdded queuePopperNewClientAdded = new QueuePopperNewClientAdded(queuesManagerBean,
+                                                                            addQueueElement.getServiceBean(), clientName, "-");
             response.setTo(MessageActors.QueuePopActor);
             PassControlServer.getInstance().getServer().addBroadcastToSend(queuePopperNewClientAdded);
         }

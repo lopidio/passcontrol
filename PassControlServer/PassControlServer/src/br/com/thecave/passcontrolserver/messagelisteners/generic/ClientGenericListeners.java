@@ -66,6 +66,8 @@ public class ClientGenericListeners implements ClientListeners
             if (isSuperUser(initRequest.getUser(), initRequest.getPassword()))
             {
                 UserBean superBean = new UserBean();
+                //ID do super usuário
+                superBean.setId(-1);
                 superBean.setLogin(initRequest.getUser());
                 superBean.setName("Super Usuário");
                 superBean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());

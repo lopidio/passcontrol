@@ -2,10 +2,10 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.component.util.QueueElementInfo;
 import br.com.thecave.passcontrol.controller.QueuePopController;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 /**
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 public class QueuePopScreen extends PassControlPanel
 {
     ArrayList<ArrayList<QueueElementInfo>> queueElementInfos;
-    ArrayList<Box> queuesArea;
+    ArrayList<Box> queuesBoxArea;
     
     QueuePopController controller = null;
 
@@ -31,13 +31,24 @@ public class QueuePopScreen extends PassControlPanel
 //        jpScrollableQueueInfoPanel.setLayout(new BoxLayout(jpScrollableQueueInfoPanel, BoxLayout.Y_AXIS)); //Talvez esse Layout seja o mais adequado
         jpScrollablePane.setLayout(new FlowLayout());        
 
-        queueElementInfos = new ArrayList<>();
-        queuesArea = new ArrayList<>();
-        jpScrollablePane.add(Box.createHorizontalStrut(20)); //Adiciona um no começo
+        //5 é quantidade de prioridades
+        queuesBoxArea = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) 
         {
-            jpScrollablePane.add(queuesArea.get(i));
-            jpScrollablePane.add(Box.createHorizontalStrut(20));
+            Box newBox = Box.createVerticalBox();
+//            newBox.setLayout(new BoxLayout(newBox, BoxLayout.Y_AXIS));
+            newBox.setAlignmentY(TOP_ALIGNMENT);
+            queuesBoxArea.add(newBox);
+        }
+        queueElementInfos = new ArrayList<>(5);
+        for (int i = 0; i < 5; i++) 
+        {
+            queueElementInfos.add(new ArrayList<QueueElementInfo>());
+        }
+        for (int i = 0; i < 5; i++) 
+        {
+            jpScrollablePane.add(queuesBoxArea.get(i));
+            jpScrollablePane.add(Box.createHorizontalStrut(10));
             
             
             //Aproveito o for para instanciar isso aqui também
@@ -78,8 +89,8 @@ public class QueuePopScreen extends PassControlPanel
         }    
     }    
     
-    public ArrayList<Box> getQueuesArea() {
-        return queuesArea;
+    public ArrayList<Box> getQueuesBoxArea() {
+        return queuesBoxArea;
     }
 
     public JPanel getJpScrollablePane() {
@@ -133,5 +144,21 @@ public class QueuePopScreen extends PassControlPanel
     private javax.swing.JPanel jpBarraLateral;
     private javax.swing.JPanel jpScrollablePane;
     // End of variables declaration//GEN-END:variables
+
+    public void clearAllQueues() 
+    {
+        //Lipo todos os exibidores de fila
+        for (Box box : queuesBoxArea)
+        {
+            box.removeAll();
+            box.repaint();
+            box.revalidate();
+        }
+        for (ArrayList<QueueElementInfo> arrayList : queueElementInfos) 
+        {
+            //Removo todos os queue que tenho
+            arrayList.clear();
+        }
+    }
 
 }
