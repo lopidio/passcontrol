@@ -21,6 +21,7 @@ public class ServiceCrud extends PassControlPanel
 {
     ServiceCrudController controller = null;
     private boolean insert;
+    private boolean ready;
     /**
      * Creates new form AdminScreen
      */
@@ -32,6 +33,7 @@ public class ServiceCrud extends PassControlPanel
         jpSecundario.setVisible(false);
         
         defineCBNames();
+        jlNameErro.setVisible(false);
     }
 
     /**
@@ -41,7 +43,8 @@ public class ServiceCrud extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmAdmin = new javax.swing.JMenu();
         jmAdminstrador = new javax.swing.JMenuItem();
@@ -58,6 +61,7 @@ public class ServiceCrud extends PassControlPanel
         jbAdicionar = new javax.swing.JButton();
         cbName = new javax.swing.JComboBox();
         jbRemove = new javax.swing.JButton();
+        jlNameErro = new javax.swing.JLabel();
 
         jmAdmin.setText("Administrar");
         jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -66,8 +70,10 @@ public class ServiceCrud extends PassControlPanel
         jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAdminstrador.setMnemonic('a');
         jmAdminstrador.setText("Administrador");
-        jmAdminstrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAdminstradorActionPerformed(evt);
             }
         });
@@ -77,8 +83,10 @@ public class ServiceCrud extends PassControlPanel
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -114,8 +122,10 @@ public class ServiceCrud extends PassControlPanel
         jbEditar.setBackground(new java.awt.Color(45, 123, 142));
         jbEditar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbEditar.setText("Editar");
-        jbEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbEditar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbEditarActionPerformed(evt);
             }
         });
@@ -124,8 +134,10 @@ public class ServiceCrud extends PassControlPanel
         jbNovo.setBackground(new java.awt.Color(45, 123, 142));
         jbNovo.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovo.setText("Novo");
-        jbNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbNovo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbNovoActionPerformed(evt);
             }
         });
@@ -143,8 +155,10 @@ public class ServiceCrud extends PassControlPanel
         jbAdicionar.setBackground(new java.awt.Color(45, 123, 142));
         jbAdicionar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbAdicionar.setText("Adicionar");
-        jbAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbAdicionarActionPerformed(evt);
             }
         });
@@ -152,8 +166,10 @@ public class ServiceCrud extends PassControlPanel
         cbName.setEditable(true);
         cbName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cbName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 cbNameActionPerformed(evt);
             }
         });
@@ -161,11 +177,15 @@ public class ServiceCrud extends PassControlPanel
         jbRemove.setBackground(new java.awt.Color(45, 123, 142));
         jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbRemove.setText("Remover");
-        jbRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbRemove.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbRemoveActionPerformed(evt);
             }
         });
+
+        jlNameErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
 
         javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
         jpSecundario.setLayout(jpSecundarioLayout);
@@ -176,15 +196,18 @@ public class ServiceCrud extends PassControlPanel
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpSecundarioLayout.createSequentialGroup()
                         .addComponent(jbAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpSecundarioLayout.createSequentialGroup()
                         .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(cbName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbPrioridade, javax.swing.GroupLayout.Alignment.LEADING, 0, 208, Short.MAX_VALUE)))
+                            .addGroup(jpSecundarioLayout.createSequentialGroup()
+                                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cbName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbPrioridade, javax.swing.GroupLayout.Alignment.LEADING, 0, 208, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlNameErro, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -194,12 +217,14 @@ public class ServiceCrud extends PassControlPanel
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jlNameErro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbName))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdicionar)
                     .addComponent(jbRemove))
@@ -252,7 +277,7 @@ public class ServiceCrud extends PassControlPanel
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
         String s = "";
         ServiceBean bean = new ServiceBean();
-        boolean ret;
+        boolean ret = false;;
         if(cbName.getSelectedItem() != null)
             s = cbName.getSelectedItem().toString();
         
@@ -260,30 +285,37 @@ public class ServiceCrud extends PassControlPanel
         validations.add(new ValidIsEmpty());
         
         // não permite inserir um registro com o nome vazio
-        while( !ValidationPerform.valid(s, validations) )
+        if( !ValidationPerform.valid(s, validations) )
         {
-            s = JOptionPane.showInputDialog("Insira o nome do serviço!");
-            DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
-            boxModel.addElement(s);
-            cbName.setModel(boxModel);
+            jlNameErro.setVisible(true);
+            jlNameErro.setToolTipText(ValidationPerform.getComment());
+            ready = false;
+        }
+        else
+        {
+            jlNameErro.setVisible(false);
+            ready = true;
         }
         // construindo o bean com as informações da tela
         bean = extractBeanIdFromCombo();
         
-        // se tiver clicado em novo
-        if(insert)
+        if(ready)
         {
-            bean = new ServiceBean();
-            bean.setName(cbName.getSelectedItem().toString());
-            bean.setPriority(cbPrioridade.getSelectedIndex() + 1); 
-            ret = controller.saveService(bean);
-        }
-        // se tiver clicado em editar
-        else
-        {
-            bean.setName(cbName.getSelectedItem().toString());
-            bean.setPriority(cbPrioridade.getSelectedIndex() + 1);
-            ret = controller.updateService(bean);
+            // se tiver clicado em novo
+            if(insert)
+            {
+                bean = new ServiceBean();
+                bean.setName(cbName.getSelectedItem().toString());
+                bean.setPriority(cbPrioridade.getSelectedIndex() + 1); 
+                ret = controller.saveService(bean);
+            }
+            // se tiver clicado em editar
+            else
+            {
+                bean.setName(cbName.getSelectedItem().toString());
+                bean.setPriority(cbPrioridade.getSelectedIndex() + 1);
+                ret = controller.updateService(bean);
+            }
         }
         if(ret)
             voltar(); // limpa a tela
@@ -317,6 +349,7 @@ public class ServiceCrud extends PassControlPanel
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbRemove;
     private javax.swing.JLabel jlAdminPic;
+    private javax.swing.JLabel jlNameErro;
     private javax.swing.JMenu jmAdmin;
     private javax.swing.JMenuItem jmAdminstrador;
     private javax.swing.JMenuItem jmVoltar;
