@@ -55,7 +55,7 @@ From client:
 	-QueuePopPopRecordResponse //Ok (caso seja possível)
 
 From server:
-	QueuePopRefreshQueue //Atualiza toda a lista de filas (para caso haja mais de um QueuePop em funcionamento) List<QueueManageBean, Balcony, ClientName>
+	-QueuePopRefreshQueue //Atualiza toda a lista de filas (para caso haja mais de um QueuePop em funcionamento) List<QueueManageBean, Balcony, ClientName>
 
 ##################################################################
 ####################### Queue Push ###############################
@@ -79,10 +79,10 @@ From client:
 	-AdministratorAddBalcony //BalconyBean
 	-AdministratorListBalconys //List<BalconyBean>
 	-AdministratorRemoveBalcony //BalconyBean
-	AdministratorAddSlideImage //ImageBytes ImageName
-	AdministratorListSlidesImage //List<ImageBytes ImageName>
-	AdministratorRemoveSlideImage //ImageName
-	AdministratorSetSlideShowTime //int
+	-AdministratorAddSlideImage //ImageBytes ImageName
+	-AdministratorListSlidesImage //List<ImageBytes ImageName>
+	-AdministratorRemoveSlideImage //ImageName
+	-AdministratorSetSlideShowTime //int
 	-AdministratorSetAutoQueueManagement //bool
 	-AdministratorSetMainImage //ImageBytes
 

@@ -246,7 +246,7 @@ public class QueueElementHandler implements Runnable
                     //Verifica se o guichê ainda está em uso
                     if (ClientBalconyListeners.getUsedBalconys().get(balconyBean) == null)
                     {
-                        System.out.println("Guichê: [" + balconyBean.getNumber()+ "] foi removido");                        
+                        System.out.println("QueueHandler::Guichê: [" + balconyBean.getNumber()+ "] não está mais esperando (desapareceu?)");                        
                         waitingBalconys.remove(balconyBean);                         
                         break;
                     }
@@ -261,7 +261,7 @@ public class QueueElementHandler implements Runnable
                     {
                         //Informo ao guichê
                         ClientBalconyListeners.sendBackElementQueueToBalcony(socket, managerBean);
-                        System.out.println("Cliente redirecionado para guichê: [" + balconyBean.getNumber()+ "]");                        
+                        System.out.println("QueueHandler::Cliente redirecionado para guichê: [" + balconyBean.getNumber()+ "]");                        
                         waitingBalconys.remove(balconyBean, socket);                        
                     }
                     
@@ -276,12 +276,12 @@ public class QueueElementHandler implements Runnable
     /**
      * Indica que existe um guichê esperando pelo próximo cliente
      */
-    public void balconyAvaliable(BalconyBean balconyBean, Socket socket) 
+    public void balconyIsWaiting(BalconyBean balconyBean, Socket socket) 
     {
         //Informa que existe um balcão esperando algum cliente
         synchronized (waitingBalconys)
         {
-            System.out.println("Novo guichê: [" + balconyBean.getNumber()+ "]");
+            System.out.println("QueueHandler::Novo guichê: [" + balconyBean.getNumber()+ "] está esperando por cliente");
             
             waitingBalconys.put(balconyBean, socket);
         }

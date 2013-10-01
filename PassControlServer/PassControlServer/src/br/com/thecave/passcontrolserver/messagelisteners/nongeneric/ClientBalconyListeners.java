@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class ClientBalconyListeners implements ClientListeners
 {
-    private static HashMap<BalconyBean, Socket> usedBalconySocketList = new HashMap<>();
+    private static HashMap<BalconyBean, Socket> loggedBalconySocketList = new HashMap<>();
 
     @Override
     public void addListenersCallback(ServerCommunicationThread server)
@@ -70,6 +70,7 @@ public class ClientBalconyListeners implements ClientListeners
         @Override
         public void onMessageReceive(PassControlMessage message, Socket socket) {
 //            BalconyInitRequest balconyInitRequestMessage = (BalconyInitRequest)message;
+            refreshLoggedBalconySocketList();
             
             //Resposta default
             BalconyInitResponse balconyInitResponse = new BalconyInitResponse(null);
@@ -80,9 +81,8 @@ public class ClientBalconyListeners implements ClientListeners
             //Se a consulta deu certo
             if (balconyBeans != null)
             {
-                refreshUnnavaliableBalconySocket();
                 //Removo os que já estão sendo usados 
-                for (Map.Entry<BalconyBean, Socket> unnavaliable : usedBalconySocketList.entrySet()) 
+                for (Map.Entry<BalconyBean, Socket> unnavaliable : loggedBalconySocketList.entrySet()) 
                 {
                     balconyBeans.remove(unnavaliable.getKey());
                 }
@@ -96,31 +96,36 @@ public class ClientBalconyListeners implements ClientListeners
 
     }
 
-    private static void refreshUnnavaliableBalconySocket() 
+    private static void refreshLoggedBalconySocketList() 
     {
         //Verifico se tem algum socket meu que não tá logado no servidor
 
         //Pego todos os clientes logados como BALCONY ACTOR
         ArrayList<ClientUserSocketPair> balconysLoggedOnServer = PassControlServer.getInstance().getServer().getClientsList().get(MessageActors.BalconyActor); 
-
+        System.out.println("Número de guichês já logados: " + balconysLoggedOnServer.size() );
+        
         //Copia de segurança
-        HashMap<BalconyBean, Socket> safeCopy = new HashMap<>(usedBalconySocketList);
+        HashMap<BalconyBean, Socket> safeCopy = new HashMap<>(loggedBalconySocketList);
         //Itero por todos os meus guichês
-        for (Map.Entry<BalconyBean, Socket> entry : safeCopy.entrySet()) {
+        for (Map.Entry<BalconyBean, Socket> entry : safeCopy.entrySet()) 
+        {
             BalconyBean balconyBean = entry.getKey();
             Socket socket = entry.getValue();
 
             boolean existeUmCorrespondente = false;
+            //Se algum dos balconys logado
             for (ClientUserSocketPair clientUserSocketPair : balconysLoggedOnServer)
             {
                 if (clientUserSocketPair.getSocket().equals(socket))
                 {
                     existeUmCorrespondente = true;
+                    break;
                 }
             }
             if (!existeUmCorrespondente)
             {
-                usedBalconySocketList.remove(balconyBean);
+                System.out.println("BalconyListener::Guichê: [" + balconyBean.getNumber()+ "] não está mais logado");                        
+                loggedBalconySocketList.remove(balconyBean);
             }
 
         }
@@ -138,10 +143,12 @@ public class ClientBalconyListeners implements ClientListeners
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.BalconyActor);
             
             //O guichê não está em uso
-            if (usedBalconySocketList.get(balconyBean) == null)
+            if (loggedBalconySocketList.get(balconyBean) == null)
             {
                 //Adiciono na lista de usados
-                usedBalconySocketList.put(balconyBean, socket);
+                loggedBalconySocketList.put(balconyBean, socket);
+                System.out.println("Guichê [" + balconyBean.getNumber() + "]" + " logado com sucesso!");
+                confirmationResponse.setComment("Guichê [" + balconyBean.getNumber() + "]" + " logado com sucesso!");
             }
             else
             {
@@ -165,10 +172,17 @@ public class ClientBalconyListeners implements ClientListeners
             //Ninguém bole no server enquanto esse bloco é bulido
             synchronized (PassControlServer.getInstance().getServer())
             {
-                //Repasso a informação para o escolhedor do próximo cliente
-                QueueElementHandler.getInstance().balconyAvaliable(balconyCallNextClient.getBalconyBean(), socket);
-
-                ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyCallNextClient, MessageActors.BalconyActor);
+                //Se eu ainda possuir o registro desse socket
+                ConfirmationResponse confirmationResponse = new ConfirmationResponse(false, balconyCallNextClient, MessageActors.BalconyActor);
+                if (socket == loggedBalconySocketList.get(balconyCallNextClient.getBalconyBean()) && socket != null)
+                {
+                    //Repasso a informação para o escolhedor do próximo cliente
+                    QueueElementHandler.getInstance().balconyIsWaiting(balconyCallNextClient.getBalconyBean(), loggedBalconySocketList.get(balconyCallNextClient.getBalconyBean()));
+                    confirmationResponse.setStatusOperation(true);
+                    confirmationResponse.setComment("O guichê está no aguardo do próximo cliente.");
+                }
+                    confirmationResponse.setComment("O guichê não foi corretamente logado.");
+                
                 PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);            
             }
         }
@@ -253,8 +267,8 @@ public class ClientBalconyListeners implements ClientListeners
     public static HashMap<BalconyBean, Socket> getUsedBalconys() 
     {
         //Atualiza a lista
-        refreshUnnavaliableBalconySocket();
-        return usedBalconySocketList;
+        refreshLoggedBalconySocketList();
+        return loggedBalconySocketList;
     }    
 
     private static class BalconyInitCurrentClientListener implements PassControlMessageListener

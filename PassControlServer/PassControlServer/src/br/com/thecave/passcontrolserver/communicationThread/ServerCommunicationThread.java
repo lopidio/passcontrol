@@ -409,6 +409,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     
     private void repositionClient(MessageActors currentActor, MessageActors newActor, ClientUserSocketPair client) {
         //Remove da lista anterior e adiciona na nova lista
+        System.out.println("Reposicionando clientes actors: " + currentActor.name() + " -> " + newActor.name());
         removeClientFromMap(clientsList, currentActor, client);
         addClientToMap(clientsList, newActor, client);
     }

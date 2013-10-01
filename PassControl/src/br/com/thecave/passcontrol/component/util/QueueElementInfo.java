@@ -14,7 +14,6 @@ public class QueueElementInfo extends JPanel
 {
     public static final Dimension SIZE = new QueueElementInfo(null, null, null, null).getPreferredSize();
 
-
     private String clientName;
     private String queueName;
     private String balconyName;
@@ -83,6 +82,27 @@ public class QueueElementInfo extends JPanel
     public void setMouseClickedListener(QueueElementInfoMouseClickedListener mouseClickedListener) {
         this.mouseClickedListener = mouseClickedListener;
     }
+
+    @Override
+    public void setEnabled(boolean enabled) 
+    {
+        boolean currentEnabled = isEnabled();
+        super.setEnabled(enabled); 
+        if (currentEnabled != enabled)
+        {
+            if (enabled)
+            {
+                setBackground(new java.awt.Color(255, 232, 29));
+            }
+            else
+            {
+                setBackground(new java.awt.Color(132, 132, 132));                
+            }
+            revalidate();
+            repaint();
+        }
+    }
+    
     
     
     

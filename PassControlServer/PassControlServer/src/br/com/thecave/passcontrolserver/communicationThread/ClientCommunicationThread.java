@@ -199,10 +199,10 @@ public final class ClientCommunicationThread extends PassControlCommunicationThr
                     //Tenta estabelecer uma conexão
                     socket = null;
                     
-                    SocketAddress sockaddr = new InetSocketAddress(serverIP, port);
-                    socket = new Socket();
+//                    SocketAddress sockaddr = new InetSocketAddress(serverIP, port);
+                    socket = new Socket(serverIP, port);
                     //Tenta durante 10 segundos...
-                    socket.connect(sockaddr, 10000);                    
+//                    socket.connect(sockaddr, 10000);                    
                     
                     connectionInstant = new Date();
                     System.out.println("Conexão estabelecida");

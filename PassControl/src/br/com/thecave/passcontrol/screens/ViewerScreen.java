@@ -83,16 +83,5 @@ public class ViewerScreen extends PassControlPanel
          }, 5000);
         jpQueueInfoBig.revalidate();
         jpQueueInfoBig.repaint();;        
-                
-        
-//        try
-//        {
-//            Thread.sleep(10000);
-
-//        }
-//        catch ( InterruptedException ex )
-//        {
-//            Logger.getLogger(ViewerScreen.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 }
