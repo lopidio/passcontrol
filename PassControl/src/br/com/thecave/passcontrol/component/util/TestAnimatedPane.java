@@ -58,7 +58,7 @@ public class TestAnimatedPane {
                 //Animation region
                 AnimationUtil animate = new AnimationUtil(animatedPane, from, to);
                 animate.setRunTime(5000);
-                animate.start();
+//                animate.start(0);
                 //End of animation region
                                 
                 frame.add(conteinerPane);

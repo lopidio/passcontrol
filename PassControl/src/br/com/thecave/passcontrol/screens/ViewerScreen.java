@@ -3,6 +3,7 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.ViewerController;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
@@ -14,6 +15,7 @@ public class ViewerScreen extends PassControlPanel
 {
 
     ViewerController controller = null;
+    ArrayList<QueueElementInfoBig> elementInfoBigBuffer = new ArrayList<>();
 
     /**
      * Creates new form AdminScreen
@@ -68,20 +70,37 @@ public class ViewerScreen extends PassControlPanel
             lblSlide.repaint();
         }
     }
-
-    public void showQueueElelentInfo( QueueElementInfoBig elementInfoBig )
+    
+    private void showQueueElementInfo()
     {
-        jpQueueInfoBig.setVisible(true);
-        jpQueueInfoBig.add(elementInfoBig);
-        
-        java.util.Timer timer = new java.util.Timer();
-        timer.schedule( new TimerTask(){
-           public void run() { 
-              jpQueueInfoBig.removeAll();
-              jpQueueInfoBig.setVisible(false);
-           }
-         }, 5000);
+        if (elementInfoBigBuffer.isEmpty())
+        {
+            jpQueueInfoBig.removeAll();
+            jpQueueInfoBig.setVisible(false);            
+        }
+        else
+        {
+            jpQueueInfoBig.setVisible(true);
+            jpQueueInfoBig.add(elementInfoBigBuffer.remove(0));
+
+            java.util.Timer timer = new java.util.Timer();
+            timer.schedule( new TimerTask()
+                                {
+                                   @Override
+                                   public void run() 
+                                   { 
+                                       showQueueElementInfo();
+                                   }
+                                 }, 5000); //5 segundos antes de desaparecer
+  
+        }
         jpQueueInfoBig.revalidate();
-        jpQueueInfoBig.repaint();;        
+        jpQueueInfoBig.repaint();            
+    }
+
+    public void addQueueElementInfo( QueueElementInfoBig elementInfoBig )
+    {
+        elementInfoBigBuffer.add(elementInfoBig);
+        showQueueElementInfo();
     }
 }

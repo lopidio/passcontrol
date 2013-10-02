@@ -94,7 +94,7 @@ public class ViewerController extends PassControlController implements Presentat
                                                                      received.getQueuesManagerBean().getPassNumber(),
                                                                      received.getBalconyNumber());
         
-        screen.showQueueElelentInfo(elementInfoBig);        
+        screen.addQueueElementInfo(elementInfoBig);        
     }
 
     @Override

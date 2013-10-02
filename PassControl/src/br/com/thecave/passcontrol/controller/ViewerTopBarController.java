@@ -7,7 +7,7 @@ package br.com.thecave.passcontrol.controller;
 import br.com.thecave.passcontrol.component.util.AnimationUtil;
 import br.com.thecave.passcontrol.component.util.AnimationUtilObserver;
 import br.com.thecave.passcontrol.component.util.QueueElementInfo;
-import br.com.thecave.passcontrol.topbar.ViewTopBar;
+import br.com.thecave.passcontrol.topbar.ViewerTopBar;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.viewer.ViewerQueueRequest;
@@ -22,13 +22,13 @@ import javax.swing.JPanel;
  *
  * @author lopidio
  */
-public class ViewTopBarController extends PassControlController implements AnimationUtilObserver
+public class ViewerTopBarController extends PassControlController implements AnimationUtilObserver
 {
-    ViewTopBar viewTopBar;
+    ViewerTopBar viewerTopBar;
     ArrayList<QueueElementInfo> queueElementInfos;
     AnimationUtil queueElementAnimator = null;
 
-    public ViewTopBarController() 
+    public ViewerTopBarController() 
     {
         queueElementInfos = new ArrayList<>();
     }
@@ -36,7 +36,7 @@ public class ViewTopBarController extends PassControlController implements Anima
     @Override
     public void setPassControlPanel(JPanel passControlPanel) 
     {
-        viewTopBar = (ViewTopBar)passControlPanel;
+        viewerTopBar = (ViewerTopBar)passControlPanel;
         
     }
 
@@ -55,28 +55,20 @@ public class ViewTopBarController extends PassControlController implements Anima
     public void onMessageReceive(PassControlMessage message, Socket socket) 
     {
         BalconyShowClientMessage showClientMessage = (BalconyShowClientMessage)message;
-        //Identifica o que é da mesma fila
-        boolean flagFound = false;
+                QueueElementInfo newQueueElementInfo = new QueueElementInfo(showClientMessage.getClientName(),
+                                                                        showClientMessage.getServiceType(),
+                                                                        showClientMessage.getQueuesManagerBean().getPassNumber(), 
+                                                                        showClientMessage.getBalconyNumber());
+        //Acho o que eu tenho que remover (o último da mesma fila, caso exista)
         for (QueueElementInfo queueElementInfo : queueElementInfos) 
         {
             if (queueElementInfo.getQueueName().equals(showClientMessage.getServiceType()))
             {
-                queueElementInfo.setBalconyName(showClientMessage.getBalconyNumber());
-                queueElementInfo.setClientName(showClientMessage.getClientName());
-                queueElementInfo.setUserPass(showClientMessage.getQueuesManagerBean().getPassNumber());
-                flagFound = true;
+                queueElementInfos.remove(queueElementInfo);
                 break;
             }
         }
-        //Vou ter que criar um novo elemento
-        if (!flagFound)
-        {
-                QueueElementInfo queueElementInfo = new QueueElementInfo(showClientMessage.getClientName(),
-                                                                        showClientMessage.getServiceType(),
-                                                                        showClientMessage.getQueuesManagerBean().getPassNumber(), 
-                                                                        showClientMessage.getBalconyNumber());
-                queueElementInfos.add(queueElementInfo);
-        }
+        queueElementInfos.add(newQueueElementInfo);
         //Insere no exibidor
         synchronizeQueuesListToPanel();
     }
@@ -102,9 +94,10 @@ public class ViewTopBarController extends PassControlController implements Anima
         }
     }
     
+    //Chegou um novo cliente, preciso refazer tudo
     private void synchronizeQueuesListToPanel()
     {
-        JPanel scrollablePanel = viewTopBar.getScrollableQueueInfoPanel();
+        JPanel scrollablePanel = viewerTopBar.getScrollableQueueInfoPanel();
         scrollablePanel.removeAll();
         for (QueueElementInfo queueElementInfo : queueElementInfos) 
         {
@@ -113,25 +106,31 @@ public class ViewTopBarController extends PassControlController implements Anima
         scrollablePanel.revalidate();
         scrollablePanel.repaint();
         
-        //Anima novamente daqui a 5 segundos
+        //Para a animação anterior
+        if (queueElementAnimator != null)
+            queueElementAnimator.stop();
+            
         java.util.Timer timer = new java.util.Timer();
         timer.schedule( new TimerTask(){
+           @Override
            public void run() { 
                 startAnimation();
            }
-         }, 5000);        
+         }, 5000); //Sempre que um novo elemento é adicionado, passa-se 5 segundos com a animação parada  
     }
     
     private void startAnimation()
     {
         //Utilizado para definir a duração da animação
         final int millisecondsPerExcedentPixel = 10;
-        JPanel scrollablePanel = viewTopBar.getScrollableQueueInfoPanel();        
+        JPanel scrollablePanel = viewerTopBar.getScrollableQueueInfoPanel();        
         int totalLargura = queueElementInfos.size()*QueueElementInfo.SIZE.width;
-        System.out.println("Qtde: " + queueElementInfos.size() + " Tamanho: " + totalLargura + " Máximo: " + ViewTopBar.SCROLL_PANEL_WITDH);
-        if (totalLargura > ViewTopBar.SCROLL_PANEL_WITDH)
+        System.out.println("Qtde: " + queueElementInfos.size() + " Tamanho: " + totalLargura + " Máximo: " + ViewerTopBar.SCROLL_PANEL_WITDH);
+        
+        //Só precisa animar caso os elementos não caibam mais no espaço definido na tela
+        if (totalLargura > ViewerTopBar.SCROLL_PANEL_WITDH)
         {
-            int excesso = totalLargura - ViewTopBar.SCROLL_PANEL_WITDH;
+            int excesso = totalLargura - ViewerTopBar.SCROLL_PANEL_WITDH;
             int duration = millisecondsPerExcedentPixel*excesso;            
             System.out.println("duration:" + duration);            
             scrollablePanel.setSize(totalLargura, scrollablePanel.getHeight());
@@ -157,10 +156,11 @@ public class ViewTopBarController extends PassControlController implements Anima
         //Anima novamente daqui a 3 segundos
         java.util.Timer timer = new java.util.Timer();
         timer.schedule( new TimerTask(){
+           @Override
            public void run() { 
                 startAnimation();
            }
-         }, 3000);        
+         }, 3000); //A animação passa 3 segundos parada, antes de reiniciar  
     }
     
 }

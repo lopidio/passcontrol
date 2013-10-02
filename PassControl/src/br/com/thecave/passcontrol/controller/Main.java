@@ -6,7 +6,9 @@ import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationT
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
+import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +37,7 @@ public class Main
     private ClientCommunicationThread communicationThread;
     private UserBean currentUser = null;
     private MainFrame mainFrame;
+    private MessageActors currentActor = MessageActors.NotIdentified;
 
     private Main()
     {
@@ -138,4 +141,16 @@ public class Main
         communicationThread.addBroadcastToSend(new ClientLogoff());
         setCurrentUser(null);
     }
+
+    public MessageActors getCurrentActor() {
+        return currentActor;
+    }
+
+    public void setCurrentActors(MessageActors newActor) 
+    {
+        communicationThread.addBroadcastToSend(new ChangeActorMessage(currentActor, newActor));
+        this.currentActor = newActor;
+    }
+    
+    
 }

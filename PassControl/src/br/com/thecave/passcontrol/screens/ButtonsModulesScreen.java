@@ -4,7 +4,7 @@ import br.com.thecave.passcontrol.controller.ButtonModulesController;
 import br.com.thecave.passcontrol.screens.admin.AdminScreen;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.topbar.BalconyLoginTopBar;
-import br.com.thecave.passcontrol.topbar.ViewTopBar;
+import br.com.thecave.passcontrol.topbar.ViewerTopBar;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.UserPermission;
@@ -41,8 +41,7 @@ public class ButtonsModulesScreen extends PassControlPanel
 
         verifyPermissions();
         Main.getInstance().getMainFrame().setEnableNavigatorMenu(true);
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.NotIdentified));
-
+        Main.getInstance().setCurrentActors(MessageActors.NotIdentified);
     }
 
     /**
@@ -303,13 +302,13 @@ public class ButtonsModulesScreen extends PassControlPanel
 
     private void openAdmin()
     {
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.AdministratorActor));
+        Main.getInstance().setCurrentActors(MessageActors.AdministratorActor);
         Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
     }
 
     private void openBalcony()
     {
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.BalconyActor));
+        Main.getInstance().setCurrentActors(MessageActors.BalconyActor);
         BalconyScreen screen = new BalconyScreen();
         BalconyLoginTopBar topBarIntro = new BalconyLoginTopBar();
         topBarIntro.setScreen(screen);
@@ -319,20 +318,20 @@ public class ButtonsModulesScreen extends PassControlPanel
 
     private void openViewer()
     {
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.ViewerActor));
+        Main.getInstance().setCurrentActors(MessageActors.ViewerActor);
         Main.getInstance().getMainFrame().activatePassControlPanel(new ViewerScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new ViewTopBar());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new ViewerTopBar());
     }
 
     private void openQueuePush()
     {
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.QueuePushActor));
+        Main.getInstance().setCurrentActors(MessageActors.QueuePushActor);
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
     }
 
     private void openQueuePop()
     {
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.QueuePopActor));
+        Main.getInstance().setCurrentActors(MessageActors.QueuePopActor);
         Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePopScreen());
     }
 

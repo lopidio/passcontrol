@@ -4,7 +4,7 @@
  */
 package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controller.ViewTopBarController;
+import br.com.thecave.passcontrol.controller.ViewerTopBarController;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -12,19 +12,19 @@ import javax.swing.JPanel;
  *
  * @author lopidio
  */
-public class ViewTopBar extends PassControlTopBar
+public class ViewerTopBar extends PassControlTopBar
 {
     public final static int SCROLL_PANEL_WITDH = 1220;
-    ViewTopBarController viewTopBarController;
+    ViewerTopBarController viewTopBarController;
 
     /**
-     * Creates new form ViewTopBar
+     * Creates new form ViewerTopBar
      */
-    public ViewTopBar() 
+    public ViewerTopBar() 
     {
-        super(new ViewTopBarController());        
+        super(new ViewerTopBarController());        
         initComponents();
-        this.viewTopBarController = (ViewTopBarController)getPanelController();
+        this.viewTopBarController = (ViewerTopBarController)getPanelController();
         jpScrollableQueueInfoPanel.setLayout(new BoxLayout(jpScrollableQueueInfoPanel, BoxLayout.X_AXIS));
     }
     

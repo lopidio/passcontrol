@@ -11,8 +11,12 @@ package br.com.thecave.passcontrolserver.messages.generic;
 public class ChangeActorMessage extends PassControlMessage
 {
 
-    public ChangeActorMessage(MessageActors from) {
+    MessageActors oldActor;
+    
+    public ChangeActorMessage(MessageActors oldActor, MessageActors from) 
+    {
         super(from, MessageActors.ServerActor);
+        this.oldActor = oldActor;
     }
 
 }
