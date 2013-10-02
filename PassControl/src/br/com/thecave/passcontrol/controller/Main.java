@@ -6,14 +6,21 @@ import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationT
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrol.screens.MainFrame;
 import br.com.thecave.passcontrol.topbar.LoginTopBar;
+import br.com.thecave.passcontrol.utils.PassControlFont;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.FontUIResource;
 
 public class Main
 {
@@ -97,7 +104,7 @@ public class Main
                 new Thread(main.communicationThread).start();
                 //Adiciona o carregador de arquivo de configuração
                 PassControlConfigurationSynchronizer.getInstance().addClientListeners(main.communicationThread);
-                
+                                
                 //Inicia os dois panels principais
                 main.mainFrame.activatePassControlTopBar(new LoginTopBar());
                 main.mainFrame.setEnableNavigatorMenu(false);        
@@ -105,7 +112,7 @@ public class Main
             }
         });
     }
-
+    
     /**
      * Retorna um bean representando o usuário atual da aplicação
      *

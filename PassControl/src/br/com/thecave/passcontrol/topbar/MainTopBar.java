@@ -69,7 +69,7 @@ public class MainTopBar extends PassControlTopBar
         lbLogout.setForeground(new java.awt.Color(255, 255, 255));
         lbLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
         lbLogout.setText("Logout");
-        lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbLogoutMouseClicked(evt);

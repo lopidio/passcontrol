@@ -128,7 +128,7 @@ public class ClientBalconyListeners implements ClientListeners
                 }
                 if (!existeUmCorrespondente)
                 {
-                    System.out.println("BalconyListener::Guichê: [" + balconyBeanId+ "] não está mais logado");                        
+                    System.out.println("BalconyListener::Guichê: [" + BalconyDAO.selectFromId(balconyBeanId).getNumber() + "] não está mais logado");                        
                     loggedBalconySocketList.remove(balconyBeanId);
                 }
 

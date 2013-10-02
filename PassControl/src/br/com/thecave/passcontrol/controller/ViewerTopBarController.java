@@ -106,7 +106,7 @@ public class ViewerTopBarController extends PassControlController implements Ani
         scrollablePanel.revalidate();
         scrollablePanel.repaint();
         
-        //Para a animação anterior
+        //Para aev     animação anterior
         if (queueElementAnimator != null)
             queueElementAnimator.stop();
             

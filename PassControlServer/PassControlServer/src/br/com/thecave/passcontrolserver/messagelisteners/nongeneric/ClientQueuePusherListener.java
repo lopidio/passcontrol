@@ -54,6 +54,7 @@ public class ClientQueuePusherListener implements ClientListeners
             if (clientBean != null)
             {
                 clientName = clientBean.getName();
+                queuesManagerBean.setIdClient(clientBean.getId());
             }
 
             String now = QueuesManagerDAO.dateFormat.format(new Date());
@@ -61,7 +62,6 @@ public class ClientQueuePusherListener implements ClientListeners
             queuesManagerBean.setIdService(addQueueElement.getServiceBean().getId());
             queuesManagerBean.setIdUserCheckin(addQueueElement.getUserBean().getId());
             queuesManagerBean.setPassNumber(passNumber);
-            
             
             QueuesManagerDAO.insert(queuesManagerBean);
             //recupero o ID do bicho
