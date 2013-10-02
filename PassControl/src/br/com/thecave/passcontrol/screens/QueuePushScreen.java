@@ -59,15 +59,13 @@ public class QueuePushScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jmChooseService = new javax.swing.JMenu();
         jmNovoCliente = new javax.swing.JMenuItem();
         jmNovoAtendimento = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmVoltar = new javax.swing.JMenuItem();
-        jpQueueInfo = new javax.swing.JPanel();
         jlAdminPic = new javax.swing.JLabel();
         jpBarraLateral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -83,7 +81,7 @@ public class QueuePushScreen extends PassControlPanel
         cbServico = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         jbInserirNovoAtendimento = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbLoadFromRegister = new javax.swing.JButton();
         jlNomeAtendimentoErro = new javax.swing.JLabel();
         jlTelefoneAtendimentoErro = new javax.swing.JLabel();
         jpNovoCliente = new javax.swing.JPanel();
@@ -97,6 +95,7 @@ public class QueuePushScreen extends PassControlPanel
         jlCadastroClienteErro = new javax.swing.JLabel();
         jlNomeClienteErro = new javax.swing.JLabel();
         jlTelefoneClienteErro = new javax.swing.JLabel();
+        jpQueueInfo = new javax.swing.JPanel();
 
         jmChooseService.setMnemonic('e');
         jmChooseService.setText("Recepção");
@@ -106,10 +105,8 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoCliente.setMnemonic('c');
         jmNovoCliente.setText("Novo cliente");
-        jmNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmNovoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmNovoClienteActionPerformed(evt);
             }
         });
@@ -119,10 +116,8 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoAtendimento.setMnemonic('a');
         jmNovoAtendimento.setText("Novo Atendimento");
-        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -132,27 +127,12 @@ public class QueuePushScreen extends PassControlPanel
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmVoltarActionPerformed(evt);
             }
         });
         jmChooseService.add(jmVoltar);
-
-        jpQueueInfo.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jpQueueInfoLayout = new javax.swing.GroupLayout(jpQueueInfo);
-        jpQueueInfo.setLayout(jpQueueInfoLayout);
-        jpQueueInfoLayout.setHorizontalGroup(
-            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
-        );
-        jpQueueInfoLayout.setVerticalGroup(
-            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
-        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -184,10 +164,8 @@ public class QueuePushScreen extends PassControlPanel
         jbNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoCliente.setText("Novo Cliente");
-        jbNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbNovoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoClienteActionPerformed(evt);
             }
         });
@@ -196,10 +174,8 @@ public class QueuePushScreen extends PassControlPanel
         jbNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoAtendimento.setText("Novo Atendimento");
-        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -211,10 +187,8 @@ public class QueuePushScreen extends PassControlPanel
         jLabel5.setText("Cadastro:");
 
         tfCadastroNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfCadastroNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        tfCadastroNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCadastroNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -238,23 +212,19 @@ public class QueuePushScreen extends PassControlPanel
         jbInserirNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbInserirNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbInserirNovoAtendimento.setText("Inserir");
-        jbInserirNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbInserirNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbInserirNovoAtendimentoActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 191));
-        jButton1.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small.png"))); // NOI18N
-        jButton1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small_Clicked.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
+        jbLoadFromRegister.setBackground(new java.awt.Color(0, 153, 191));
+        jbLoadFromRegister.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbLoadFromRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small.png"))); // NOI18N
+        jbLoadFromRegister.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small_Clicked.png"))); // NOI18N
+        jbLoadFromRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLoadFromRegisterActionPerformed(evt);
             }
         });
 
@@ -274,7 +244,7 @@ public class QueuePushScreen extends PassControlPanel
                         .addGap(4, 4, 4)
                         .addComponent(tfCadastroNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbLoadFromRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(16, 16, 16)
@@ -305,7 +275,7 @@ public class QueuePushScreen extends PassControlPanel
                     .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(tfCadastroNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbLoadFromRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
@@ -338,10 +308,8 @@ public class QueuePushScreen extends PassControlPanel
         jLabel2.setText("Cadastro:");
 
         tfCadastroNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCadastroNovoClienteActionPerformed(evt);
             }
         });
@@ -359,10 +327,8 @@ public class QueuePushScreen extends PassControlPanel
         jbInserirNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
         jbInserirNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbInserirNovoCliente.setText("Inserir");
-        jbInserirNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbInserirNovoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbInserirNovoClienteActionPerformed(evt);
             }
         });
@@ -431,6 +397,21 @@ public class QueuePushScreen extends PassControlPanel
         );
 
         add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 320, 240));
+
+        jpQueueInfo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jpQueueInfoLayout = new javax.swing.GroupLayout(jpQueueInfo);
+        jpQueueInfo.setLayout(jpQueueInfoLayout);
+        jpQueueInfoLayout.setHorizontalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 410, Short.MAX_VALUE)
+        );
+        jpQueueInfoLayout.setVerticalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+
+        add(jpQueueInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNovoClienteActionPerformed
@@ -490,16 +471,16 @@ public class QueuePushScreen extends PassControlPanel
     private void jbInserirNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbInserirNovoAtendimentoActionPerformed
     {//GEN-HEADEREND:event_jbInserirNovoAtendimentoActionPerformed
         inserirNovoAtendimento();
+        jbInserirNovoAtendimento.setEnabled(false);        
     }//GEN-LAST:event_jbInserirNovoAtendimentoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void jbLoadFromRegisterActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbLoadFromRegisterActionPerformed
+    {//GEN-HEADEREND:event_jbLoadFromRegisterActionPerformed
         searchRegister();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbLoadFromRegisterActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbServico;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -511,6 +492,7 @@ public class QueuePushScreen extends PassControlPanel
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton jbInserirNovoAtendimento;
     private javax.swing.JButton jbInserirNovoCliente;
+    private javax.swing.JButton jbLoadFromRegister;
     private javax.swing.JButton jbNovoAtendimento;
     private javax.swing.JButton jbNovoCliente;
     private javax.swing.JLabel jlAdminPic;
@@ -577,6 +559,7 @@ public class QueuePushScreen extends PassControlPanel
     {
         jpQueueInfo.add(elementInfo);
         jpQueueInfo.setVisible(true);
+        jbNovoAtendimento.setEnabled(false);
     }
 
     private void searchRegister()
@@ -584,9 +567,13 @@ public class QueuePushScreen extends PassControlPanel
         clientBean = controller.loadRegister(tfCadastroNovoAtendimento.getText());
         if(clientBean != null)
         {
-            tfCadastroNovoAtendimento.setText(clientBean.getRegister());
             tfNomeNovoAtendimento.setText(clientBean.getName());
             tfTelefoneNovoAtendimento.setText(clientBean.getTelefone());
+        }
+        else
+        {
+            tfNomeNovoAtendimento.setText("");
+            tfTelefoneNovoAtendimento.setText("");
         }
     }
 
@@ -614,8 +601,8 @@ public class QueuePushScreen extends PassControlPanel
             if(controller.insertNewAtendimento(clientBean, userBean, serviceBean))
             {
                 JOptionPane.showMessageDialog(null, "registro salvo com sucesso!");
-                Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
-                Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+//                Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+//                Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
             }
             else
             {

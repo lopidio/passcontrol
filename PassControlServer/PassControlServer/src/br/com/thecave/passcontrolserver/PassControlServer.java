@@ -5,7 +5,6 @@
 package br.com.thecave.passcontrolserver;
 
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
-import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
@@ -13,8 +12,6 @@ import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalcon
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePopperListener;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePusherListener;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientViewerListener;
-import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
-import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.io.IOException;
