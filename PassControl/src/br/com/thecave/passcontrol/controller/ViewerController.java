@@ -68,6 +68,8 @@ public class ViewerController extends PassControlController implements Presentat
         {
             presentationControler.addImage(slides.getValue().getImage());
         }
+        System.out.println("Quantidade de slides da animação: " + presentationControler.getImages().size());
+        
         //Adiciono a primeira imagem
         screen.setPresentationImage(presentationControler.getCurrentImage());        
         new Thread(presentationControler).start();

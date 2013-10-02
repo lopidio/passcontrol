@@ -154,14 +154,14 @@ public class QueueElementInfo extends JPanel
         add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         txtNome.setFont(new PassControlFont().getSizedFont(18));
-        txtNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txtNome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtNome.setText("Leudinho");
         add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 140, -1));
 
         txtFila.setFont(new PassControlFont().getSizedFont(18));
-        txtFila.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txtFila.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtFila.setText("Prioritária");
-        add(txtFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 170, -1));
+        add(txtFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 140, -1));
 
         txtGuiche.setFont(new PassControlFont().getSizedFont(24).deriveFont(Font.BOLD));
         txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

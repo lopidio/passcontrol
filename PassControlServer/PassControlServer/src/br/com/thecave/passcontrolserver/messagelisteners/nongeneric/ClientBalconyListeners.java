@@ -39,7 +39,7 @@ import java.util.Map;
 public class ClientBalconyListeners implements ClientListeners
 {
     private static HashMap<Integer, Socket> loggedBalconySocketList = new HashMap<>();
-    private static ArrayList<Socket> clientsAsBalcony = new ArrayList<>();
+    private static ArrayList<Socket> clientsSocketAsBalcony = new ArrayList<>();
 
     @Override
     public void addListenersCallback(ServerCommunicationThread server)
@@ -118,7 +118,7 @@ public class ClientBalconyListeners implements ClientListeners
 
                 boolean existeUmCorrespondente = false;
                 //Se algum dos balconys logado
-                for (Socket balconysSocket : clientsAsBalcony)
+                for (Socket balconysSocket : clientsSocketAsBalcony)
                 {
                     if (balconysSocket.equals(socket))
                     {
@@ -316,8 +316,13 @@ public class ClientBalconyListeners implements ClientListeners
             //Insere
             if (changeActorMessage.getFrom() == MessageActors.BalconyActor)
             {
-               clientsAsBalcony.add(socket);
+               clientsSocketAsBalcony.add(socket);
                refreshLoggedBalconySocketList();
+            }
+            else if (changeActorMessage.getOldActor() == MessageActors.BalconyActor)
+            {
+                clientsSocketAsBalcony.remove(socket);
+                refreshLoggedBalconySocketList();
             }
         }
     }

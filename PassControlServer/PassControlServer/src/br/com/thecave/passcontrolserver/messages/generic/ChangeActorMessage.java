@@ -19,4 +19,14 @@ public class ChangeActorMessage extends PassControlMessage
         this.oldActor = oldActor;
     }
 
+    public MessageActors getOldActor() {
+        return oldActor;
+    }
+
+    public void setOldActor(MessageActors oldActor) {
+        this.oldActor = oldActor;
+    }
+
+    
+    
 }

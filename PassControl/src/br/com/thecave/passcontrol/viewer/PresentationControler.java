@@ -93,7 +93,7 @@ public class PresentationControler implements Runnable
     public Image getCurrentImage()
     {
         if (images.isEmpty())
-            return null;
+            return null;       
         return images.get(index);
     }
     //----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ public class PresentationControler implements Runnable
         {         
             if(watchdog.hasTimedOut())
             {
-                if (index >= images.size())
+                if (index >= images.size() - 1)
                 {
                     index = 0;
                 }
