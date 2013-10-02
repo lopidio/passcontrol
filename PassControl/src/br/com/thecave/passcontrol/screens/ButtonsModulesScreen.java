@@ -3,7 +3,7 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.controller.ButtonModulesController;
 import br.com.thecave.passcontrol.screens.admin.AdminScreen;
 import br.com.thecave.passcontrol.controller.Main;
-import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
+import br.com.thecave.passcontrol.topbar.BalconyLoginTopBar;
 import br.com.thecave.passcontrol.topbar.ViewTopBar;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
@@ -311,7 +311,7 @@ public class ButtonsModulesScreen extends PassControlPanel
     {
         Main.getInstance().getCommunicationThread().addBroadcastToSend(new ChangeActorMessage(MessageActors.BalconyActor));
         BalconyScreen screen = new BalconyScreen();
-        BalconyTopBarIntro topBarIntro = new BalconyTopBarIntro();
+        BalconyLoginTopBar topBarIntro = new BalconyLoginTopBar();
         topBarIntro.setScreen(screen);
         Main.getInstance().getMainFrame().activatePassControlPanel(screen);
         Main.getInstance().getMainFrame().activatePassControlTopBar(topBarIntro);

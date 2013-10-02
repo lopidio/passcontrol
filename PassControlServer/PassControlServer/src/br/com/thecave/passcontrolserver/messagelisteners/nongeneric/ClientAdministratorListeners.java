@@ -246,7 +246,7 @@ public class ClientAdministratorListeners implements ClientListeners
             AdministratorRemoveBalcony administratorRemoveBalcony = (AdministratorRemoveBalcony)message;
             
             ConfirmationResponse response = new ConfirmationResponse(false, message, MessageActors.AdministratorActor);
-            if (ClientBalconyListeners.getUsedBalconys().get(administratorRemoveBalcony.getBalconyBean()) != null)
+            if (ClientBalconyListeners.getLoggedBalconysID().get(administratorRemoveBalcony.getBalconyBean()) != null)
             {
                 BalconyTypesServiceDAO.deleteAllFromBalcony(administratorRemoveBalcony.getBalconyBean());
                 response.setComment("Não foi possível deletar guichê. Guichê em uso no momento");

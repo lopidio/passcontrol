@@ -1,19 +1,12 @@
 package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.screens.BalconyScreen;
-import br.com.thecave.passcontrol.topbar.BalconyTopBarIntro;
+import br.com.thecave.passcontrol.topbar.BalconyLoginTopBar;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
-import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
-import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalcony;
-import br.com.thecave.passcontrolserver.messages.administrator.AdministratorListBalconyResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
-import java.util.ArrayList;
-import java.util.Map;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,19 +14,18 @@ import javax.swing.JPanel;
  *
  * @author Arleudo
  */
-public class BalconyTopBarIntroController extends PassControlController
+public class BalconyLoginTopBarController extends PassControlController
 {
     
-    BalconyTopBarIntro topBarIntro = null;
+    BalconyLoginTopBar topBarIntro = null;
     BalconyInitResponse balconyInitResponse = null;
-    private ArrayList<BalconyBean> balconysBeans = new ArrayList<>();
+//    private ArrayList<BalconyBean> balconysBeans = new ArrayList<>();
 
     @Override
     public void initialize()
     {
         BalconyInitRequest balconyInitRequest = new BalconyInitRequest();
         balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
-        balconysBeans = new ArrayList<>();
 
         if ( balconyInitResponse != null )
         {
@@ -45,7 +37,7 @@ public class BalconyTopBarIntroController extends PassControlController
     @Override
     public void setPassControlPanel( JPanel passControlPanel )
     {
-        topBarIntro = (BalconyTopBarIntro) passControlPanel;
+        topBarIntro = (BalconyLoginTopBar) passControlPanel;
     }
 
     public void confirmButtonPressed( int index )
@@ -71,43 +63,43 @@ public class BalconyTopBarIntroController extends PassControlController
         }
     }
 
-    public void loadBalconys()
-    {
-        AdministratorListBalcony listBalcony = new AdministratorListBalcony();
-        AdministratorListBalconyResponse response = Main.getInstance().
-                getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listBalcony, AdministratorListBalconyResponse.class, 2000);
+//    public void loadBalconys()
+//    {
+//        AdministratorListBalcony listBalcony = new AdministratorListBalcony();
+//        AdministratorListBalconyResponse response = Main.getInstance().
+//                getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(listBalcony, AdministratorListBalconyResponse.class, 2000);
+//
+//        for (Map.Entry<BalconyBean, ArrayList<ServiceBean>> entry : response.getBalconyServiceBeans().entrySet()) 
+//        {
+//            BalconyBean balconys = entry.getKey();
+//            balconysBeans.add(balconys);
+//        }
+//    }
 
-        for (Map.Entry<BalconyBean, ArrayList<ServiceBean>> entry : response.getBalconyServiceBeans().entrySet()) 
-        {
-            BalconyBean balconys = entry.getKey();
-            balconysBeans.add(balconys);
-        }
-    }
-
-    public void defineCBNames( JComboBox cbBalconyName )
-    {
-        loadBalconys();
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-
-        for ( BalconyBean bean : balconysBeans )
-        {
-            model.addElement(bean.getNumber());
-        }
-        cbBalconyName.setModel(model);
-    }
-
-    public ArrayList<BalconyBean> getBalconyBeans()
-    {
-        return balconysBeans;
-    }
-
-    public void setBalconyBeans( ArrayList<BalconyBean> balconyBeans )
-    {
-        this.balconysBeans = balconyBeans;
-    }
+//    public void defineCBNames( JComboBox cbBalconyName )
+//    {
+//        loadBalconys();
+//        DefaultComboBoxModel model = new DefaultComboBoxModel();
+//
+//        for ( BalconyBean bean : balconysBeans )
+//        {
+//            model.addElement(bean.getNumber());
+//        }
+//        cbBalconyName.setModel(model);
+//    }
+//
+//    public ArrayList<BalconyBean> getBalconyBeans()
+//    {
+//        return balconysBeans;
+//    }
+//
+//    public void setBalconyBeans( ArrayList<BalconyBean> balconyBeans )
+//    {
+//        this.balconysBeans = balconyBeans;
+//    }
     //Fluxo:
     /**
-     * ********** Já no construtor Envio um BalconyInitRequest ao servidor.
+     * ********** Já no initialize Envio um BalconyInitRequest ao servidor.
      * Apenas para requisitar os números de balcão disponíveis
      * um BalconyInitResponse e inicializo meu componente.
      *

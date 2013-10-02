@@ -31,7 +31,7 @@ public class BalconyController extends PassControlController
      * Fazer o controller escutar: BalconyShowClientMessage
      *  E mostrar na tela toda vez que escutar um...
      * 
-     * Para rechamar, é só reenviar um BalconyShowClientMessage não tem resposta!!
+     * Para rechamar, é só reenviar um BalconyShowClientMessage
      */    
         
 
@@ -48,28 +48,21 @@ public class BalconyController extends PassControlController
 
     public void recallNextClient()
     {
-        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(lastCalledClient, ConfirmationResponse.class, 1000);
-        if ( response != null )
-        {
-            if ( response.getStatusOperation() )
-            {
-                showBalconyClient(lastCalledClient);
-            }
-        }
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(lastCalledClient);
+        showBalconyClient(lastCalledClient);
     }
 
-    public void callNextClient()
+    public boolean callNextClient()
     {
         queuesManagerBean = null;
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyBean);
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 1000);
         if ( response != null )
         {
-            if ( response.getStatusOperation() )
-            {
-                JOptionPane.showMessageDialog(null, "Aguardando próximo cliente", "Por favor, aguarde;", JOptionPane.INFORMATION_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(null, response.getComment(), "Por favor, aguarde;", JOptionPane.INFORMATION_MESSAGE);
+            return true;
         }
+        return false;
     }
 
     public BalconyBean getBalconyBean()
@@ -112,7 +105,7 @@ public class BalconyController extends PassControlController
         screen.showPanelQueueInfo(showClientMessage);
     }    
 
-    public void finalizeServiceClient()
+    public boolean finalizeServiceClient()
     {
         BalconyFinalizeCurrentClient finalizeCurrentClient = new BalconyFinalizeCurrentClient(queuesManagerBean);
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(finalizeCurrentClient, ConfirmationResponse.class, 1000);
@@ -126,15 +119,17 @@ public class BalconyController extends PassControlController
             if(response.getStatusOperation())
             {
                 JOptionPane.showMessageDialog(null, "Atendimento encerrado!");
+                return true;
             }
             else
             {
                 JOptionPane.showMessageDialog(null, response.getComment());
             }
         }
+        return false;        
     }
 
-    public void putClientOnWaitting()
+    public boolean putClientOnWaitting()
     {
         BalconySkipCurrentClient skipCurrentClient = new BalconySkipCurrentClient(queuesManagerBean);
         ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(skipCurrentClient, ConfirmationResponse.class, 1000);
@@ -148,11 +143,13 @@ public class BalconyController extends PassControlController
             if(response.getStatusOperation())
             {
                 JOptionPane.showMessageDialog(null, "Cliente colocado na espera!");
+                return true;
             }
             else
             {
                 JOptionPane.showMessageDialog(null, response.getComment());
             }
         }
+        return false;
     }
 }

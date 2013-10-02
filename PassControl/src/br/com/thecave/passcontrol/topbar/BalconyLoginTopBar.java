@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.topbar;
 
-import br.com.thecave.passcontrol.controller.BalconyTopBarIntroController;
+import br.com.thecave.passcontrol.controller.BalconyLoginTopBarController;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.BalconyScreen;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
@@ -11,24 +11,24 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Arleudo
  */
-public class BalconyTopBarIntro extends PassControlTopBar
+public class BalconyLoginTopBar extends PassControlTopBar
 {
 
-    private BalconyTopBarIntroController balconyTopBarIntroController;
+    private BalconyLoginTopBarController balconyLoginTopBarController;
     private BalconyScreen screen;
 
     /**
      * Creates new form TopBar
      */
-    public BalconyTopBarIntro()
+    public BalconyLoginTopBar()
     {
-        super(new BalconyTopBarIntroController());
+        super(new BalconyLoginTopBarController());
         initComponents();
-        balconyTopBarIntroController = (BalconyTopBarIntroController) getPanelController();
+        balconyLoginTopBarController = (BalconyLoginTopBarController) getPanelController();
         lbNameUser.setText(Main.getInstance().getCurrentUser().getName());
         jbConfirm.setEnabled(false);
         addPanelConnectionInfo();
-        balconyTopBarIntroController.defineCBNames(cbNumero);
+//        balconyLoginTopBarController.defineCBNames(cbNumero);
     }
 
     public void enableConfirmButton()
@@ -43,8 +43,7 @@ public class BalconyTopBarIntro extends PassControlTopBar
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jlIcon = new javax.swing.JLabel();
         jlBarra = new javax.swing.JLabel();
@@ -79,10 +78,8 @@ public class BalconyTopBarIntro extends PassControlTopBar
         lbLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
         lbLogout.setText("Logout");
         lbLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lbLogout.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        lbLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbLogoutMouseClicked(evt);
             }
         });
@@ -96,10 +93,8 @@ public class BalconyTopBarIntro extends PassControlTopBar
 
         jbConfirm.setFont(new java.awt.Font("Square721 BT", 0, 12)); // NOI18N
         jbConfirm.setText("OK");
-        jbConfirm.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbConfirmActionPerformed(evt);
             }
         });
@@ -166,8 +161,8 @@ public class BalconyTopBarIntro extends PassControlTopBar
     }//GEN-LAST:event_lbLogoutMouseClicked
 
     private void jbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmActionPerformed
-        balconyTopBarIntroController.confirmButtonPressed(cbNumero.getSelectedIndex());
-        this.screen.enableButtons(true);
+        balconyLoginTopBarController.confirmButtonPressed(cbNumero.getSelectedIndex());
+        this.screen.initialize();
     }//GEN-LAST:event_jbConfirmActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbNumero;

@@ -25,14 +25,6 @@ public class BalconyScreen extends PassControlPanel
         jpQueueInfo.setVisible(false);
     }
     
-    public void enableButtons(boolean enable)
-    {
-        btChamar.setEnabled(enable);
-        btEncerrar.setEnabled(false);
-        btEsperar.setEnabled(false);
-        btRepetir.setEnabled(false);        
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,8 +179,8 @@ public class BalconyScreen extends PassControlPanel
 
     private void btChamarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btChamarActionPerformed
     {//GEN-HEADEREND:event_btChamarActionPerformed
-        controller.callNextClient();
         btChamar.setEnabled(false);
+        controller.callNextClient();
     }//GEN-LAST:event_btChamarActionPerformed
 
     private void btRepetirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btRepetirActionPerformed
@@ -198,12 +190,25 @@ public class BalconyScreen extends PassControlPanel
 
     private void btEncerrarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btEncerrarActionPerformed
     {//GEN-HEADEREND:event_btEncerrarActionPerformed
-        controller.finalizeServiceClient();
+        if (controller.finalizeServiceClient())
+        {
+            btChamar.setEnabled(true);
+            btEncerrar.setEnabled(false);
+            btEsperar.setEnabled(false);
+            btRepetir.setEnabled(false);            
+        }
+
     }//GEN-LAST:event_btEncerrarActionPerformed
 
     private void btEsperarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btEsperarActionPerformed
     {//GEN-HEADEREND:event_btEsperarActionPerformed
-        controller.putClientOnWaitting();
+        if (controller.putClientOnWaitting())
+        {
+            btChamar.setEnabled(true);
+            btEncerrar.setEnabled(false);
+            btEsperar.setEnabled(false);
+            btRepetir.setEnabled(false);        
+        }
     }//GEN-LAST:event_btEsperarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -227,8 +232,17 @@ public class BalconyScreen extends PassControlPanel
         QueueElementInfoBig queueElementInfoBig = new QueueElementInfoBig(response.getClientName(), response.getServiceType(), response.getQueuesManagerBean().getPassNumber(), response.getBalconyNumber());
         jpQueueInfo.add(queueElementInfoBig);
         jpQueueInfo.setVisible(true);
+        btChamar.setEnabled(false);
         btEncerrar.setEnabled(true);
         btEsperar.setEnabled(true);
         btRepetir.setEnabled(true);
+    }
+
+    public void initialize() 
+    {
+        btChamar.setEnabled(true);
+        btEncerrar.setEnabled(false);
+        btEsperar.setEnabled(false);
+        btRepetir.setEnabled(false);
     }
 }
