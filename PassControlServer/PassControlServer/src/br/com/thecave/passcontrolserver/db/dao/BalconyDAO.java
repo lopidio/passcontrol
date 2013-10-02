@@ -135,7 +135,7 @@ public class BalconyDAO {
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_BALCONY WHERE ID=" + id +";";
+            String sql = "SELECT * FROM TB_BALCONY WHERE INT_ID=" + id +";";
 
             ResultSet rs = stmt.executeQuery(sql);
             

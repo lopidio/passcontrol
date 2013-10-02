@@ -7,7 +7,6 @@ package br.com.thecave.passcontrolserver.util;
 import br.com.thecave.passcontrolserver.PassControlServer;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
-import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
@@ -17,6 +16,7 @@ import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNextElement;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class QueueElementHandler implements Runnable
 {
-    public static final int AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID = 0;
+    public static final int AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID = -1;
     public static final int QUEUE_ELEMENT_SKIPPED_BALCONY_ID = -1;
     
     /**
@@ -61,9 +61,9 @@ public class QueueElementHandler implements Runnable
      */
     private QueueElementHandler() 
     {
-        //Começa como falso.. Só pra ver qual é.
-        this.automaticChooseOn = false;
-        this.nextPriority = 4; //Alta
+        //Carrega do arquivo de configuração
+        this.automaticChooseOn = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile().isGerenciamentoAutomatico();
+        this.nextPriority = 3; //Alta
         waitingBalconys = new ConcurrentHashMap<>(); //
     }
     
@@ -71,14 +71,14 @@ public class QueueElementHandler implements Runnable
     {
         switch (currentPriority)
         {
-            case 4: //Se a prioridade atual for Alta
-                nextPriority = 3; //A próxima prioridade é Média
+            case 3: //Se a prioridade atual for Alta
+                nextPriority = 2; //A próxima prioridade é Média
                 break;
-            case 3: //Se a prioridade atual for Média
-                nextPriority = 3; //A próxima prioridade é Baixa
+            case 2: //Se a prioridade atual for Média
+                nextPriority = 1; //A próxima prioridade é Baixa
                 break;
             default: //Se for qualquer outro valor
-                nextPriority = 4; //A próxima prioridade é Alta
+                nextPriority = 3; //A próxima prioridade é Alta
                 break;
         }
     }
@@ -86,8 +86,7 @@ public class QueueElementHandler implements Runnable
     private QueuesManagerBean prepareSelectedQueuesManageElement(BalconyBean balconyBean, QueuesManagerBean selectedManagerBean)
     {
         //Seto a hora da escolha
-        //A hora de escolha vai ser setada ao guichê pressionar "Iniciar atendimento"
-//        selectedManagerBean.setCheckout(new Date());
+        selectedManagerBean.setCheckout(QueuesManagerDAO.dateFormat.format(new Date()));
         //Seto o Id do guichê
         selectedManagerBean.setIdBalcony(balconyBean.getId());
         //salvo as alterações no banco.
@@ -100,26 +99,13 @@ public class QueueElementHandler implements Runnable
         return selectedManagerBean;
     }
     
-    private QueuesManagerBean automaticChoose(BalconyBean balconyBean, HashMap<Integer, ArrayList<QueuesManagerBean>> avaliableClients)
+    private QueuesManagerBean automaticChoose(HashMap<Integer, ArrayList<QueuesManagerBean>> avaliableClients)
     {
-        //Pego os serviço de todos os clientes que se adequam
-        ArrayList<ServiceBean> serviceBeans = new ArrayList<>(avaliableClients.size());
-        
-        for (Map.Entry<Integer, ArrayList<QueuesManagerBean>> entry : avaliableClients.entrySet()) 
-        {
-            Integer priority = entry.getKey();
-            for (QueuesManagerBean queuesManagerBean : entry.getValue()) 
-            {
-                serviceBeans.add(ServiceDAO.selectFromId(queuesManagerBean.getIdService()));                    
-            }
-
-        }
-
         //Se existir alguém com prioridade máxima
-        if (!avaliableClients.get(5).isEmpty())
+        if (!avaliableClients.get(4).isEmpty())
         {
             //Pego o primeiro
-            return avaliableClients.get(5).get(0);
+            return avaliableClients.get(4).get(0);
         }
         else
         {
@@ -195,7 +181,7 @@ public class QueueElementHandler implements Runnable
     private QueuesManagerBean chooseNextElement(BalconyBean balconyBean)
     {   
         //Seleciona todos os clientes atendíveis para aquele guichê
-        HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans = QueuesManagerDAO.selectAvaliableTuplesFromBalcony(balconyBean);
+        HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans = QueuesManagerDAO.selectAvaliableClientsOfBalcony(balconyBean);
         
         //Não existe nenhum cliente que se adeque
         if (managerBeans.isEmpty())
@@ -207,7 +193,7 @@ public class QueueElementHandler implements Runnable
         //Se a escolhar for automática
         if (automaticChooseOn)
         {
-            chosenClient = automaticChoose(balconyBean, managerBeans);
+            chosenClient = automaticChoose(managerBeans);
             //É zero quando a escolha foi automática
             if (chosenClient != null)
                 chosenClient.setIdUserCheckout(AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID);
@@ -250,7 +236,6 @@ public class QueueElementHandler implements Runnable
                         waitingBalconys.remove(balconyBean);                         
                         break;
                     }
-                    
                     
                     //Seleciono o melhor elemento para aquele guichê
                     QueuesManagerBean managerBean = chooseNextElement(balconyBean);

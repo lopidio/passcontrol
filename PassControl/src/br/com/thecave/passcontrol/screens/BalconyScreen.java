@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.BalconyController;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import javax.swing.BoxLayout;
 
 /**
  *
@@ -22,6 +23,8 @@ public class BalconyScreen extends PassControlPanel
         super("Guichê", new BalconyController());
         controller = (BalconyController) getPanelController();
         initComponents();
+        
+        jpQueueInfo.setLayout(new BoxLayout(jpQueueInfo, BoxLayout.Y_AXIS));
         jpQueueInfo.setVisible(false);
     }
     

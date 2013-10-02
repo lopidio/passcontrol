@@ -4,7 +4,6 @@
  */
 package br.com.thecave.passcontrolserver.communicationThread;
 
-import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
@@ -18,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -183,7 +180,7 @@ public abstract class PassControlCommunicationThread implements Runnable {
         //E ajuda o servidor a identificar os clientes que estão mortos e tal
         if (watchdog.hasTimedOut())
         {
-            System.out.println("HeartBeat");
+//            System.out.println("HeartBeat");
             watchdog = new Watchdog(HeartBeatMessage.HEART_BEAT_TIME);
             addBroadcastToSend(heartBeatMessage);
             return true;
@@ -197,7 +194,10 @@ public abstract class PassControlCommunicationThread implements Runnable {
      */    
     synchronized public void addBroadcastToSend(PassControlMessage message)
     {
-        messagesToSend.add(message);
+        synchronized (messagesToSend)
+        {        
+            messagesToSend.add(message);
+        }
     }
         
     /**
@@ -206,14 +206,17 @@ public abstract class PassControlCommunicationThread implements Runnable {
      */    
     synchronized public void addResponseToSend(Socket socket, PassControlMessage message)
     {
-        ArrayList<PassControlMessage> list = responsesToSend.get(socket);
-        if (list == null)
+        synchronized (responsesToSend)
         {
-            list = new ArrayList<>();
+            ArrayList<PassControlMessage> list = responsesToSend.get(socket);
+            if (list == null)
+            {
+                list = new ArrayList<>();
+            }
+            list.add(message);
+
+            responsesToSend.put(socket, list);       
         }
-        list.add(message);
-        
-        responsesToSend.put(socket, list);       
     }
     
     /**

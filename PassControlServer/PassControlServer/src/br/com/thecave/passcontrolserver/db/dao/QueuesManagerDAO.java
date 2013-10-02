@@ -4,6 +4,7 @@ import br.com.thecave.passcontrolserver.db.ConnectionDataBase;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
+import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -98,7 +99,7 @@ public class QueuesManagerDAO
                          "',TX_PASS_NUMBER = '" + bean.getPassNumber() +
                          "' WHERE INT_ID=" + bean.getId() + ";";
 
-            //stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql);
             conn.commit();          
             stmt.close();
             conn.close();
@@ -107,6 +108,7 @@ public class QueuesManagerDAO
         catch ( Exception e ) 
         {
           //TODO: logar erro
+            e.printStackTrace();
           ConnectionDataBase.getInstance().closeConnection();
           return false;
         }              
@@ -196,17 +198,18 @@ public class QueuesManagerDAO
     }    
     
     /**
-     * Método para recuperar todos os elementos passíveis de atendimento por um certo guichê ordenados por ordem de chegada
+     * Método para recuperar todos os clientes passíveis de atendimento por um certo guichê ordenados por ordem de chegada
      * @param id Id do registro que se quer recuperar
      * @return Bean com os dados ja preenchidos.
      */
-    public static HashMap<Integer, ArrayList<QueuesManagerBean>> selectAvaliableTuplesFromBalcony(BalconyBean balconyBean)
+    public static HashMap<Integer, ArrayList<QueuesManagerBean>> selectAvaliableClientsOfBalcony(BalconyBean balconyBean)
     {
         //Uma lista para cada prioridade
         HashMap<Integer, ArrayList<QueuesManagerBean>> retorno = new HashMap<>(5);
-        
-        
-        //TODO corrigir essa sql
+        ArrayList<ArrayList<QueuesManagerBean>> queuesManagerBeansList = new ArrayList<>(5);
+        for (int i = 0; i < 5; i++) {
+            queuesManagerBeansList.add(new ArrayList<QueuesManagerBean>());
+        }
         
         try
         {
@@ -218,33 +221,48 @@ public class QueuesManagerDAO
             Statement stmt;
             conn.setAutoCommit(false);
 
-            stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY = 0 AND INT_ID_SERVICE = "
-                    + "(SELECT INT_ID_SERVICE FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") ORDER BY DT_CHECKIN";
-
-            ResultSet rs = stmt.executeQuery(sql);
+            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
+            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D            
             
+            stmt = conn.createStatement();
+            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT, INT_PRIORITY "
+                            + " FROM TB_QUEUES_MANAGER AS TQM, " +
+                            "(SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as TBTS, " +
+                            " (SELECT * FROM TB_SERVICE) as TS "+
+                            "WHERE TBTS.INT_ID_SERVICE = TS.INT_ID AND TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND DT_CHECKIN LIKE '" + today
+                    + "' AND TQM.DT_CHECKOUT = 'null' ORDER BY TQM.DT_CHECKIN;";
+     
+            
+            ResultSet rs = stmt.executeQuery(sql);
             while(rs.next())
             {
-//                QueuesManagerBean bean = new QueuesManagerBean();
-//                bean.setId(rs.getInt("INT_ID"));
-//                bean.setIdService(rs.getInt("INT_ID_SERVICE"));
-//                bean.setIdBalcony(rs.getInt("INT_ID_BALCONY"));
-//                bean.setIdUserCheckin(rs.getInt("INT_ID_USER_CHECKIN"));
-//                bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
-//                bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
-//                bean.setCheckin(rs.getString("DT_CHECKIN"));
-//                bean.setCheckout(rs.getString("DT_CHECKOUT"));
-//                bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
-//                retorno.add(bean);
+                QueuesManagerBean bean = new QueuesManagerBean();
+                bean.setId(rs.getInt("TQM.INT_ID"));
+                bean.setIdService(rs.getInt("TQM.INT_ID_SERVICE"));
+                bean.setIdBalcony(rs.getInt("TQM.INT_ID_BALCONY"));
+                bean.setIdUserCheckin(rs.getInt("TQM.INT_ID_USER_CHECKIN"));
+                bean.setIdUserCheckout(rs.getInt("TQM.INT_ID_USER_CHECKOUT"));
+                bean.setIdClient(rs.getInt("TQM.INT_ID_CLIENT"));
+                bean.setCheckin(rs.getString("TQM.DT_CHECKIN"));
+                bean.setPassNumber(rs.getString("TQM.TX_PASS_NUMBER"));                
+                bean.setCheckout(rs.getString("TQM.DT_CHECKOUT"));
+                int priority = rs.getInt("INT_PRIORITY");
+                queuesManagerBeansList.get(priority - 1).add(bean); //Pq a prioridade no banco varia de 1 - 5
             }
             
+            //Adiciona no retorno
+            for (int i = 0; i < 5; i++) 
+            {
+                retorno.put(i, queuesManagerBeansList.get(i));
+            }
+        
             stmt.close();
             conn.close();
             return retorno;
         }
         catch ( Exception e ) 
         {
+            e.printStackTrace();
             //TODO: logar erro
           ConnectionDataBase.getInstance().closeConnection();
           return null;

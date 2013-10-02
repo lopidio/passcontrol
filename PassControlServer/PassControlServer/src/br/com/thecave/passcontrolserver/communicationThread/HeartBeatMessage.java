@@ -13,7 +13,7 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
  */
 public class HeartBeatMessage extends PassControlMessage
 {
-    public static final long HEART_BEAT_TIME = 30*1000; //In miliseconds
+    public static final long HEART_BEAT_TIME = 10*1000; //In miliseconds
 
     public HeartBeatMessage(MessageActors from, MessageActors to) {
         super(from, to);
