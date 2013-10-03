@@ -16,7 +16,7 @@ public class Printer
     {
         String caminho = "config\\imgToPrint.bmp";
         BufferedImage image = new BufferedImage((int)(comp.getWidth()* 0.6), (int)(comp.getHeight()* 0.6),
-        BufferedImage.TYPE_INT_RGB);
+        BufferedImage.TYPE_BYTE_BINARY);
         Graphics2D graphics2D = image.createGraphics();
         graphics2D.scale(0.6, 0.6);
         comp.paint(graphics2D);

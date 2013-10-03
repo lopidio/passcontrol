@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
+import br.com.thecave.passcontrol.utils.Printer;
 import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
@@ -11,6 +12,8 @@ import br.com.thecave.passcontrolserver.util.IValidation;
 import br.com.thecave.passcontrolserver.util.ValidationPerform;
 import br.com.thecave.passcontrolserver.util.validations.ValidIsEmpty;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
@@ -445,11 +448,6 @@ public class QueuePushScreen extends PassControlPanel
         // validar campos posteriormente
         String nomeCliente = tfNomeNovoCliente.getText();
         
-        ArrayList<IValidation> validations = new ArrayList<>();        
-        validations.add(new ValidIsEmpty());
-        
-        // validando o cadastro
-        
         bean.setName(nomeCliente);
         bean.setRegister(tfCadastroNovoCliente.getText());
         bean.setTelefone(tfTelefoneNovoCliente.getText());
@@ -557,11 +555,21 @@ public class QueuePushScreen extends PassControlPanel
 
     public void showQueueElementInfo( QueueElementInfoSmall elementInfo )
     {
-        //Remove o que tinha anteriormente
-        jpQueueInfo.removeAll();
-        jpQueueInfo.add(elementInfo);
-        jpQueueInfo.setVisible(true);
-        jbNovoAtendimento.setEnabled(false);
+        try
+        {
+            //Remove o que tinha anteriormente
+            jpQueueInfo.removeAll();
+            jpQueueInfo.add(elementInfo);
+            jpQueueInfo.setVisible(true);
+            jbNovoAtendimento.setEnabled(false);
+            Printer p = new Printer();
+            p.generateImg(jpQueueInfo);
+            p.imprimirArquivo();
+        }
+        catch ( Exception ex )
+        {
+            Logger.getLogger(QueuePushScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void searchRegister()
