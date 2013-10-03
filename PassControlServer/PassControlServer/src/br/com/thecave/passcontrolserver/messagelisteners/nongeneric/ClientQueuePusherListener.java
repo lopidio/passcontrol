@@ -74,7 +74,6 @@ public class ClientQueuePusherListener implements ClientListeners
             ///Informo à todos os QueuePoppers pra inserir esse elemento
             QueuePopperNewClientAdded queuePopperNewClientAdded = new QueuePopperNewClientAdded(queuesManagerBean,
                                                                             addQueueElement.getServiceBean(), clientName, "-");
-            response.setTo(MessageActors.QueuePopActor);
             PassControlServer.getInstance().getServer().addBroadcastToSend(queuePopperNewClientAdded);
         }
     }

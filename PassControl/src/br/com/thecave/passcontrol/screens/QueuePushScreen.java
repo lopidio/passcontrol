@@ -184,10 +184,14 @@ public class QueuePushScreen extends PassControlPanel
         });
         add(jbNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 221, 37));
 
-        jpNovoAtendimento.setPreferredSize(new java.awt.Dimension(320, 196));
+        jpNovoAtendimento.setMaximumSize(new java.awt.Dimension(345, 248));
+        jpNovoAtendimento.setMinimumSize(new java.awt.Dimension(345, 248));
+        jpNovoAtendimento.setPreferredSize(new java.awt.Dimension(345, 248));
+        jpNovoAtendimento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel5.setText("Cadastro:");
+        jpNovoAtendimento.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
 
         tfCadastroNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         tfCadastroNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
@@ -195,22 +199,35 @@ public class QueuePushScreen extends PassControlPanel
                 tfCadastroNovoAtendimentoActionPerformed(evt);
             }
         });
+        jpNovoAtendimento.add(tfCadastroNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 11, 182, -1));
 
         jLabel7.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel7.setText("Nome:");
+        jpNovoAtendimento.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 56, -1, -1));
 
         tfNomeNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfNomeNovoAtendimento.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfNomeNovoAtendimento.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfNomeNovoAtendimento.setPreferredSize(new java.awt.Dimension(210, 27));
+        jpNovoAtendimento.add(tfNomeNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 53, -1, -1));
 
         tfTelefoneNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfTelefoneNovoAtendimento.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfTelefoneNovoAtendimento.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfTelefoneNovoAtendimento.setPreferredSize(new java.awt.Dimension(210, 27));
+        jpNovoAtendimento.add(tfTelefoneNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 98, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel8.setText("Telefone:");
+        jpNovoAtendimento.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 103, -1, -1));
 
         cbServico.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbServico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpNovoAtendimento.add(cbServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 152, 210, -1));
 
         jLabel9.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel9.setText("Serviço:");
+        jpNovoAtendimento.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 155, -1, -1));
 
         jbInserirNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbInserirNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -220,6 +237,7 @@ public class QueuePushScreen extends PassControlPanel
                 jbInserirNovoAtendimentoActionPerformed(evt);
             }
         });
+        jpNovoAtendimento.add(jbInserirNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 197, 221, 37));
 
         jbLoadFromRegister.setBackground(new java.awt.Color(0, 153, 191));
         jbLoadFromRegister.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -230,102 +248,55 @@ public class QueuePushScreen extends PassControlPanel
                 jbLoadFromRegisterActionPerformed(evt);
             }
         });
+        jpNovoAtendimento.add(jbLoadFromRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 8, 30, 30));
 
         jlNomeAtendimentoErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoAtendimento.add(jlNomeAtendimentoErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 56, -1, 24));
 
         jlTelefoneAtendimentoErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoAtendimento.add(jlTelefoneAtendimentoErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 101, -1, 24));
 
-        javax.swing.GroupLayout jpNovoAtendimentoLayout = new javax.swing.GroupLayout(jpNovoAtendimento);
-        jpNovoAtendimento.setLayout(jpNovoAtendimentoLayout);
-        jpNovoAtendimentoLayout.setHorizontalGroup(
-            jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(4, 4, 4)
-                        .addComponent(tfCadastroNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jbLoadFromRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(16, 16, 16)
-                        .addComponent(tfTelefoneNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlTelefoneAtendimentoErro))
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(20, 20, 20)
-                        .addComponent(cbServico, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbInserirNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(32, 32, 32)
-                        .addComponent(tfNomeNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlNomeAtendimentoErro)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jpNovoAtendimentoLayout.setVerticalGroup(
-            jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel5))
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(tfCadastroNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbLoadFromRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel7))
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlNomeAtendimentoErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfNomeNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(27, 27, 27)
-                .addGroup(jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel8))
-                    .addComponent(tfTelefoneNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlTelefoneAtendimentoErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jpNovoAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoAtendimentoLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel9))
-                    .addComponent(cbServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jbInserirNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        add(jpNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
-        add(jpNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 320, 240));
+        jpNovoCliente.setMaximumSize(new java.awt.Dimension(345, 248));
+        jpNovoCliente.setMinimumSize(new java.awt.Dimension(345, 248));
+        jpNovoCliente.setPreferredSize(new java.awt.Dimension(345, 248));
+        jpNovoCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel2.setText("Cadastro:");
+        jpNovoCliente.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 14, -1, -1));
 
         tfCadastroNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfCadastroNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfCadastroNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfCadastroNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
         tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCadastroNovoClienteActionPerformed(evt);
             }
         });
+        jpNovoCliente.add(tfCadastroNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 11, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel3.setText("Nome:");
+        jpNovoCliente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         tfNomeNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfNomeNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfNomeNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfNomeNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
+        jpNovoCliente.add(tfNomeNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 210, -1));
 
         jLabel4.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel4.setText("Telefone:");
+        jpNovoCliente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         tfTelefoneNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfTelefoneNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfTelefoneNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfTelefoneNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
+        jpNovoCliente.add(tfTelefoneNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 210, -1));
 
         jbInserirNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
         jbInserirNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -335,71 +306,18 @@ public class QueuePushScreen extends PassControlPanel
                 jbInserirNovoClienteActionPerformed(evt);
             }
         });
+        jpNovoCliente.add(jbInserirNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 199, 221, 37));
 
         jlCadastroClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoCliente.add(jlCadastroClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(321, 11, 24, 24));
 
         jlNomeClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoCliente.add(jlNomeClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 24, 24));
 
         jlTelefoneClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoCliente.add(jlTelefoneClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 24, 24));
 
-        javax.swing.GroupLayout jpNovoClienteLayout = new javax.swing.GroupLayout(jpNovoCliente);
-        jpNovoCliente.setLayout(jpNovoClienteLayout);
-        jpNovoClienteLayout.setHorizontalGroup(
-            jpNovoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jpNovoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(4, 4, 4)
-                        .addComponent(tfCadastroNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlCadastroClienteErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(13, 13, 13)
-                        .addComponent(tfTelefoneNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlTelefoneClienteErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbInserirNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(29, 29, 29)
-                        .addComponent(tfNomeNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlNomeClienteErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
-        jpNovoClienteLayout.setVerticalGroup(
-            jpNovoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                .addGroup(jpNovoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel2))
-                    .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(jpNovoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlCadastroClienteErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCadastroNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jpNovoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel3))
-                    .addComponent(tfNomeNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlNomeClienteErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jpNovoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpNovoClienteLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel4))
-                    .addComponent(tfTelefoneNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlTelefoneClienteErro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(jbInserirNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 320, 240));
+        add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         jpQueueInfo.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -270,6 +270,10 @@ public class ClientBalconyListeners implements ClientListeners
         //Informa ao guichê que esse cliente deve ser chamado
         BalconyShowClientMessage balconyCallNextClientResponse = new BalconyShowClientMessage(clientName, serviceName, balconyName, queuesManagerBean, MessageActors.ServerActor, MessageActors.BalconyActor);
         server.addResponseToSend(socket, balconyCallNextClientResponse);
+
+        //Informa ao viewer que aquele elemento foi chamado
+        BalconyShowClientMessage viewerCallNextClient = new BalconyShowClientMessage(clientName, serviceName, balconyName, queuesManagerBean, MessageActors.ServerActor, MessageActors.ViewerActor);
+        server.addBroadcastToSend(viewerCallNextClient);        
     }
 
     public static HashMap<Integer, Socket> getLoggedBalconysID() 
