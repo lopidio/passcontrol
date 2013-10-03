@@ -7,6 +7,7 @@ import br.com.thecave.passcontrol.viewer.PresentationControllerObserver;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfigurationFileAlterationMessage;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
@@ -89,14 +90,20 @@ public class ViewerController extends PassControlController implements Presentat
     public void onMessageReceive( PassControlMessage message, Socket socket )
     {
         super.onMessageReceive(message, socket);
+
         BalconyShowClientMessage received = (BalconyShowClientMessage) message;
+
         
-        QueueElementInfoBig elementInfoBig = new QueueElementInfoBig(received.getClientName(), 
-                                                                     received.getServiceType(), 
-                                                                     received.getQueuesManagerBean().getPassNumber(),
-                                                                     received.getBalconyNumber());
-        
-        screen.addQueueElementInfo(elementInfoBig);        
+        //Se eu for o destino da mensagem
+        if (received.getTo() == MessageActors.ViewerActor)
+        {        
+            QueueElementInfoBig elementInfoBig = new QueueElementInfoBig(received.getClientName(), 
+                                                                         received.getServiceType(), 
+                                                                         received.getQueuesManagerBean().getPassNumber(),
+                                                                         received.getBalconyNumber());
+
+            screen.addQueueElementInfo(elementInfoBig);        
+        }
     }
 
     @Override

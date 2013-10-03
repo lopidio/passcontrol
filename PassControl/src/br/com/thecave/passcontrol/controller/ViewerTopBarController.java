@@ -9,6 +9,7 @@ import br.com.thecave.passcontrol.component.util.AnimationUtilObserver;
 import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.topbar.ViewerTopBar;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.viewer.ViewerQueueRequest;
 import br.com.thecave.passcontrolserver.messages.viewer.ViewerQueueResponse;
@@ -55,22 +56,28 @@ public class ViewerTopBarController extends PassControlController implements Ani
     public void onMessageReceive(PassControlMessage message, Socket socket) 
     {
         BalconyShowClientMessage showClientMessage = (BalconyShowClientMessage)message;
-                QueueElementInfoSmall newQueueElementInfo = new QueueElementInfoSmall(showClientMessage.getClientName(),
-                                                                        showClientMessage.getServiceType(),
-                                                                        showClientMessage.getQueuesManagerBean().getPassNumber(), 
-                                                                        showClientMessage.getBalconyNumber());
-        //Acho o que eu tenho que remover (o último da mesma fila, caso exista)
-        for (QueueElementInfoSmall queueElementInfo : queueElementInfos) 
+
+        //Se eu for o destino da mensagem
+        if (showClientMessage.getTo() == MessageActors.ViewerActor)
         {
-            if (queueElementInfo.getQueueName().equals(showClientMessage.getServiceType()))
+            QueueElementInfoSmall newQueueElementInfo = new QueueElementInfoSmall(showClientMessage.getClientName(),
+                                                                    showClientMessage.getServiceType(),
+                                                                    showClientMessage.getQueuesManagerBean().getPassNumber(), 
+                                                                    showClientMessage.getBalconyNumber());
+
+            //Acho o que eu tenho que remover (o último da mesma fila, caso exista)
+            for (QueueElementInfoSmall queueElementInfo : queueElementInfos) 
             {
-                queueElementInfos.remove(queueElementInfo);
-                break;
+                if (queueElementInfo.getQueueName().equals(showClientMessage.getServiceType()))
+                {
+                    queueElementInfos.remove(queueElementInfo);
+                    break;
+                }
             }
+            queueElementInfos.add(newQueueElementInfo);
+            //Insere no exibidor
+            synchronizeQueuesListToPanel();
         }
-        queueElementInfos.add(newQueueElementInfo);
-        //Insere no exibidor
-        synchronizeQueuesListToPanel();
     }
 
     @Override

@@ -557,6 +557,8 @@ public class QueuePushScreen extends PassControlPanel
 
     public void showQueueElementInfo( QueueElementInfoSmall elementInfo )
     {
+        //Remove o que tinha anteriormente
+        jpQueueInfo.removeAll();
         jpQueueInfo.add(elementInfo);
         jpQueueInfo.setVisible(true);
         jbNovoAtendimento.setEnabled(false);

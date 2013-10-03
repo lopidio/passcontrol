@@ -141,9 +141,8 @@ public class QueuePushController extends PassControlController
         if ( response == null )
         {
             JOptionPane.showMessageDialog(null, "Operação expirou o tempo limite");
-            return false;
         }
-        else
+        else if (response.getTo() == MessageActors.QueuePushActor)
         {
             QueueElementInfoSmall elementInfo = new QueueElementInfoSmall(response.getClientName(), 
                                                 response.getServiceType(), 
@@ -152,6 +151,7 @@ public class QueuePushController extends PassControlController
             screen.showQueueElementInfo(elementInfo);
             return true;
         }
+        return false;
     }
     /**
      * FLUXO: Ao inserir o cliente Envia um: QueuePusherAddQueueElement Caso não
