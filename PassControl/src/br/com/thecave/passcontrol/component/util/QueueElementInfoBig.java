@@ -14,7 +14,10 @@ import javax.swing.JPanel;
  */
 public class QueueElementInfoBig extends JPanel
 {
-
+    public QueueElementInfoBig()
+    {
+    }
+    
     public QueueElementInfoBig( String clientName, String queueName, String userPass, String balconyName )
     {
         initComponents();

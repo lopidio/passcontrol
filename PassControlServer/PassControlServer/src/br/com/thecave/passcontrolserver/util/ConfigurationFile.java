@@ -33,6 +33,7 @@ public class ConfigurationFile implements Serializable
         gerenciamentoAutomatico = true;
         slideShowSpeed = 5000;
         ipServer = "127.0.0.1";
+        portPrinter = "COM5";
         portServer = 23073;
         imgsSlide = new HashMap<>();
         mainImage = new ImageIcon(getClass().getResource("/resources/splash.png"));

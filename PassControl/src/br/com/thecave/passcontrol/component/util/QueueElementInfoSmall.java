@@ -21,6 +21,9 @@ public class QueueElementInfoSmall extends JPanel
     QueueElementInfoMouseClickedListener mouseClickedListener;
     QueuesManagerBean queuesManagerBean;
     
+    public QueueElementInfoSmall()
+    {
+    }
 
     public QueueElementInfoSmall( String clientName, String queueName, String userPass, String balconyName )
     {

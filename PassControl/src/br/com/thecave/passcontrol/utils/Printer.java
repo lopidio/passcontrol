@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.utils;
 
+import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -8,11 +9,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 public class Printer
 {
-    public void generateImg( JPanel comp ) throws Exception
+    public void generateImg( QueueElementInfoSmall comp ) throws Exception
     {
         String caminho = "config\\imgToPrint.bmp";
         BufferedImage image = new BufferedImage((int)(comp.getWidth()* 0.6), (int)(comp.getHeight()* 0.6),

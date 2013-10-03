@@ -142,7 +142,7 @@ public class DefaultScreen extends PassControlPanel
             {
                 String port = JOptionPane.showInputDialog("Digite o porta da impressora!");
                 ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-                file.setIpServer(port);
+                file.setPortPrinter(port);
                 PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
                 //tento me conectar ao novo ip                
                 Main.getInstance().getCommunicationThread().refreshConnectionProperties();
