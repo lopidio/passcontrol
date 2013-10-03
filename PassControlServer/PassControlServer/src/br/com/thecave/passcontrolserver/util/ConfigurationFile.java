@@ -23,6 +23,7 @@ public class ConfigurationFile implements Serializable
     private String ipServer;
     private int portServer;
     private HashMap<String, ImageIcon> imgsSlide;
+    private String portPrinter;
 
     /**
      * Construtor privado da classe
@@ -45,6 +46,11 @@ public class ConfigurationFile implements Serializable
     public void setGerenciamentoAutomatico( boolean gerenciamentoAutomatico )
     {
         this.gerenciamentoAutomatico = gerenciamentoAutomatico;
+    }
+    
+    public void setPortPrinter(String port)
+    {
+        this.portPrinter = port;
     }
 
     /**
@@ -107,6 +113,9 @@ public class ConfigurationFile implements Serializable
     public void setMainImage(ImageIcon mainImage) {
         this.mainImage = mainImage;
     }
-    
-    
+
+    public String getPortPrinter()
+    {
+        return this.portPrinter;
+    }
 }
