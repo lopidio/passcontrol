@@ -1,6 +1,5 @@
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
@@ -10,13 +9,13 @@ import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
 import br.com.thecave.passcontrolserver.util.IValidation;
 import br.com.thecave.passcontrolserver.util.ValidationPerform;
-import br.com.thecave.passcontrolserver.util.validations.ValidIsEmpty;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -62,7 +61,8 @@ public class QueuePushScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmChooseService = new javax.swing.JMenu();
         jmNovoCliente = new javax.swing.JMenuItem();
@@ -108,8 +108,10 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoCliente.setMnemonic('c');
         jmNovoCliente.setText("Novo cliente");
-        jmNovoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmNovoClienteActionPerformed(evt);
             }
         });
@@ -119,8 +121,10 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmNovoAtendimento.setMnemonic('a');
         jmNovoAtendimento.setText("Novo Atendimento");
-        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -130,8 +134,10 @@ public class QueuePushScreen extends PassControlPanel
         jmVoltar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_MASK));
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -167,8 +173,10 @@ public class QueuePushScreen extends PassControlPanel
         jbNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoCliente.setText("Novo Cliente");
-        jbNovoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbNovoClienteActionPerformed(evt);
             }
         });
@@ -177,8 +185,10 @@ public class QueuePushScreen extends PassControlPanel
         jbNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovoAtendimento.setText("Novo Atendimento");
-        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -194,8 +204,10 @@ public class QueuePushScreen extends PassControlPanel
         jpNovoAtendimento.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
 
         tfCadastroNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfCadastroNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        tfCadastroNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 tfCadastroNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -232,8 +244,10 @@ public class QueuePushScreen extends PassControlPanel
         jbInserirNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbInserirNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbInserirNovoAtendimento.setText("Inserir");
-        jbInserirNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbInserirNovoAtendimento.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbInserirNovoAtendimentoActionPerformed(evt);
             }
         });
@@ -243,8 +257,10 @@ public class QueuePushScreen extends PassControlPanel
         jbLoadFromRegister.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbLoadFromRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small.png"))); // NOI18N
         jbLoadFromRegister.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Lupe_Small_Clicked.png"))); // NOI18N
-        jbLoadFromRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbLoadFromRegister.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbLoadFromRegisterActionPerformed(evt);
             }
         });
@@ -271,8 +287,10 @@ public class QueuePushScreen extends PassControlPanel
         tfCadastroNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
         tfCadastroNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
         tfCadastroNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
-        tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 tfCadastroNovoClienteActionPerformed(evt);
             }
         });
@@ -301,8 +319,10 @@ public class QueuePushScreen extends PassControlPanel
         jbInserirNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
         jbInserirNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbInserirNovoCliente.setText("Inserir");
-        jbInserirNovoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbInserirNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jbInserirNovoClienteActionPerformed(evt);
             }
         });
@@ -319,20 +339,21 @@ public class QueuePushScreen extends PassControlPanel
 
         add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
-        jpQueueInfo.setBackground(new java.awt.Color(255, 255, 255));
+        jpQueueInfo.setMinimumSize(new java.awt.Dimension(220, 128));
+        jpQueueInfo.setPreferredSize(new java.awt.Dimension(220, 128));
 
         javax.swing.GroupLayout jpQueueInfoLayout = new javax.swing.GroupLayout(jpQueueInfo);
         jpQueueInfo.setLayout(jpQueueInfoLayout);
         jpQueueInfoLayout.setHorizontalGroup(
             jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+            .addGap(0, 220, Short.MAX_VALUE)
         );
         jpQueueInfoLayout.setVerticalGroup(
             jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
+            .addGap(0, 128, Short.MAX_VALUE)
         );
 
-        add(jpQueueInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
+        add(jpQueueInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 220, 128));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNovoClienteActionPerformed
@@ -471,17 +492,22 @@ public class QueuePushScreen extends PassControlPanel
                 
     }
 
-    public void showQueueElementInfo( QueueElementInfoSmall elementInfo )
+    public void showQueueElementInfo( JPanel elementInfo )
     {
         try
         {
             //Remove o que tinha anteriormente
-            jpQueueInfo.removeAll();
+            //jpQueueInfo.removeAll();
+            elementInfo.setSize(220, 128);
+            
             jpQueueInfo.add(elementInfo);
             jpQueueInfo.setVisible(true);
+            jpQueueInfo.repaint();
             jbNovoAtendimento.setEnabled(false);
             Printer p = new Printer();
-            p.generateImg(jpQueueInfo);
+            elementInfo.doLayout();
+            elementInfo.validate();
+            p.generateImg(elementInfo);
             p.imprimirArquivo();
         }
         catch ( Exception ex )

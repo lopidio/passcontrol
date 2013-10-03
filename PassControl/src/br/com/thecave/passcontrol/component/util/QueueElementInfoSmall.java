@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.utils.PassControlFont;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
@@ -198,6 +199,14 @@ public class QueueElementInfoSmall extends JPanel
     public void setQueuesManagerBean(QueuesManagerBean queuesManagerBean) {
         this.queuesManagerBean = queuesManagerBean;
     }
+
+    @Override
+    public void paint( Graphics g )
+    {
+        super.paint(g); 
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
