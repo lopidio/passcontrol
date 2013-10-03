@@ -6,7 +6,7 @@ package br.com.thecave.passcontrol.controller;
 
 import br.com.thecave.passcontrol.component.util.AnimationUtil;
 import br.com.thecave.passcontrol.component.util.AnimationUtilObserver;
-import br.com.thecave.passcontrol.component.util.QueueElementInfo;
+import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.topbar.ViewerTopBar;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 public class ViewerTopBarController extends PassControlController implements AnimationUtilObserver
 {
     ViewerTopBar viewerTopBar;
-    ArrayList<QueueElementInfo> queueElementInfos;
+    ArrayList<QueueElementInfoSmall> queueElementInfos;
     AnimationUtil queueElementAnimator = null;
 
     public ViewerTopBarController() 
@@ -55,12 +55,12 @@ public class ViewerTopBarController extends PassControlController implements Ani
     public void onMessageReceive(PassControlMessage message, Socket socket) 
     {
         BalconyShowClientMessage showClientMessage = (BalconyShowClientMessage)message;
-                QueueElementInfo newQueueElementInfo = new QueueElementInfo(showClientMessage.getClientName(),
+                QueueElementInfoSmall newQueueElementInfo = new QueueElementInfoSmall(showClientMessage.getClientName(),
                                                                         showClientMessage.getServiceType(),
                                                                         showClientMessage.getQueuesManagerBean().getPassNumber(), 
                                                                         showClientMessage.getBalconyNumber());
         //Acho o que eu tenho que remover (o último da mesma fila, caso exista)
-        for (QueueElementInfo queueElementInfo : queueElementInfos) 
+        for (QueueElementInfoSmall queueElementInfo : queueElementInfos) 
         {
             if (queueElementInfo.getQueueName().equals(showClientMessage.getServiceType()))
             {
@@ -83,7 +83,7 @@ public class ViewerTopBarController extends PassControlController implements Ani
         {
             for (BalconyShowClientMessage balconyShowClientMessage : viewerQueueResponse.getLastCalledClients()) 
             {
-                QueueElementInfo queueElementInfo = new QueueElementInfo(balconyShowClientMessage.getClientName(),
+                QueueElementInfoSmall queueElementInfo = new QueueElementInfoSmall(balconyShowClientMessage.getClientName(),
                                                                         balconyShowClientMessage.getServiceType(),
                                                                         balconyShowClientMessage.getQueuesManagerBean().getPassNumber(), 
                                                                         balconyShowClientMessage.getBalconyNumber());
@@ -99,7 +99,7 @@ public class ViewerTopBarController extends PassControlController implements Ani
     {
         JPanel scrollablePanel = viewerTopBar.getScrollableQueueInfoPanel();
         scrollablePanel.removeAll();
-        for (QueueElementInfo queueElementInfo : queueElementInfos) 
+        for (QueueElementInfoSmall queueElementInfo : queueElementInfos) 
         {
             scrollablePanel.add(queueElementInfo);
         }  
@@ -124,7 +124,7 @@ public class ViewerTopBarController extends PassControlController implements Ani
         //Utilizado para definir a duração da animação
         final int millisecondsPerExcedentPixel = 10;
         JPanel scrollablePanel = viewerTopBar.getScrollableQueueInfoPanel();        
-        int totalLargura = queueElementInfos.size()*QueueElementInfo.SIZE.width;
+        int totalLargura = queueElementInfos.size()*QueueElementInfoSmall.SIZE.width;
         System.out.println("Qtde: " + queueElementInfos.size() + " Tamanho: " + totalLargura + " Máximo: " + ViewerTopBar.SCROLL_PANEL_WITDH);
         
         //Só precisa animar caso os elementos não caibam mais no espaço definido na tela

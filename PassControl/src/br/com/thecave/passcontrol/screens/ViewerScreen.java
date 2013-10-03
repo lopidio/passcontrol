@@ -5,6 +5,7 @@ import br.com.thecave.passcontrol.controller.ViewerController;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.TimerTask;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
 /**
@@ -25,6 +26,7 @@ public class ViewerScreen extends PassControlPanel
         super("Visualizador", new ViewerController());
         this.controller = (ViewerController) getPanelController();
         initComponents();
+        jpQueueInfoBig.setLayout(new BoxLayout(jpQueueInfoBig, BoxLayout.X_AXIS));
         jpQueueInfoBig.setVisible(false);
     }
 
@@ -35,8 +37,7 @@ public class ViewerScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jpQueueInfoBig = new javax.swing.JPanel();
         lblSlide = new javax.swing.JLabel();
@@ -45,11 +46,11 @@ public class ViewerScreen extends PassControlPanel
         setLayout(null);
 
         jpQueueInfoBig.setBackground(new java.awt.Color(255, 255, 255));
-        jpQueueInfoBig.setMaximumSize(new java.awt.Dimension(350, 210));
-        jpQueueInfoBig.setMinimumSize(new java.awt.Dimension(350, 210));
-        jpQueueInfoBig.setPreferredSize(new java.awt.Dimension(350, 210));
+        jpQueueInfoBig.setMaximumSize(new java.awt.Dimension(440, 256));
+        jpQueueInfoBig.setMinimumSize(new java.awt.Dimension(440, 256));
+        jpQueueInfoBig.setPreferredSize(new java.awt.Dimension(440, 256));
         add(jpQueueInfoBig);
-        jpQueueInfoBig.setBounds(490, 190, 350, 210);
+        jpQueueInfoBig.setBounds(490, 190, 440, 256);
 
         lblSlide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSlide.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -91,7 +92,7 @@ public class ViewerScreen extends PassControlPanel
                                    { 
                                        showQueueElementInfo();
                                    }
-                                 }, 5000); //5 segundos antes de desaparecer
+                                 }, 7500); //7,5 segundos antes de desaparecer
   
         }
         jpQueueInfoBig.revalidate();

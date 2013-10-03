@@ -10,9 +10,9 @@ import javax.swing.JPanel;
  *
  * @author lopidio
  */
-public class QueueElementInfo extends JPanel
+public class QueueElementInfoSmall extends JPanel
 {
-    public static final Dimension SIZE = new QueueElementInfo(null, null, null, null).getPreferredSize();
+    public static final Dimension SIZE = new QueueElementInfoSmall(null, null, null, null).getPreferredSize();
 
     private String clientName;
     private String queueName;
@@ -22,7 +22,7 @@ public class QueueElementInfo extends JPanel
     QueuesManagerBean queuesManagerBean;
     
 
-    public QueueElementInfo( String clientName, String queueName, String userPass, String balconyName )
+    public QueueElementInfoSmall( String clientName, String queueName, String userPass, String balconyName )
     {
 
         initComponents();
@@ -185,7 +185,7 @@ public class QueueElementInfo extends JPanel
 
     public static interface QueueElementInfoMouseClickedListener
     {
-        public void mouseClicked(QueueElementInfo queueElementInfo);
+        public void mouseClicked(QueueElementInfoSmall queueElementInfo);
     }
 
     public QueuesManagerBean getQueuesManagerBean() {

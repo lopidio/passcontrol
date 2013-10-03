@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -232,32 +234,39 @@ public abstract class PassControlCommunicationThread implements Runnable {
     {
         synchronized(messagesToSend)
         {
-            for (PassControlMessage passControlMessage : messagesToSend) 
+            while (!messagesToSend.isEmpty())
             {
-                sendBroadcastMessage(passControlMessage);
+                for (PassControlMessage passControlMessage : messagesToSend) 
+                {
+                    sendBroadcastMessage(passControlMessage);
+                    messagesToSend.remove(passControlMessage);
+                }
             }
-            messagesToSend.clear();
         }
     }    
     private void sendResponsesOnBuffer()
     {
         synchronized(responsesToSend)
         {
-            for (Map.Entry<Socket, ArrayList<PassControlMessage>> entry : responsesToSend.entrySet()) 
+            while (!responsesToSend.isEmpty())
             {
-                Socket socket = entry.getKey();
-                ArrayList<PassControlMessage> responsesList = entry.getValue();
-                for (PassControlMessage response : responsesList) 
+                for (Map.Entry<Socket, ArrayList<PassControlMessage>> entry : responsesToSend.entrySet()) 
                 {
-                    try {
-                        sendMessage(socket, response);
-                    } catch (IOException ex) {
-//                        Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }                
-    
+                    Socket socket = entry.getKey();
+                    ArrayList<PassControlMessage> responsesList = entry.getValue();
+                    for (PassControlMessage response : responsesList) 
+                    {
+                        try {
+                            sendMessage(socket, response);
+                        } catch (IOException ex) {
+                            Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }   
+                    //Foi a forma que eu encontrei para só ler o primeiro elemento
+                    responsesToSend.remove(socket);
+                    break;
+                }
             }
-            responsesToSend.clear();
         }
     }
     

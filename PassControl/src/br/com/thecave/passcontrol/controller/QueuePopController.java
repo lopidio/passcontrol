@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
-import br.com.thecave.passcontrol.component.util.QueueElementInfo;
+import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.screens.QueuePopScreen;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  *
  * @author Arleudo
  */
-public class QueuePopController extends PassControlController implements QueueElementInfo.QueueElementInfoMouseClickedListener
+public class QueuePopController extends PassControlController implements QueueElementInfoSmall.QueueElementInfoMouseClickedListener
 {
     QueuePopScreen queuePopScreen;
 
@@ -100,7 +100,7 @@ public class QueuePopController extends PassControlController implements QueueEl
     public void addBalconyShowClient(QueuePopperNewClientAdded queuePopperNewClientAdded)
     {
         //Crio um QueueInfoPanel        
-        QueueElementInfo queueElementInfo = new QueueElementInfo(queuePopperNewClientAdded.getClientName(), 
+        QueueElementInfoSmall queueElementInfo = new QueueElementInfoSmall(queuePopperNewClientAdded.getClientName(), 
                                                                 queuePopperNewClientAdded.getServiceBean().getName(),
                                                                 queuePopperNewClientAdded.getQueuesManagerBean().getPassNumber(),
                                                                 queuePopperNewClientAdded.getBalconyNumber());
@@ -116,7 +116,7 @@ public class QueuePopController extends PassControlController implements QueueEl
     }
 
     @Override
-    public void mouseClicked(QueueElementInfo queueElementInfo) 
+    public void mouseClicked(QueueElementInfoSmall queueElementInfo) 
     {
         sendChosenElementToServer(queueElementInfo);
     }
@@ -132,7 +132,7 @@ public class QueuePopController extends PassControlController implements QueueEl
             Integer priority = entry.getKey();
             for (QueuesManagerBean queuesManagerBean : entry.getValue()) 
             {
-                QueueElementInfo queueElementInfo = queuePopScreen.findQueueElementInfoFromPassNumber(queuesManagerBean.getPassNumber());
+                QueueElementInfoSmall queueElementInfo = queuePopScreen.findQueueElementInfoFromPassNumber(queuesManagerBean.getPassNumber());
                 if (queueElementInfo != null)
                 {
                     queueElementInfo.setEnabled(true);
@@ -142,7 +142,7 @@ public class QueuePopController extends PassControlController implements QueueEl
 
     }
     
-    private void sendChosenElementToServer(QueueElementInfo queueElementInfo)
+    private void sendChosenElementToServer(QueueElementInfoSmall queueElementInfo)
     {
         //removo esse da fila
         if (queueElementInfo.isEnabled())

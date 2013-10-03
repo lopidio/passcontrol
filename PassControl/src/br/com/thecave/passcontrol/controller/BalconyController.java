@@ -56,7 +56,7 @@ public class BalconyController extends PassControlController
     {
         queuesManagerBean = null;
         BalconyCallNextClientRequest balconyCallNextClientRequest = new BalconyCallNextClientRequest(balconyBean);
-        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 1000);
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyCallNextClientRequest, ConfirmationResponse.class, 3000);
         if ( response != null )
         {
             JOptionPane.showMessageDialog(null, response.getComment(), "Por favor, aguarde;", JOptionPane.INFORMATION_MESSAGE);
@@ -108,7 +108,7 @@ public class BalconyController extends PassControlController
     public boolean finalizeServiceClient()
     {
         BalconyFinalizeCurrentClient finalizeCurrentClient = new BalconyFinalizeCurrentClient(queuesManagerBean);
-        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(finalizeCurrentClient, ConfirmationResponse.class, 1000);
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(finalizeCurrentClient, ConfirmationResponse.class, 3000);
     
         if(response == null)
         {
@@ -132,7 +132,7 @@ public class BalconyController extends PassControlController
     public boolean putClientOnWaitting()
     {
         BalconySkipCurrentClient skipCurrentClient = new BalconySkipCurrentClient(queuesManagerBean);
-        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(skipCurrentClient, ConfirmationResponse.class, 1000);
+        ConfirmationResponse response = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(skipCurrentClient, ConfirmationResponse.class, 3000);
     
         if(response == null)
         {

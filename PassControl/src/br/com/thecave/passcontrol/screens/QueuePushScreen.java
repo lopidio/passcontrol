@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.component.util.QueueElementInfo;
+import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
@@ -555,7 +555,7 @@ public class QueuePushScreen extends PassControlPanel
                 
     }
 
-    public void showQueueElementInfo( QueueElementInfo elementInfo )
+    public void showQueueElementInfo( QueueElementInfoSmall elementInfo )
     {
         jpQueueInfo.add(elementInfo);
         jpQueueInfo.setVisible(true);

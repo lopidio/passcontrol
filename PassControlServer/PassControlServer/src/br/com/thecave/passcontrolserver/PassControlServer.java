@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrolserver;
 
 import br.com.thecave.passcontrolserver.communicationThread.ServerCommunicationThread;
+import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.generic.ClientGenericListeners;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientAdministratorListeners;
@@ -12,6 +13,8 @@ import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalcon
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePopperListener;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePusherListener;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientViewerListener;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
+import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.io.IOException;
@@ -75,15 +78,17 @@ public class PassControlServer {
         new Thread(server).start();
         new Thread(QueueElementHandler.getInstance()).start();
         
-//        Integer count = 0;
-//        while(true)
-//        {
-//            ++count;
-//            Thread.sleep(30000);
-//            Integer serviceId = count%10;
-//            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru"+count, serviceId+"", "c"+count, new QueuesManagerBean(), MessageActors.ServerActor, MessageActors.AllActors);
-//            server.addBroadcastToSend(showClientMessage);
-//        }
+        Integer count = 0;
+        while(true)
+        {
+            ++count;
+            Thread.sleep(30000);
+            Integer serviceId = count%10;
+            QueuesManagerBean bean = new QueuesManagerBean();
+            bean.setPassNumber(count+"tx");
+            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru"+count, serviceId+"", "c"+count, bean, MessageActors.ServerActor, MessageActors.AllActors);
+            server.addBroadcastToSend(showClientMessage);
+        }
     }
 
     /**

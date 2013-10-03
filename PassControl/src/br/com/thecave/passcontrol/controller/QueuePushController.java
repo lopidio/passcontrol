@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.controller;
 
-import br.com.thecave.passcontrol.component.util.QueueElementInfo;
+import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.screens.QueuePushScreen;
 import br.com.thecave.passcontrolserver.communicationThread.ClientCommunicationThread;
 import br.com.thecave.passcontrolserver.db.bean.ClientBean;
@@ -145,7 +145,7 @@ public class QueuePushController extends PassControlController
         }
         else
         {
-            QueueElementInfo elementInfo = new QueueElementInfo(response.getClientName(), 
+            QueueElementInfoSmall elementInfo = new QueueElementInfoSmall(response.getClientName(), 
                                                 response.getServiceType(), 
                                                 response.getQueuesManagerBean().getPassNumber(),
                                                 response.getBalconyNumber());

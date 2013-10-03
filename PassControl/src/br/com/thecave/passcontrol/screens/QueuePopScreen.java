@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.screens;
 
-import br.com.thecave.passcontrol.component.util.QueueElementInfo;
+import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.controller.QueuePopController;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  */
 public final class QueuePopScreen extends PassControlPanel
 {
-    ArrayList<ArrayList<QueueElementInfo>> queueElementInfos;
+    ArrayList<ArrayList<QueueElementInfoSmall>> queueElementInfos;
     ArrayList<Box> queuesBoxArea;
     
     QueuePopController controller = null;
@@ -46,7 +46,7 @@ public final class QueuePopScreen extends PassControlPanel
         queueElementInfos = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) 
         {
-            queueElementInfos.add(new ArrayList<QueueElementInfo>());
+            queueElementInfos.add(new ArrayList<QueueElementInfoSmall>());
         }
         
         jpScrollablePane.add(Box.createHorizontalStrut(30));        
@@ -57,7 +57,7 @@ public final class QueuePopScreen extends PassControlPanel
             
             
             //Aproveito o for para instanciar isso aqui também
-            queueElementInfos.set(i, new ArrayList<QueueElementInfo>());
+            queueElementInfos.set(i, new ArrayList<QueueElementInfoSmall>());
             
         }
         
@@ -65,15 +65,15 @@ public final class QueuePopScreen extends PassControlPanel
       
     }
 
-    public ArrayList<ArrayList<QueueElementInfo>> getQueueElementInfos() {
+    public ArrayList<ArrayList<QueueElementInfoSmall>> getQueueElementInfos() {
         return queueElementInfos;
     }
 
-    public QueueElementInfo findQueueElementInfoFromPassNumber(String passNumber)
+    public QueueElementInfoSmall findQueueElementInfoFromPassNumber(String passNumber)
     {
-        for (ArrayList<QueueElementInfo> arrayList : queueElementInfos) 
+        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
         {
-            for (QueueElementInfo queueElementInfo : arrayList) 
+            for (QueueElementInfoSmall queueElementInfo : arrayList) 
             {
                 //Se for esse mesmo
                 if (queueElementInfo.getUserPass().equals(passNumber))
@@ -87,9 +87,9 @@ public final class QueuePopScreen extends PassControlPanel
 
     public void disableAllQueueElementInfo()
     {
-        for (ArrayList<QueueElementInfo> arrayList : queueElementInfos) 
+        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
         {
-            for (QueueElementInfo queueElementInfo : arrayList) 
+            for (QueueElementInfoSmall queueElementInfo : arrayList) 
             {
                 queueElementInfo.setEnabled(false);
             }
@@ -138,7 +138,7 @@ public final class QueuePopScreen extends PassControlPanel
             box.repaint();
             box.revalidate();
         }
-        for (ArrayList<QueueElementInfo> arrayList : queueElementInfos) 
+        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
         {
             //Removo todos os queue que tenho
             arrayList.clear();
@@ -151,7 +151,7 @@ public final class QueuePopScreen extends PassControlPanel
         for (int i = 0; i < 5; i++) 
         {
             //Crio um QueueInfoPanel        
-            QueueElementInfo queueElementInfo = new QueueElementInfo("", queuePriority[i], "", "");
+            QueueElementInfoSmall queueElementInfo = new QueueElementInfoSmall("", queuePriority[i], "", "");
             queueElementInfo.setEnabled(false);
             //Aramazeno na fila correta
             Box queueAreaToAdd = queuesBoxArea.get(i);

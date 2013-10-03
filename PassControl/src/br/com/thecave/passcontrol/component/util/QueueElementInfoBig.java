@@ -4,6 +4,8 @@
  */
 package br.com.thecave.passcontrol.component.util;
 
+import br.com.thecave.passcontrol.utils.PassControlFont;
+import java.awt.Font;
 import javax.swing.JPanel;
 
 /**
@@ -30,8 +32,7 @@ public class QueueElementInfoBig extends JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
         lblGuiche = new javax.swing.JLabel();
@@ -46,58 +47,58 @@ public class QueueElementInfoBig extends JPanel
         setBackground(new java.awt.Color(255, 232, 29));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
         setForeground(new java.awt.Color(255, 100, 60));
-        setMaximumSize(new java.awt.Dimension(350, 210));
-        setMinimumSize(new java.awt.Dimension(350, 210));
-        setPreferredSize(new java.awt.Dimension(350, 210));
+        setMaximumSize(new java.awt.Dimension(440, 256));
+        setMinimumSize(new java.awt.Dimension(440, 256));
+        setPreferredSize(new java.awt.Dimension(440, 256));
         setLayout(null);
 
         jSeparator1.setToolTipText("");
         add(jSeparator1);
-        jSeparator1.setBounds(20, 80, 320, 14);
+        jSeparator1.setBounds(20, 120, 400, 14);
 
-        lblGuiche.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        lblGuiche.setText("Guiche:");
+        lblGuiche.setFont(new PassControlFont().getSizedFont(18).deriveFont(Font.BOLD));
+        lblGuiche.setText("Guichê:");
         add(lblGuiche);
-        lblGuiche.setBounds(160, 10, 70, 24);
+        lblGuiche.setBounds(210, 10, 220, 40);
 
-        lblFila.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        lblFila.setFont(new PassControlFont().getSizedFont(18).deriveFont(Font.BOLD));
         lblFila.setText("Fila:");
         add(lblFila);
-        lblFila.setBounds(10, 90, 40, 18);
+        lblFila.setBounds(10, 138, 130, 50);
 
-        lblNome.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        lblNome.setText("Nome do cliente:");
+        lblNome.setFont(new PassControlFont().getSizedFont(18).deriveFont(Font.BOLD));
+        lblNome.setText("Cliente:");
         add(lblNome);
-        lblNome.setBounds(0, 150, 140, 18);
+        lblNome.setBounds(10, 198, 120, 50);
 
-        txtNome.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        txtNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNome.setFont(new PassControlFont().getSizedFont(24));
+        txtNome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtNome.setText("Leudinho");
         add(txtNome);
-        txtNome.setBounds(0, 180, 350, 19);
+        txtNome.setBounds(130, 200, 300, 40);
 
-        txtFila.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        txtFila.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtFila.setFont(new PassControlFont().getSizedFont(24));
+        txtFila.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtFila.setText("Prioritária");
         add(txtFila);
-        txtFila.setBounds(0, 110, 350, 47);
+        txtFila.setBounds(130, 140, 300, 50);
 
-        txtGuiche.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
-        txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtGuiche.setFont(new PassControlFont().getSizedFont(38).deriveFont(Font.BOLD));
+        txtGuiche.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtGuiche.setText("B13");
         add(txtGuiche);
-        txtGuiche.setBounds(190, 30, 150, 40);
+        txtGuiche.setBounds(210, 50, 220, 60);
 
-        lblSenha.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        lblSenha.setFont(new PassControlFont().getSizedFont(18).deriveFont(Font.BOLD));
         lblSenha.setText("Senha:");
         add(lblSenha);
-        lblSenha.setBounds(10, 10, 60, 24);
+        lblSenha.setBounds(10, 8, 190, 40);
 
-        txtSenha.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
-        txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtSenha.setFont(new PassControlFont().getSizedFont(38).deriveFont(Font.BOLD));
+        txtSenha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtSenha.setText("48");
         add(txtSenha);
-        txtSenha.setBounds(20, 30, 150, 40);
+        txtSenha.setBounds(10, 50, 210, 60);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;
