@@ -497,7 +497,7 @@ public class QueuePushScreen extends PassControlPanel
         try
         {
             //Remove o que tinha anteriormente
-            //jpQueueInfo.removeAll();
+            jpQueueInfo.removeAll();
             elementInfo.setSize(220, 128);
             
             jpQueueInfo.add(elementInfo);
