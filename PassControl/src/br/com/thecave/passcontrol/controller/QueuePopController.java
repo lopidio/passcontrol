@@ -11,13 +11,10 @@ import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNe
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperNewClientAdded;
 import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshAllRequest;
 import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshResponse;
-import java.awt.GridBagConstraints;
-import java.awt.Label;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.Box;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -95,7 +92,7 @@ public class QueuePopController extends PassControlController implements QueueEl
             }
             for (JPanel pane: queuePopScreen.getQueuesArea())
             {
-                System.out.println("Número de elementod do panel: " + pane.getComponentCount());
+                System.out.println("Número de elementos do panel: " + pane.getComponentCount());
             }
         }
         else
@@ -183,6 +180,7 @@ public class QueuePopController extends PassControlController implements QueueEl
                     JOptionPane.showMessageDialog(null, confirmationResponse.getComment());
                 }
                 //Remove
+                queuePopScreen.getQueueElementsInfo().remove(queueElementInfo);
                 parent.remove(queueElementInfo);
                 //repaint e revalidate
                 parent.revalidate();

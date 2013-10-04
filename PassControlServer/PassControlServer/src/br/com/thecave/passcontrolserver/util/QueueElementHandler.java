@@ -86,7 +86,7 @@ public class QueueElementHandler implements Runnable
     private QueuesManagerBean prepareSelectedQueuesManageElement(BalconyBean balconyBean, QueuesManagerBean selectedManagerBean)
     {
         //Seto a hora da escolha
-        selectedManagerBean.setCheckout(QueuesManagerDAO.dateFormat.format(new Date()));
+//        selectedManagerBean.setCheckout(QueuesManagerDAO.dateFormat.format(new Date()));
         //Seto o Id do guichê
         selectedManagerBean.setIdBalcony(balconyBean.getId());
         //salvo as alterações no banco.
@@ -139,7 +139,8 @@ public class QueueElementHandler implements Runnable
         QueuePopperChooseNextElement chooseNextElement = new QueuePopperChooseNextElement(balconyBean, avaliableClients);
 
         //Mando para todos os poppers
-        HashMap<Socket, BalconyShowClientMessage> clientsResponse = PassControlServer.getInstance().getServer().sendMessageToClientsAndWaitForResponseOrTimeout(chooseNextElement, BalconyShowClientMessage.class, 1000);
+        HashMap<Socket, BalconyShowClientMessage> clientsResponse = PassControlServer.getInstance().getServer().sendMessageToClientsAndWaitForResponseOrTimeout
+                (chooseNextElement, BalconyShowClientMessage.class, 20*1000); //20 segundos
 
         //A resposta de algum popper
         BalconyShowClientMessage balconyShowClientMessage = null;

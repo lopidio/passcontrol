@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 public final class QueuePopScreen extends PassControlPanel
 {
     ArrayList<JPanel> queuesArea;
+    ArrayList<QueueElementInfoSmall> queueElementsInfo;
     
     QueuePopController controller = null;
 
@@ -28,6 +29,7 @@ public final class QueuePopScreen extends PassControlPanel
 //        jpScrollablePane.setAlignmentY(TOP_ALIGNMENT);
 //        jpScrollablePane.setLayout(new FlowLayout());        
 
+        queueElementsInfo = new ArrayList<>();
         queuesArea = new ArrayList<>(5);
         queuesArea.add(jpMinima);
         queuesArea.add(jpBaixa);
@@ -55,32 +57,34 @@ public final class QueuePopScreen extends PassControlPanel
 
     public QueueElementInfoSmall findQueueElementInfoFromQueueElementId(int queueId)
     {
-        for (JPanel jPanel : queuesArea) 
+        for (QueueElementInfoSmall queueElementInfoSmall : queueElementsInfo) 
         {
-            if (jPanel instanceof QueueElementInfoSmall)
+            if (queueElementInfoSmall.getQueuesManagerBean().getId() == queueId)
             {
-                QueueElementInfoSmall queueElementInfoSmall = (QueueElementInfoSmall)jPanel;
-                //Se for esse mesmo
-                if (queueElementInfoSmall.getQueuesManagerBean().getId() == queueId)
-                {
-                    return queueElementInfoSmall;
-                }
-            }
+                return queueElementInfoSmall;
+            }            
         }
         
         return null;
     }
 
+    public ArrayList<QueueElementInfoSmall> getQueueElementsInfo() {
+        return queueElementsInfo;
+    }
+    
+    
+
     public void disableAllQueueElementInfo()
     {
-        for (JPanel jPanel : queuesArea) 
+        for (QueueElementInfoSmall queueElementInfoSmall : queueElementsInfo) 
         {
-            if (jPanel instanceof QueueElementInfoSmall)
-            {
-                QueueElementInfoSmall queueElementInfoSmall = (QueueElementInfoSmall)jPanel;
-                queueElementInfoSmall.setEnabled(false);
-            }
+            queueElementInfoSmall.setEnabled(false);
         }
+        for (JPanel queueArea : queuesArea)
+        {
+            queueArea.revalidate();
+            queueArea.repaint();
+        }        
     }    
     
     public ArrayList<JPanel> getQueuesArea() {
@@ -242,6 +246,7 @@ public final class QueuePopScreen extends PassControlPanel
 
     public void clearAllQueues() 
     {
+        queueElementsInfo.clear();
 //        insertDefaultQueuesInfo();
         //Limpo todos os exibidores de fila
         for (JPanel queueArea : queuesArea)
@@ -263,11 +268,11 @@ public final class QueuePopScreen extends PassControlPanel
 //        for (int i = 0; i < 5; i++) 
 //        {
 //            //Crio um QueueInfoPanel        
-//            QueueElementInfoSmall queueElementInfo = new QueueElementInfoSmall("", queuePriority[i], "", "");
-//            queueElementInfo.setEnabled(false);
+//            QueueElementInfoSmall queueElementsInfo = new QueueElementInfoSmall("", queuePriority[i], "", "");
+//            queueElementsInfo.setEnabled(false);
 //            //Aramazeno na fila correta
 //            JPanel queueAreaToAdd = queuesArea.get(i);
-//            queueAreaToAdd.add(queueElementInfo);
+//            queueAreaToAdd.add(queueElementsInfo);
 //            queueAreaToAdd.revalidate();
 //            queueAreaToAdd.repaint();            
 //        }

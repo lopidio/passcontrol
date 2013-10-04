@@ -273,7 +273,10 @@ public class ClientBalconyListeners implements ClientListeners
 
         //Informa ao viewer que aquele elemento foi chamado
         BalconyShowClientMessage viewerCallNextClient = new BalconyShowClientMessage(clientName, serviceName, balconyName, queuesManagerBean, MessageActors.ServerActor, MessageActors.ViewerActor);
-        server.addBroadcastToSend(viewerCallNextClient);        
+        server.addBroadcastToSend(viewerCallNextClient);  
+        
+        //Informa à todos os poppers para atualizarem suas filas
+        server.addBroadcastToSend(ClientQueuePopperListener.generateAllClientsToPopper());  
     }
 
     public static HashMap<Integer, Socket> getLoggedBalconysID() 

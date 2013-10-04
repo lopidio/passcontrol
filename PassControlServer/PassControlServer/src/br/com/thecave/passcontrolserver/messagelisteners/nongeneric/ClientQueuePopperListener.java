@@ -32,13 +32,9 @@ public class ClientQueuePopperListener implements ClientListeners
     {
         server.addMessageListener(new QueuePopperRefreshAllRequestListener(), QueuePopperRefreshAllRequest.class);        
     }
-
-    private static class QueuePopperRefreshAllRequestListener implements PassControlMessageListener
-    {
-        @Override
-        public void onMessageReceive(PassControlMessage message, Socket socket) {
-//            QueuePopperRefreshAllRequest queuePopperRefreshAllRequest = (QueuePopperRefreshAllRequest)message;
     
+    public static QueuePopperRefreshResponse generateAllClientsToPopper()
+    {
             ArrayList<QueuePopperNewClientAdded> waitingClients = new ArrayList<>();
             
             ArrayList<QueuesManagerBean> queuesManagerBeanList = QueuesManagerDAO.selectAllClientsWaitingtoday();
@@ -53,8 +49,16 @@ public class ClientQueuePopperListener implements ClientListeners
                 waitingClients.add(new QueuePopperNewClientAdded(queuesManagerBean, serviceBean, clientName, "-"));
             }
             //Envio a mensagem de volta
-            QueuePopperRefreshResponse queuePopperRefreshResponse = new QueuePopperRefreshResponse(waitingClients);
-            PassControlServer.getInstance().getServer().addResponseToSend(socket, queuePopperRefreshResponse);
+            return new QueuePopperRefreshResponse(waitingClients);        
+    }
+
+    private static class QueuePopperRefreshAllRequestListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) {
+//            QueuePopperRefreshAllRequest queuePopperRefreshAllRequest = (QueuePopperRefreshAllRequest)message;
+
+            PassControlServer.getInstance().getServer().addResponseToSend(socket, generateAllClientsToPopper());
         }
 
     }
