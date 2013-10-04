@@ -11,7 +11,6 @@ import javax.swing.JPanel;
  */
 public final class QueuePopScreen extends PassControlPanel
 {
-    ArrayList<ArrayList<QueueElementInfoSmall>> queueElementInfos;
     ArrayList<JPanel> queuesArea;
     
     QueuePopController controller = null;
@@ -36,49 +35,52 @@ public final class QueuePopScreen extends PassControlPanel
         queuesArea.add(jpAlta);
         queuesArea.add(jpMaxima);
 
-        queueElementInfos = new ArrayList<>(5);
-        for (int i = 0; i < 5; i++) 
-        {
-            queueElementInfos.add(new ArrayList<QueueElementInfoSmall>());
-        }
-        for (int i = 0; i < 5; i++) 
-        {
-            //Instancio cada um dos elementos do array anterior
-            queueElementInfos.set(i, new ArrayList<QueueElementInfoSmall>());
-        }
+//        queueElementInfos = new ArrayList<>(5);
+//        for (int i = 0; i < 5; i++) 
+//        {
+//            queueElementInfos.add(new ArrayList<QueueElementInfoSmall>());
+//        }
+//        for (int i = 0; i < 5; i++) 
+//        {
+//            //Instancio cada um dos elementos do array anterior
+//            queueElementInfos.set(i, new ArrayList<QueueElementInfoSmall>());
+//        }
 //        insertDefaultQueuesInfo();
       
     }
 
-    public ArrayList<ArrayList<QueueElementInfoSmall>> getQueueElementInfos() {
-        return queueElementInfos;
-    }
+//    public ArrayList<ArrayList<QueueElementInfoSmall>> getQueueElementInfos() {
+//        return queueElementInfos;
+//    }
 
-    public QueueElementInfoSmall findQueueElementInfoFromPassNumber(int queueId)
+    public QueueElementInfoSmall findQueueElementInfoFromQueueElementId(int queueId)
     {
-        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
+        for (JPanel jPanel : queuesArea) 
         {
-            for (QueueElementInfoSmall queueElementInfo : arrayList) 
+            if (jPanel instanceof QueueElementInfoSmall)
             {
+                QueueElementInfoSmall queueElementInfoSmall = (QueueElementInfoSmall)jPanel;
                 //Se for esse mesmo
-                if (queueElementInfo.getQueuesManagerBean().getId() == queueId)
+                if (queueElementInfoSmall.getQueuesManagerBean().getId() == queueId)
                 {
-                    return queueElementInfo;
+                    return queueElementInfoSmall;
                 }
             }
         }
+        
         return null;
     }
 
     public void disableAllQueueElementInfo()
     {
-        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
+        for (JPanel jPanel : queuesArea) 
         {
-            for (QueueElementInfoSmall queueElementInfo : arrayList) 
+            if (jPanel instanceof QueueElementInfoSmall)
             {
-                queueElementInfo.setEnabled(false);
+                QueueElementInfoSmall queueElementInfoSmall = (QueueElementInfoSmall)jPanel;
+                queueElementInfoSmall.setEnabled(false);
             }
-        }    
+        }
     }    
     
     public ArrayList<JPanel> getQueuesArea() {
@@ -112,8 +114,6 @@ public final class QueuePopScreen extends PassControlPanel
         jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setAlignmentX(0.5F);
-        setAlignmentY(0.5F);
         setMinimumSize(new java.awt.Dimension(1350, 680));
         setPreferredSize(new java.awt.Dimension(1350, 680));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -134,10 +134,11 @@ public final class QueuePopScreen extends PassControlPanel
 
         jpMaxima.setBackground(java.awt.Color.lightGray);
         jpMaxima.setForeground(java.awt.Color.darkGray);
+        jpMaxima.setAlignmentX(0.5F);
         jpMaxima.setAlignmentY(0.1F);
-        jpMaxima.setMaximumSize(new java.awt.Dimension(250, 3600));
-        jpMaxima.setMinimumSize(new java.awt.Dimension(250, 128));
-        jpMaxima.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpMaxima.setMaximumSize(new java.awt.Dimension(225, 3600));
+        jpMaxima.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpMaxima.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpMaxima.setRequestFocusEnabled(false);
         jpMaxima.setLayout(new javax.swing.BoxLayout(jpMaxima, javax.swing.BoxLayout.Y_AXIS));
 
@@ -151,11 +152,10 @@ public final class QueuePopScreen extends PassControlPanel
         jpScrollablePane.add(jpMaxima);
 
         jpAlta.setForeground(java.awt.Color.darkGray);
-        jpAlta.setAlignmentX(0.5F);
         jpAlta.setAlignmentY(0.1F);
-        jpAlta.setMaximumSize(new java.awt.Dimension(250, 3600));
-        jpAlta.setMinimumSize(new java.awt.Dimension(250, 128));
-        jpAlta.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpAlta.setMaximumSize(new java.awt.Dimension(225, 3600));
+        jpAlta.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpAlta.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpAlta.setRequestFocusEnabled(false);
         jpAlta.setLayout(new javax.swing.BoxLayout(jpAlta, javax.swing.BoxLayout.Y_AXIS));
 
@@ -171,9 +171,9 @@ public final class QueuePopScreen extends PassControlPanel
         jpMedia.setBackground(java.awt.Color.lightGray);
         jpMedia.setForeground(java.awt.Color.darkGray);
         jpMedia.setAlignmentY(0.1F);
-        jpMedia.setMaximumSize(new java.awt.Dimension(250, 3600));
-        jpMedia.setMinimumSize(new java.awt.Dimension(250, 128));
-        jpMedia.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpMedia.setMaximumSize(new java.awt.Dimension(225, 3600));
+        jpMedia.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpMedia.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpMedia.setRequestFocusEnabled(false);
         jpMedia.setLayout(new javax.swing.BoxLayout(jpMedia, javax.swing.BoxLayout.Y_AXIS));
 
@@ -188,9 +188,9 @@ public final class QueuePopScreen extends PassControlPanel
 
         jpBaixa.setForeground(java.awt.Color.darkGray);
         jpBaixa.setAlignmentY(0.1F);
-        jpBaixa.setMaximumSize(new java.awt.Dimension(250, 3600));
-        jpBaixa.setMinimumSize(new java.awt.Dimension(250, 128));
-        jpBaixa.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpBaixa.setMaximumSize(new java.awt.Dimension(225, 3600));
+        jpBaixa.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpBaixa.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpBaixa.setRequestFocusEnabled(false);
         jpBaixa.setLayout(new javax.swing.BoxLayout(jpBaixa, javax.swing.BoxLayout.Y_AXIS));
 
@@ -205,11 +205,10 @@ public final class QueuePopScreen extends PassControlPanel
 
         jpMinima.setBackground(java.awt.Color.lightGray);
         jpMinima.setForeground(java.awt.Color.darkGray);
-        jpMinima.setAlignmentX(0.5F);
         jpMinima.setAlignmentY(0.1F);
-        jpMinima.setMaximumSize(new java.awt.Dimension(250, 3600));
-        jpMinima.setMinimumSize(new java.awt.Dimension(250, 128));
-        jpMinima.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpMinima.setMaximumSize(new java.awt.Dimension(225, 3600));
+        jpMinima.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpMinima.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpMinima.setRequestFocusEnabled(false);
         jpMinima.setLayout(new javax.swing.BoxLayout(jpMinima, javax.swing.BoxLayout.Y_AXIS));
 
@@ -251,11 +250,11 @@ public final class QueuePopScreen extends PassControlPanel
             queueArea.repaint();
             queueArea.revalidate();
         }
-        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
-        {
-            //Removo todos os queue que tenho
-            arrayList.clear();
-        }
+//        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
+//        {
+//            //Removo todos os queue que tenho
+//            arrayList.clear();
+//        }
     }
     
 //    public void insertDefaultQueuesInfo()

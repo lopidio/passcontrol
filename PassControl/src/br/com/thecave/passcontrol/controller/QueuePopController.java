@@ -116,15 +116,15 @@ public class QueuePopController extends PassControlController implements QueueEl
         queueElementInfo.setEnabled(false);
         
         
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.CENTER;
+//        GridBagConstraints gbc = new GridBagConstraints();
+//        gbc.gridwidth = GridBagConstraints.CENTER;
 //         gbc.weighty = 1.0; //Uncomment this line if you want the labels to spread vertically
         
         //Aramazeno na fila correta
         JPanel queueAreaToAdd = queuePopScreen.getQueuesArea().get(queuePopperNewClientAdded.getServiceBean().getPriority() - 1);
-        queueAreaToAdd.add(Box.createHorizontalGlue());
+//        queueAreaToAdd.add(Box.createHorizontalGlue());
         queueAreaToAdd.add(queueElementInfo);
-        queueAreaToAdd.add(Box.createHorizontalGlue());
+//        queueAreaToAdd.add(Box.createHorizontalGlue());
 //        queueAreaToAdd.add(new Label("botão"));
         queueAreaToAdd.revalidate();
         queueAreaToAdd.repaint();
@@ -148,7 +148,7 @@ public class QueuePopController extends PassControlController implements QueueEl
         {
             for (QueuesManagerBean queuesManagerBean : entry.getValue()) 
             {
-                QueueElementInfoSmall queueElementInfo = queuePopScreen.findQueueElementInfoFromPassNumber(queuesManagerBean.getId());
+                QueueElementInfoSmall queueElementInfo = queuePopScreen.findQueueElementInfoFromQueueElementId(queuesManagerBean.getId());
                 if (queueElementInfo != null)
                 {
                     queueElementInfo.setEnabled(true);
