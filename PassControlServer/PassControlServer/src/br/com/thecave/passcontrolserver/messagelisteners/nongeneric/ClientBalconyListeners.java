@@ -105,7 +105,7 @@ public class ClientBalconyListeners implements ClientListeners
 
     }
 
-    private static void refreshLoggedBalconySocketList() 
+    public static void refreshLoggedBalconySocketList() 
     {
         //Verifico se tem algum socket meu que não tá logado no servidor
 
@@ -332,7 +332,7 @@ public class ClientBalconyListeners implements ClientListeners
                 //Captura o nome do serviço
                 String serviceName = ServiceDAO.selectFromId(queuesManagerBean.getIdService()).getName();
                 //Captura o nome do guichê
-                String balconyName = BalconyDAO.selectFromId(queuesManagerBean.getIdBalcony()).getNumber();            
+                String balconyName = recoverClientMessage.getBalcony().getNumber();
 
                 balconyCallNextClientResponse = new BalconyShowClientMessage(clientName, serviceName, balconyName, queuesManagerBean, MessageActors.ServerActor, MessageActors.BalconyActor);
                 balconyCallNextClientResponse.setComment("Cliente recuperado com sucesso");

@@ -222,13 +222,7 @@ public class BalconyScreen extends PassControlPanel
     }//GEN-LAST:event_btEsperarActionPerformed
 
     private void btRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRecuperarActionPerformed
-        if (controller.recoverClient())
-        {
-            btChamar.setEnabled(false);
-            btEncerrar.setEnabled(true);
-            btEsperar.setEnabled(true);
-            btRepetir.setEnabled(true);        
-        }
+        controller.recoverClient();
         btRecuperar.setEnabled(false);                    
     }//GEN-LAST:event_btRecuperarActionPerformed
 

@@ -23,7 +23,6 @@ public class BalconyRecoverClientMessage extends PassControlMessage
         this.balcony = balcony;
     }
 
-x
 
     public BalconyBean getBalcony() {
         return balcony;

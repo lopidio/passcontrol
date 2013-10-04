@@ -5,6 +5,7 @@ import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyCallNextClientRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyFinalizeCurrentClient;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyRecoverClientMessage;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconySkipCurrentClient;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
@@ -80,11 +81,18 @@ public class BalconyController extends PassControlController
     {
         //Recebo um cliente para atender...
         //Mostra o cliente
+        
+        
+        //Essa função também é usada para recuperação de clientes. caso não exista cliente para ser recuperado, os atributos da mensagem serão nulos
         BalconyShowClientMessage received = (BalconyShowClientMessage) message;
         if(received.getTo() == MessageActors.BalconyActor)
         {
-            queuesManagerBean = received.getQueuesManagerBean();
-            showBalconyClient(received);
+            QueuesManagerBean bean = received.getQueuesManagerBean();
+            if (bean != null)
+            {
+                queuesManagerBean = received.getQueuesManagerBean();
+                showBalconyClient(received);
+            }
         }
     }
 
@@ -157,9 +165,9 @@ public class BalconyController extends PassControlController
     }
 
     //Recuperando algum cliente
-    public boolean recoverClient()
+    public void recoverClient()
     {
-        BalconySkipCurrentClient skipCurrentClient = new BalconySkipCurrentClient(queuesManagerBean);
+        BalconyRecoverClientMessage skipCurrentClient = new BalconyRecoverClientMessage(balconyBean);
         BalconyShowClientMessage recoveredClient = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout
                 (skipCurrentClient, BalconyShowClientMessage.class, 3000);
     
@@ -170,20 +178,11 @@ public class BalconyController extends PassControlController
         else
         {
             //Se existir algum cliente para ser recuperado
-            if(recoveredClient.getQueuesManagerBean() != null)
-            {
-                if(recoveredClient.getTo() == MessageActors.BalconyActor)
-                {
-                    queuesManagerBean = recoveredClient.getQueuesManagerBean();
-                    showBalconyClient(recoveredClient);
-                }
-                return true;
-            }
-            else
+            if(recoveredClient.getQueuesManagerBean() == null)
             {
                 JOptionPane.showMessageDialog(null, recoveredClient.getComment());
             }
+            //o else vai ser tratado pelo onReceive, é o mesmo tipo de mensagem :D
         }
-        return false;
     }
 }

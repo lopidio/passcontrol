@@ -5,6 +5,7 @@
 package br.com.thecave.passcontrolserver.communicationThread;
 
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
@@ -178,6 +179,9 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
                                 client.logoff();                            
                             removeClient(currentActor, client);
                             Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+                            
+                            //Atualiza a lista de balconys registrados
+                            ClientBalconyListeners.refreshLoggedBalconySocketList();
                         }
                         if (markToReset)
                         {

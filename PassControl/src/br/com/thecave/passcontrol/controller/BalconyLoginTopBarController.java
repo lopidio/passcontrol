@@ -25,7 +25,7 @@ public class BalconyLoginTopBarController extends PassControlController
     public void initialize()
     {
         BalconyInitRequest balconyInitRequest = new BalconyInitRequest();
-        balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 100000);
+        balconyInitResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(balconyInitRequest, BalconyInitResponse.class, 2000);
 
         if ( balconyInitResponse != null )
         {

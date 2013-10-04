@@ -225,7 +225,7 @@ public class QueuesManagerDAO
                             + " FROM TB_QUEUES_MANAGER AS TQM, " +
                             "(SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as TBTS, " +
                             " (SELECT * FROM TB_SERVICE) as TS "+
-                            "WHERE TBTS.INT_ID_SERVICE = TS.INT_ID AND TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND INT_ID_BALCONY <> " + QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID
+                            "WHERE TBTS.INT_ID_SERVICE = TS.INT_ID AND TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND TQM.INT_ID_BALCONY <> " + QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID
                     + " AND TQM.DT_CHECKOUT = 'null' ORDER BY TQM.DT_CHECKIN;";
      
             
@@ -493,10 +493,10 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT, INT_PRIORITY "
+            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT"
                             + " FROM TB_QUEUES_MANAGER AS TQM, " +
                             "(SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as TBTS " +
-                            "WHERE TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND INT_ID_BALCONY = " + QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID
+                            "WHERE TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND TQM.INT_ID_BALCONY = " + QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID
                     + " AND TQM.DT_CHECKOUT = 'null' ORDER BY TQM.DT_CHECKIN LIMIT 1;";
      
             
