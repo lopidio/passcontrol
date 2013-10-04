@@ -358,7 +358,7 @@ public class QueuesManagerDAO
 //            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
 
             stmt = conn.createStatement();
-            String sql = "SELECT MAX(DT_CHECKIN) as DT_CHECKIN, INT_ID, INT_ID_SERVICE , INT_ID_BALCONY, INT_ID_USER_CHECKIN , INT_ID_USER_CHECKOUT, INT_ID_CLIENT, DT_CHECKOUT ,TX_PASS_NUMBER FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY != 0 GROUP BY INT_ID_SERVICE;";
+            String sql = "SELECT MAX(DT_CHECKIN) as DT_CHECKIN, INT_ID, INT_ID_SERVICE , INT_ID_BALCONY, INT_ID_USER_CHECKIN , INT_ID_USER_CHECKOUT, INT_ID_CLIENT, DT_CHECKOUT ,TX_PASS_NUMBER FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY != 0 AND INT_ID_BALCONY <> "+QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID+" GROUP BY INT_ID_SERVICE;";
 
             ResultSet rs = stmt.executeQuery(sql);
             

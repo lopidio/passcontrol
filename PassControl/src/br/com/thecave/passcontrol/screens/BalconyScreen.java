@@ -200,6 +200,7 @@ public class BalconyScreen extends PassControlPanel
     {//GEN-HEADEREND:event_btEncerrarActionPerformed
         if (controller.finalizeServiceClient())
         {
+            jpQueueInfo.removeAll();
             btChamar.setEnabled(true);
             btRecuperar.setEnabled(true);
             btEncerrar.setEnabled(false);
@@ -213,6 +214,7 @@ public class BalconyScreen extends PassControlPanel
     {//GEN-HEADEREND:event_btEsperarActionPerformed
         if (controller.putClientOnWaitting())
         {
+            jpQueueInfo.removeAll();
             btChamar.setEnabled(true);
             btRecuperar.setEnabled(true);            
             btEncerrar.setEnabled(false);
@@ -222,8 +224,9 @@ public class BalconyScreen extends PassControlPanel
     }//GEN-LAST:event_btEsperarActionPerformed
 
     private void btRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRecuperarActionPerformed
-        controller.recoverClient();
+        jpQueueInfo.removeAll();
         btRecuperar.setEnabled(false);                    
+        controller.recoverClient();
     }//GEN-LAST:event_btRecuperarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

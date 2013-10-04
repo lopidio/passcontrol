@@ -16,7 +16,6 @@ import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNextElement;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -140,7 +139,7 @@ public class QueueElementHandler implements Runnable
 
         //Mando para todos os poppers
         HashMap<Socket, BalconyShowClientMessage> clientsResponse = PassControlServer.getInstance().getServer().sendMessageToClientsAndWaitForResponseOrTimeout
-                (chooseNextElement, BalconyShowClientMessage.class, 20*1000); //20 segundos
+                (chooseNextElement, BalconyShowClientMessage.class, 5*1000); //20 segundos
 
         //A resposta de algum popper
         BalconyShowClientMessage balconyShowClientMessage = null;
