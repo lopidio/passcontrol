@@ -5,7 +5,6 @@ import br.com.thecave.passcontrol.screens.admin.AdminScreen;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.topbar.BalconyLoginTopBar;
 import br.com.thecave.passcontrol.topbar.ViewerTopBar;
-import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.util.UserPermission;
 import java.util.ArrayList;

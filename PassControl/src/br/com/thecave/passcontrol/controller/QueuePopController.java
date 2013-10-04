@@ -11,6 +11,8 @@ import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNe
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperNewClientAdded;
 import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshAllRequest;
 import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshResponse;
+import java.awt.GridBagConstraints;
+import java.awt.Label;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +69,8 @@ public class QueuePopController extends PassControlController implements QueueEl
             enablePossibleChoices(addQueueElement.getManagerBeans());
         }
         else if (message instanceof QueuePopperRefreshResponse)        
-        {
+        {   
+            //Limpa tudo e começa do zero
             queuePopScreen.clearAllQueues();
             QueuePopperRefreshResponse refreshResponse = (QueuePopperRefreshResponse)message;            
             for (QueuePopperNewClientAdded queuePopperNewClientAdded  : refreshResponse.getQueuePopperNewClientAdded()) 
@@ -90,6 +93,10 @@ public class QueuePopController extends PassControlController implements QueueEl
             {
                 addBalconyShowClient(queuePopperNewClientAdded);
             }
+            for (JPanel pane: queuePopScreen.getQueuesArea())
+            {
+                System.out.println("Número de elementod do panel: " + pane.getComponentCount());
+            }
         }
         else
         {
@@ -104,11 +111,21 @@ public class QueuePopController extends PassControlController implements QueueEl
                                                                 queuePopperNewClientAdded.getServiceBean().getName(),
                                                                 queuePopperNewClientAdded.getQueuesManagerBean().getPassNumber(),
                                                                 queuePopperNewClientAdded.getBalconyNumber());
+        //O elemento já vem com o ID!!
         queueElementInfo.setQueuesManagerBean(queuePopperNewClientAdded.getQueuesManagerBean());
         queueElementInfo.setEnabled(false);
+        
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.CENTER;
+//         gbc.weighty = 1.0; //Uncomment this line if you want the labels to spread vertically
+        
         //Aramazeno na fila correta
-        Box queueAreaToAdd = queuePopScreen.getQueuesBoxArea().get(queuePopperNewClientAdded.getServiceBean().getPriority() - 1);
+        JPanel queueAreaToAdd = queuePopScreen.getQueuesArea().get(queuePopperNewClientAdded.getServiceBean().getPriority() - 1);
+        queueAreaToAdd.add(Box.createHorizontalGlue());
         queueAreaToAdd.add(queueElementInfo);
+        queueAreaToAdd.add(Box.createHorizontalGlue());
+//        queueAreaToAdd.add(new Label("botão"));
         queueAreaToAdd.revalidate();
         queueAreaToAdd.repaint();
         //Crio o evento de clique
@@ -129,10 +146,9 @@ public class QueuePopController extends PassControlController implements QueueEl
         //Seleciono só os passíveis de escolha
         for (Map.Entry<Integer, ArrayList<QueuesManagerBean>> entry : avaliableChoices.entrySet())
         {
-            Integer priority = entry.getKey();
             for (QueuesManagerBean queuesManagerBean : entry.getValue()) 
             {
-                QueueElementInfoSmall queueElementInfo = queuePopScreen.findQueueElementInfoFromPassNumber(queuesManagerBean.getPassNumber());
+                QueueElementInfoSmall queueElementInfo = queuePopScreen.findQueueElementInfoFromPassNumber(queuesManagerBean.getId());
                 if (queueElementInfo != null)
                 {
                     queueElementInfo.setEnabled(true);
@@ -147,10 +163,7 @@ public class QueuePopController extends PassControlController implements QueueEl
         //removo esse da fila
         if (queueElementInfo.isEnabled())
         {
-            Box parent = (Box) queueElementInfo.getParent();
-            //repaint e revalidate
-            parent.revalidate();
-            parent.repaint();
+            JPanel parent = (JPanel) queueElementInfo.getParent();
 
             //Informo ao servidor qual foi o meu escolhido
             BalconyShowClientMessage balconyShowClientMessage = new BalconyShowClientMessage(queueElementInfo.getClientName(),
@@ -169,6 +182,11 @@ public class QueuePopController extends PassControlController implements QueueEl
                 {
                     JOptionPane.showMessageDialog(null, confirmationResponse.getComment());
                 }
+                //Remove
+                parent.remove(queueElementInfo);
+                //repaint e revalidate
+                parent.revalidate();
+                parent.repaint();
             }
             else
             {

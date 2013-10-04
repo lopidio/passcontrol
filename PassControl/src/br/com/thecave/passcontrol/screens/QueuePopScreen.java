@@ -2,10 +2,7 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.controller.QueuePopController;
-import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 /**
@@ -15,7 +12,7 @@ import javax.swing.JPanel;
 public final class QueuePopScreen extends PassControlPanel
 {
     ArrayList<ArrayList<QueueElementInfoSmall>> queueElementInfos;
-    ArrayList<Box> queuesBoxArea;
+    ArrayList<JPanel> queuesArea;
     
     QueuePopController controller = null;
 
@@ -28,40 +25,28 @@ public final class QueuePopScreen extends PassControlPanel
         this.controller = (QueuePopController) getPanelController();
         initComponents();
         
-        jpScrollablePane.setLayout(new BoxLayout(jpScrollablePane, BoxLayout.X_AXIS)); //Talvez esse Layout seja o mais adequado
-        jpScrollablePane.setAlignmentY(TOP_ALIGNMENT);
+//        jpScrollablePane.setLayout(new BoxLayout(jpScrollablePane, BoxLayout.X_AXIS)); //Talvez esse Layout seja o mais adequado
+//        jpScrollablePane.setAlignmentY(TOP_ALIGNMENT);
 //        jpScrollablePane.setLayout(new FlowLayout());        
 
-        //5 é quantidade de prioridades
-        queuesBoxArea = new ArrayList<>(5);
-        for (int i = 0; i < 5; i++) 
-        {
-            Box newBox = Box.createVerticalBox();
-//            newBox.setForeground(Color.red);
-//            Box newBox = Box.createHorizontalBox();
-//            newBox.setLayout(new BoxLayout(newBox, BoxLayout.Y_AXIS));
-//            newBox.setAlignmentX(LEFT_ALIGNMENT);
-            queuesBoxArea.add(newBox);
-        }
+        queuesArea = new ArrayList<>(5);
+        queuesArea.add(jpMinima);
+        queuesArea.add(jpBaixa);
+        queuesArea.add(jpMedia);
+        queuesArea.add(jpAlta);
+        queuesArea.add(jpMaxima);
+
         queueElementInfos = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) 
         {
             queueElementInfos.add(new ArrayList<QueueElementInfoSmall>());
         }
-        
-        jpScrollablePane.add(Box.createHorizontalStrut(30));        
         for (int i = 0; i < 5; i++) 
         {
-            jpScrollablePane.add(queuesBoxArea.get(i));
-            jpScrollablePane.add(Box.createHorizontalStrut(30));
-            
-            
-            //Aproveito o for para instanciar isso aqui também
+            //Instancio cada um dos elementos do array anterior
             queueElementInfos.set(i, new ArrayList<QueueElementInfoSmall>());
-            
         }
-        
-        insertDefaultQueuesInfo();
+//        insertDefaultQueuesInfo();
       
     }
 
@@ -69,14 +54,14 @@ public final class QueuePopScreen extends PassControlPanel
         return queueElementInfos;
     }
 
-    public QueueElementInfoSmall findQueueElementInfoFromPassNumber(String passNumber)
+    public QueueElementInfoSmall findQueueElementInfoFromPassNumber(int queueId)
     {
         for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
         {
             for (QueueElementInfoSmall queueElementInfo : arrayList) 
             {
                 //Se for esse mesmo
-                if (queueElementInfo.getUserPass().equals(passNumber))
+                if (queueElementInfo.getQueuesManagerBean().getId() == queueId)
                 {
                     return queueElementInfo;
                 }
@@ -96,8 +81,8 @@ public final class QueuePopScreen extends PassControlPanel
         }    
     }    
     
-    public ArrayList<Box> getQueuesBoxArea() {
-        return queuesBoxArea;
+    public ArrayList<JPanel> getQueuesArea() {
+        return queuesArea;
     }
 
     public JPanel getJpScrollablePane() {
@@ -115,28 +100,156 @@ public final class QueuePopScreen extends PassControlPanel
 
         jOutterScrollPane = new javax.swing.JScrollPane();
         jpScrollablePane = new javax.swing.JPanel();
+        jpMaxima = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jpAlta = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jpMedia = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jpBaixa = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jpMinima = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setAlignmentX(0.5F);
+        setAlignmentY(0.5F);
+        setMinimumSize(new java.awt.Dimension(1350, 680));
+        setPreferredSize(new java.awt.Dimension(1350, 680));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jOutterScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jOutterScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jOutterScrollPane.setAlignmentX(0.0F);
+        jOutterScrollPane.setAlignmentY(0.0F);
+        jOutterScrollPane.setMaximumSize(new java.awt.Dimension(1200, 680));
+        jOutterScrollPane.setMinimumSize(new java.awt.Dimension(1200, 680));
+        jOutterScrollPane.setPreferredSize(new java.awt.Dimension(1200, 680));
+
+        jpScrollablePane.setAlignmentX(0.0F);
+        jpScrollablePane.setAlignmentY(0.0F);
+        jpScrollablePane.setMaximumSize(new java.awt.Dimension(1120, 3600));
+        jpScrollablePane.setMinimumSize(new java.awt.Dimension(1120, 600));
+        jpScrollablePane.setPreferredSize(new java.awt.Dimension(1100, 680));
+
+        jpMaxima.setBackground(java.awt.Color.lightGray);
+        jpMaxima.setForeground(java.awt.Color.darkGray);
+        jpMaxima.setAlignmentY(0.1F);
+        jpMaxima.setMaximumSize(new java.awt.Dimension(250, 3600));
+        jpMaxima.setMinimumSize(new java.awt.Dimension(250, 128));
+        jpMaxima.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpMaxima.setRequestFocusEnabled(false);
+        jpMaxima.setLayout(new javax.swing.BoxLayout(jpMaxima, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Prioridade Máxima:");
+        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel6.setAlignmentX(0.5F);
+        jpMaxima.add(jLabel6);
+
+        jpScrollablePane.add(jpMaxima);
+
+        jpAlta.setForeground(java.awt.Color.darkGray);
+        jpAlta.setAlignmentX(0.5F);
+        jpAlta.setAlignmentY(0.1F);
+        jpAlta.setMaximumSize(new java.awt.Dimension(250, 3600));
+        jpAlta.setMinimumSize(new java.awt.Dimension(250, 128));
+        jpAlta.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpAlta.setRequestFocusEnabled(false);
+        jpAlta.setLayout(new javax.swing.BoxLayout(jpAlta, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Prioridade Alta:");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel1.setAlignmentX(0.5F);
+        jpAlta.add(jLabel1);
+
+        jpScrollablePane.add(jpAlta);
+
+        jpMedia.setBackground(java.awt.Color.lightGray);
+        jpMedia.setForeground(java.awt.Color.darkGray);
+        jpMedia.setAlignmentY(0.1F);
+        jpMedia.setMaximumSize(new java.awt.Dimension(250, 3600));
+        jpMedia.setMinimumSize(new java.awt.Dimension(250, 128));
+        jpMedia.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpMedia.setRequestFocusEnabled(false);
+        jpMedia.setLayout(new javax.swing.BoxLayout(jpMedia, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Prioridade Média:");
+        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel8.setAlignmentX(0.5F);
+        jpMedia.add(jLabel8);
+
+        jpScrollablePane.add(jpMedia);
+
+        jpBaixa.setForeground(java.awt.Color.darkGray);
+        jpBaixa.setAlignmentY(0.1F);
+        jpBaixa.setMaximumSize(new java.awt.Dimension(250, 3600));
+        jpBaixa.setMinimumSize(new java.awt.Dimension(250, 128));
+        jpBaixa.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpBaixa.setRequestFocusEnabled(false);
+        jpBaixa.setLayout(new javax.swing.BoxLayout(jpBaixa, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Prioridade Baixa:");
+        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel7.setAlignmentX(0.5F);
+        jpBaixa.add(jLabel7);
+
+        jpScrollablePane.add(jpBaixa);
+
+        jpMinima.setBackground(java.awt.Color.lightGray);
+        jpMinima.setForeground(java.awt.Color.darkGray);
+        jpMinima.setAlignmentX(0.5F);
+        jpMinima.setAlignmentY(0.1F);
+        jpMinima.setMaximumSize(new java.awt.Dimension(250, 3600));
+        jpMinima.setMinimumSize(new java.awt.Dimension(250, 128));
+        jpMinima.setPreferredSize(new java.awt.Dimension(250, 1000));
+        jpMinima.setRequestFocusEnabled(false);
+        jpMinima.setLayout(new javax.swing.BoxLayout(jpMinima, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Prioridade Mínima:");
+        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel9.setAlignmentX(0.5F);
+        jpMinima.add(jLabel9);
+
+        jpScrollablePane.add(jpMinima);
 
         jOutterScrollPane.setViewportView(jpScrollablePane);
 
-        add(jOutterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1340, 680));
+        add(jOutterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, -1));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jOutterScrollPane;
+    private javax.swing.JPanel jpAlta;
+    private javax.swing.JPanel jpBaixa;
+    private javax.swing.JPanel jpMaxima;
+    private javax.swing.JPanel jpMedia;
+    private javax.swing.JPanel jpMinima;
     private javax.swing.JPanel jpScrollablePane;
     // End of variables declaration//GEN-END:variables
 
     public void clearAllQueues() 
     {
-        insertDefaultQueuesInfo();
+//        insertDefaultQueuesInfo();
         //Limpo todos os exibidores de fila
-        for (Box box : queuesBoxArea)
+        for (JPanel queueArea : queuesArea)
         {
-            box.removeAll();
-            box.repaint();
-            box.revalidate();
+            queueArea.removeAll();
+            queueArea.repaint();
+            queueArea.revalidate();
         }
         for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
         {
@@ -145,20 +258,20 @@ public final class QueuePopScreen extends PassControlPanel
         }
     }
     
-    public void insertDefaultQueuesInfo()
-    {
-        String[] queuePriority = {"Mínima", "Baixa", "Média", "Alta", "Máxima"};
-        for (int i = 0; i < 5; i++) 
-        {
-            //Crio um QueueInfoPanel        
-            QueueElementInfoSmall queueElementInfo = new QueueElementInfoSmall("", queuePriority[i], "", "");
-            queueElementInfo.setEnabled(false);
-            //Aramazeno na fila correta
-            Box queueAreaToAdd = queuesBoxArea.get(i);
-            queueAreaToAdd.add(queueElementInfo);
-            queueAreaToAdd.revalidate();
-            queueAreaToAdd.repaint();            
-        }
-    }
+//    public void insertDefaultQueuesInfo()
+//    {
+//        String[] queuePriority = {"Mínima", "Baixa", "Média", "Alta", "Máxima"};
+//        for (int i = 0; i < 5; i++) 
+//        {
+//            //Crio um QueueInfoPanel        
+//            QueueElementInfoSmall queueElementInfo = new QueueElementInfoSmall("", queuePriority[i], "", "");
+//            queueElementInfo.setEnabled(false);
+//            //Aramazeno na fila correta
+//            JPanel queueAreaToAdd = queuesArea.get(i);
+//            queueAreaToAdd.add(queueElementInfo);
+//            queueAreaToAdd.revalidate();
+//            queueAreaToAdd.repaint();            
+//        }
+//    }
 
 }
