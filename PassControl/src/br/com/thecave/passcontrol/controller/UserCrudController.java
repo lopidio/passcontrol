@@ -53,7 +53,7 @@ public class UserCrudController extends PassControlController
 
         for ( UserBean bean : beans )
         {
-            model.addElement(bean.getName());
+            model.addElement(bean.getLogin());
         }
         cbName.setModel(model);
     }
