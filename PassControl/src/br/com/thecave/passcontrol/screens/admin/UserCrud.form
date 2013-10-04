@@ -168,7 +168,7 @@
     <Container class="javax.swing.JPanel" name="jpSecundario">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="280" y="50" width="300" height="440"/>
+          <AbsoluteConstraints x="280" y="40" width="300" height="440"/>
         </Constraint>
       </Constraints>
 
@@ -189,8 +189,8 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbName" alignment="0" pref="208" max="32767" attributes="0"/>
-                                      <Component id="tfLogin" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="cbLoginUser" alignment="0" pref="208" max="32767" attributes="0"/>
+                                      <Component id="tfNameUser" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -226,13 +226,13 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jlNameError" max="32767" attributes="0"/>
-                      <Component id="cbName" max="32767" attributes="0"/>
+                      <Component id="cbLoginUser" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="tfLogin" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfNameUser" min="-2" max="-2" attributes="0"/>
                       <Component id="jlLoginError" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -272,7 +272,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Square721 BT" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nome do usu&#xe1;rio"/>
+            <Property name="text" type="java.lang.String" value="Login do Usu&#xe1;rio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -280,7 +280,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Square721 BT" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Login do usu&#xe1;rio"/>
+            <Property name="text" type="java.lang.String" value="Nome do usu&#xe1;rio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jbAdicionar">
@@ -297,7 +297,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbAdicionarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbName">
+        <Component class="javax.swing.JComboBox" name="cbLoginUser">
           <Properties>
             <Property name="editable" type="boolean" value="true"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -313,7 +313,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbLoginUserActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbRemove">
@@ -330,7 +330,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbRemoveActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfLogin">
+        <Component class="javax.swing.JTextField" name="tfNameUser">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Square721 BT" size="14" style="0"/>
