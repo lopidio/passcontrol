@@ -19,6 +19,7 @@ import br.com.thecave.passcontrolserver.messages.balcony.BalconyFinalizeCurrentC
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitRequest;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyInitResponse;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyLogin;
+import br.com.thecave.passcontrolserver.messages.balcony.BalconyRecoverClientMessage;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconySkipCurrentClient;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
@@ -60,6 +61,8 @@ public class ClientBalconyListeners implements ClientListeners
         server.addMessageListener(new BalconyFinalizeCurrentClientListener(), BalconyFinalizeCurrentClient.class);
         //Pular atendimento atual
         server.addMessageListener(new BalconySkipCurrentClientListener(), BalconySkipCurrentClient.class);
+        //Recupera algum atendimento, caso haja
+        server.addMessageListener(new BalconyRecoverClientMessageListener(), BalconyRecoverClientMessage.class);
         
     }
     
@@ -301,6 +304,47 @@ public class ClientBalconyListeners implements ClientListeners
                 clientsSocketAsBalcony.remove(socket);
                 refreshLoggedBalconySocketList();
             }
+        }
+    }
+
+    private static class BalconyRecoverClientMessageListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+            BalconyRecoverClientMessage recoverClientMessage = (BalconyRecoverClientMessage)message;
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+
+            //Informa ao guichê que esse cliente deve ser chamado
+            BalconyShowClientMessage balconyCallNextClientResponse = new BalconyShowClientMessage(null, null, null, null, MessageActors.ServerActor, MessageActors.BalconyActor);
+            balconyCallNextClientResponse.setComment("Não existe cliente para ser recuperado.");
+            QueuesManagerBean queuesManagerBean = QueuesManagerDAO.recoverSkippedClientFromBalcony(recoverClientMessage.getBalcony());
+            if (queuesManagerBean != null)
+            {
+            
+                String clientName = "";
+                ClientBean clientBean = ClientDAO.selectFromId(queuesManagerBean.getIdClient());
+                if (clientBean != null)
+                {
+                    clientName = clientBean.getName();
+                }
+
+                //Captura o nome do serviço
+                String serviceName = ServiceDAO.selectFromId(queuesManagerBean.getIdService()).getName();
+                //Captura o nome do guichê
+                String balconyName = BalconyDAO.selectFromId(queuesManagerBean.getIdBalcony()).getNumber();            
+
+                balconyCallNextClientResponse = new BalconyShowClientMessage(clientName, serviceName, balconyName, queuesManagerBean, MessageActors.ServerActor, MessageActors.BalconyActor);
+                balconyCallNextClientResponse.setComment("Cliente recuperado com sucesso");
+
+                //Informa ao viewer que aquele elemento foi chamado
+                BalconyShowClientMessage viewerCallNextClient = new BalconyShowClientMessage(clientName, serviceName, balconyName, queuesManagerBean, MessageActors.ServerActor, MessageActors.ViewerActor);
+                server.addBroadcastToSend(viewerCallNextClient);              
+                
+            }
+            //Envia de volta aos balconys
+            server.addResponseToSend(socket, balconyCallNextClientResponse);
+            
         }
     }
     

@@ -478,4 +478,55 @@ public class QueuesManagerDAO
           return null;
         }  
     }
+
+    public static QueuesManagerBean recoverSkippedClientFromBalcony(BalconyBean balconyBean) 
+    {
+        QueuesManagerBean retorno = null;
+        try
+        {
+        // pegar a conexão com o banco
+            Connection conn = ConnectionDataBase.getInstance().getConnection();
+            if(conn == null)
+                return null;
+            
+            Statement stmt;
+            conn.setAutoCommit(false);
+
+            stmt = conn.createStatement();
+            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT, INT_PRIORITY "
+                            + " FROM TB_QUEUES_MANAGER AS TQM, " +
+                            "(SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as TBTS " +
+                            "WHERE TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND INT_ID_BALCONY = " + QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID
+                    + " AND TQM.DT_CHECKOUT = 'null' ORDER BY TQM.DT_CHECKIN LIMIT 1;";
+     
+            
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next())
+            {
+                retorno = new QueuesManagerBean();
+                retorno.setId(rs.getInt("TQM.INT_ID"));
+                retorno.setIdService(rs.getInt("TQM.INT_ID_SERVICE"));
+                retorno.setIdBalcony(rs.getInt("TQM.INT_ID_BALCONY"));
+                retorno.setIdUserCheckin(rs.getInt("TQM.INT_ID_USER_CHECKIN"));
+                retorno.setIdUserCheckout(rs.getInt("TQM.INT_ID_USER_CHECKOUT"));
+                retorno.setIdClient(rs.getInt("TQM.INT_ID_CLIENT"));
+                retorno.setCheckin(rs.getString("TQM.DT_CHECKIN"));
+                retorno.setPassNumber(rs.getString("TQM.TX_PASS_NUMBER"));                
+                retorno.setCheckout(rs.getString("TQM.DT_CHECKOUT"));
+            }
+            
+        
+            stmt.close();
+            conn.close();
+            return retorno;
+        }
+        catch ( Exception e ) 
+        {
+            e.printStackTrace();
+            //TODO: logar erro
+          ConnectionDataBase.getInstance().closeConnection();
+          return null;
+        }  
+        
+    }
 }

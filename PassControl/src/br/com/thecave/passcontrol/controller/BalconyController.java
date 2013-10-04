@@ -155,4 +155,35 @@ public class BalconyController extends PassControlController
         }
         return false;
     }
+
+    //Recuperando algum cliente
+    public boolean recoverClient()
+    {
+        BalconySkipCurrentClient skipCurrentClient = new BalconySkipCurrentClient(queuesManagerBean);
+        BalconyShowClientMessage recoveredClient = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout
+                (skipCurrentClient, BalconyShowClientMessage.class, 3000);
+    
+        if(recoveredClient == null)
+        {
+            JOptionPane.showMessageDialog(null, "Conexão com o servidor comprometida!");
+        }
+        else
+        {
+            //Se existir algum cliente para ser recuperado
+            if(recoveredClient.getQueuesManagerBean() != null)
+            {
+                if(recoveredClient.getTo() == MessageActors.BalconyActor)
+                {
+                    queuesManagerBean = recoveredClient.getQueuesManagerBean();
+                    showBalconyClient(recoveredClient);
+                }
+                return true;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, recoveredClient.getComment());
+            }
+        }
+        return false;
+    }
 }
