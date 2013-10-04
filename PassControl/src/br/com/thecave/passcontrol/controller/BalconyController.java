@@ -81,8 +81,11 @@ public class BalconyController extends PassControlController
         //Recebo um cliente para atender...
         //Mostra o cliente
         BalconyShowClientMessage received = (BalconyShowClientMessage) message;
-        queuesManagerBean = received.getQueuesManagerBean();
-        showBalconyClient(received);
+        if(received.getTo() == MessageActors.BalconyActor)
+        {
+            queuesManagerBean = received.getQueuesManagerBean();
+            showBalconyClient(received);
+        }
     }
 
     @Override
