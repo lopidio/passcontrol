@@ -49,7 +49,7 @@ public class PassControlServer {
             i /= alphabet.length();
         }
         prefixCode += "-";
-        int id = QueuesManagerDAO.getCountOfClientsOfServiceToday(addQueueElement.getServiceBean().getId());
+        int id = QueuesManagerDAO.getCountClientsOfService(addQueueElement.getServiceBean().getId())%100; //MOD 100
         return prefixCode+id;
     }
     

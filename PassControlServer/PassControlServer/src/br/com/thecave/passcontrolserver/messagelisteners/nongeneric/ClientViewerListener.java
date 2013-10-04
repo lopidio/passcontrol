@@ -45,7 +45,7 @@ public class ClientViewerListener  implements ClientListeners
             //Informo ao server que quero todos os últimos clientes de hoje de cada serviço
             //Respondo ao cliente
             ArrayList<BalconyShowClientMessage> showClientMessages = new ArrayList<>();
-            ArrayList<QueuesManagerBean> lastCalledClients = QueuesManagerDAO.selectLastCalledClientsFromEachServicesToday();
+            ArrayList<QueuesManagerBean> lastCalledClients = QueuesManagerDAO.selectLastCalledClientsFromEachServices();
             for (QueuesManagerBean queuesManagerBean : lastCalledClients) 
             {
                 

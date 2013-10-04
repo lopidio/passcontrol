@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -221,16 +220,13 @@ public class QueuesManagerDAO
             Statement stmt;
             conn.setAutoCommit(false);
 
-            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
-            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D            
-            
             stmt = conn.createStatement();
             String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT, INT_PRIORITY "
                             + " FROM TB_QUEUES_MANAGER AS TQM, " +
                             "(SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as TBTS, " +
                             " (SELECT * FROM TB_SERVICE) as TS "+
-                            "WHERE TBTS.INT_ID_SERVICE = TS.INT_ID AND TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND DT_CHECKIN LIKE '" + today
-                    + "' AND TQM.DT_CHECKOUT = 'null' ORDER BY TQM.DT_CHECKIN;";
+                            "WHERE TBTS.INT_ID_SERVICE = TS.INT_ID AND TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND INT_ID_BALCONY <> " + QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID
+                    + " AND TQM.DT_CHECKOUT = 'null' ORDER BY TQM.DT_CHECKIN;";
      
             
             ResultSet rs = stmt.executeQuery(sql);
@@ -309,7 +305,7 @@ public class QueuesManagerDAO
         }  
     }    
 
-    public static int getCountOfClientsOfServiceToday(int serviceId)
+    public static int getCountClientsOfService(int serviceId)
     {
         int retorno = 0;
         try
@@ -322,11 +318,8 @@ public class QueuesManagerDAO
             Statement stmt;
             conn.setAutoCommit(false);
             
-            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
-            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
-
             stmt = conn.createStatement();
-            String sql = "SELECT COUNT(*) as COUNT FROM TB_QUEUES_MANAGER WHERE INT_ID_SERVICE = "+serviceId+" AND DT_CHECKIN LIKE '" +  today + "';";
+            String sql = "SELECT COUNT(*) as COUNT FROM TB_QUEUES_MANAGER WHERE INT_ID_SERVICE = "+serviceId+";";
 
             ResultSet rs = stmt.executeQuery(sql);
             
@@ -349,7 +342,7 @@ public class QueuesManagerDAO
         
     }
 
-    public static ArrayList<QueuesManagerBean> selectLastCalledClientsFromEachServicesToday() {
+    public static ArrayList<QueuesManagerBean> selectLastCalledClientsFromEachServices() {
         ArrayList<QueuesManagerBean> retorno = new ArrayList<>();
         try
         {
@@ -361,11 +354,11 @@ public class QueuesManagerDAO
             Statement stmt;
             conn.setAutoCommit(false);
             
-            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
-            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
+//            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
+//            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
 
             stmt = conn.createStatement();
-            String sql = "SELECT MAX(DT_CHECKIN) as DT_CHECKIN, INT_ID, INT_ID_SERVICE , INT_ID_BALCONY, INT_ID_USER_CHECKIN , INT_ID_USER_CHECKOUT, INT_ID_CLIENT, DT_CHECKOUT ,TX_PASS_NUMBER FROM TB_QUEUES_MANAGER WHERE DT_CHECKIN LIKE  '"+today+"' AND INT_ID_BALCONY != 0 GROUP BY INT_ID_SERVICE;";
+            String sql = "SELECT MAX(DT_CHECKIN) as DT_CHECKIN, INT_ID, INT_ID_SERVICE , INT_ID_BALCONY, INT_ID_USER_CHECKIN , INT_ID_USER_CHECKOUT, INT_ID_CLIENT, DT_CHECKOUT ,TX_PASS_NUMBER FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY != 0 GROUP BY INT_ID_SERVICE;";
 
             ResultSet rs = stmt.executeQuery(sql);
             
@@ -397,7 +390,7 @@ public class QueuesManagerDAO
         }  
     }
 
-    public static QueuesManagerBean selectBeanFromPassNumberToday(String passNumber) 
+    public static QueuesManagerBean selectLastInsertedBean() 
     {
         QueuesManagerBean bean = null;
         try
@@ -410,11 +403,8 @@ public class QueuesManagerDAO
             Statement stmt;
             conn.setAutoCommit(false);
 
-            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
-            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
-            
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE TX_PASS_NUMBER='"+passNumber+"' AND DT_CHECKIN LIKE '"+today+"';";
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER ORDER BY INT_ID DESC LIMIT 1;";
 
             ResultSet rs = stmt.executeQuery(sql);
             
@@ -444,7 +434,7 @@ public class QueuesManagerDAO
         }  
     }
 
-    public static ArrayList<QueuesManagerBean> selectAllClientsWaitingtoday() 
+    public static ArrayList<QueuesManagerBean> selectAllClientsWaiting() 
     {
         ArrayList<QueuesManagerBean> retorno = new ArrayList<>();
         try
@@ -457,11 +447,8 @@ public class QueuesManagerDAO
             Statement stmt;
             conn.setAutoCommit(false);
 
-            SimpleDateFormat todayFormatter = new SimpleDateFormat("yyyyMMdd");
-            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
-            
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY=0 AND DT_CHECKIN LIKE '"+today+"';";
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE DT_CHECKOUT = 'null';";
 
             ResultSet rs = stmt.executeQuery(sql);
             

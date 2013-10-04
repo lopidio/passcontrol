@@ -37,7 +37,7 @@ public class ClientQueuePopperListener implements ClientListeners
     {
             ArrayList<QueuePopperNewClientAdded> waitingClients = new ArrayList<>();
             
-            ArrayList<QueuesManagerBean> queuesManagerBeanList = QueuesManagerDAO.selectAllClientsWaitingtoday();
+            ArrayList<QueuesManagerBean> queuesManagerBeanList = QueuesManagerDAO.selectAllClientsWaiting();
             for (QueuesManagerBean queuesManagerBean : queuesManagerBeanList) 
             {
                 ServiceBean serviceBean = ServiceDAO.selectFromId(queuesManagerBean.getIdService());

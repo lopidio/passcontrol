@@ -29,6 +29,7 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListe
 import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -212,44 +213,7 @@ public class ClientBalconyListeners implements ClientListeners
         }
 
     }  
-//    private static class BalconyShowClientInitListener implements PassControlMessageListener
-//    {
-//
-//        @Override
-//        public void onMessageReceive(PassControlMessage message, Socket socket) 
-//        {
-//            BalconyShowClientInit balconyShowClientInit = (BalconyShowClientInit)message;
-//            QueuesManagerBean queuesManagerBean = balconyShowClientInit.getQueuesManagerBean();
-//
-//            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-//
-//            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, balconyShowClientInit, MessageActors.BalconyActor);
-//
-//            //Verifico se esse cliente ainda não foi chamado por nenhum outro guichê
-//            if (QueuesManagerDAO.selectFromId(queuesManagerBean.getId()).getIdBalcony() == 0)
-//            {
-//                //Se a atualização tiver sido bem sucedida
-//                if (QueuesManagerDAO.update(queuesManagerBean))
-//                {                
-//                    //Informa à todos os QueuePoppers que esse Cliente foi chamado
-//                    balconyShowClientInit.setTo(MessageActors.QueuePopActor);
-//                    server.addBroadcastToSend(balconyShowClientInit);
-//
-//                    //Informa à todos os visualizadores que esse Cliente foi chamado
-//                    balconyShowClientInit.setTo(MessageActors.ViewerActor);
-//                    server.addBroadcastToSend(balconyShowClientInit);                
-//                }
-//            }
-//            else
-//            {
-//                confirmationResponse.setStatusOperation(false);                
-//                confirmationResponse.setComment("Cliente já atendido por outro guichê");
-//            }
-//            server.addResponseToSend(socket, confirmationResponse);
-//
-//        }
-//
-//    }    
+
     
     //Envia o elemento de volta para o balcony
     public static void sendBackElementQueueToBalcony(Socket socket, QueuesManagerBean queuesManagerBean)
@@ -292,9 +256,15 @@ public class ClientBalconyListeners implements ClientListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
             //O atendimento foi finalizado
-            //Não sei o que fazer aqui. :D
-            
-            //A não ser que criemos uma coluna HoraEncerramento, ou coisa parecida...
+            BalconyFinalizeCurrentClient finalizeCurrentClient = (BalconyFinalizeCurrentClient)message;
+            //Seto a hora da finalização
+            finalizeCurrentClient.getQueuesManagerBean().setCheckout(QueuesManagerDAO.dateFormat.format(new Date()));
+
+            //salvo as alterações no banco.
+            boolean status = QueuesManagerDAO.update(finalizeCurrentClient.getQueuesManagerBean());        
+            ConfirmationResponse response = new ConfirmationResponse(status, finalizeCurrentClient, MessageActors.BalconyActor);
+            ServerCommunicationThread server = PassControlServer.getInstance().getServer();
+            server.addResponseToSend(socket, response);
         }
     }
 

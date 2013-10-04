@@ -65,7 +65,7 @@ public class ClientQueuePusherListener implements ClientListeners
             
             QueuesManagerDAO.insert(queuesManagerBean);
             //recupero o ID do bicho
-            queuesManagerBean = QueuesManagerDAO.selectBeanFromPassNumberToday(passNumber);
+            queuesManagerBean = QueuesManagerDAO.selectLastInsertedBean();
             
             //Informo ao pusher que deu certo!!
             BalconyShowClientMessage response = new BalconyShowClientMessage(clientName, addQueueElement.getServiceBean().getName(), null, queuesManagerBean, MessageActors.ServerActor, MessageActors.QueuePushActor);
