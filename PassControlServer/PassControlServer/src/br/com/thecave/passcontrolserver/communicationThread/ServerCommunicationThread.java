@@ -340,76 +340,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
         //insere a lista novamente
         map.put(actorKey, listaDeClientesDoMesmoTipo);
         
-    }
-    
-    /**
-     * 
-     * @param <Message> Classe da mensagem que deve ser recebida
-     * @param message Mensagem a ser passada por parâmetro
-     * @param clazz Classe da mensagem que deve ser recebida
-     * @return Um mapa de Socket-Mensagem
-     */
-    public <Message extends PassControlMessage> HashMap<Socket, Message> sendMessageToClientsAndWaitForResponse(PassControlMessage message, Class<Message> clazz)
-    {
-        GenericBufferPassControlMessageListener listener = new GenericBufferPassControlMessageListener(clientsList.get(message.getTo()).size());
-
-        addMessageListener(listener, clazz);
-        addBroadcastToSend(message);
-        while (true)//Espera infinitamente 
-        {          
-            if (listener.hasReceivedAllMessages())
-            {
-                break;
-            }
-            else
-            {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        removeListener(listener, clazz);
-
-        return (HashMap<Socket, Message>)listener.getMessagesReceived();
-    }
-    
-    /**
-     * 
-     * @param <Message> Classe da mensagem que deve ser recebida
-     * @param message Mensagem a ser passada por parâmetro
-     * @param clazz Classe da mensagem que deve ser recebida
-     * @param timeout in milliseconds
-     * @return Um mapa de Socket-Mensagem
-     */
-    public <Message extends PassControlMessage> HashMap<Socket, Message> sendMessageToClientsAndWaitForResponseOrTimeout(PassControlMessage message, Class<Message> clazz, long timeout)
-    {
-        GenericBufferPassControlMessageListener listener = new GenericBufferPassControlMessageListener(clientsList.get(message.getTo()).size());
-
-        addMessageListener(listener, clazz);
-        Watchdog timeOutWatcher = new Watchdog(timeout);
-        addBroadcastToSend(message);
-        while (!timeOutWatcher.hasTimedOut()) //Enquanto não der timeout
-        {          
-            if (listener.hasReceivedAllMessages())
-            {
-                break;
-            }
-            else
-            {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(PassControlCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        removeListener(listener, clazz);
-
-        return (HashMap<Socket, Message>)listener.getMessagesReceived();
-    }
-    
+    }  
     
     private void repositionClient(MessageActors currentActor, MessageActors newActor, ClientUserSocketPair client) {
         //Remove da lista anterior e adiciona na nova lista

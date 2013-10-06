@@ -78,6 +78,9 @@ public class PassControlServer {
         new Thread(server).start();
         new Thread(QueueElementHandler.getInstance()).start();
         
+        //Inicializa a tread controladora de escolhas de clientes
+        QueueElementHandler.getInstance().initialize();
+        
         Integer count = 0;
         while(true)
         {
