@@ -111,14 +111,14 @@ public final class QueuePopScreen extends PassControlPanel
         jpOutterScrollPane = new javax.swing.JScrollPane();
         jpScrollablePane = new javax.swing.JPanel();
         jpMaxima = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jpAlta = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jpMedia = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         jpBaixa = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jpMinima = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -132,11 +132,6 @@ public final class QueuePopScreen extends PassControlPanel
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel3.setText("Guichê em espera:");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         jpOutterScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -148,104 +143,98 @@ public final class QueuePopScreen extends PassControlPanel
         jpScrollablePane.setMinimumSize(new java.awt.Dimension(1120, 600));
         jpScrollablePane.setPreferredSize(new java.awt.Dimension(1100, 680));
 
-        jpMaxima.setBackground(java.awt.Color.lightGray);
+        jpMaxima.setBackground(new java.awt.Color(0, 153, 191));
+        jpMaxima.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpMaxima.setForeground(java.awt.Color.darkGray);
         jpMaxima.setAlignmentY(0.1F);
-        jpMaxima.setMaximumSize(new java.awt.Dimension(225, 3600));
-        jpMaxima.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpMaxima.setMaximumSize(new java.awt.Dimension(210, 8800));
+        jpMaxima.setMinimumSize(new java.awt.Dimension(210, 128));
         jpMaxima.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpMaxima.setRequestFocusEnabled(false);
         jpMaxima.setLayout(new javax.swing.BoxLayout(jpMaxima, javax.swing.BoxLayout.Y_AXIS));
-
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Prioridade Máxima:");
-        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel6.setAlignmentX(0.5F);
-        jpMaxima.add(jLabel6);
-
         jpScrollablePane.add(jpMaxima);
 
+        jpAlta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpAlta.setForeground(java.awt.Color.darkGray);
         jpAlta.setAlignmentY(0.1F);
-        jpAlta.setMaximumSize(new java.awt.Dimension(225, 3600));
-        jpAlta.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpAlta.setMaximumSize(new java.awt.Dimension(210, 8800));
+        jpAlta.setMinimumSize(new java.awt.Dimension(210, 128));
         jpAlta.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpAlta.setRequestFocusEnabled(false);
         jpAlta.setLayout(new javax.swing.BoxLayout(jpAlta, javax.swing.BoxLayout.Y_AXIS));
-
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Prioridade Alta:");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel1.setAlignmentX(0.5F);
-        jpAlta.add(jLabel1);
-
         jpScrollablePane.add(jpAlta);
 
-        jpMedia.setBackground(java.awt.Color.lightGray);
+        jpMedia.setBackground(new java.awt.Color(0, 153, 191));
+        jpMedia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpMedia.setForeground(java.awt.Color.darkGray);
         jpMedia.setAlignmentY(0.1F);
-        jpMedia.setMaximumSize(new java.awt.Dimension(225, 3600));
-        jpMedia.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpMedia.setMaximumSize(new java.awt.Dimension(210, 8800));
+        jpMedia.setMinimumSize(new java.awt.Dimension(210, 128));
         jpMedia.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpMedia.setRequestFocusEnabled(false);
         jpMedia.setLayout(new javax.swing.BoxLayout(jpMedia, javax.swing.BoxLayout.Y_AXIS));
-
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Prioridade Média:");
-        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel8.setAlignmentX(0.5F);
-        jpMedia.add(jLabel8);
-
         jpScrollablePane.add(jpMedia);
 
+        jpBaixa.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpBaixa.setForeground(java.awt.Color.darkGray);
         jpBaixa.setAlignmentY(0.1F);
-        jpBaixa.setMaximumSize(new java.awt.Dimension(225, 3600));
-        jpBaixa.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpBaixa.setMaximumSize(new java.awt.Dimension(210, 8800));
+        jpBaixa.setMinimumSize(new java.awt.Dimension(210, 128));
         jpBaixa.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpBaixa.setRequestFocusEnabled(false);
         jpBaixa.setLayout(new javax.swing.BoxLayout(jpBaixa, javax.swing.BoxLayout.Y_AXIS));
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Prioridade Baixa:");
-        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel7.setAlignmentX(0.5F);
-        jpBaixa.add(jLabel7);
-
         jpScrollablePane.add(jpBaixa);
 
-        jpMinima.setBackground(java.awt.Color.lightGray);
+        jpMinima.setBackground(new java.awt.Color(0, 153, 191));
+        jpMinima.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpMinima.setForeground(java.awt.Color.darkGray);
         jpMinima.setAlignmentY(0.1F);
-        jpMinima.setMaximumSize(new java.awt.Dimension(225, 3600));
-        jpMinima.setMinimumSize(new java.awt.Dimension(225, 128));
+        jpMinima.setMaximumSize(new java.awt.Dimension(210, 8800));
+        jpMinima.setMinimumSize(new java.awt.Dimension(210, 128));
         jpMinima.setPreferredSize(new java.awt.Dimension(225, 1000));
         jpMinima.setRequestFocusEnabled(false);
         jpMinima.setLayout(new javax.swing.BoxLayout(jpMinima, javax.swing.BoxLayout.Y_AXIS));
-
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Prioridade Mínima:");
-        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel9.setAlignmentX(0.5F);
-        jpMinima.add(jLabel9);
-
         jpScrollablePane.add(jpMinima);
 
         jpOutterScrollPane.setViewportView(jpScrollablePane);
 
         add(jpOutterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 1210, 450));
-    }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-            System.out.println("Tamanho exterior: " + getJpOutterScrollPane().getHeight());
-            System.out.println("Tamanho interior: " + getJpScrollablePane().getHeight());
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseClicked
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Prioridade Máxima");
+        jLabel6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel6.setAlignmentX(0.5F);
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Prioridade Alta");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel1.setAlignmentX(0.5F);
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Prioridade Média");
+        jLabel8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel8.setAlignmentX(0.5F);
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Prioridade Baixa");
+        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel7.setAlignmentX(0.5F);
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 60, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 17)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Prioridade Mínima");
+        jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel9.setAlignmentX(0.5F);
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 60, -1, -1));
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

@@ -207,6 +207,8 @@ public class QueueElementHandler implements Runnable
                     //Verifica se o guichê ainda está em uso
                     if (ClientBalconyListeners.getLoggedBalconysID().get(balconyBean.getId()) == null)
                     {
+                        //Vai ter que mandar a mensagem novamente na próxima iteração
+                        wasMessageSent = false;
                         System.out.println("QueueHandler::Guichê: [" + balconyBean.getNumber()+ "] não está mais esperando (desapareceu?)");                        
                         waitingBalconys.remove(balconyBean);                         
                         break;
