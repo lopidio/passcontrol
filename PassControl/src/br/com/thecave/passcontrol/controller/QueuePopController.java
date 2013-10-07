@@ -64,6 +64,8 @@ public class QueuePopController extends PassControlController implements QueueEl
             
             //Informo quais o usuário pode escolher
             enablePossibleChoices(addQueueElement.getManagerBeans());
+            
+            queuePopScreen.setWaitingBalconyName(addQueueElement.getBalconyBean().getNumber());
         }
         else if (message instanceof QueuePopperRefreshResponse)        
         {   
@@ -90,10 +92,7 @@ public class QueuePopController extends PassControlController implements QueueEl
             {
                 addBalconyShowClient(queuePopperNewClientAdded);
             }
-            for (JPanel pane: queuePopScreen.getQueuesArea())
-            {
-                System.out.println("Número de elementos do panel: " + pane.getComponentCount());
-            }
+
         }
         else
         {
@@ -158,8 +157,6 @@ public class QueuePopController extends PassControlController implements QueueEl
         //removo esse da fila
         if (queueElementInfo.isEnabled())
         {
-            JPanel parent = (JPanel) queueElementInfo.getParent();
-
             //Informo ao servidor qual foi o meu escolhido
             BalconyShowClientMessage balconyShowClientMessage = new BalconyShowClientMessage(queueElementInfo.getClientName(),
                     queueElementInfo.getQueueName(), queueElementInfo.getBalconyName(), queueElementInfo.getQueuesManagerBean(), MessageActors.QueuePopActor, MessageActors.ServerActor);
@@ -179,10 +176,6 @@ public class QueuePopController extends PassControlController implements QueueEl
                 }
                 //Remove
                 queuePopScreen.getQueueElementsInfo().remove(queueElementInfo);
-                parent.remove(queueElementInfo);
-                //repaint e revalidate
-                parent.revalidate();
-                parent.repaint();
             }
             else
             {

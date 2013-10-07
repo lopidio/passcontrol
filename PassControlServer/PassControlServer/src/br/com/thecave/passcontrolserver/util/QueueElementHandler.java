@@ -10,7 +10,6 @@ import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
-import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePusherListener;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
@@ -50,11 +49,6 @@ public class QueueElementHandler implements Runnable
     private final ConcurrentHashMap<BalconyBean, Socket> waitingBalconys;
     
     /**
-     * Lista de clientes logados como queue pop
-     */
-    private ArrayList<Socket> queuePopLoggedClients;
-    
-    /**
      * Cliente escolhido através do queue pop
      */
     private BalconyShowClientMessage chosenClient;    
@@ -89,7 +83,6 @@ public class QueueElementHandler implements Runnable
         this.automaticChooseOn = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile().isGerenciamentoAutomatico();
         this.nextPriority = 3; //Alta
         waitingBalconys = new ConcurrentHashMap<>(); //
-        queuePopLoggedClients = new ArrayList<>();
     }
     
     public void initialize()
@@ -181,11 +174,7 @@ public class QueueElementHandler implements Runnable
             chosenClient = null;
             chooseNextElementMessage = new QueuePopperChooseNextElement(balconyBean, avaliableClients);
 
-            //Mando para todos os poppers cadastrados
-            for (Socket socket : queuePopLoggedClients)
-            {
-                PassControlServer.getInstance().getServer().addResponseToSend(socket, chooseNextElementMessage);
-            }
+            PassControlServer.getInstance().getServer().addBroadcastToSend(chooseNextElementMessage);
         }
         
         wasMessageSent = true;
@@ -280,13 +269,8 @@ public class QueueElementHandler implements Runnable
             //Insere
             if (changeActorMessage.getFrom() == MessageActors.QueuePopActor)
             {
-               getInstance().queuePopLoggedClients.add(socket);
                //Informo que a mensagem deve ser reenviada
                getInstance().wasMessageSent = false;
-            }
-            else if (changeActorMessage.getOldActor() == MessageActors.QueuePopActor)
-            {
-                getInstance().queuePopLoggedClients.remove(socket);
             }
         }
     }      

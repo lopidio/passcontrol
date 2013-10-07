@@ -5,6 +5,7 @@ import br.com.thecave.passcontrol.controller.QueuePopController;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -105,7 +106,9 @@ public final class QueuePopScreen extends PassControlPanel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jOutterScrollPane = new javax.swing.JScrollPane();
+        jlWaitingBalcony = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jpOutterScrollPane = new javax.swing.JScrollPane();
         jpScrollablePane = new javax.swing.JPanel();
         jpMaxima = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -123,13 +126,21 @@ public final class QueuePopScreen extends PassControlPanel
         setPreferredSize(new java.awt.Dimension(1350, 680));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jOutterScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jOutterScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jOutterScrollPane.setAlignmentX(0.0F);
-        jOutterScrollPane.setAlignmentY(0.0F);
-        jOutterScrollPane.setMaximumSize(new java.awt.Dimension(1200, 680));
-        jOutterScrollPane.setMinimumSize(new java.awt.Dimension(1200, 680));
-        jOutterScrollPane.setPreferredSize(new java.awt.Dimension(1200, 680));
+        jlWaitingBalcony.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jlWaitingBalcony.setText("-");
+        add(jlWaitingBalcony, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 260, -1));
+
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel3.setText("Guichê em espera:");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jpOutterScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jpOutterScrollPane.setViewportBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jpScrollablePane.setAlignmentX(0.0F);
         jpScrollablePane.setAlignmentY(0.0F);
@@ -139,7 +150,6 @@ public final class QueuePopScreen extends PassControlPanel
 
         jpMaxima.setBackground(java.awt.Color.lightGray);
         jpMaxima.setForeground(java.awt.Color.darkGray);
-        jpMaxima.setAlignmentX(0.5F);
         jpMaxima.setAlignmentY(0.1F);
         jpMaxima.setMaximumSize(new java.awt.Dimension(225, 3600));
         jpMaxima.setMinimumSize(new java.awt.Dimension(225, 128));
@@ -226,22 +236,31 @@ public final class QueuePopScreen extends PassControlPanel
 
         jpScrollablePane.add(jpMinima);
 
-        jOutterScrollPane.setViewportView(jpScrollablePane);
+        jpOutterScrollPane.setViewportView(jpScrollablePane);
 
-        add(jOutterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, -1));
+        add(jpOutterScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 1210, 450));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+            System.out.println("Tamanho exterior: " + getJpOutterScrollPane().getHeight());
+            System.out.println("Tamanho interior: " + getJpScrollablePane().getHeight());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel3MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jOutterScrollPane;
+    private javax.swing.JLabel jlWaitingBalcony;
     private javax.swing.JPanel jpAlta;
     private javax.swing.JPanel jpBaixa;
     private javax.swing.JPanel jpMaxima;
     private javax.swing.JPanel jpMedia;
     private javax.swing.JPanel jpMinima;
+    private javax.swing.JScrollPane jpOutterScrollPane;
     private javax.swing.JPanel jpScrollablePane;
     // End of variables declaration//GEN-END:variables
 
@@ -260,7 +279,16 @@ public final class QueuePopScreen extends PassControlPanel
             queueArea.repaint();
             queueArea.revalidate();
         }
+        jlWaitingBalcony.setText("-");
+    }
+
+    public void setWaitingBalconyName(String number)
+    {
+        jlWaitingBalcony.setText(number);
+    }
+
+    public JScrollPane getJpOutterScrollPane() {
+        return jpOutterScrollPane;
     }
     
-
 }
