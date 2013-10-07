@@ -305,10 +305,7 @@ public class QueueElementHandler implements Runnable
             if (queuesManagerBean.getIdBalcony() == 0 ) //Não foi escolhido ainda
             {
                 confirmationResponse.setStatusOperation(true);
-                synchronized (getInstance().chosenClient)
-                {
-                    getInstance().chosenClient = (BalconyShowClientMessage)message;
-                }                
+                getInstance().chosenClient = (BalconyShowClientMessage)message;
             }
             else
             {

@@ -2,6 +2,7 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.controller.QueuePopController;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -247,35 +248,19 @@ public final class QueuePopScreen extends PassControlPanel
     public void clearAllQueues() 
     {
         queueElementsInfo.clear();
-//        insertDefaultQueuesInfo();
         //Limpo todos os exibidores de fila
         for (JPanel queueArea : queuesArea)
         {
-            queueArea.removeAll();
+            for (Component component : queueArea.getComponents())
+            {
+                //Removo todos os componentes do tupo queue info small
+                if (component instanceof QueueElementInfoSmall)
+                    queueArea.remove(component);
+            }
             queueArea.repaint();
             queueArea.revalidate();
         }
-//        for (ArrayList<QueueElementInfoSmall> arrayList : queueElementInfos) 
-//        {
-//            //Removo todos os queue que tenho
-//            arrayList.clear();
-//        }
     }
     
-//    public void insertDefaultQueuesInfo()
-//    {
-//        String[] queuePriority = {"Mínima", "Baixa", "Média", "Alta", "Máxima"};
-//        for (int i = 0; i < 5; i++) 
-//        {
-//            //Crio um QueueInfoPanel        
-//            QueueElementInfoSmall queueElementsInfo = new QueueElementInfoSmall("", queuePriority[i], "", "");
-//            queueElementsInfo.setEnabled(false);
-//            //Aramazeno na fila correta
-//            JPanel queueAreaToAdd = queuesArea.get(i);
-//            queueAreaToAdd.add(queueElementsInfo);
-//            queueAreaToAdd.revalidate();
-//            queueAreaToAdd.repaint();            
-//        }
-//    }
 
 }

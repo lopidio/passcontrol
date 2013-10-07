@@ -111,11 +111,9 @@ public class QueuePopController extends PassControlController implements QueueEl
         //O elemento já vem com o ID!!
         queueElementInfo.setQueuesManagerBean(queuePopperNewClientAdded.getQueuesManagerBean());
         queueElementInfo.setEnabled(false);
-        
-        
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.gridwidth = GridBagConstraints.CENTER;
-//         gbc.weighty = 1.0; //Uncomment this line if you want the labels to spread vertically
+
+        //Adiciona na lista
+        queuePopScreen.getQueueElementsInfo().add(queueElementInfo);
         
         //Aramazeno na fila correta
         JPanel queueAreaToAdd = queuePopScreen.getQueuesArea().get(queuePopperNewClientAdded.getServiceBean().getPriority() - 1);
