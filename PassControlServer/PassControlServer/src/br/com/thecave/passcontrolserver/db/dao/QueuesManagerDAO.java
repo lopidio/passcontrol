@@ -46,6 +46,7 @@ public class QueuesManagerDAO
                                                         "INT_ID_CLIENT," +
                                                         "DT_CHECKIN," + 
                                                         "DT_CHECKOUT," + 
+                                                        "DT_BALCONY_INIT," + 
                                                         "TX_PASS_NUMBER) " +
                                                         "VALUES (" + 
                                                         bean.getIdService() + ", " + 
@@ -54,7 +55,8 @@ public class QueuesManagerDAO
                                                         bean.getIdUserCheckout() + ", " +
                                                         bean.getIdClient() + ", '" +
                                                         bean.getCheckin() + "', '" +
-                                                        bean.getCheckout() + "', " +  
+                                                        bean.getCheckout() + "', '" +
+                                                        bean.getBalconyInit()+ "', " +  
                                                         "'" + bean.getPassNumber()+ "' );";
             stmt.executeUpdate(sql);           
 
@@ -95,9 +97,9 @@ public class QueuesManagerDAO
                          ",INT_ID_CLIENT = '"+ bean.getIdClient() +
                          "',DT_CHECKIN = '" + bean.getCheckin() +
                          "',DT_CHECKOUT = '" + bean.getCheckout() +
+                         "',DT_BALCONY_INIT = '" + bean.getBalconyInit()+
                          "',TX_PASS_NUMBER = '" + bean.getPassNumber() +
                          "' WHERE INT_ID=" + bean.getId() + ";";
-
             stmt.executeUpdate(sql);
             conn.commit();          
             stmt.close();
@@ -131,7 +133,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "DELETE FROM  TB_QUEUES_MANAGER WHERE INT_ID=" + bean.getId() + ";";
+            String sql = "DELETE FROM TB_QUEUES_MANAGER WHERE INT_ID=" + bean.getId() + ";";
 
             stmt.executeUpdate(sql);
             conn.commit();          
@@ -180,6 +182,7 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setBalconyInit(rs.getString("DT_BALCONY_INIT"));
                 bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));
                 bean.setCheckout(rs.getString("DT_CHECKOUT"));
             }
@@ -221,7 +224,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT, INT_PRIORITY "
+            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT,TQM.DT_BALCONY_INIT, INT_PRIORITY "
                             + " FROM TB_QUEUES_MANAGER AS TQM, " +
                             "(SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as TBTS, " +
                             " (SELECT * FROM TB_SERVICE) as TS "+
@@ -240,6 +243,7 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckout(rs.getInt("TQM.INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("TQM.INT_ID_CLIENT"));
                 bean.setCheckin(rs.getString("TQM.DT_CHECKIN"));
+                bean.setBalconyInit(rs.getString("TQM.DT_BALCONY_INIT"));
                 bean.setPassNumber(rs.getString("TQM.TX_PASS_NUMBER"));                
                 bean.setCheckout(rs.getString("TQM.DT_CHECKOUT"));
                 int priority = rs.getInt("INT_PRIORITY");
@@ -358,7 +362,7 @@ public class QueuesManagerDAO
 //            String today = todayFormatter.format(new Date()) + "______"; //yyyymmdd hhmmss //HOJE!! :D
 
             stmt = conn.createStatement();
-            String sql = "SELECT MAX(DT_CHECKIN) as DT_CHECKIN, INT_ID, INT_ID_SERVICE , INT_ID_BALCONY, INT_ID_USER_CHECKIN , INT_ID_USER_CHECKOUT, INT_ID_CLIENT, DT_CHECKOUT ,TX_PASS_NUMBER FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY != 0 AND INT_ID_BALCONY <> "+QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID+" GROUP BY INT_ID_SERVICE;";
+            String sql = "SELECT MAX(DT_CHECKIN) as DT_CHECKIN, INT_ID, INT_ID_SERVICE , INT_ID_BALCONY, INT_ID_USER_CHECKIN , INT_ID_USER_CHECKOUT, INT_ID_CLIENT, DT_CHECKOUT, DT_BALCONY_INIT, TX_PASS_NUMBER FROM TB_QUEUES_MANAGER WHERE INT_ID_BALCONY != 0 AND INT_ID_BALCONY <> "+QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID+" GROUP BY INT_ID_SERVICE;";
 
             ResultSet rs = stmt.executeQuery(sql);
             
@@ -373,6 +377,7 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setBalconyInit(rs.getString("DT_BALCONY_INIT"));                
                 bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
                 bean.setCheckout(rs.getString("DT_CHECKOUT"));
                 retorno.add(bean);
@@ -418,6 +423,7 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setBalconyInit(rs.getString("DT_BALCONY_INIT"));                                
                 bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
                 bean.setCheckout(rs.getString("DT_CHECKOUT"));
             }
@@ -462,6 +468,7 @@ public class QueuesManagerDAO
                 bean.setIdUserCheckout(rs.getInt("INT_ID_USER_CHECKOUT"));
                 bean.setIdClient(rs.getInt("INT_ID_CLIENT"));
                 bean.setCheckin(rs.getString("DT_CHECKIN"));
+                bean.setBalconyInit(rs.getString("DT_BALCONY_INIT"));                
                 bean.setPassNumber(rs.getString("TX_PASS_NUMBER"));                
                 bean.setCheckout(rs.getString("DT_CHECKOUT"));
                 retorno.add(bean);
@@ -481,7 +488,7 @@ public class QueuesManagerDAO
 
     public static QueuesManagerBean recoverSkippedClientFromBalcony(BalconyBean balconyBean) 
     {
-        QueuesManagerBean retorno = null;
+        QueuesManagerBean bean = null;
         try
         {
         // pegar a conexão com o banco
@@ -493,7 +500,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT"
+            String sql = "SELECT TQM.INT_ID, TQM.INT_ID_SERVICE, TQM.INT_ID_BALCONY ,TQM.INT_ID_USER_CHECKIN ,TQM.INT_ID_USER_CHECKOUT ,TQM.INT_ID_CLIENT ,TQM.DT_CHECKIN,TQM.TX_PASS_NUMBER,TQM.DT_CHECKOUT, TQM.DT_BALCONY_INIT"
                             + " FROM TB_QUEUES_MANAGER AS TQM, " +
                             "(SELECT * FROM TB_BALCONY_TYPES_SERVICE WHERE INT_ID_BALCONY = "+balconyBean.getId()+") as TBTS " +
                             "WHERE TQM.INT_ID_SERVICE = TBTS.INT_ID_SERVICE AND TQM.INT_ID_BALCONY = " + QueueElementHandler.QUEUE_ELEMENT_SKIPPED_BALCONY_ID
@@ -503,22 +510,23 @@ public class QueuesManagerDAO
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next())
             {
-                retorno = new QueuesManagerBean();
-                retorno.setId(rs.getInt("TQM.INT_ID"));
-                retorno.setIdService(rs.getInt("TQM.INT_ID_SERVICE"));
-                retorno.setIdBalcony(rs.getInt("TQM.INT_ID_BALCONY"));
-                retorno.setIdUserCheckin(rs.getInt("TQM.INT_ID_USER_CHECKIN"));
-                retorno.setIdUserCheckout(rs.getInt("TQM.INT_ID_USER_CHECKOUT"));
-                retorno.setIdClient(rs.getInt("TQM.INT_ID_CLIENT"));
-                retorno.setCheckin(rs.getString("TQM.DT_CHECKIN"));
-                retorno.setPassNumber(rs.getString("TQM.TX_PASS_NUMBER"));                
-                retorno.setCheckout(rs.getString("TQM.DT_CHECKOUT"));
+                bean = new QueuesManagerBean();
+                bean.setId(rs.getInt("TQM.INT_ID"));
+                bean.setIdService(rs.getInt("TQM.INT_ID_SERVICE"));
+                bean.setIdBalcony(rs.getInt("TQM.INT_ID_BALCONY"));
+                bean.setIdUserCheckin(rs.getInt("TQM.INT_ID_USER_CHECKIN"));
+                bean.setIdUserCheckout(rs.getInt("TQM.INT_ID_USER_CHECKOUT"));
+                bean.setIdClient(rs.getInt("TQM.INT_ID_CLIENT"));
+                bean.setCheckin(rs.getString("TQM.DT_CHECKIN"));
+                bean.setBalconyInit(rs.getString("TQM.DT_BALCONY_INIT"));
+                bean.setPassNumber(rs.getString("TQM.TX_PASS_NUMBER"));                
+                bean.setCheckout(rs.getString("TQM.DT_CHECKOUT"));
             }
             
         
             stmt.close();
             conn.close();
-            return retorno;
+            return bean;
         }
         catch ( Exception e ) 
         {

@@ -12,6 +12,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import java.net.Socket;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -37,7 +38,8 @@ public class BalconyController extends PassControlController
         
 
     private BalconyScreen screen;
-    private BalconyShowClientMessage lastCalledClient = null;
+    private ArrayList<BalconyShowClientMessage> lastCalledClients = new ArrayList<>();
+//    private BalconyShowClientMessage lastCalledClient = null;
     private BalconyBean balconyBean = null;
     private QueuesManagerBean queuesManagerBean = null;
 
@@ -49,8 +51,8 @@ public class BalconyController extends PassControlController
 
     public void recallNextClient()
     {
-        Main.getInstance().getCommunicationThread().addBroadcastToSend(lastCalledClient);
-        showBalconyClient(lastCalledClient);
+        Main.getInstance().getCommunicationThread().addBroadcastToSend(lastCalledClients.get(0));
+        showBalconyClient(lastCalledClients.get(0));
     }
 
     public boolean callNextClient()
@@ -81,8 +83,6 @@ public class BalconyController extends PassControlController
     {
         //Recebo um cliente para atender...
         //Mostra o cliente
-        
-        
         //Essa função também é usada para recuperação de clientes. caso não exista cliente para ser recuperado, os atributos da mensagem serão nulos
         BalconyShowClientMessage received = (BalconyShowClientMessage) message;
         if(received.getTo() == MessageActors.BalconyActor)
@@ -110,9 +110,9 @@ public class BalconyController extends PassControlController
 
     private void showBalconyClient( BalconyShowClientMessage showClientMessage )
     {
-        lastCalledClient = showClientMessage;
-        lastCalledClient.setFrom(MessageActors.BalconyActor);
-        lastCalledClient.setTo(MessageActors.ServerActor);
+        showClientMessage.setFrom(MessageActors.BalconyActor);
+        showClientMessage.setTo(MessageActors.ServerActor);
+        lastCalledClients.add(showClientMessage); //Adiciono à minha fila de clientes
         screen.showPanelQueueInfo(showClientMessage);
     }    
 
@@ -130,6 +130,8 @@ public class BalconyController extends PassControlController
             if(response.getStatusOperation())
             {
                 JOptionPane.showMessageDialog(null, "Atendimento encerrado!");
+                //Removo o primeiro da fila
+                lastCalledClients.remove(0);
                 return true;
             }
             else
@@ -153,6 +155,8 @@ public class BalconyController extends PassControlController
         {
             if(response.getStatusOperation())
             {
+                //Removo o primeiro da fila
+                lastCalledClients.remove(0);                
                 JOptionPane.showMessageDialog(null, "Cliente colocado na espera!");
                 return true;
             }
@@ -165,7 +169,7 @@ public class BalconyController extends PassControlController
     }
 
     //Recuperando algum cliente
-    public void recoverClient()
+    public boolean recoverClient()
     {
         BalconyRecoverClientMessage skipCurrentClient = new BalconyRecoverClientMessage(balconyBean);
         BalconyShowClientMessage recoveredClient = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout
@@ -174,6 +178,7 @@ public class BalconyController extends PassControlController
         if(recoveredClient == null)
         {
             JOptionPane.showMessageDialog(null, "Conexão com o servidor comprometida!");
+            return false;
         }
         else
         {
@@ -181,8 +186,10 @@ public class BalconyController extends PassControlController
             if(recoveredClient.getQueuesManagerBean() == null)
             {
                 JOptionPane.showMessageDialog(null, recoveredClient.getComment());
+                return false;
             }
             //o else vai ser tratado pelo onReceive, é o mesmo tipo de mensagem :D
         }
+        return true;
     }
 }

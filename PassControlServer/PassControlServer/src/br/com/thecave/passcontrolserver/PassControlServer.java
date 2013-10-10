@@ -81,17 +81,17 @@ public class PassControlServer {
         //Inicializa a tread controladora de escolhas de clientes
         QueueElementHandler.getInstance().initialize();
         
-        Integer count = 0;
-        while(true)
-        {
-            ++count;
-            Thread.sleep(30000);
-            Integer serviceId = count%10;
-            QueuesManagerBean bean = new QueuesManagerBean();
-            bean.setPassNumber(count+"tx");
-            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru"+count, serviceId+"", "c"+count, bean, MessageActors.ServerActor, MessageActors.AllActors);
-            server.addBroadcastToSend(showClientMessage);
-        }
+//        Integer count = 0;
+//        while(true)
+//        {
+//            ++count;
+//            Thread.sleep(30000);
+//            Integer serviceId = count%10;
+//            QueuesManagerBean bean = new QueuesManagerBean();
+//            bean.setPassNumber(count+"tx");
+//            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru"+count, serviceId+"", "c"+count, bean, MessageActors.ServerActor, MessageActors.AllActors);
+//            server.addBroadcastToSend(showClientMessage);
+//        }
     }
 
     /**

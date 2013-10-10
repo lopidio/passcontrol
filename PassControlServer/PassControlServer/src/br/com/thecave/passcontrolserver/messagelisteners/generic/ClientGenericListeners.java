@@ -21,6 +21,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
+import br.com.thecave.passcontrolserver.messages.generic.PrinterPrintImageMessage;
 import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
 import br.com.thecave.passcontrolserver.util.EMailSender;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
@@ -47,6 +48,22 @@ public class ClientGenericListeners implements ClientListeners
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
         server.addMessageListener(new RequestConfigurationFileListener(), RequestConfigurationFile.class);
+        server.addMessageListener(new PrinterPrintImageMessageListener(), PrinterPrintImageMessage.class);
+    }    
+    
+
+    private static class PrinterPrintImageMessageListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) 
+        {
+            PrinterPrintImageMessage printImageMessage = (PrinterPrintImageMessage)message;
+            printImageMessage.setFrom(MessageActors.ServerActor);
+            printImageMessage.setTo(MessageActors.AllActors);
+            
+            //Repassa para todos os clientes
+            PassControlServer.getInstance().getServer().addBroadcastToSend(message);
+        }
     }    
 
     public static class ClientLoginMessageListener implements PassControlMessageListener
@@ -232,5 +249,6 @@ public class ClientGenericListeners implements ClientListeners
             server.addResponseToSend(socket, confirmationResponse);              
         }
     }
+
 
 }

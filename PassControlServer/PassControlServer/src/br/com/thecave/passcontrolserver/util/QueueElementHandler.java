@@ -20,6 +20,7 @@ import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNe
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -110,6 +111,8 @@ public class QueueElementHandler implements Runnable
     
     private QueuesManagerBean prepareSelectedQueuesManageElement(BalconyBean balconyBean, QueuesManagerBean selectedManagerBean)
     {
+        //Seto o horário que ocorreu a escolha        
+        selectedManagerBean.setBalconyInit(QueuesManagerDAO.dateFormat.format(new Date()));
         //Seto o Id do guichê
         selectedManagerBean.setIdBalcony(balconyBean.getId());
         //salvo as alterações no banco.

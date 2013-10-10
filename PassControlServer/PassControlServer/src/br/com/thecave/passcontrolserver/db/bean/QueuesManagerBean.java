@@ -44,6 +44,10 @@ public class QueuesManagerBean extends TableBean
      * Guarda o valor da variavel [TX_PASS_NUMBER] da tabela TB_QUEUES_MANAGER
      */
     private String passNumber;
+    /**
+     * Guarda o valor da variavel [DT_BALCONY_INIT] da tabela TB_QUEUES_MANAGER
+     */
+    private String balconyInit;
 
     /**
      * @return the id
@@ -169,6 +173,14 @@ public class QueuesManagerBean extends TableBean
      */
     public void setPassNumber(String passNumber) {
         this.passNumber = passNumber;
+    }
+
+    public String getBalconyInit() {
+        return balconyInit;
+    }
+
+    public void setBalconyInit(String balconyInit) {
+        this.balconyInit = balconyInit;
     }
 
 }

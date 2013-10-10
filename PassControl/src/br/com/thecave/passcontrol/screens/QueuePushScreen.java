@@ -7,12 +7,14 @@ import br.com.thecave.passcontrol.utils.Printer;
 import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
+import br.com.thecave.passcontrolserver.messages.generic.PrinterPrintImageMessage;
 import br.com.thecave.passcontrolserver.util.IValidation;
 import br.com.thecave.passcontrolserver.util.ValidationPerform;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -504,11 +506,11 @@ public class QueuePushScreen extends PassControlPanel
             jpQueueInfo.setVisible(true);
             jpQueueInfo.repaint();
             jbNovoAtendimento.setEnabled(false);
-            Printer p = new Printer();
             elementInfo.doLayout();
             elementInfo.validate();
-            p.generateImg(elementInfo);
-            p.imprimirArquivo();
+
+            PrinterPrintImageMessage printImageMessage = new PrinterPrintImageMessage(new ImageIcon(Printer.generateImageFromComponent(elementInfo)));
+            Main.getInstance().getCommunicationThread().addBroadcastToSend(printImageMessage);
         }
         catch ( Exception ex )
         {
