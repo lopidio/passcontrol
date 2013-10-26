@@ -36,6 +36,12 @@ namespace Printer
 
         [DllImport("MP2032.dll")]
         public static extern int ComandoTX(String comando, int tComando);
+
+        [DllImport("MP2032.dll")]
+        public static extern int ConfiguraCodigoBarras(int comando, int tComando, int a, int b, int c);
+
+        [DllImport("MP2032.dll")]
+        public static extern int ImprimeCodigoBarrasCODE128(String cod);
         
 
         static void Main(string[] args)
@@ -47,12 +53,18 @@ namespace Printer
             else
             {
                 int iRetorno = 0;
+
+                iRetorno = Printer.ConfiguraModeloImpressora(8);
                 
                 //Abrindo a porta
-                iRetorno = Printer.IniciaPorta(args[0]);
+                iRetorno = Printer.IniciaPorta("COM5");
+
+                iRetorno = Printer.ConfiguraCodigoBarras(102, 0, 0, 0, 10);
+
+                iRetorno = Printer.ImprimeCodigoBarrasCODE128("01234567890123456789012345678901234567890123");
 
                 // imprimindo a imagem
-                iRetorno = Printer.ImprimeBitmap("config\\imgToPrint.bmp", 1);
+                //iRetorno = Printer.ImprimeBitmap("config\\imgToPrint.bmp", 1);
 
                 // colocando espaços em branco
                 string s_cmdTX = "\r\n\r\n\r\n\r\n\r\n";
@@ -61,13 +73,13 @@ namespace Printer
                 iRetorno = Printer.ComandoTX(s_cmdTX, s_cmdTX.Length);
 
                 // aciona a guilhotina
-                iRetorno = Printer.AcionaGuilhotina(0);
+                //iRetorno = Printer.AcionaGuilhotina(0);
 
                 // imprime a segunda via
-                iRetorno = Printer.ImprimeBitmap("config\\imgToPrint.bmp", 1);
+                //iRetorno = Printer.ImprimeBitmap("config\\imgToPrint.bmp", 1);
 
                 // salta linhas
-                iRetorno = Printer.ComandoTX(s_cmdTX, s_cmdTX.Length);
+                //iRetorno = Printer.ComandoTX(s_cmdTX, s_cmdTX.Length);
 
                 // aciona a guilhotina
                 iRetorno = Printer.AcionaGuilhotina(0);
