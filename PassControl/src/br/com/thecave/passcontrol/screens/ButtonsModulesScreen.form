@@ -162,7 +162,7 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Clique para abrir a tela do guich&#xea;."/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Default"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -183,7 +183,7 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Clique para abrir a tela de visualizador."/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Default"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -204,7 +204,7 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Clique para abrir a tela de recep&#xe7;&#xe3;o."/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Default"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -225,7 +225,7 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Clique aqui para tela de administra&#xe7;&#xe3;o."/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Default"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -246,7 +246,7 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Clique para abrir a tela de remo&#xe7;&#xe3;o da fila."/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Default"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">

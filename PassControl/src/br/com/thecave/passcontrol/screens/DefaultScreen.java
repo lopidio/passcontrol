@@ -144,8 +144,6 @@ public class DefaultScreen extends PassControlPanel
                 ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
                 file.setPortPrinter(port);
                 PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
-                //tento me conectar ao novo ip                
-                Main.getInstance().getCommunicationThread().refreshConnectionProperties();
             }
         });
         jmServerConfig.add(jmPortPrinter);
