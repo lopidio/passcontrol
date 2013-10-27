@@ -4,31 +4,46 @@
  */
 package br.com.thecave.passcontrolserver.messages.generic;
 
-import javax.swing.ImageIcon;
-
 /**
  *
  * @author lopidio
  */
-public class PrinterPrintImageMessage extends PassControlMessage
+public class PrinterMessage extends PassControlMessage
 {
-    ImageIcon imageIcon;
-
-    public PrinterPrintImageMessage(ImageIcon imageIcon)
+    private String senha;
+    private String servico;
+    private String nome;
+    
+    public PrinterMessage(String senha, String servico, String nome)
     {
         super(MessageActors.QueuePushActor, MessageActors.ServerActor);
-        this.imageIcon = imageIcon;
+        this.nome = nome;
+        this.senha = senha;
+        this.servico = servico;
     }
 
-    public ImageIcon getImageIcon() {
-        return imageIcon;
+    /**
+     * @return the senha
+     */
+    public String getSenha()
+    {
+        return senha;
     }
 
-    public void setImageIcon(ImageIcon imageIcon) {
-        this.imageIcon = imageIcon;
+    /**
+     * @return the servico
+     */
+    public String getServico()
+    {
+        return servico;
     }
-    
-    
-    
+
+    /**
+     * @return the nome
+     */
+    public String getNome()
+    {
+        return nome;
+    }
     
 }

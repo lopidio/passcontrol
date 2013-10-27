@@ -21,11 +21,12 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
-import br.com.thecave.passcontrolserver.messages.generic.PrinterPrintImageMessage;
+import br.com.thecave.passcontrolserver.messages.generic.PrinterMessage;
 import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFile;
 import br.com.thecave.passcontrolserver.util.EMailSender;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.UserPermission;
+import com.sun.org.apache.xml.internal.serialize.Printer;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -48,7 +49,7 @@ public class ClientGenericListeners implements ClientListeners
         server.addMessageListener(new ClientListServiceListener(), ClientListService.class);
         server.addMessageListener(new MainImageSetterListener(), MainImageSetter.class);
         server.addMessageListener(new RequestConfigurationFileListener(), RequestConfigurationFile.class);
-        server.addMessageListener(new PrinterPrintImageMessageListener(), PrinterPrintImageMessage.class);
+        server.addMessageListener(new PrinterPrintImageMessageListener(), PrinterMessage.class);
     }    
     
 
@@ -57,7 +58,7 @@ public class ClientGenericListeners implements ClientListeners
         @Override
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
-            PrinterPrintImageMessage printImageMessage = (PrinterPrintImageMessage)message;
+            PrinterMessage printImageMessage = (PrinterMessage)message;
             printImageMessage.setFrom(MessageActors.ServerActor);
             printImageMessage.setTo(MessageActors.AllActors);
             
