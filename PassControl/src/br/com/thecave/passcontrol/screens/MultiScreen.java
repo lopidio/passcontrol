@@ -3,7 +3,6 @@ package br.com.thecave.passcontrol.screens;
 import br.com.thecave.passcontrol.screens.admin.*;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.MultiScreenController;
-import br.com.thecave.passcontrol.controller.UserCrudController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
 import java.util.ArrayList;
 import javax.swing.JMenu;
