@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.screens;
 
+import br.com.thecave.passcontrol.component.util.QueueElementInfoSmall;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.QueuePushController;
 import br.com.thecave.passcontrol.topbar.MainTopBar;
@@ -7,14 +8,19 @@ import br.com.thecave.passcontrol.utils.Printer;
 import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
-import br.com.thecave.passcontrolserver.messages.generic.PrinterPrintImageMessage;
+import br.com.thecave.passcontrolserver.messages.generic.PrinterMessage;
 import br.com.thecave.passcontrolserver.util.IValidation;
 import br.com.thecave.passcontrolserver.util.ValidationPerform;
+import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -508,9 +514,33 @@ public class QueuePushScreen extends PassControlPanel
             jbNovoAtendimento.setEnabled(false);
             elementInfo.doLayout();
             elementInfo.validate();
+            
+            QueueElementInfoSmall small = (QueueElementInfoSmall)elementInfo;
 
-            PrinterPrintImageMessage printImageMessage = new PrinterPrintImageMessage(new ImageIcon(Printer.generateImageFromComponent(elementInfo)));
-            Main.getInstance().getCommunicationThread().addBroadcastToSend(printImageMessage);
+            PrinterMessage printImageMessage = new PrinterMessage( small.getUserPass(), small.getQueueName(), small.getClientName());
+            //Main.getInstance().getCommunicationThread().addBroadcastToSend(printImageMessage);
+            
+            PrinterJob job = PrinterJob.getPrinterJob();
+            PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
+            PageFormat pf = job.pageDialog(aset);
+            aset.add(new Copies(2));
+            job.setPrintable(new Printer(small.getUserPass(), 
+                    small.getQueueName(), small.getClientName()), pf);
+            boolean ok = job.printDialog(aset);
+            if (ok)
+            {
+                try
+                {
+                        job.print(aset);
+                } catch (PrinterException ex)
+                {
+                        /* The job did not successfully complete */
+                }
+            }
+            
+            Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+            Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+            
         }
         catch ( Exception ex )
         {

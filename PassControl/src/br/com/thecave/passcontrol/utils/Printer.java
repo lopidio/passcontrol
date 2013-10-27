@@ -1,91 +1,53 @@
 package br.com.thecave.passcontrol.utils;
 
-import br.com.thecave.passcontrol.controller.Main;
-import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
-import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListener;
-import br.com.thecave.passcontrolserver.messages.generic.PrinterPrintImageMessage;
-import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
-import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
 
-public class Printer implements PassControlMessageListener
+public class Printer implements Printable
 {
-
-    public Printer()
-    {
-        //do nothing
-    }
+    private String senha;
+    private String service;
+    private String nome;
     
-    public void initialize()
+    public Printer(String senha, String servico, String nome)
     {
-        Main.getInstance().getCommunicationThread().addMessageListener(this, PrinterPrintImageMessage.class);
+        this.senha = senha;
+        this.service = servico;
+        this.nome = nome;
     }
     
     @Override
-    public void onMessageReceive(PassControlMessage message, Socket socket)
+    public int print(Graphics g, PageFormat pf, int page)
+			throws PrinterException
     {
-        PrinterPrintImageMessage printerPrintImageMessage = (PrinterPrintImageMessage)message;
-        
-        //Crio uma BufferedImagem a partir da imagem recebida
-        Image image = printerPrintImageMessage.getImageIcon().getImage();
-        BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_BYTE_BINARY);
-        Graphics2D g = bufferedImage.createGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();        
-        
-        //Salva a imagem no local correto
-        saveImageToPrinterFile(bufferedImage);
-        
-        //Imprime a imagem adequada
-        printPrinterFile();
-
-    }
-    
-    public static BufferedImage generateImageFromComponent( JPanel comp ) throws Exception
-    {
-        Dimension size = comp.getSize();
-        BufferedImage image = new BufferedImage(
-                    size.width, size.height 
-                              , BufferedImage.TYPE_BYTE_BINARY);
-        Graphics2D g2 = image.createGraphics();
-        comp.repaint();
-        comp.paint(g2);
-
-        return image;
-    }
-
-    public void printPrinterFile( )
-    {
-        String porta = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile().getPortPrinter();
-        try
-        {
-            Runtime.getRuntime().exec("Printer " + porta);
+        if (page > 0)
+        { /* We have only one page, and 'page' is zero-based */
+                return NO_SUCH_PAGE;
         }
-        catch ( IOException ex )
-        {
-            Logger.getLogger(Printer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
-    public void saveImageToPrinterFile(BufferedImage image)
-    {
-        String caminho = "config\\imgToPrint.bmp";
-        try
+        /*
+         * User (0,0) is typically outside the imageable area, so we must
+         * translate by the X and Y values in the PageFormat to avoid clipping
+         */
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.translate(pf.getImageableX(), pf.getImageableY());
+
+        /* Now we perform our rendering */
+        g.drawString("Moinho Cearense", 0, 10);
+        g.drawString("Senha:", 0, 30);
+        g.drawString(this.senha, 20, 43);
+        g.drawString("Serviço:", 0, 60);
+        g.drawString(this.service, 20, 73);
+        if(!this.nome.equals(""))
         {
-            ImageIO.write(image, "bmp", new File(caminho));
+            g.drawString("Nome:", 0, 90);
+            g.drawString(this.nome, 20, 103);
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+
+        /* tell the caller that this page is part of the printed document */
+        return PAGE_EXISTS;
     }
 }
