@@ -391,8 +391,8 @@ public class UserCrud extends PassControlPanel
             {
                 bean = new UserBean();
                 bean.setEmail(tfEmail.getText());
-                bean.setName(cbLoginUser.getSelectedItem().toString());
-                bean.setLogin(tfNameUser.getText());
+                bean.setLogin(cbLoginUser.getSelectedItem().toString());
+                bean.setName(tfNameUser.getText());
                 bean.setPassword(new String(tfSenha.getPassword()));
                 if(rbAdmin.isSelected())
                     bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());
@@ -406,8 +406,8 @@ public class UserCrud extends PassControlPanel
                 if(bean != null)
                 {
                     bean.setEmail(tfEmail.getText());
-                    bean.setName(cbLoginUser.getSelectedItem().toString());
-                    bean.setLogin(tfNameUser.getText());
+                    bean.setLogin(cbLoginUser.getSelectedItem().toString());
+                    bean.setName(tfNameUser.getText());
                     bean.setPassword(new String(tfSenha.getPassword()));
                     if(rbAdmin.isSelected())
                         bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());

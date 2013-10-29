@@ -517,8 +517,8 @@ public class QueuePushScreen extends PassControlPanel
             
             QueueElementInfoSmall small = (QueueElementInfoSmall)elementInfo;
 
-            PrinterMessage printImageMessage = new PrinterMessage( small.getUserPass(), small.getQueueName(), small.getClientName());
-            //Main.getInstance().getCommunicationThread().addBroadcastToSend(printImageMessage);
+//            PrinterMessage printImageMessage = new PrinterMessage( small.getUserPass(), small.getQueueName(), small.getClientName());
+//            Main.getInstance().getCommunicationThread().addBroadcastToSend(printImageMessage);
             
             PrinterJob job = PrinterJob.getPrinterJob();
             PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
@@ -526,15 +526,15 @@ public class QueuePushScreen extends PassControlPanel
             aset.add(new Copies(2));
             job.setPrintable(new Printer(small.getUserPass(), 
                     small.getQueueName(), small.getClientName()), pf);
-            boolean ok = job.printDialog(aset);
-            if (ok)
+            if (job.printDialog(aset))
             {
                 try
                 {
-                        job.print(aset);
-                } catch (PrinterException ex)
+                    job.print(aset);
+                } 
+                catch (PrinterException ex)
                 {
-                        /* The job did not successfully complete */
+                    System.out.println(ex.getMessage());
                 }
             }
             

@@ -62,7 +62,13 @@ public final class PassControlConfigurationSynchronizer implements PassControlMe
     {
         //Carrega o novo arquivo de configuração
         ConfigurationFileAlterationMessage configurationFileAlterationMessage = (ConfigurationFileAlterationMessage)message;
+        
+        String IPServer = configurationFile.getIpServer();
+        int portServer = configurationFile.getPortServer();
         configurationFile = configurationFileAlterationMessage.getConfigurationFile();
+        System.out.println("IP do arquivo de configuração que o servidor enviou: " + configurationFileAlterationMessage.getConfigurationFile().getIpServer());
+        configurationFile.setIpServer(IPServer);
+        configurationFile.setPortServer(portServer);
         saveConfigurationFile();
     }    
 
