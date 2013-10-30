@@ -171,7 +171,6 @@ public final class MainFrame extends javax.swing.JFrame
         setTitle("Controle de Senhas");
         setBackground(new java.awt.Color(255, 255, 255));
         setName("frmScreenLogin"); // NOI18N
-        setResizable(false);
 
         javax.swing.GroupLayout topBarLayout = new javax.swing.GroupLayout(topBar);
         topBar.setLayout(topBarLayout);
