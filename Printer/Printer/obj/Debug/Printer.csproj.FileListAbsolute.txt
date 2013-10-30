@@ -1,6 +1,0 @@
-E:\Developer\Repositorio\PassControl\Printer\Printer\bin\Debug\Printer.exe.config
-E:\Developer\Repositorio\PassControl\Printer\Printer\bin\Debug\Printer.exe
-E:\Developer\Repositorio\PassControl\Printer\Printer\bin\Debug\Printer.pdb
-E:\Developer\Repositorio\PassControl\Printer\Printer\obj\Debug\Printer.csprojResolveAssemblyReference.cache
-E:\Developer\Repositorio\PassControl\Printer\Printer\obj\Debug\Printer.exe
-E:\Developer\Repositorio\PassControl\Printer\Printer\obj\Debug\Printer.pdb
