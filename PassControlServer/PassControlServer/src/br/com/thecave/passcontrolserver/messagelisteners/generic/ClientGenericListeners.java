@@ -18,6 +18,7 @@ import br.com.thecave.passcontrolserver.messages.generic.ClientListService;
 import br.com.thecave.passcontrolserver.messages.generic.ClientListServiceResponse;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLoginReset;
 import br.com.thecave.passcontrolserver.messages.generic.ClientLogoff;
+import br.com.thecave.passcontrolserver.messages.generic.ConfigurationFileAlterationMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.messages.generic.MainImageSetter;
 import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
@@ -97,12 +98,8 @@ public class ClientGenericListeners implements ClientListeners
                 //Verifica se existe o usuário no banco
                 if (bean != null)
                 {
-                    //Se o usuário já está logado
-                    if (server.isUserLogged(bean))
-                    {
-                        response.setComment("Usuário já está logado!");
-                    }
-                    else if (bean.getPassword().equals(initRequest.getPassword()))
+                    //Se a senha corresponder
+                    if (bean.getPassword().equals(initRequest.getPassword()))
                     {
                         response.setUser(bean);
                     }
@@ -202,7 +199,8 @@ public class ClientGenericListeners implements ClientListeners
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
-            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);               
+            ConfigurationFileAlterationMessage alterationMessage = new ConfigurationFileAlterationMessage(PassControlConfigurationSynchronizer.getInstance().getConfigurationFile());
+            server.addResponseToSend(socket, alterationMessage);            
         }
 
     }

@@ -127,6 +127,18 @@ public class QueueElementHandler implements Runnable
     
     private QueuesManagerBean automaticChoose(HashMap<Integer, ArrayList<QueuesManagerBean>> avaliableClients, BalconyBean balconyBean)
     {
+        String avaliableClientsIds = "";
+        for (Map.Entry<Integer, ArrayList<QueuesManagerBean>> entry : avaliableClients.entrySet()) 
+        {
+            Integer integer = entry.getKey();
+            ArrayList<QueuesManagerBean> arrayList = entry.getValue();
+            for (QueuesManagerBean queuesManagerBean : arrayList) 
+            {
+                avaliableClientsIds += queuesManagerBean.getId() + "; ";
+            }
+        }
+        System.out.println("Clientes passíveis de seleção: " + avaliableClientsIds);
+        
         QueuesManagerBean automaticChosenClient = null;
         //Se existir alguém com prioridade máxima
         if (!avaliableClients.get(4).isEmpty())
@@ -173,6 +185,19 @@ public class QueueElementHandler implements Runnable
         //Só precisa enviar caso não tenha sido enviada ainda
         if (!wasMessageSent)
         {
+            System.out.println("Requisitando aos poppers a escolha.");
+            String avaliableClientsIds = "";
+            for (Map.Entry<Integer, ArrayList<QueuesManagerBean>> entry : avaliableClients.entrySet()) 
+            {
+                Integer integer = entry.getKey();
+                ArrayList<QueuesManagerBean> arrayList = entry.getValue();
+                for (QueuesManagerBean queuesManagerBean : arrayList) 
+                {
+                    avaliableClientsIds += queuesManagerBean.getId() + "; ";
+                }
+            }
+            System.out.println("Clientes passíveis de seleção: " + avaliableClientsIds);
+            
             //Zero o cliente anterior
             chosenClient = null;
             chooseNextElementMessage = new QueuePopperChooseNextElement(balconyBean, avaliableClients);

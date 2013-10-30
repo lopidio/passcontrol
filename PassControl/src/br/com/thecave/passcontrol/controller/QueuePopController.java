@@ -79,26 +79,6 @@ public class QueuePopController extends PassControlController implements QueueEl
             
         }
     }
-
-    @Override
-    public void initialize() 
-    {
-        //Avisa que um novo queue popper tá na área
-        QueuePopperRefreshAllRequest request = new QueuePopperRefreshAllRequest();
-        QueuePopperRefreshResponse refreshResponse = Main.getInstance().getCommunicationThread().sendMessageToServerAndWaitForResponseOrTimeout(request, QueuePopperRefreshResponse.class, 2000);
-        if (refreshResponse != null)
-        {
-            for (QueuePopperNewClientAdded queuePopperNewClientAdded  : refreshResponse.getQueuePopperNewClientAdded()) 
-            {
-                addBalconyShowClient(queuePopperNewClientAdded);
-            }
-
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Conexão com o server expirou");
-        }
-    }
     
     public void addBalconyShowClient(QueuePopperNewClientAdded queuePopperNewClientAdded)
     {

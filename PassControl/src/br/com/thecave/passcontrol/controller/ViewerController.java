@@ -39,6 +39,8 @@ public class ViewerController extends PassControlController implements Presentat
     {
         super.addMessageListeners();
         ClientCommunicationThread communicationThread = Main.getInstance().getCommunicationThread();
+        
+        //Escutar essa aqui também: AdministratorAddSlideAnimation e derivados
         communicationThread.addMessageListener(this, BalconyShowClientMessage.class);
     }
 

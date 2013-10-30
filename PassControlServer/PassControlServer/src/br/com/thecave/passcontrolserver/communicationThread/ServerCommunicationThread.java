@@ -416,20 +416,29 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     
     public boolean isUserLogged(UserBean user)
     {
+        String loggedUser = "";
+        boolean retorno = false;
         //Por todo o mapa
         for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
         {
             //Por todos os clientes
             for (ClientUserSocketPair clientUserSocketPair : entry.getValue()) 
             {
-                //Aquele que tiver o mesmo socket...
-                if (clientUserSocketPair.getUser() != null && clientUserSocketPair.getUser().equals(user))
+                UserBean clientUser = clientUserSocketPair.getUser();
+                //Se o socket estiver com um usuário logado
+                if (clientUser != null)
                 {
-                    return true;
+                    loggedUser += clientUser.getLogin() + "; ";
+                    //Aquele que tiver o mesmo usuário
+                    if (clientUser.getId() == user.getId())
+                    {
+                        retorno = true;
+                    }
                 }
             }
         } 
-        return false;
+        System.out.println("Usuários logados: " + loggedUser);
+        return retorno;
     }
 
 
