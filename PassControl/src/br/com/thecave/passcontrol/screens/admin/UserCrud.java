@@ -199,6 +199,13 @@ public class UserCrud extends PassControlPanel
         });
 
         tfNameUser.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfNameUser.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                tfNameUserFocusLost(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel4.setText("Senha do usuário");
@@ -207,6 +214,13 @@ public class UserCrud extends PassControlPanel
         jLabel5.setText("Email do usuário");
 
         tfEmail.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfEmail.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                tfEmailFocusLost(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel6.setText("Permissão do usuário");
@@ -227,6 +241,13 @@ public class UserCrud extends PassControlPanel
         });
 
         tfSenha.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfSenha.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                tfSenhaFocusLost(evt);
+            }
+        });
 
         jlNameError.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
 
@@ -266,10 +287,10 @@ public class UserCrud extends PassControlPanel
                             .addComponent(tfSenha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlNameError)
-                            .addComponent(jlLoginError)
                             .addComponent(jSenhaError)
-                            .addComponent(jlEmailErro))
+                            .addComponent(jlEmailErro)
+                            .addComponent(jlLoginError)
+                            .addComponent(jlNameError))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -279,41 +300,41 @@ public class UserCrud extends PassControlPanel
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jlNameError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbLoginUser))
+                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlLoginError, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlLoginError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jlNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSenhaError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jSenhaError, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addGap(22, 22, 22)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlEmailErro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jlEmailErro, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbAdmin)
                     .addComponent(rbUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdicionar)
                     .addComponent(jbRemove))
                 .addGap(38, 38, 38))
         );
 
-        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 440));
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 300, 440));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
@@ -369,13 +390,8 @@ public class UserCrud extends PassControlPanel
         //criando as validações
         ArrayList<IValidation> validations = new ArrayList<>();
         validations.add(new ValidIsEmpty());        
-        
-        // não permite inserir um registro com o nome vazio
-        validName(validations);        
         validLogin(validations);
-        validEmail(validations);
-        validSenha(validations);
-        
+
         // construindo o bean com as informações da tela
         bean = extractBeanIdFromCombo();
         UserPermission normalUser = new UserPermission();
@@ -442,6 +458,30 @@ public class UserCrud extends PassControlPanel
     {//GEN-HEADEREND:event_rbUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbUsuarioActionPerformed
+
+    private void tfNameUserFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_tfNameUserFocusLost
+    {//GEN-HEADEREND:event_tfNameUserFocusLost
+        //criando as validações
+        ArrayList<IValidation> validations = new ArrayList<>();
+        validations.add(new ValidIsEmpty());
+        validName(validations);
+    }//GEN-LAST:event_tfNameUserFocusLost
+
+    private void tfSenhaFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_tfSenhaFocusLost
+    {//GEN-HEADEREND:event_tfSenhaFocusLost
+       //criando as validações
+        ArrayList<IValidation> validations = new ArrayList<>();
+        validations.add(new ValidPasswordSize());
+        validSenha(validations);
+    }//GEN-LAST:event_tfSenhaFocusLost
+
+    private void tfEmailFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_tfEmailFocusLost
+    {//GEN-HEADEREND:event_tfEmailFocusLost
+         //criando as validações
+        ArrayList<IValidation> validations = new ArrayList<>();
+        validations.add(new ValidIsEmpty());
+        validEmail(validations);
+    }//GEN-LAST:event_tfEmailFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgPermissao;
@@ -530,6 +570,7 @@ public class UserCrud extends PassControlPanel
         String login = "";
         if(cbLoginUser.getSelectedItem() != null)
         {
+            login = cbLoginUser.getSelectedItem().toString();
            if(!ValidationPerform.valid(login, validations))
             {
                 jlLoginError.setVisible(true);
@@ -538,6 +579,8 @@ public class UserCrud extends PassControlPanel
             }
             else
             {
+                jlLoginError.setVisible(false);
+                jlLoginError.setToolTipText("");
                 ready = true;
             } 
         }
@@ -558,6 +601,8 @@ public class UserCrud extends PassControlPanel
         }
         else
         {
+            jlEmailErro.setVisible(false);
+            jlEmailErro.setToolTipText("");
             ready = true;
         }
     }
@@ -566,6 +611,7 @@ public class UserCrud extends PassControlPanel
     {
         // não permite senha em branco nem menor que 6 digitos
         validations.add(new ValidPasswordSize());
+        validations.add(new ValidIsEmpty());
         if(!ValidationPerform.valid(new String(tfSenha.getPassword()), validations))
         {
             jSenhaError.setVisible(true);
@@ -573,30 +619,31 @@ public class UserCrud extends PassControlPanel
             ready = false;
         }
         else
+        {
+            jSenhaError.setVisible(false);
+            jSenhaError.setToolTipText("");
             ready = true;
+        }
     }
 
+    /*
+     * Valida o nome do usuário, não permitindo nome em branco
+     */
     private void validName( ArrayList<IValidation> validations )
     {
-        // não permite senha em branco nem menor que 6 digitos
-        validations.add(new ValidPasswordSize());
-        if(cbLoginUser.getSelectedItem() != null)
+        // não permite nome em branco
+        validations.add(new ValidIsEmpty());
+        if(!ValidationPerform.valid(tfNameUser.getText(), validations))
         {
-            if(!ValidationPerform.valid(cbLoginUser.getSelectedItem().toString(), validations))
-            {
-                jlNameError.setVisible(true);
-                jlNameError.setToolTipText(ValidationPerform.getComment());
-                ready = false;
-            }
-            else
-                ready = true;
+            jlNameError.setVisible(true);
+            jlNameError.setToolTipText(ValidationPerform.getComment());
+            ready = false;
         }
         else
         {
-            jlNameError.setVisible(true);
-            jlNameError.setToolTipText("Campo não pode ser vazio!");
-            ready = false;
+            jlNameError.setVisible(false);
+            jlNameError.setToolTipText("");
+            ready = true;
         }
-            
     }
 }

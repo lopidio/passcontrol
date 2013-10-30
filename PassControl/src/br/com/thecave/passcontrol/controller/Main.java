@@ -46,7 +46,8 @@ public class Main
         mainFrame = new MainFrame();
 
         communicationThread = new ClientCommunicationThread();
-        mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        //mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        mainFrame.setSize(1351, 719);
         mainFrame.setVisible(true);       
     }
 
