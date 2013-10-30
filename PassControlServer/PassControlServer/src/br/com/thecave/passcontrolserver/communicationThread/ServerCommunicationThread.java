@@ -401,7 +401,7 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             for (ClientUserSocketPair clientUserSocketPair : entry.getValue()) 
             {
                 //Aquele que tiver o mesmo socket...
-                if (clientUserSocketPair.getUser() != null && clientUserSocketPair.getSocket().equals(socket))
+                if (clientUserSocketPair.getSocket() != null && clientUserSocketPair.getSocket().equals(socket))
                 {
                     return clientUserSocketPair;
                 }
