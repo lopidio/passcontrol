@@ -334,7 +334,7 @@ public class UserCrud extends PassControlPanel
                 .addGap(38, 38, 38))
         );
 
-        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 300, 440));
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 440));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
@@ -536,7 +536,7 @@ public class UserCrud extends PassControlPanel
             tfNameUser.setText(bean.getName());
             tfSenha.setText(bean.getPassword());
             tfEmail.setText(bean.getEmail());
-            if(bean.getType() == 0)
+            if(bean.getType() == UserPermission.ALL_PERMISSION_MASK.getPermissionCode())
                 rbAdmin.setSelected(true);
             else
                 rbUsuario.setSelected(true);

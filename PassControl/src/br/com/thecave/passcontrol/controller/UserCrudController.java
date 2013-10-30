@@ -155,14 +155,7 @@ public class UserCrudController extends PassControlController
         }
         else
         {
-            if ( response.getStatusOperation() )
-            {
-                JOptionPane.showMessageDialog(null, "Registro deletado com sucesso!");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");
-            }
+            JOptionPane.showMessageDialog(null, response.getComment());
         }
     }
 
