@@ -634,7 +634,7 @@ public class UserCrud extends PassControlPanel
     private void loadCurrentBean()
     {
         controller.loadUsers();
-        if(cbLoginUser.getSelectedItem() != null )
+        if(cbLoginUser.getSelectedIndex() >= 0 &&  cbLoginUser.getSelectedIndex() < controller.getUserBeans().size())
         {
             int index = cbLoginUser.getSelectedIndex();
             currentBean =  controller.getUserBeans().get(index);
