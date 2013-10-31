@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 public class UserCrud extends PassControlPanel 
 {
     UserCrudController controller = null;
+    UserBean currentBean;
     private boolean insert;
     private boolean ready;
     /**
@@ -33,8 +34,11 @@ public class UserCrud extends PassControlPanel
         super("Cadastro de Usuários", new UserCrudController());
         this.controller = (UserCrudController) getPanelController();        
         initComponents();
+        currentBean = new UserBean();
         jpSecundario.setVisible(false);        
         defineCBNames();
+        loadCurrentBean();
+        writeScreenFromBean();
         jlNameError.setVisible(false);
         jlLoginError.setVisible(false);
         jlEmailErro.setVisible(false);
@@ -179,6 +183,13 @@ public class UserCrud extends PassControlPanel
         cbLoginUser.setEditable(true);
         cbLoginUser.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbLoginUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbLoginUser.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cbLoginUserItemStateChanged(evt);
+            }
+        });
         cbLoginUser.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -334,7 +345,7 @@ public class UserCrud extends PassControlPanel
                 .addGap(38, 38, 38))
         );
 
-        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 440));
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 300, 440));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
@@ -382,7 +393,6 @@ public class UserCrud extends PassControlPanel
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
         String s = "";
-        UserBean bean = new UserBean();
         boolean ret = false;
         if(cbLoginUser.getSelectedItem() != null)
             s = cbLoginUser.getSelectedItem().toString();
@@ -392,8 +402,6 @@ public class UserCrud extends PassControlPanel
         validations.add(new ValidIsEmpty());        
         validLogin(validations);
 
-        // construindo o bean com as informações da tela
-        bean = extractBeanIdFromCombo();
         UserPermission normalUser = new UserPermission();
         normalUser.addPermission(UserPermission.BALCONY_PERMISSION_MASK).
                    addPermission(UserPermission.POPPER_PERMISSION_MASK).
@@ -405,32 +413,15 @@ public class UserCrud extends PassControlPanel
             // se tiver clicado em novo
             if(insert)
             {
-                bean = new UserBean();
-                bean.setEmail(tfEmail.getText());
-                bean.setLogin(cbLoginUser.getSelectedItem().toString());
-                bean.setName(tfNameUser.getText());
-                bean.setPassword(new String(tfSenha.getPassword()));
-                if(rbAdmin.isSelected())
-                    bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());
-                else
-                    bean.setType(normalUser.getPermissionCode());
-                ret = controller.saveUser(bean);
+                currentBean = new UserBean();
+                writeBeanFromScreen();                
+                ret = controller.saveUser(currentBean);
             }
             // se tiver clicado em editar
             else
             {
-                if(bean != null)
-                {
-                    bean.setEmail(tfEmail.getText());
-                    bean.setLogin(cbLoginUser.getSelectedItem().toString());
-                    bean.setName(tfNameUser.getText());
-                    bean.setPassword(new String(tfSenha.getPassword()));
-                    if(rbAdmin.isSelected())
-                        bean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());
-                    else
-                        bean.setType(normalUser.getPermissionCode());
-                    ret = controller.updateUser(bean);
-                }
+                writeBeanFromScreen();
+                ret = controller.updateUser(currentBean);
             }
         }
         if(ret)
@@ -439,19 +430,14 @@ public class UserCrud extends PassControlPanel
 
     private void cbLoginUserActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbLoginUserActionPerformed
     {//GEN-HEADEREND:event_cbLoginUserActionPerformed
-        sincronizeCampos();
+        writeScreenFromBean();
     }//GEN-LAST:event_cbLoginUserActionPerformed
 
     private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbRemoveActionPerformed
     {//GEN-HEADEREND:event_jbRemoveActionPerformed
-        UserBean bean = extractBeanIdFromCombo();
-        if(bean != null)
-        {
-            controller.deleteUser(bean);
-            voltar();
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Não existe nenhum registro a ser deletado!");
+        loadCurrentBean();        
+        controller.deleteUser(currentBean);
+        voltar();
     }//GEN-LAST:event_jbRemoveActionPerformed
 
     private void rbUsuarioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_rbUsuarioActionPerformed
@@ -482,6 +468,12 @@ public class UserCrud extends PassControlPanel
         validations.add(new ValidIsEmpty());
         validEmail(validations);
     }//GEN-LAST:event_tfEmailFocusLost
+
+    private void cbLoginUserItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbLoginUserItemStateChanged
+    {//GEN-HEADEREND:event_cbLoginUserItemStateChanged
+        loadCurrentBean();
+        writeScreenFromBean();
+    }//GEN-LAST:event_cbLoginUserItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgPermissao;
@@ -525,37 +517,6 @@ public class UserCrud extends PassControlPanel
     private void defineCBNames()
     {
         controller.defineCBNames(cbLoginUser);
-        sincronizeCampos();
-    }
-    
-    private void sincronizeCampos()
-    {
-        UserBean bean = extractBeanIdFromCombo();
-        if(bean != null)
-        {
-            tfNameUser.setText(bean.getName());
-            tfSenha.setText(bean.getPassword());
-            tfEmail.setText(bean.getEmail());
-            if(bean.getType() == UserPermission.ALL_PERMISSION_MASK.getPermissionCode())
-                rbAdmin.setSelected(true);
-            else
-                rbUsuario.setSelected(true);
-        }
-    }
-
-    private UserBean extractBeanIdFromCombo()
-    {
-        UserBean ret = new UserBean();
-        controller.loadUsers();
-        for(UserBean bean : controller.getUserBeans())
-        {
-            if(cbLoginUser.getSelectedItem() != null)
-            {
-                if(bean.getLogin().equals(cbLoginUser.getSelectedItem().toString()))
-                    return bean;
-            }
-        }
-        return null;
     }
 
     private void voltar()
@@ -644,6 +605,39 @@ public class UserCrud extends PassControlPanel
             jlNameError.setVisible(false);
             jlNameError.setToolTipText("");
             ready = true;
+        }
+    }
+
+    private void writeScreenFromBean()
+    {
+        tfNameUser.setText(currentBean.getName());
+        tfEmail.setText(currentBean.getEmail());
+        tfSenha.setText(currentBean.getPassword());
+        if(currentBean.getType() == UserPermission.ALL_PERMISSION_MASK.getPermissionCode())
+                rbAdmin.setSelected(true);
+            else
+                rbUsuario.setSelected(true);
+    }
+    
+    private void writeBeanFromScreen()
+    {
+        currentBean.setEmail(tfEmail.getText());
+        currentBean.setLogin(cbLoginUser.getSelectedItem().toString());
+        currentBean.setName(tfNameUser.getText());
+        currentBean.setPassword(new String(tfSenha.getPassword()));
+        if(rbAdmin.isSelected())
+            currentBean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());
+        else
+            currentBean.setType(UserPermission.BALCONY_PERMISSION_MASK.getPermissionCode());
+    }
+
+    private void loadCurrentBean()
+    {
+        controller.loadUsers();
+        if(cbLoginUser.getSelectedItem() != null )
+        {
+            int index = cbLoginUser.getSelectedIndex();
+            currentBean =  controller.getUserBeans().get(index);
         }
     }
 }

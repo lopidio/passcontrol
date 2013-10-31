@@ -168,7 +168,7 @@
     <Container class="javax.swing.JPanel" name="jpSecundario">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="280" y="40" width="300" height="440"/>
+          <AbsoluteConstraints x="350" y="50" width="300" height="440"/>
         </Constraint>
       </Constraints>
 
@@ -313,6 +313,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbLoginUserItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbLoginUserActionPerformed"/>
           </Events>
         </Component>
