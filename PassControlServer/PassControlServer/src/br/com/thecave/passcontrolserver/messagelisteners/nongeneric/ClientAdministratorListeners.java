@@ -316,17 +316,14 @@ public class ClientAdministratorListeners implements ClientListeners
         {
             ServerCommunicationThread server = PassControlServer.getInstance().getServer();
             AdministratorRemoveSlideImage administratorRemoveSlideImage = (AdministratorRemoveSlideImage)message;
-            //Confirma o recebimento da resposta
             
-            //Salva a imagem na pasta correta
-            boolean status = FileUtils.deleteFile(IMAGES_SLIDE_PATH + administratorRemoveSlideImage.getFileName());
-
             //Altero o arquivo de configurações e mando para os clientes
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-            configurationFile.getImgsSlide().remove(administratorRemoveSlideImage.getFileName());
+            boolean status = configurationFile.getImgsSlide().remove(administratorRemoveSlideImage.getFileName()) != null;
             PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
             PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
+            //Confirma o recebimento da resposta            
             //Envio a resposta para o administrador
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(status, administratorRemoveSlideImage, MessageActors.AdministratorActor);
             server.addResponseToSend(socket, confirmationResponse);

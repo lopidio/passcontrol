@@ -322,10 +322,7 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmAddImageActionPerformed
 
     private void jmRemoveImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRemoveImagesActionPerformed
-        
-//        ImageSliderRemoverComponent sliderRemoverComponent = new ImageSliderRemoverComponent(this);
-        
-        
+               
         SliderRemover sliderRemover = new SliderRemover(Main.getInstance().getMainFrame(), true);
         sliderRemover.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -340,7 +337,7 @@ public class AdminScreen extends PassControlPanel
         {
             AdministratorRemoveSlideImage removeSlideImage = new AdministratorRemoveSlideImage(filename);
             ConfirmationResponse response = Main.getInstance().getCommunicationThread().
-                    sendMessageToServerAndWaitForResponseOrTimeout(removeSlideImage, ConfirmationResponse.class, 2000);
+                    sendMessageToServerAndWaitForResponseOrTimeout(removeSlideImage, ConfirmationResponse.class, 5000);
 
             if(response != null && response.getStatusOperation())
             {
