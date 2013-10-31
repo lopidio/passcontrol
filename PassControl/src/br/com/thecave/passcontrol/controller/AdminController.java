@@ -91,7 +91,7 @@ public class AdminController extends PassControlController
     {
         int newTime;
         String time = JOptionPane.showInputDialog("Insira o tempo de intervalo que deseja para a apresentação");
-        ArrayList<IValidation> validations = new ArrayList<IValidation>();
+        ArrayList<IValidation> validations = new ArrayList<>();
         validations.add(new ValidIsDigit());
         while( !ValidationPerform.valid(time, validations ))
         {

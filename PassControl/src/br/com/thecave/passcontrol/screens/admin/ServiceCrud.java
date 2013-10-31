@@ -381,12 +381,11 @@ public class ServiceCrud extends PassControlPanel
     {
         ServiceBean bean = extractBeanIdFromCombo();
         if(bean != null)
-        defineCBPriorites(bean.getPriority());
+            defineCBPriorites(bean.getPriority());
     }
 
     private ServiceBean extractBeanIdFromCombo()
     {
-        ServiceBean ret = new ServiceBean();
         for(ServiceBean bean : controller.getServices())
         {
             if(bean.getName().equals(cbName.getSelectedItem().toString()))

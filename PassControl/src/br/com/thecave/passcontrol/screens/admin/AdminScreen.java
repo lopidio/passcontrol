@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.screens.admin;
 
+import br.com.thecave.passcontrol.component.util.ImageSliderRemoverComponent;
 import br.com.thecave.passcontrol.controller.AdminController;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
@@ -9,11 +10,15 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemo
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
+import java.awt.Button;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -321,6 +326,13 @@ public class AdminScreen extends PassControlPanel
     }//GEN-LAST:event_jmAddImageActionPerformed
 
     private void jmRemoveImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRemoveImagesActionPerformed
+        
+        ImageSliderRemoverComponent sliderRemoverComponent = new ImageSliderRemoverComponent(this);
+        sliderRemoverComponent.display();
+/*        
+        
+                
+        
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
         chooser.setFileFilter(filter);
@@ -339,7 +351,7 @@ public class AdminScreen extends PassControlPanel
             {
                 JOptionPane.showMessageDialog(null, "Conexão perdida com o servidor!");
             }
-        }
+        }*/
     }//GEN-LAST:event_jmRemoveImagesActionPerformed
 
     private void jmAlterTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterTimeActionPerformed

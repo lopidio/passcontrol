@@ -129,7 +129,7 @@ public class ClientGenericListeners implements ClientListeners
          * Metodo para verificar se o usuário é o Super
          * @param user String com o nome do usuário
          * @param pass String com a senha digitada
-         * @return true se fo,r false se não
+         * @return true se for, false se não
          */
         public static boolean isSuperUser(String name, String pass)
         {
