@@ -301,7 +301,7 @@ public class ClientAdministratorListeners implements ClientListeners
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
             configurationFile.getImgsSlide().put(administratorAddSlideImage.getFileName(), new ImageIcon(administratorAddSlideImage.getImage().getImage()));
             PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
-            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToViewers(server);
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
             //Envio a resposta para o administrador
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, message, MessageActors.AdministratorActor);
@@ -325,7 +325,7 @@ public class ClientAdministratorListeners implements ClientListeners
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
             configurationFile.getImgsSlide().remove(administratorRemoveSlideImage.getFileName());
             PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
-            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToViewers(server);
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
 
             //Envio a resposta para o administrador
             ConfirmationResponse confirmationResponse = new ConfirmationResponse(status, administratorRemoveSlideImage, MessageActors.AdministratorActor);
@@ -374,7 +374,7 @@ public class ClientAdministratorListeners implements ClientListeners
             ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
             configurationFile.setSlideShowSpeed(administratorSetTimeSlideInterval.getTimeInterval());
             PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
-            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToViewers(server);
+            PassControlConfigurationSynchronizer.getInstance().sendConfigurationFileToClients(server);
             
         }
     }

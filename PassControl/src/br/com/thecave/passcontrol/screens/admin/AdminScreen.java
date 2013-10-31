@@ -1,6 +1,6 @@
 package br.com.thecave.passcontrol.screens.admin;
 
-import br.com.thecave.passcontrol.component.util.ImageSliderRemoverComponent;
+import br.com.thecave.passcontrol.component.util.SliderRemover;
 import br.com.thecave.passcontrol.controller.AdminController;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
@@ -10,15 +10,11 @@ import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemo
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
-import java.awt.Button;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -327,12 +323,35 @@ public class AdminScreen extends PassControlPanel
 
     private void jmRemoveImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRemoveImagesActionPerformed
         
-        ImageSliderRemoverComponent sliderRemoverComponent = new ImageSliderRemoverComponent(this);
-        sliderRemoverComponent.display();
-/*        
+//        ImageSliderRemoverComponent sliderRemoverComponent = new ImageSliderRemoverComponent(this);
         
-                
         
+        SliderRemover sliderRemover = new SliderRemover(Main.getInstance().getMainFrame(), true);
+        sliderRemover.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                System.exit(0);
+            }
+        });
+        sliderRemover.setVisible(true);        
+        
+        String filename = sliderRemover.getSelectedImageName();
+        if (sliderRemover.getReturnStatus() == SliderRemover.RET_REMOVER && filename != null)
+        {
+            AdministratorRemoveSlideImage removeSlideImage = new AdministratorRemoveSlideImage(filename);
+            ConfirmationResponse response = Main.getInstance().getCommunicationThread().
+                    sendMessageToServerAndWaitForResponseOrTimeout(removeSlideImage, ConfirmationResponse.class, 2000);
+
+            if(response != null && response.getStatusOperation())
+            {
+                JOptionPane.showMessageDialog(null, "Imagem removida com sucesso!");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Conexão perdida com o servidor!");
+            }  
+        }            
+/*                
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG Images", "jpg", "png");
         chooser.setFileFilter(filter);
