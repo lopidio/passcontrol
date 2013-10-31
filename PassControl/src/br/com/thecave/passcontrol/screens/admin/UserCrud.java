@@ -14,7 +14,6 @@ import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
-import javax.swing.JOptionPane;
 
 /**
  *
