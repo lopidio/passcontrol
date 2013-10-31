@@ -64,31 +64,16 @@ public class PassControlServer {
         
         //Fazer uma lista de ClientListeners???
         
-        // Cadastra os listeners relativos às mensagens do administrador
+        // Cadastra os listeners
         new ClientAdministratorListeners().addListenersCallback(server);
         new ClientBalconyListeners().addListenersCallback(server);
         new ClientGenericListeners().addListenersCallback(server);
         new ClientQueuePusherListener().addListenersCallback(server);
         new ClientQueuePopperListener().addListenersCallback(server);
         new ClientViewerListener().addListenersCallback(server);
+        QueueElementHandler.getInstance().addListenersCallback(); //
         
         new Thread(server).start();
-        new Thread(QueueElementHandler.getInstance()).start();
-        
-        //Inicializa a tread controladora de escolhas de clientes
-        QueueElementHandler.getInstance().initialize();
-        
-//        Integer count = 0;
-//        while(true)
-//        {
-//            ++count;
-//            Thread.sleep(30000);
-//            Integer serviceId = count%10;
-//            QueuesManagerBean bean = new QueuesManagerBean();
-//            bean.setPassNumber(count+"tx");
-//            BalconyShowClientMessage showClientMessage = new BalconyShowClientMessage("Irru"+count, serviceId+"", "c"+count, bean, MessageActors.ServerActor, MessageActors.AllActors);
-//            server.addBroadcastToSend(showClientMessage);
-//        }
     }
 
     /**

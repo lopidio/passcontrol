@@ -9,7 +9,6 @@ import br.com.thecave.passcontrolserver.messages.generic.MessageActors;
 import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperChooseNextElement;
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperNewClientAdded;
-import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshAllRequest;
 import br.com.thecave.passcontrolserver.messages.viewer.QueuePopperRefreshResponse;
 import java.net.Socket;
 import java.util.ArrayList;

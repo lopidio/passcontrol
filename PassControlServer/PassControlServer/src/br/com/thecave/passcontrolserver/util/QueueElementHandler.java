@@ -10,6 +10,7 @@ import br.com.thecave.passcontrolserver.db.bean.QueuesManagerBean;
 import br.com.thecave.passcontrolserver.db.dao.QueuesManagerDAO;
 import br.com.thecave.passcontrolserver.db.dao.ServiceDAO;
 import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientBalconyListeners;
+import static br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientQueuePopperListener.generateAllClientsToPopper;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ChangeActorMessage;
 import br.com.thecave.passcontrolserver.messages.generic.ConfirmationResponse;
@@ -29,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author guilherme
  */
-public class QueueElementHandler implements Runnable
+public class QueueElementHandler
 {
     public static final int AUTOMATIC_QUEUE_CHOOSER_USERCHECKOUT_ID = -1;
     public static final int QUEUE_ELEMENT_SKIPPED_BALCONY_ID = -1;
@@ -86,7 +87,7 @@ public class QueueElementHandler implements Runnable
         waitingBalconys = new ConcurrentHashMap<>(); //
     }
     
-    public void initialize()
+    public void addListenersCallback()
     {
         PassControlServer.getInstance().getServer().addMessageListener(new ChangeActorMessageQueuePopListener(), ChangeActorMessage.class);
         PassControlServer.getInstance().getServer().addMessageListener(new QueuePopChosenListener(), BalconyShowClientMessage.class);
@@ -181,34 +182,37 @@ public class QueueElementHandler implements Runnable
      * @return 
      */
     private QueuesManagerBean manualChoose(BalconyBean balconyBean, HashMap<Integer, ArrayList<QueuesManagerBean>> avaliableClients)
-    {
-        //Só precisa enviar caso não tenha sido enviada ainda
-        if (!wasMessageSent)
+    {        
+        synchronized(chosenClient)
         {
-            System.out.println("Requisitando aos poppers a escolha.");
-            String avaliableClientsIds = "";
-            for (Map.Entry<Integer, ArrayList<QueuesManagerBean>> entry : avaliableClients.entrySet()) 
-            {
-                Integer integer = entry.getKey();
-                ArrayList<QueuesManagerBean> arrayList = entry.getValue();
-                for (QueuesManagerBean queuesManagerBean : arrayList) 
-                {
-                    avaliableClientsIds += queuesManagerBean.getId() + "; ";
-                }
-            }
-            System.out.println("Clientes passíveis de seleção: " + avaliableClientsIds);
-            
-            //Zero o cliente anterior
-            chosenClient = null;
-            chooseNextElementMessage = new QueuePopperChooseNextElement(balconyBean, avaliableClients);
 
-            PassControlServer.getInstance().getServer().addBroadcastToSend(chooseNextElementMessage);
+            //Só precisa enviar caso não tenha sido enviada ainda
+            if (!wasMessageSent)
+            {
+                System.out.println("Requisitando aos poppers a escolha.");
+                String avaliableClientsIds = "";
+                for (Map.Entry<Integer, ArrayList<QueuesManagerBean>> entry : avaliableClients.entrySet()) 
+                {
+                    ArrayList<QueuesManagerBean> arrayList = entry.getValue();
+                    for (QueuesManagerBean queuesManagerBean : arrayList) 
+                    {
+                        avaliableClientsIds += queuesManagerBean.getId() + "; ";
+                    }
+                }
+                System.out.println("Clientes passíveis de seleção: " + avaliableClientsIds);
+
+                //Zero o cliente anterior
+                chosenClient = null;
+                chooseNextElementMessage = new QueuePopperChooseNextElement(balconyBean, avaliableClients);
+
+                PassControlServer.getInstance().getServer().addBroadcastToSend(chooseNextElementMessage);
+            }
+
+            wasMessageSent = true;
+            if (chosenClient != null)
+                return prepareSelectedQueuesManageElement(balconyBean, chosenClient.getQueuesManagerBean());
+            return null;
         }
-        
-        wasMessageSent = true;
-        if (chosenClient != null)
-            return prepareSelectedQueuesManageElement(balconyBean, chosenClient.getQueuesManagerBean());
-        return null;
     }    
     
     public boolean isAutomaticChooseOn() 
@@ -221,57 +225,53 @@ public class QueueElementHandler implements Runnable
         this.automaticChooseOn = automaticChooseOn;
     }
 
-    @Override
-    public void run() 
+    public void iterate() 
     {
-        while (true)
+        synchronized (waitingBalconys)  
         {
-            synchronized (waitingBalconys)  
+            //Percorro só o primeiro guichê que está esperando
+            for (Map.Entry<BalconyBean, Socket> entry : waitingBalconys.entrySet()) 
             {
-                //Percorro só o primeiro guichê que está esperando
-                for (Map.Entry<BalconyBean, Socket> entry : waitingBalconys.entrySet()) 
+                BalconyBean balconyBean = entry.getKey();
+                //Verifica se o guichê ainda está em uso
+                if (ClientBalconyListeners.getLoggedBalconysID().get(balconyBean.getId()) == null)
                 {
-                    BalconyBean balconyBean = entry.getKey();
-                    //Verifica se o guichê ainda está em uso
-                    if (ClientBalconyListeners.getLoggedBalconysID().get(balconyBean.getId()) == null)
-                    {
-                        //Vai ter que mandar a mensagem novamente na próxima iteração
-                        wasMessageSent = false;
-                        System.out.println("QueueHandler::Guichê: [" + balconyBean.getNumber()+ "] não está mais esperando (desapareceu?)");                        
-                        waitingBalconys.remove(balconyBean);                         
-                        break;
-                    }
-                
-                    //Seleciona todos os clientes atendíveis para aquele guichê
-                    HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans = QueuesManagerDAO.selectAvaliableClientsOfBalcony(balconyBean);
-
-                    Socket balconySocket = entry.getValue();                
-
-                    //Se a escolha estiver automática
-                    QueuesManagerBean managerBean;
-                    if (this.automaticChooseOn)
-                    {
-                        //Seleciono o melhor elemento para aquele guichê
-                        managerBean = automaticChoose(managerBeans, balconyBean);
-                    }
-                    else
-                    {
-                        managerBean = manualChoose(balconyBean, managerBeans);
-                    }
-                        
-                    //Se existir um cliente que se adeque ao guichê
-                    if (managerBean != null)
-                    {
-                        //Informo ao guichê
-                        ClientBalconyListeners.sendBackElementQueueToBalcony(balconySocket, managerBean);
-                        System.out.println("QueueHandler::Cliente [automático] redirecionado para guichê: [" + balconyBean.getNumber()+ "]");                        
-                        waitingBalconys.remove(balconyBean, balconySocket);                        
-                    }   
-                    
-                    //O laço só é para primeiro guichê!!!
-                    //Foi a melhor maneira (não consegui achar o método do hashMap que retorna o primeiro elemento. :D)
+                    //Vai ter que mandar a mensagem novamente na próxima iteração
+                    wasMessageSent = false;
+                    System.out.println("QueueHandler::Guichê: [" + balconyBean.getNumber()+ "] não está mais esperando (desapareceu?)");                        
+                    waitingBalconys.remove(balconyBean);                         
                     break;
                 }
+
+                //Seleciona todos os clientes atendíveis para aquele guichê
+                HashMap<Integer, ArrayList<QueuesManagerBean>> managerBeans = QueuesManagerDAO.selectAvaliableClientsOfBalcony(balconyBean);
+
+                Socket balconySocket = entry.getValue();                
+
+                //Se a escolha estiver automática
+                QueuesManagerBean managerBean;
+                if (this.automaticChooseOn)
+                {
+                    //Seleciono o melhor elemento para aquele guichê
+                    managerBean = automaticChoose(managerBeans, balconyBean);
+                }
+                else
+                {
+                    managerBean = manualChoose(balconyBean, managerBeans);
+                }
+
+                //Se existir um cliente que se adeque ao guichê
+                if (managerBean != null)
+                {
+                    //Informo ao guichê
+                    ClientBalconyListeners.sendBackElementQueueToBalcony(balconySocket, managerBean);
+                    System.out.println("QueueHandler::Cliente [automático] redirecionado para guichê: [" + balconyBean.getNumber()+ "]");                        
+                    waitingBalconys.remove(balconyBean, balconySocket);                        
+                }   
+
+                //O laço só é para primeiro guichê!!!
+                //Foi a melhor maneira (não consegui achar o método do hashMap que retorna o primeiro elemento. :D)
+                break;
             }
         }
     }
@@ -299,8 +299,12 @@ public class QueueElementHandler implements Runnable
             //Insere
             if (changeActorMessage.getFrom() == MessageActors.QueuePopActor)
             {
-               //Informo que a mensagem deve ser reenviada
-               getInstance().wasMessageSent = false;
+                //Informo que a mensagem deve ser reenviada
+                getInstance().wasMessageSent = false;
+               
+                //Informo ao popper todos os clientes que estão na espera
+                PassControlServer.getInstance().getServer().addResponseToSend(socket, generateAllClientsToPopper());
+
             }
         }
     }      
@@ -310,21 +314,30 @@ public class QueueElementHandler implements Runnable
         @Override
         public void onMessageReceive(PassControlMessage message, Socket socket) 
         {
-            BalconyShowClientMessage clientMessage = (BalconyShowClientMessage)message;
-            
-            //Informo ao popper que sua escolha foi bem sucedida
-            ConfirmationResponse confirmationResponse = new ConfirmationResponse(false, clientMessage, MessageActors.QueuePopActor);
+                BalconyShowClientMessage clientMessage = (BalconyShowClientMessage)message;
 
-            QueuesManagerBean queuesManagerBean = QueuesManagerDAO.selectFromId(clientMessage.getQueuesManagerBean().getId());
-            if (queuesManagerBean.getIdBalcony() == 0 ) //Não foi escolhido ainda
-            {
-                confirmationResponse.setStatusOperation(true);
-                getInstance().chosenClient = (BalconyShowClientMessage)message;
-            }
-            else
-            {
-                confirmationResponse.setComment("O cliente já não está mais apto a escolha");
-            }
+                //Informo ao popper que sua escolha foi bem sucedida
+                ConfirmationResponse confirmationResponse = new ConfirmationResponse(false, clientMessage, MessageActors.QueuePopActor);
+                synchronized(getInstance().chosenClient)
+                {
+                    if (getInstance().chosenClient == null)
+                    {
+                        QueuesManagerBean queuesManagerBean = QueuesManagerDAO.selectFromId(clientMessage.getQueuesManagerBean().getId());
+                        if (queuesManagerBean.getIdBalcony() == 0 ) //Não foi escolhido ainda
+                        {
+                            confirmationResponse.setStatusOperation(true);
+                            getInstance().chosenClient = (BalconyShowClientMessage)message;
+                        }
+                        else
+                        {
+                            confirmationResponse.setComment("O cliente já não está mais apto a escolha");
+                        }
+                    }
+                    else
+                    {
+                        confirmationResponse.setComment("O guichê já está em atendimento");
+                    }
+                }
 
             PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
         }
