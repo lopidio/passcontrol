@@ -22,6 +22,7 @@ public class ServiceCrud extends PassControlPanel
     ServiceCrudController controller = null;
     private boolean insert;
     private boolean ready;
+    private ServiceBean currentBean;
     /**
      * Creates new form AdminScreen
      */
@@ -30,9 +31,11 @@ public class ServiceCrud extends PassControlPanel
         super("Cadastro de Serviços", new ServiceCrudController());
         this.controller = (ServiceCrudController) getPanelController();        
         initComponents();
+        currentBean = new ServiceBean();
         jpSecundario.setVisible(false);
-        
         defineCBNames();
+        loadCurrentBean();
+        writeScreenFromBean();
         jlNameErro.setVisible(false);
     }
 
@@ -166,6 +169,13 @@ public class ServiceCrud extends PassControlPanel
         cbName.setEditable(true);
         cbName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbName.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbName.addItemListener(new java.awt.event.ItemListener()
+        {
+            public void itemStateChanged(java.awt.event.ItemEvent evt)
+            {
+                cbNameItemStateChanged(evt);
+            }
+        });
         cbName.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -276,8 +286,7 @@ public class ServiceCrud extends PassControlPanel
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
         String s = "";
-        ServiceBean bean = new ServiceBean();
-        boolean ret = false;;
+        boolean ret = false;
         if(cbName.getSelectedItem() != null)
             s = cbName.getSelectedItem().toString();
         
@@ -296,25 +305,21 @@ public class ServiceCrud extends PassControlPanel
             jlNameErro.setVisible(false);
             ready = true;
         }
-        // construindo o bean com as informações da tela
-        bean = extractBeanIdFromCombo();
         
         if(ready)
         {
             // se tiver clicado em novo
             if(insert)
             {
-                bean = new ServiceBean();
-                bean.setName(cbName.getSelectedItem().toString());
-                bean.setPriority(cbPrioridade.getSelectedIndex() + 1); 
-                ret = controller.saveService(bean);
+                currentBean = new ServiceBean();
+                writeBeanFromScreen();
+                ret = controller.saveService(currentBean);
             }
             // se tiver clicado em editar
             else
             {
-                bean.setName(cbName.getSelectedItem().toString());
-                bean.setPriority(cbPrioridade.getSelectedIndex() + 1);
-                ret = controller.updateService(bean);
+                writeBeanFromScreen();
+                ret = controller.updateService(currentBean);
             }
         }
         if(ret)
@@ -323,20 +328,20 @@ public class ServiceCrud extends PassControlPanel
 
     private void cbNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbNameActionPerformed
     {//GEN-HEADEREND:event_cbNameActionPerformed
-        sincronizeCombos();
+       // writeScreenFromBean();
     }//GEN-LAST:event_cbNameActionPerformed
 
     private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbRemoveActionPerformed
     {//GEN-HEADEREND:event_jbRemoveActionPerformed
-        ServiceBean bean = extractBeanIdFromCombo();
-        if(bean != null)
-        {
-            controller.deleteService(bean);
-            voltar();
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Não existe nenhum registro a ser deletado!");
+        loadCurrentBean();        
+        controller.deleteService(currentBean);
+        voltar();
     }//GEN-LAST:event_jbRemoveActionPerformed
+
+    private void cbNameItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbNameItemStateChanged
+    {//GEN-HEADEREND:event_cbNameItemStateChanged
+        writeScreenFromBean();
+    }//GEN-LAST:event_cbNameItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbName;
@@ -369,34 +374,34 @@ public class ServiceCrud extends PassControlPanel
     private void defineCBNames()
     {
         controller.defineCBNames(cbName);
-        sincronizeCombos();
     }
     
-    private void defineCBPriorites(int value)
-    {
-        cbPrioridade.setSelectedIndex(value - 1);
-    }
-
-    private void sincronizeCombos()
-    {
-        ServiceBean bean = extractBeanIdFromCombo();
-        if(bean != null)
-            defineCBPriorites(bean.getPriority());
-    }
-
-    private ServiceBean extractBeanIdFromCombo()
-    {
-        for(ServiceBean bean : controller.getServices())
-        {
-            if(bean.getName().equals(cbName.getSelectedItem().toString()))
-                return bean;
-        }
-        return null;
-    }
-
     private void voltar()
     {
         Main.getInstance().getMainFrame().activatePassControlPanel(new ServiceCrud());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }
+
+    private void loadCurrentBean()
+    {
+        controller.loadServices();
+        if(cbName.getSelectedIndex() >= 0 &&  cbName.getSelectedIndex() < controller.getServices().size())
+        {
+            int index = cbName.getSelectedIndex();
+            currentBean =  controller.getServices().get(index);
+        }
+    }
+
+    private void writeScreenFromBean()
+    {
+        loadCurrentBean();
+        int index = currentBean.getPriority() -1;
+        cbPrioridade.setSelectedIndex(index);
+    }
+
+    private void writeBeanFromScreen()
+    {
+        currentBean.setName(cbName.getSelectedItem().toString());
+        currentBean.setPriority(cbPrioridade.getSelectedIndex() + 1);
     }
 }
