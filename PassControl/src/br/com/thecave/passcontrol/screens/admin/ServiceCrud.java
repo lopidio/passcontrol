@@ -11,7 +11,6 @@ import br.com.thecave.passcontrolserver.util.validations.ValidIsEmpty;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
-import javax.swing.JOptionPane;
 
 /**
  *
