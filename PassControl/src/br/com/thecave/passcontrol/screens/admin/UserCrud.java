@@ -345,7 +345,7 @@ public class UserCrud extends PassControlPanel
                 .addGap(38, 38, 38))
         );
 
-        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 300, 440));
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 300, 440));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
