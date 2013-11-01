@@ -65,7 +65,6 @@ public class QueuePushScreen extends PassControlPanel
         jmNovoAtendimento = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmVoltar = new javax.swing.JMenuItem();
-        jlAdminPic = new javax.swing.JLabel();
         jpBarraLateral = new javax.swing.JPanel();
         jbNovoCliente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -108,6 +107,7 @@ public class QueuePushScreen extends PassControlPanel
         jbLoadFromRegister = new javax.swing.JButton();
         jlNomeAtendimentoErro = new javax.swing.JLabel();
         jlTelefoneAtendimentoErro = new javax.swing.JLabel();
+        jbBack = new javax.swing.JButton();
 
         jmChooseService.setMnemonic('e');
         jmChooseService.setText("Recepção");
@@ -154,9 +154,6 @@ public class QueuePushScreen extends PassControlPanel
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlAdminPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
-        add(jlAdminPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 11, -1, -1));
 
         jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
 
@@ -464,6 +461,20 @@ public class QueuePushScreen extends PassControlPanel
         jlTelefoneAtendimentoErro.setBounds(310, 101, 15, 24);
 
         add(jpNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, -1, -1));
+
+        jbBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
+        jbBack.setToolTipText("Clique para voltar à tela principal!");
+        jbBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbBack.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Over.png"))); // NOI18N
+        jbBack.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Clicked.png"))); // NOI18N
+        jbBack.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbBackActionPerformed(evt);
+            }
+        });
+        add(jbBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNovoClienteActionPerformed
@@ -546,6 +557,12 @@ public class QueuePushScreen extends PassControlPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_jbRemoverClienteActionPerformed
 
+    private void jbBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbBackActionPerformed
+    {//GEN-HEADEREND:event_jbBackActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }//GEN-LAST:event_jbBackActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbServico;
     private javax.swing.JLabel jLabel1;
@@ -561,6 +578,7 @@ public class QueuePushScreen extends PassControlPanel
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton jbAtualizarCliente;
+    private javax.swing.JButton jbBack;
     private javax.swing.JButton jbEditarCliente;
     private javax.swing.JButton jbInserirNovoAtendimento;
     private javax.swing.JButton jbInserirNovoCliente;
@@ -568,7 +586,6 @@ public class QueuePushScreen extends PassControlPanel
     private javax.swing.JButton jbNovoAtendimento;
     private javax.swing.JButton jbNovoCliente;
     private javax.swing.JButton jbRemoverCliente;
-    private javax.swing.JLabel jlAdminPic;
     private javax.swing.JLabel jlCadastroClienteErro;
     private javax.swing.JLabel jlCadastroClienteErroEditar;
     private javax.swing.JLabel jlNomeAtendimentoErro;
