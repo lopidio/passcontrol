@@ -51,8 +51,7 @@ public class UserCrud extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jmAdmin = new javax.swing.JMenu();
         jmAdminstrador = new javax.swing.JMenuItem();
@@ -74,13 +73,12 @@ public class UserCrud extends PassControlPanel
         jLabel5 = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        rbAdmin = new javax.swing.JRadioButton();
-        rbUsuario = new javax.swing.JRadioButton();
         tfSenha = new javax.swing.JPasswordField();
         jlNameError = new javax.swing.JLabel();
         jlLoginError = new javax.swing.JLabel();
         jSenhaError = new javax.swing.JLabel();
         jlEmailErro = new javax.swing.JLabel();
+        cbUserPermission = new javax.swing.JComboBox();
 
         jmAdmin.setText("Administrar");
         jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -89,10 +87,8 @@ public class UserCrud extends PassControlPanel
         jmAdminstrador.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAdminstrador.setMnemonic('a');
         jmAdminstrador.setText("Administrador");
-        jmAdminstrador.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmAdminstrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmAdminstradorActionPerformed(evt);
             }
         });
@@ -102,10 +98,8 @@ public class UserCrud extends PassControlPanel
         jmVoltar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmVoltar.setMnemonic('v');
         jmVoltar.setText("Voltar");
-        jmVoltar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmVoltarActionPerformed(evt);
             }
         });
@@ -141,10 +135,8 @@ public class UserCrud extends PassControlPanel
         jbEditar.setBackground(new java.awt.Color(45, 123, 142));
         jbEditar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbEditar.setText("Editar");
-        jbEditar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEditarActionPerformed(evt);
             }
         });
@@ -153,198 +145,110 @@ public class UserCrud extends PassControlPanel
         jbNovo.setBackground(new java.awt.Color(45, 123, 142));
         jbNovo.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbNovo.setText("Novo");
-        jbNovo.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoActionPerformed(evt);
             }
         });
         add(jbNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 221, 37));
 
+        jpSecundario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel2.setText("Login do Usuário");
+        jpSecundario.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 12, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel3.setText("Nome do usuário");
+        jpSecundario.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 91, -1, -1));
 
         jbAdicionar.setBackground(new java.awt.Color(45, 123, 142));
         jbAdicionar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbAdicionar.setText("Adicionar");
-        jbAdicionar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAdicionarActionPerformed(evt);
             }
         });
+        jpSecundario.add(jbAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 134, -1));
 
         cbLoginUser.setEditable(true);
         cbLoginUser.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         cbLoginUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbLoginUser.addItemListener(new java.awt.event.ItemListener()
-        {
-            public void itemStateChanged(java.awt.event.ItemEvent evt)
-            {
+        cbLoginUser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbLoginUserItemStateChanged(evt);
             }
         });
-        cbLoginUser.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        cbLoginUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbLoginUserActionPerformed(evt);
             }
         });
+        jpSecundario.add(cbLoginUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 35, 208, -1));
 
         jbRemove.setBackground(new java.awt.Color(45, 123, 142));
         jbRemove.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jbRemove.setText("Remover");
-        jbRemove.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRemoveActionPerformed(evt);
             }
         });
+        jpSecundario.add(jbRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 134, -1));
 
         tfNameUser.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfNameUser.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
+        tfNameUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
                 tfNameUserFocusLost(evt);
             }
         });
+        jpSecundario.add(tfNameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 114, 208, -1));
 
         jLabel4.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel4.setText("Senha do usuário");
+        jpSecundario.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 161, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel5.setText("Email do usuário");
+        jpSecundario.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 233, -1, -1));
 
         tfEmail.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfEmail.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
+        tfEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
                 tfEmailFocusLost(evt);
             }
         });
+        jpSecundario.add(tfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 256, 211, -1));
 
         jLabel6.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jLabel6.setText("Permissão do usuário");
-
-        bgPermissao.add(rbAdmin);
-        rbAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        rbAdmin.setText("Administrador");
-
-        bgPermissao.add(rbUsuario);
-        rbUsuario.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        rbUsuario.setText("Usuário");
-        rbUsuario.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                rbUsuarioActionPerformed(evt);
-            }
-        });
+        jpSecundario.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 301, -1, -1));
 
         tfSenha.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfSenha.addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusLost(java.awt.event.FocusEvent evt)
-            {
+        tfSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
                 tfSenhaFocusLost(evt);
             }
         });
+        jpSecundario.add(tfSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 184, 211, -1));
 
         jlNameError.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpSecundario.add(jlNameError, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 114, -1, 24));
 
         jlLoginError.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpSecundario.add(jlLoginError, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 35, -1, 27));
 
         jSenhaError.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpSecundario.add(jSenhaError, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 184, -1, 27));
 
         jlEmailErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpSecundario.add(jlEmailErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 256, -1, 27));
 
-        javax.swing.GroupLayout jpSecundarioLayout = new javax.swing.GroupLayout(jpSecundario);
-        jpSecundario.setLayout(jpSecundarioLayout);
-        jpSecundarioLayout.setHorizontalGroup(
-            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpSecundarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecundarioLayout.createSequentialGroup()
-                        .addComponent(jbAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpSecundarioLayout.createSequentialGroup()
-                        .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(cbLoginUser, 0, 208, Short.MAX_VALUE)
-                                    .addComponent(tfNameUser))
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel5)
-                            .addComponent(tfEmail)
-                            .addComponent(jLabel6)
-                            .addGroup(jpSecundarioLayout.createSequentialGroup()
-                                .addComponent(rbAdmin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rbUsuario))
-                            .addComponent(tfSenha))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSenhaError)
-                            .addComponent(jlEmailErro)
-                            .addComponent(jlLoginError)
-                            .addComponent(jlNameError))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jpSecundarioLayout.setVerticalGroup(
-            jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSecundarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlLoginError, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfNameUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSenhaError, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                .addGap(22, 22, 22)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlEmailErro, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbAdmin)
-                    .addComponent(rbUsuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(jpSecundarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbAdicionar)
-                    .addComponent(jbRemove))
-                .addGap(38, 38, 38))
-        );
+        cbUserPermission.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Triagem", "Recepção", "Visualizador", "Guichê" }));
+        jpSecundario.add(cbUserPermission, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 210, -1));
 
-        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 300, 440));
+        add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 300, 410));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
@@ -360,9 +264,7 @@ public class UserCrud extends PassControlPanel
         jbAdicionar.setText("Adicionar");
         tfNameUser.setText("");
         tfEmail.setText("");
-        tfSenha.setText("");
-        rbUsuario.setSelected(true);
-        
+        tfSenha.setText("");        
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jmAdminstradorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmAdminstradorActionPerformed
@@ -439,11 +341,6 @@ public class UserCrud extends PassControlPanel
         voltar();
     }//GEN-LAST:event_jbRemoveActionPerformed
 
-    private void rbUsuarioActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_rbUsuarioActionPerformed
-    {//GEN-HEADEREND:event_rbUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbUsuarioActionPerformed
-
     private void tfNameUserFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_tfNameUserFocusLost
     {//GEN-HEADEREND:event_tfNameUserFocusLost
         //criando as validações
@@ -480,6 +377,7 @@ public class UserCrud extends PassControlPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgPermissao;
     private javax.swing.JComboBox cbLoginUser;
+    private javax.swing.JComboBox cbUserPermission;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -500,8 +398,6 @@ public class UserCrud extends PassControlPanel
     private javax.swing.JMenuItem jmVoltar;
     private javax.swing.JPanel jpBarraLateral;
     private javax.swing.JPanel jpSecundario;
-    private javax.swing.JRadioButton rbAdmin;
-    private javax.swing.JRadioButton rbUsuario;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfNameUser;
     private javax.swing.JPasswordField tfSenha;
@@ -612,13 +508,31 @@ public class UserCrud extends PassControlPanel
 
     private void writeScreenFromBean()
     {
+//        Administrador, Triagem, Recepção, Visualizador, Guichê
         tfNameUser.setText(currentBean.getName());
         tfEmail.setText(currentBean.getEmail());
         tfSenha.setText(currentBean.getPassword());
+        
         if(currentBean.getType() == UserPermission.ALL_PERMISSION_MASK.getPermissionCode())
-                rbAdmin.setSelected(true);
-            else
-                rbUsuario.setSelected(true);
+        {
+            cbUserPermission.setSelectedIndex(0);
+        }
+        else if (currentBean.getType() == UserPermission.POPPER_PERMISSION_MASK.getPermissionCode())
+        {
+            cbUserPermission.setSelectedIndex(1);
+        }
+        else if (currentBean.getType() == UserPermission.PUSHER_PERMISSION_MASK.getPermissionCode())
+        {
+            cbUserPermission.setSelectedIndex(2);
+        }
+        else if (currentBean.getType() == UserPermission.VIEWER_PERMISSION_MASK.getPermissionCode())
+        {
+            cbUserPermission.setSelectedIndex(3);
+        }
+        else// if (currentBean.getType() == UserPermission.BALCONY_PERMISSION_MASK.getPermissionCode())
+        {
+            cbUserPermission.setSelectedIndex(4);
+        }
     }
     
     private void writeBeanFromScreen()
@@ -627,12 +541,28 @@ public class UserCrud extends PassControlPanel
         currentBean.setLogin(cbLoginUser.getSelectedItem().toString());
         currentBean.setName(tfNameUser.getText());
         currentBean.setPassword(new String(tfSenha.getPassword()));
-        if(rbAdmin.isSelected())
+                
+        if (cbUserPermission.getSelectedIndex() == 0)
+        {
             currentBean.setType(UserPermission.ALL_PERMISSION_MASK.getPermissionCode());
-        else
+        }
+        else if (cbUserPermission.getSelectedIndex() == 1)
+        {
+            currentBean.setType(UserPermission.POPPER_PERMISSION_MASK.getPermissionCode());
+        }
+        else if (cbUserPermission.getSelectedIndex() == 2)
+        {
+            currentBean.setType(UserPermission.PUSHER_PERMISSION_MASK.getPermissionCode());
+        }
+        else if (cbUserPermission.getSelectedIndex() == 3)
+        {
+            currentBean.setType(UserPermission.VIEWER_PERMISSION_MASK.getPermissionCode());
+        }
+        else// if (cbUserPermission.getSelectedIndex() == 4)
+        {
             currentBean.setType(UserPermission.BALCONY_PERMISSION_MASK.getPermissionCode());
+        }
     }
-
     private void loadCurrentBean()
     {
         controller.loadUsers();
