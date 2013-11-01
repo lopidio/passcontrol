@@ -8,7 +8,6 @@ import br.com.thecave.passcontrol.utils.Printer;
 import br.com.thecave.passcontrolserver.db.bean.ClientBean;
 import br.com.thecave.passcontrolserver.db.bean.ServiceBean;
 import br.com.thecave.passcontrolserver.db.bean.UserBean;
-import br.com.thecave.passcontrolserver.messages.generic.PrinterMessage;
 import br.com.thecave.passcontrolserver.util.IValidation;
 import br.com.thecave.passcontrolserver.util.ValidationPerform;
 import java.awt.print.PageFormat;
@@ -82,6 +81,19 @@ public class QueuePushScreen extends PassControlPanel
         jLabel1 = new javax.swing.JLabel();
         jbNovoCliente = new javax.swing.JButton();
         jbNovoAtendimento = new javax.swing.JButton();
+        jbEditarCliente = new javax.swing.JButton();
+        jpQueueInfo = new javax.swing.JPanel();
+        jpNovoCliente = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        tfCadastroNovoCliente = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfNomeNovoCliente = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tfTelefoneNovoCliente = new javax.swing.JTextField();
+        jbInserirNovoCliente = new javax.swing.JButton();
+        jlCadastroClienteErro = new javax.swing.JLabel();
+        jlNomeClienteErro = new javax.swing.JLabel();
+        jlTelefoneClienteErro = new javax.swing.JLabel();
         jpNovoAtendimento = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tfCadastroNovoAtendimento = new javax.swing.JTextField();
@@ -95,18 +107,6 @@ public class QueuePushScreen extends PassControlPanel
         jbLoadFromRegister = new javax.swing.JButton();
         jlNomeAtendimentoErro = new javax.swing.JLabel();
         jlTelefoneAtendimentoErro = new javax.swing.JLabel();
-        jpNovoCliente = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        tfCadastroNovoCliente = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        tfNomeNovoCliente = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        tfTelefoneNovoCliente = new javax.swing.JTextField();
-        jbInserirNovoCliente = new javax.swing.JButton();
-        jlCadastroClienteErro = new javax.swing.JLabel();
-        jlNomeClienteErro = new javax.swing.JLabel();
-        jlTelefoneClienteErro = new javax.swing.JLabel();
-        jpQueueInfo = new javax.swing.JPanel();
 
         jmChooseService.setMnemonic('e');
         jmChooseService.setText("Recepção");
@@ -188,7 +188,7 @@ public class QueuePushScreen extends PassControlPanel
                 jbNovoClienteActionPerformed(evt);
             }
         });
-        add(jbNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 221, 37));
+        add(jbNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 221, 37));
 
         jbNovoAtendimento.setBackground(new java.awt.Color(45, 123, 142));
         jbNovoAtendimento.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -200,7 +200,100 @@ public class QueuePushScreen extends PassControlPanel
                 jbNovoAtendimentoActionPerformed(evt);
             }
         });
-        add(jbNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 221, 37));
+        add(jbNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 221, 37));
+
+        jbEditarCliente.setBackground(new java.awt.Color(45, 123, 142));
+        jbEditarCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbEditarCliente.setText("Editar Cliente");
+        jbEditarCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbEditarClienteActionPerformed(evt);
+            }
+        });
+        add(jbEditarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 221, 37));
+
+        jpQueueInfo.setMinimumSize(new java.awt.Dimension(220, 128));
+        jpQueueInfo.setPreferredSize(new java.awt.Dimension(220, 128));
+
+        javax.swing.GroupLayout jpQueueInfoLayout = new javax.swing.GroupLayout(jpQueueInfo);
+        jpQueueInfo.setLayout(jpQueueInfoLayout);
+        jpQueueInfoLayout.setHorizontalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+        );
+        jpQueueInfoLayout.setVerticalGroup(
+            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 128, Short.MAX_VALUE)
+        );
+
+        add(jpQueueInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 220, 128));
+
+        jpNovoCliente.setMaximumSize(new java.awt.Dimension(345, 248));
+        jpNovoCliente.setMinimumSize(new java.awt.Dimension(345, 248));
+        jpNovoCliente.setPreferredSize(new java.awt.Dimension(345, 248));
+        jpNovoCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel2.setText("Cadastro:");
+        jpNovoCliente.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 14, -1, -1));
+
+        tfCadastroNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfCadastroNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfCadastroNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfCadastroNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
+        tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                tfCadastroNovoClienteActionPerformed(evt);
+            }
+        });
+        jpNovoCliente.add(tfCadastroNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 11, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel3.setText("Nome:");
+        jpNovoCliente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        tfNomeNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfNomeNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfNomeNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfNomeNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
+        jpNovoCliente.add(tfNomeNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 210, -1));
+
+        jLabel4.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jLabel4.setText("Telefone:");
+        jpNovoCliente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        tfTelefoneNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        tfTelefoneNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
+        tfTelefoneNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
+        tfTelefoneNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
+        jpNovoCliente.add(tfTelefoneNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 210, -1));
+
+        jbInserirNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
+        jbInserirNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
+        jbInserirNovoCliente.setText("Inserir");
+        jbInserirNovoCliente.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbInserirNovoClienteActionPerformed(evt);
+            }
+        });
+        jpNovoCliente.add(jbInserirNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 199, 221, 37));
+
+        jlCadastroClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoCliente.add(jlCadastroClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(321, 11, 24, 24));
+
+        jlNomeClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoCliente.add(jlNomeClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 24, 24));
+
+        jlTelefoneClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
+        jpNovoCliente.add(jlTelefoneClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 24, 24));
+
+        add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         jpNovoAtendimento.setMaximumSize(new java.awt.Dimension(345, 248));
         jpNovoAtendimento.setMinimumSize(new java.awt.Dimension(345, 248));
@@ -281,87 +374,6 @@ public class QueuePushScreen extends PassControlPanel
         jpNovoAtendimento.add(jlTelefoneAtendimentoErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 101, -1, 24));
 
         add(jpNovoAtendimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
-
-        jpNovoCliente.setMaximumSize(new java.awt.Dimension(345, 248));
-        jpNovoCliente.setMinimumSize(new java.awt.Dimension(345, 248));
-        jpNovoCliente.setPreferredSize(new java.awt.Dimension(345, 248));
-        jpNovoCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jLabel2.setText("Cadastro:");
-        jpNovoCliente.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 14, -1, -1));
-
-        tfCadastroNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfCadastroNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
-        tfCadastroNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
-        tfCadastroNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
-        tfCadastroNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                tfCadastroNovoClienteActionPerformed(evt);
-            }
-        });
-        jpNovoCliente.add(tfCadastroNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 11, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jLabel3.setText("Nome:");
-        jpNovoCliente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-
-        tfNomeNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfNomeNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
-        tfNomeNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
-        tfNomeNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
-        jpNovoCliente.add(tfNomeNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 210, -1));
-
-        jLabel4.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jLabel4.setText("Telefone:");
-        jpNovoCliente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
-
-        tfTelefoneNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        tfTelefoneNovoCliente.setMaximumSize(new java.awt.Dimension(210, 27));
-        tfTelefoneNovoCliente.setMinimumSize(new java.awt.Dimension(210, 27));
-        tfTelefoneNovoCliente.setPreferredSize(new java.awt.Dimension(210, 27));
-        jpNovoCliente.add(tfTelefoneNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 210, -1));
-
-        jbInserirNovoCliente.setBackground(new java.awt.Color(45, 123, 142));
-        jbInserirNovoCliente.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
-        jbInserirNovoCliente.setText("Inserir");
-        jbInserirNovoCliente.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jbInserirNovoClienteActionPerformed(evt);
-            }
-        });
-        jpNovoCliente.add(jbInserirNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 199, 221, 37));
-
-        jlCadastroClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
-        jpNovoCliente.add(jlCadastroClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(321, 11, 24, 24));
-
-        jlNomeClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
-        jpNovoCliente.add(jlNomeClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 24, 24));
-
-        jlTelefoneClienteErro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/errovalid.png"))); // NOI18N
-        jpNovoCliente.add(jlTelefoneClienteErro, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 24, 24));
-
-        add(jpNovoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
-
-        jpQueueInfo.setMinimumSize(new java.awt.Dimension(220, 128));
-        jpQueueInfo.setPreferredSize(new java.awt.Dimension(220, 128));
-
-        javax.swing.GroupLayout jpQueueInfoLayout = new javax.swing.GroupLayout(jpQueueInfo);
-        jpQueueInfo.setLayout(jpQueueInfoLayout);
-        jpQueueInfoLayout.setHorizontalGroup(
-            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-        jpQueueInfoLayout.setVerticalGroup(
-            jpQueueInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 128, Short.MAX_VALUE)
-        );
-
-        add(jpQueueInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 220, 128));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmNovoClienteActionPerformed
@@ -424,6 +436,11 @@ public class QueuePushScreen extends PassControlPanel
         searchRegister();
     }//GEN-LAST:event_jbLoadFromRegisterActionPerformed
 
+    private void jbEditarClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbEditarClienteActionPerformed
+    {//GEN-HEADEREND:event_jbEditarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEditarClienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbServico;
     private javax.swing.JLabel jLabel1;
@@ -435,6 +452,7 @@ public class QueuePushScreen extends PassControlPanel
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JButton jbEditarCliente;
     private javax.swing.JButton jbInserirNovoAtendimento;
     private javax.swing.JButton jbInserirNovoCliente;
     private javax.swing.JButton jbLoadFromRegister;
@@ -475,6 +493,7 @@ public class QueuePushScreen extends PassControlPanel
     {
         jpNovoCliente.setVisible(true);
         jbNovoAtendimento.setVisible(false);
+        jbEditarCliente.setVisible(false);
         jbNovoCliente.setVisible(false);
         jSeparator1.setVisible(true);
         jmVoltar.setVisible(true);
@@ -488,6 +507,7 @@ public class QueuePushScreen extends PassControlPanel
     {
         jbNovoAtendimento.setVisible(false);
         jbNovoCliente.setVisible(false);
+        jbEditarCliente.setVisible(false);
         jSeparator1.setVisible(true);
         jmVoltar.setVisible(true);
         jmNovoAtendimento.setEnabled(false);
@@ -565,6 +585,8 @@ public class QueuePushScreen extends PassControlPanel
 
     private void inserirNovoAtendimento()
     {
+        jpNovoCliente.setVisible(false);
+        jpNovoAtendimento.setVisible(true);
         // pegando o usuário logado
         UserBean userBean = Main.getInstance().getCurrentUser();
         // pegando o bean dos clientes
