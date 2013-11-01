@@ -2,8 +2,6 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.BalconyController;
-import br.com.thecave.passcontrol.controller.Main;
-import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import javax.swing.BoxLayout;
@@ -220,7 +218,8 @@ public class BalconyScreen extends PassControlPanel
             btRecuperar.setEnabled(true);
             btEncerrar.setEnabled(false);
             btEsperar.setEnabled(false);
-            btRepetir.setEnabled(false);            
+            btRepetir.setEnabled(false);
+            jpQueueInfo.setVisible(false);
         }
 
     }//GEN-LAST:event_btEncerrarActionPerformed
