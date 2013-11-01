@@ -51,8 +51,7 @@ public class ButtonsModulesScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jmModules = new javax.swing.JMenu();
         jmAdmin = new javax.swing.JMenuItem();
@@ -60,6 +59,7 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmViewer = new javax.swing.JMenuItem();
         jmQueuePush = new javax.swing.JMenuItem();
         jmQueuePop = new javax.swing.JMenuItem();
+        jpButtonsPanel = new javax.swing.JPanel();
         jbBalcony = new javax.swing.JButton();
         jbViewer = new javax.swing.JButton();
         jbAdd = new javax.swing.JButton();
@@ -73,10 +73,8 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmAdmin.setMnemonic('a');
         jmAdmin.setText("Administrador");
         jmAdmin.setEnabled(false);
-        jmAdmin.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmAdminActionPerformed(evt);
             }
         });
@@ -87,10 +85,8 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmGuiche.setMnemonic('g');
         jmGuiche.setText("Guichês");
         jmGuiche.setEnabled(false);
-        jmGuiche.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmGuicheActionPerformed(evt);
             }
         });
@@ -101,10 +97,8 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmViewer.setMnemonic('v');
         jmViewer.setText("Visualizador");
         jmViewer.setEnabled(false);
-        jmViewer.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmViewer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmViewerActionPerformed(evt);
             }
         });
@@ -115,10 +109,8 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmQueuePush.setMnemonic('d');
         jmQueuePush.setText("Adicionar");
         jmQueuePush.setEnabled(false);
-        jmQueuePush.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmQueuePush.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmQueuePushActionPerformed(evt);
             }
         });
@@ -129,121 +121,90 @@ public class ButtonsModulesScreen extends PassControlPanel
         jmQueuePop.setMnemonic('r');
         jmQueuePop.setText("Remover");
         jmQueuePop.setEnabled(false);
-        jmQueuePop.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jmQueuePop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmQueuePopActionPerformed(evt);
             }
         });
         jmModules.add(jmQueuePop);
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new java.awt.GridBagLayout());
+
+        jpButtonsPanel.setBackground(java.awt.Color.white);
+        jpButtonsPanel.setForeground(java.awt.Color.white);
+        jpButtonsPanel.setAlignmentX(0.5F);
+        jpButtonsPanel.setAlignmentY(0.5F);
+        jpButtonsPanel.setMaximumSize(new java.awt.Dimension(880, 350));
+        jpButtonsPanel.setMinimumSize(new java.awt.Dimension(880, 350));
+        jpButtonsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jbBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
         jbBalcony.setToolTipText("Clique para abrir a tela do guichê.");
-        jbBalcony.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbBalcony.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbBalcony.setEnabled(false);
         jbBalcony.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButtons_Balcony_Over.png"))); // NOI18N
         jbBalcony.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Balcony_Clicked.png"))); // NOI18N
-        jbBalcony.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbBalcony.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBalconyActionPerformed(evt);
             }
         });
+        jpButtonsPanel.add(jbBalcony, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 251, 151));
 
         jbViewer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/viewer_button.png"))); // NOI18N
         jbViewer.setToolTipText("Clique para abrir a tela de visualizador.");
-        jbViewer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbViewer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbViewer.setEnabled(false);
         jbViewer.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Visualizador_Over.png"))); // NOI18N
         jbViewer.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Visualizador_Clicked.png"))); // NOI18N
-        jbViewer.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbViewer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbViewerActionPerformed(evt);
             }
         });
+        jpButtonsPanel.add(jbViewer, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 251, 151));
 
         jbAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_push_button.png"))); // NOI18N
         jbAdd.setToolTipText("Clique para abrir a tela de recepção.");
-        jbAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbAdd.setEnabled(false);
         jbAdd.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Over.png"))); // NOI18N
         jbAdd.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Adicionar_Clicked.png"))); // NOI18N
-        jbAdd.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAddActionPerformed(evt);
             }
         });
+        jpButtonsPanel.add(jbAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 251, 151));
 
         jbAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
         jbAdmin.setToolTipText("Clique aqui para tela de administração.");
-        jbAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbAdmin.setEnabled(false);
         jbAdmin.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Over.png"))); // NOI18N
         jbAdmin.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Clicked.png"))); // NOI18N
-        jbAdmin.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAdminActionPerformed(evt);
             }
         });
+        jpButtonsPanel.add(jbAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 251, 151));
 
         jbRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/queue_pop_button.png"))); // NOI18N
         jbRemove.setToolTipText("Clique para abrir a tela de remoção da fila.");
-        jbRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbRemove.setEnabled(false);
         jbRemove.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Remover_Over.png"))); // NOI18N
         jbRemove.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Remover_Clicked.png"))); // NOI18N
-        jbRemove.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jbRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRemoveActionPerformed(evt);
             }
         });
+        jpButtonsPanel.add(jbRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 251, 151));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(255, Short.MAX_VALUE)
-                        .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(420, 420, 420)
-                        .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
-                        .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(244, 244, 244))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBalcony, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(307, Short.MAX_VALUE))
-        );
+        add(jpButtonsPanel, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdminActionPerformed
@@ -298,6 +259,7 @@ public class ButtonsModulesScreen extends PassControlPanel
     private javax.swing.JMenuItem jmQueuePop;
     private javax.swing.JMenuItem jmQueuePush;
     private javax.swing.JMenuItem jmViewer;
+    private javax.swing.JPanel jpButtonsPanel;
     // End of variables declaration//GEN-END:variables
 
     private void openAdmin()
