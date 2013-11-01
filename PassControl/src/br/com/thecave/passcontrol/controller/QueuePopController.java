@@ -147,7 +147,7 @@ public class QueuePopController extends PassControlController implements QueueEl
             {
                 if (confirmationResponse.getStatusOperation())
                 {
-                    JOptionPane.showConfirmDialog(null, "Operação bem sucedida");
+                    JOptionPane.showMessageDialog(null, "Operação bem sucedida");
                 }
                 else
                 {

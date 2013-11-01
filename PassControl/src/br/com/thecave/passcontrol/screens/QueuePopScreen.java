@@ -265,6 +265,7 @@ public final class QueuePopScreen extends PassControlPanel
                 if (component instanceof QueueElementInfoSmall)
                     queueArea.remove(component);
             }
+//            queueArea.removeAll();
             queueArea.repaint();
             queueArea.revalidate();
         }

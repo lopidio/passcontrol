@@ -59,6 +59,15 @@ public class ServerSocketListener implements Runnable
                 Logger.getLogger(ServerSocketListener.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+            //Dá um descanso pra CPU            
+            try 
+            {
+                Thread.sleep(500);
+            }
+            catch (InterruptedException ex) 
+            {
+                Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+            }            
         }
     }
 

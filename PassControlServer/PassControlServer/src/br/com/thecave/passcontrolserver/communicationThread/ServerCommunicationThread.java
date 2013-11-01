@@ -11,7 +11,6 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
 import br.com.thecave.passcontrolserver.util.ConfigurationFile;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.QueueElementHandler;
-import br.com.thecave.passcontrolserver.util.Watchdog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Inet4Address;
@@ -204,6 +203,16 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
             
             //Faz as verificações necessárias no escolhedor
             QueueElementHandler.getInstance().iterate();
+            
+            //Dá um descanso pra CPU            
+            try 
+            {
+                Thread.sleep(20);
+            }
+            catch (InterruptedException ex) 
+            {
+                Logger.getLogger(ServerCommunicationThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }

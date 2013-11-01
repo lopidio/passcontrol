@@ -183,7 +183,7 @@ public class QueueElementHandler
      */
     private QueuesManagerBean manualChoose(BalconyBean balconyBean, HashMap<Integer, ArrayList<QueuesManagerBean>> avaliableClients)
     {        
-        synchronized(chosenClient)
+//        synchronized(chosenClient)
         {
 
             //Só precisa enviar caso não tenha sido enviada ainda
@@ -318,7 +318,7 @@ public class QueueElementHandler
 
                 //Informo ao popper que sua escolha foi bem sucedida
                 ConfirmationResponse confirmationResponse = new ConfirmationResponse(false, clientMessage, MessageActors.QueuePopActor);
-                synchronized(getInstance().chosenClient)
+//                synchronized(getInstance().chosenClient)
                 {
                     if (getInstance().chosenClient == null)
                     {

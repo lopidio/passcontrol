@@ -454,7 +454,7 @@ public class QueuesManagerDAO
             conn.setAutoCommit(false);
 
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE DT_CHECKOUT = 'null';";
+            String sql = "SELECT * FROM TB_QUEUES_MANAGER WHERE DT_CHECKOUT = 'null' AND INT_ID_BALCONY = 0;";
 
             ResultSet rs = stmt.executeQuery(sql);
             
