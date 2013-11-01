@@ -51,7 +51,6 @@ public class ServiceCrud extends PassControlPanel
         jmAdmin = new javax.swing.JMenu();
         jmAdminstrador = new javax.swing.JMenuItem();
         jmVoltar = new javax.swing.JMenuItem();
-        jlAdminPic = new javax.swing.JLabel();
         jpBarraLateral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jbEditar = new javax.swing.JButton();
@@ -64,6 +63,7 @@ public class ServiceCrud extends PassControlPanel
         cbName = new javax.swing.JComboBox();
         jbRemove = new javax.swing.JButton();
         jlNameErro = new javax.swing.JLabel();
+        jbVoltar = new javax.swing.JButton();
 
         jmAdmin.setText("Administrar");
         jmAdmin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -96,9 +96,6 @@ public class ServiceCrud extends PassControlPanel
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlAdminPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
-        add(jlAdminPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 11, -1, -1));
 
         jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
 
@@ -241,6 +238,20 @@ public class ServiceCrud extends PassControlPanel
         );
 
         add(jpSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 300, 260));
+
+        jbVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
+        jbVoltar.setToolTipText("Clique para voltar à tela principal!");
+        jbVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbVoltar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Over.png"))); // NOI18N
+        jbVoltar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Clicked.png"))); // NOI18N
+        jbVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbVoltarActionPerformed(evt);
+            }
+        });
+        add(jbVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbNovoActionPerformed
@@ -346,6 +357,12 @@ public class ServiceCrud extends PassControlPanel
         } 
     }//GEN-LAST:event_cbNameItemStateChanged
 
+    private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbVoltarActionPerformed
+    {//GEN-HEADEREND:event_jbVoltarActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }//GEN-LAST:event_jbVoltarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbName;
     private javax.swing.JComboBox cbPrioridade;
@@ -356,7 +373,7 @@ public class ServiceCrud extends PassControlPanel
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbRemove;
-    private javax.swing.JLabel jlAdminPic;
+    private javax.swing.JButton jbVoltar;
     private javax.swing.JLabel jlNameErro;
     private javax.swing.JMenu jmAdmin;
     private javax.swing.JMenuItem jmAdminstrador;
