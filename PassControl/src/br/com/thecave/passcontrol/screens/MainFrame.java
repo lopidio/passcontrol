@@ -289,14 +289,19 @@ public final class MainFrame extends javax.swing.JFrame
             Main.getInstance().logoff();
         }
     }
+    
+    public void activateMainButtonsPage()
+    {
+        activatePassControlPanel(new ButtonsModulesScreen());
+        activatePassControlTopBar(new MainTopBar());        
+    }
 
     private void jmLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmLogoffActionPerformed
         performLogoutAction();
     }//GEN-LAST:event_jmLogoffActionPerformed
 
     private void jmMainPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmMainPageActionPerformed
-        activatePassControlPanel(new ButtonsModulesScreen());
-        activatePassControlTopBar(new MainTopBar());
+        activateMainButtonsPage();
     }//GEN-LAST:event_jmMainPageActionPerformed
 
     public void setEnableNavigatorMenu( boolean enabled )

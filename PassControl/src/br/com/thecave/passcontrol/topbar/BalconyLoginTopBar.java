@@ -61,12 +61,24 @@ public class BalconyLoginTopBar extends PassControlTopBar
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+        jlIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlIconMouseClicked(evt);
+            }
+        });
         add(jlIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 3, 106, 122));
 
         jlBarra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/barra.png"))); // NOI18N
         add(jlBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 3, -1, 122));
 
         jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
+        jlName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlNameMouseClicked(evt);
+            }
+        });
         add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 3, 222, 122));
 
         lblUser.setFont(new java.awt.Font("Square721 BT", 1, 14)); // NOI18N
@@ -118,6 +130,15 @@ public class BalconyLoginTopBar extends PassControlTopBar
         balconyLoginTopBarController.confirmButtonPressed(cbNumero.getSelectedIndex());
         this.screen.initialize();
     }//GEN-LAST:event_jbConfirmActionPerformed
+
+    private void jlIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlIconMouseClicked
+        Main.getInstance().getMainFrame().activateMainButtonsPage();
+    }//GEN-LAST:event_jlIconMouseClicked
+
+    private void jlNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlNameMouseClicked
+        Main.getInstance().getMainFrame().activateMainButtonsPage();
+    }//GEN-LAST:event_jlNameMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbNumero;
     private javax.swing.JButton jbConfirm;

@@ -1,5 +1,6 @@
 package br.com.thecave.passcontrol.topbar;
 
+import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.ResetTopBarControler;
 
 /**
@@ -46,6 +47,12 @@ public class ResetTopBar extends PassControlTopBar
 
         jlIcon.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+        jlIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlIconMouseClicked(evt);
+            }
+        });
         add(jlIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 6, 106, 116));
 
         jlBarra.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -54,6 +61,12 @@ public class ResetTopBar extends PassControlTopBar
 
         jlName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
+        jlName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlNameMouseClicked(evt);
+            }
+        });
         add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 6, 222, 116));
 
         jtfLogin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -91,6 +104,15 @@ public class ResetTopBar extends PassControlTopBar
     private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
         resetTopBarControler.backToLoginTopbar();
     }//GEN-LAST:event_jbCancelActionPerformed
+
+    private void jlIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlIconMouseClicked
+        Main.getInstance().getMainFrame().activateMainButtonsPage();
+    }//GEN-LAST:event_jlIconMouseClicked
+
+    private void jlNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlNameMouseClicked
+        Main.getInstance().getMainFrame().activateMainButtonsPage();
+    }//GEN-LAST:event_jlNameMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbCancel;
     private javax.swing.JButton jbOk;
