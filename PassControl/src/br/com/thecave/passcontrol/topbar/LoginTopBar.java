@@ -73,6 +73,7 @@ public class LoginTopBar extends PassControlTopBar
 
         jlIcon.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icon_medium.png"))); // NOI18N
+        jlIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(jlIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 6, 106, 116));
 
         jlBarra.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
@@ -81,6 +82,7 @@ public class LoginTopBar extends PassControlTopBar
 
         jlName.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jlName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/name_system.png"))); // NOI18N
+        jlName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add(jlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 6, 222, 116));
 
         jtfLogin.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
