@@ -81,6 +81,10 @@ public class QueuePopController extends PassControlController implements QueueEl
     
     public void addBalconyShowClient(QueuePopperNewClientAdded queuePopperNewClientAdded)
     {
+        if (queuePopperNewClientAdded == null)
+        {
+            return;
+        }
         //Crio um QueueInfoPanel        
         QueueElementInfoSmall queueElementInfo = new QueueElementInfoSmall(queuePopperNewClientAdded.getClientName(), 
                                                                 queuePopperNewClientAdded.getServiceBean().getName(),
