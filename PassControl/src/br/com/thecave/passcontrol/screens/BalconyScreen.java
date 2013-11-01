@@ -2,6 +2,8 @@ package br.com.thecave.passcontrol.screens;
 
 import br.com.thecave.passcontrol.component.util.QueueElementInfoBig;
 import br.com.thecave.passcontrol.controller.BalconyController;
+import br.com.thecave.passcontrol.controller.Main;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrolserver.db.bean.BalconyBean;
 import br.com.thecave.passcontrolserver.messages.balcony.BalconyShowClientMessage;
 import javax.swing.BoxLayout;
@@ -35,7 +37,8 @@ public class BalconyScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jlBalcony = new javax.swing.JLabel();
         jpBarraLateral = new javax.swing.JPanel();
@@ -50,6 +53,7 @@ public class BalconyScreen extends PassControlPanel
         setBackground(new java.awt.Color(255, 255, 255));
 
         jlBalcony.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/balcony_button.png"))); // NOI18N
+        jlBalcony.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jpBarraLateral.setPreferredSize(new java.awt.Dimension(6, 0));
 
@@ -68,8 +72,10 @@ public class BalconyScreen extends PassControlPanel
         btChamar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btChamar.setText("Chamar");
         btChamar.setEnabled(false);
-        btChamar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btChamar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btChamarActionPerformed(evt);
             }
         });
@@ -83,8 +89,10 @@ public class BalconyScreen extends PassControlPanel
         btRepetir.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btRepetir.setText("Repetir");
         btRepetir.setEnabled(false);
-        btRepetir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btRepetir.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btRepetirActionPerformed(evt);
             }
         });
@@ -93,8 +101,10 @@ public class BalconyScreen extends PassControlPanel
         btEncerrar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btEncerrar.setText("Encerrar");
         btEncerrar.setEnabled(false);
-        btEncerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btEncerrar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btEncerrarActionPerformed(evt);
             }
         });
@@ -103,8 +113,10 @@ public class BalconyScreen extends PassControlPanel
         btEsperar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btEsperar.setText("Esperar");
         btEsperar.setEnabled(false);
-        btEsperar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btEsperar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btEsperarActionPerformed(evt);
             }
         });
@@ -113,8 +125,10 @@ public class BalconyScreen extends PassControlPanel
         btRecuperar.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btRecuperar.setText("Recuperar");
         btRecuperar.setEnabled(false);
-        btRecuperar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btRecuperar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btRecuperarActionPerformed(evt);
             }
         });

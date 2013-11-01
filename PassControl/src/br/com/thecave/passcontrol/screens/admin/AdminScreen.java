@@ -4,6 +4,7 @@ import br.com.thecave.passcontrol.component.util.SliderRemover;
 import br.com.thecave.passcontrol.controller.AdminController;
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.screens.PassControlPanel;
+import br.com.thecave.passcontrol.topbar.MainTopBar;
 import br.com.thecave.passcontrol.utils.PassControlFont;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorAddSlideImage;
 import br.com.thecave.passcontrolserver.messages.administrator.AdministratorRemoveSlideImage;
@@ -54,7 +55,8 @@ public class AdminScreen extends PassControlPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jmBaseDados = new javax.swing.JMenu();
         jmGuiche = new javax.swing.JMenuItem();
@@ -69,7 +71,6 @@ public class AdminScreen extends PassControlPanel
         jmGerenAuto = new javax.swing.JMenu();
         jcbAutomatic = new javax.swing.JCheckBoxMenuItem();
         jcbManual = new javax.swing.JCheckBoxMenuItem();
-        jlImage = new javax.swing.JLabel();
         ifGuiche = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
         jpBarraLateral = new javax.swing.JPanel();
@@ -77,6 +78,7 @@ public class AdminScreen extends PassControlPanel
         btServicos = new javax.swing.JButton();
         btUsuario = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jbVoltar = new javax.swing.JButton();
 
         jmBaseDados.setMnemonic('B');
         jmBaseDados.setText("Administrar      ");
@@ -86,8 +88,10 @@ public class AdminScreen extends PassControlPanel
         jmGuiche.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmGuiche.setMnemonic('G');
         jmGuiche.setText("Guichê");
-        jmGuiche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmGuiche.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmGuicheActionPerformed(evt);
             }
         });
@@ -97,8 +101,10 @@ public class AdminScreen extends PassControlPanel
         jmUser.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmUser.setMnemonic('U');
         jmUser.setText("Usuário");
-        jmUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmUser.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmUserActionPerformed(evt);
             }
         });
@@ -108,8 +114,10 @@ public class AdminScreen extends PassControlPanel
         jmServicos.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmServicos.setMnemonic('s');
         jmServicos.setText("Serviços");
-        jmServicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmServicos.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmServicosActionPerformed(evt);
             }
         });
@@ -123,8 +131,10 @@ public class AdminScreen extends PassControlPanel
         jmAlterImage.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAlterImage.setMnemonic('I');
         jmAlterImage.setText("Alterar imagem principal");
-        jmAlterImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAlterImage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAlterImageActionPerformed(evt);
             }
         });
@@ -138,8 +148,10 @@ public class AdminScreen extends PassControlPanel
         jmAddImage.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAddImage.setMnemonic('d');
         jmAddImage.setText("Adicionar imagem");
-        jmAddImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAddImage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAddImageActionPerformed(evt);
             }
         });
@@ -149,8 +161,10 @@ public class AdminScreen extends PassControlPanel
         jmRemoveImages.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmRemoveImages.setMnemonic('R');
         jmRemoveImages.setText("Remover imagem");
-        jmRemoveImages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmRemoveImages.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmRemoveImagesActionPerformed(evt);
             }
         });
@@ -160,8 +174,10 @@ public class AdminScreen extends PassControlPanel
         jmAlterTime.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         jmAlterTime.setMnemonic('t');
         jmAlterTime.setText("Alterar tempo da apresentação");
-        jmAlterTime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jmAlterTime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jmAlterTimeActionPerformed(evt);
             }
         });
@@ -174,8 +190,10 @@ public class AdminScreen extends PassControlPanel
         jcbAutomatic.setFont(new PassControlFont().getSizedFont(15));
         jcbAutomatic.setSelected(true);
         jcbAutomatic.setText("Gerenciamento automático");
-        jcbAutomatic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jcbAutomatic.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jcbAutomaticActionPerformed(evt);
             }
         });
@@ -184,8 +202,10 @@ public class AdminScreen extends PassControlPanel
         jcbManual.setFont(new PassControlFont().getSizedFont(15));
         jcbManual.setSelected(true);
         jcbManual.setText("Gerenciamento manual");
-        jcbManual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jcbManual.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 jcbManualActionPerformed(evt);
             }
         });
@@ -193,11 +213,6 @@ public class AdminScreen extends PassControlPanel
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jlImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
-        jlImage.setToolTipText("");
-        add(jlImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         ifGuiche.setVisible(true);
 
@@ -240,8 +255,10 @@ public class AdminScreen extends PassControlPanel
         btGuiche.setBackground(new java.awt.Color(45, 123, 142));
         btGuiche.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btGuiche.setText("Guichê");
-        btGuiche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btGuiche.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btGuicheActionPerformed(evt);
             }
         });
@@ -250,8 +267,10 @@ public class AdminScreen extends PassControlPanel
         btServicos.setBackground(new java.awt.Color(45, 123, 142));
         btServicos.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btServicos.setText("Serviços");
-        btServicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btServicos.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btServicosActionPerformed(evt);
             }
         });
@@ -260,8 +279,10 @@ public class AdminScreen extends PassControlPanel
         btUsuario.setBackground(new java.awt.Color(45, 123, 142));
         btUsuario.setFont(new java.awt.Font("Square721 BT", 0, 14)); // NOI18N
         btUsuario.setText("Usuários");
-        btUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btUsuario.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btUsuarioActionPerformed(evt);
             }
         });
@@ -272,6 +293,20 @@ public class AdminScreen extends PassControlPanel
         jLabel2.setForeground(new java.awt.Color(200, 200, 200));
         jLabel2.setText("ADMINISTRADOR");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
+
+        jbVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/admin_button.png"))); // NOI18N
+        jbVoltar.setToolTipText("Clique para voltar à tela principal!");
+        jbVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbVoltar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Over.png"))); // NOI18N
+        jbVoltar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/HiperButton_Administrar_Clicked.png"))); // NOI18N
+        jbVoltar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jbVoltarActionPerformed(evt);
+            }
+        });
+        add(jbVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmGuicheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGuicheActionPerformed
@@ -414,11 +449,17 @@ public class AdminScreen extends PassControlPanel
         {
             JOptionPane.showMessageDialog(null, "Configuração alterada com sucesso!");
         }
-        else
+        else        
         {
             JOptionPane.showMessageDialog(null, "Erro na comunicação com o servidor.");
         }        
     }//GEN-LAST:event_jcbAutomaticActionPerformed
+
+    private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbVoltarActionPerformed
+    {//GEN-HEADEREND:event_jbVoltarActionPerformed
+        Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
+        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+    }//GEN-LAST:event_jbVoltarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btGuiche;
@@ -427,9 +468,9 @@ public class AdminScreen extends PassControlPanel
     private javax.swing.JInternalFrame ifGuiche;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jbVoltar;
     private javax.swing.JCheckBoxMenuItem jcbAutomatic;
     private javax.swing.JCheckBoxMenuItem jcbManual;
-    private javax.swing.JLabel jlImage;
     private javax.swing.JMenuItem jmAddImage;
     private javax.swing.JMenuItem jmAlterImage;
     private javax.swing.JMenuItem jmAlterTime;
