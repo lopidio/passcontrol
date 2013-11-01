@@ -429,7 +429,7 @@ public class UserCrud extends PassControlPanel
 
     private void cbLoginUserActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbLoginUserActionPerformed
     {//GEN-HEADEREND:event_cbLoginUserActionPerformed
-        writeScreenFromBean();
+       // writeScreenFromBean();
     }//GEN-LAST:event_cbLoginUserActionPerformed
 
     private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbRemoveActionPerformed
@@ -470,8 +470,11 @@ public class UserCrud extends PassControlPanel
 
     private void cbLoginUserItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbLoginUserItemStateChanged
     {//GEN-HEADEREND:event_cbLoginUserItemStateChanged
-        loadCurrentBean();
-        writeScreenFromBean();
+        if(!insert)
+        {
+            loadCurrentBean();
+            writeScreenFromBean();
+        }        
     }//GEN-LAST:event_cbLoginUserItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

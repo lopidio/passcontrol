@@ -339,7 +339,11 @@ public class ServiceCrud extends PassControlPanel
 
     private void cbNameItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbNameItemStateChanged
     {//GEN-HEADEREND:event_cbNameItemStateChanged
-        writeScreenFromBean();
+       if(!insert)
+        {
+            loadCurrentBean();
+            writeScreenFromBean();
+        } 
     }//GEN-LAST:event_cbNameItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
