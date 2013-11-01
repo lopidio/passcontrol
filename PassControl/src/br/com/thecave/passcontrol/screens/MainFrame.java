@@ -282,13 +282,19 @@ public final class MainFrame extends javax.swing.JFrame
     {
         if ( Main.getInstance().isLoggedIn() )
         {
-            activatePassControlPanel(new DefaultScreen());
-            activatePassControlTopBar(new LoginTopBar());
+            activateLoginPage();
             setEnableNavigatorMenu(false);
             //Informa ao servidor que o usuário realizou logoff
             Main.getInstance().logoff();
         }
     }
+    
+    public void activateLoginPage()
+    {
+        activatePassControlPanel(new DefaultScreen());
+        activatePassControlTopBar(new LoginTopBar());  
+    }
+    
     
     public void activateMainButtonsPage()
     {

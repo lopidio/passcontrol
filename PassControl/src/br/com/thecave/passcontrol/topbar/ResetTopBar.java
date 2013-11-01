@@ -2,6 +2,7 @@ package br.com.thecave.passcontrol.topbar;
 
 import br.com.thecave.passcontrol.controller.Main;
 import br.com.thecave.passcontrol.controller.ResetTopBarControler;
+import br.com.thecave.passcontrol.screens.DefaultScreen;
 
 /**
  *
@@ -106,11 +107,11 @@ public class ResetTopBar extends PassControlTopBar
     }//GEN-LAST:event_jbCancelActionPerformed
 
     private void jlIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlIconMouseClicked
-        Main.getInstance().getMainFrame().activateMainButtonsPage();
+        Main.getInstance().getMainFrame().activateLoginPage();
     }//GEN-LAST:event_jlIconMouseClicked
 
     private void jlNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlNameMouseClicked
-        Main.getInstance().getMainFrame().activateMainButtonsPage();
+        Main.getInstance().getMainFrame().activateLoginPage();
     }//GEN-LAST:event_jlNameMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
