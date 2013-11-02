@@ -80,7 +80,6 @@ public class DefaultScreen extends PassControlPanel
         JMenu jmServerConfig = new javax.swing.JMenu();
         JMenuItem jmIP = new javax.swing.JMenuItem();
         JMenuItem jmPort = new javax.swing.JMenuItem();
-        JMenuItem jmPortPrinter = new javax.swing.JMenuItem();
         jmServerConfig.setFont(new Font("Square721 BT", Font.PLAIN, 14));
 
         jmServerConfig.setText("Configurações do servidor");
@@ -130,24 +129,6 @@ public class DefaultScreen extends PassControlPanel
             }
         });
         jmServerConfig.add(jmPort);
-        
-        jmPortPrinter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
-        jmPortPrinter.setMnemonic('m');
-        jmPortPrinter.setText("Porta da Impressora");
-        jmPortPrinter.setFont(new Font("Square721 BT", Font.PLAIN, 14));
-        jmPortPrinter.addActionListener(new java.awt.event.ActionListener()
-        {
-            @Override
-            public void actionPerformed( java.awt.event.ActionEvent evt )
-            {
-                String port = JOptionPane.showInputDialog("Digite o porta da impressora!");
-                ConfigurationFile file = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-                file.setPortPrinter(port);
-                PassControlConfigurationSynchronizer.getInstance().saveConfigurationFile();
-            }
-        });
-        jmServerConfig.add(jmPortPrinter);
-
         retorno.add(jmServerConfig);
         return retorno;
     }
