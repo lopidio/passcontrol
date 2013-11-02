@@ -8,12 +8,12 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessage;
  *
  * @author guilherme
  */
-public class QueuePusherAddClient extends PassControlMessage
+public class QueuePusherUpdateClient extends PassControlMessage
 {
 
     ClientBean clientBean;
 
-    public QueuePusherAddClient( ClientBean clientBean )
+    public QueuePusherUpdateClient( ClientBean clientBean )
     {
         super(MessageActors.QueuePushActor, MessageActors.ServerActor);
         this.clientBean = clientBean;

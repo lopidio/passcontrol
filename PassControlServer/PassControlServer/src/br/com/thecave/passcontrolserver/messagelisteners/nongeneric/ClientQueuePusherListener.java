@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.thecave.passcontrolserver.messagelisteners.nongeneric;
 
 import br.com.thecave.passcontrolserver.PassControlServer;
@@ -19,8 +15,10 @@ import br.com.thecave.passcontrolserver.messages.generic.PassControlMessageListe
 import br.com.thecave.passcontrolserver.messages.queuepopper.QueuePopperNewClientAdded;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddClient;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
+import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherDeleteClient;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientFromRegistration;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientResponse;
+import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherUpdateClient;
 import java.net.Socket;
 import java.util.Date;
 
@@ -35,7 +33,9 @@ public class ClientQueuePusherListener implements ClientListeners
     {
         server.addMessageListener(new QueuePusherAddQueueElementListener(), QueuePusherAddQueueElement.class);        
         server.addMessageListener(new QueuePusherLoadClientFromRegistrationListener(), QueuePusherLoadClientFromRegistration.class);        
-        server.addMessageListener(new QueuePusherAddClientListener(), QueuePusherAddClient.class);        
+        server.addMessageListener(new QueuePusherAddClientListener(), QueuePusherAddClient.class);
+        server.addMessageListener(new QueuePusherUpdateClientListener(), QueuePusherUpdateClient.class);
+        server.addMessageListener(new QueuePusherRemoveClientListener(), QueuePusherDeleteClient.class);
     }
 
     private static class QueuePusherAddQueueElementListener implements PassControlMessageListener
@@ -110,6 +110,42 @@ public class ClientQueuePusherListener implements ClientListeners
             {
                 confirmationResponse.setStatusOperation(false);
                 confirmationResponse.setComment("Erro ao inserir cliente!");
+            }
+            
+            PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
+        }
+    }
+    
+    private static class QueuePusherUpdateClientListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) {
+            //Retorna um cliente do registro
+            QueuePusherUpdateClient queuePusherUpdateClient = (QueuePusherUpdateClient)message;
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, queuePusherUpdateClient, MessageActors.QueuePushActor);
+           
+            if (!ClientDAO.update(queuePusherUpdateClient.getClientBean()))
+            {
+                confirmationResponse.setStatusOperation(false);
+                confirmationResponse.setComment("Erro ao atualizar cliente!");
+            }
+            
+            PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
+        }
+    }
+    
+    private static class QueuePusherRemoveClientListener implements PassControlMessageListener
+    {
+        @Override
+        public void onMessageReceive(PassControlMessage message, Socket socket) {
+            //Retorna um cliente do registro
+            QueuePusherDeleteClient queuePusherUpdateClient = (QueuePusherDeleteClient)message;
+            ConfirmationResponse confirmationResponse = new ConfirmationResponse(true, queuePusherUpdateClient, MessageActors.QueuePushActor);
+           
+            if (!ClientDAO.delete(queuePusherUpdateClient.getClientBean()))
+            {
+                confirmationResponse.setStatusOperation(false);
+                confirmationResponse.setComment("Erro ao deletar cliente!");
             }
             
             PassControlServer.getInstance().getServer().addResponseToSend(socket, confirmationResponse);
