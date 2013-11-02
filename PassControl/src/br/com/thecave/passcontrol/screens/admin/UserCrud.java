@@ -14,6 +14,7 @@ import java.awt.HeadlessException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -327,40 +328,49 @@ public class UserCrud extends PassControlPanel
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
-        String s = "";
-        boolean ret = false;
-        if(cbLoginUser.getSelectedItem() != null)
-            s = cbLoginUser.getSelectedItem().toString();
-        
-        //criando as validações
-        ArrayList<IValidation> validations = new ArrayList<>();
-        validations.add(new ValidIsEmpty());        
-        validLogin(validations);
 
-        UserPermission normalUser = new UserPermission();
-        normalUser.addPermission(UserPermission.BALCONY_PERMISSION_MASK).
-                   addPermission(UserPermission.POPPER_PERMISSION_MASK).
-                   addPermission(UserPermission.PUSHER_PERMISSION_MASK).
-                   addPermission(UserPermission.VIEWER_PERMISSION_MASK);        
-        
-        if(ready)
+        // verificando se ja existe um com mesmo nome
+        if (verificarRegistroAntigo())
         {
-            // se tiver clicado em novo
-            if(insert)
-            {
-                currentBean = new UserBean();
-                writeBeanFromScreen();                
-                ret = controller.saveUser(currentBean);
-            }
-            // se tiver clicado em editar
-            else
-            {
-                writeBeanFromScreen();
-                ret = controller.updateUser(currentBean);
-            }
+            JOptionPane.showMessageDialog(null, "Já existe um registro com esse login!");
         }
-        if(ret)
-            voltar(); // limpa a tela
+        else
+        {
+            String s = "";
+            boolean ret = false;
+            if(cbLoginUser.getSelectedItem() != null)
+                s = cbLoginUser.getSelectedItem().toString();
+
+            //criando as validações
+            ArrayList<IValidation> validations = new ArrayList<>();
+            validations.add(new ValidIsEmpty());        
+            validLogin(validations);
+
+            UserPermission normalUser = new UserPermission();
+            normalUser.addPermission(UserPermission.BALCONY_PERMISSION_MASK).
+                       addPermission(UserPermission.POPPER_PERMISSION_MASK).
+                       addPermission(UserPermission.PUSHER_PERMISSION_MASK).
+                       addPermission(UserPermission.VIEWER_PERMISSION_MASK);        
+
+            if(ready)
+            {
+                // se tiver clicado em novo
+                if(insert)
+                {
+                    currentBean = new UserBean();
+                    writeBeanFromScreen();                
+                    ret = controller.saveUser(currentBean);
+                }
+                // se tiver clicado em editar
+                else
+                {
+                    writeBeanFromScreen();
+                    ret = controller.updateUser(currentBean);
+                }
+            }
+            if(ret)
+                voltar(); // limpa a tela
+        }
     }//GEN-LAST:event_jbAdicionarActionPerformed
 
     private void cbLoginUserActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbLoginUserActionPerformed
@@ -611,5 +621,20 @@ public class UserCrud extends PassControlPanel
             int index = cbLoginUser.getSelectedIndex();
             currentBean =  controller.getUserBeans().get(index);
         }
+    }
+
+    private boolean verificarRegistroAntigo()
+    {
+        controller.loadUsers();
+        ArrayList<UserBean> userBeans = controller.getUserBeans();
+        String registro = cbLoginUser.getSelectedItem().toString();
+        
+        for ( UserBean userBean : userBeans )
+        {
+            String str = userBean.getLogin();
+            if(str.equalsIgnoreCase(registro))
+                return true;
+        }
+        return false;
     }
 }
