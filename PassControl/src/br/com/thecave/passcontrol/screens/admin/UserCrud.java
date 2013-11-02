@@ -332,10 +332,12 @@ public class UserCrud extends PassControlPanel
         // verificando se ja existe um com mesmo nome
         if (verificarRegistroAntigo())
         {
-            JOptionPane.showMessageDialog(null, "Já existe um registro com esse login!");
+            jlLoginError.setVisible(true);
+            jlLoginError.setToolTipText("Já existe um registro com esse login!");
         }
         else
         {
+            jlLoginError.setVisible(false);
             String s = "";
             boolean ret = false;
             if(cbLoginUser.getSelectedItem() != null)

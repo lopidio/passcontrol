@@ -11,24 +11,27 @@ import br.com.thecave.passcontrolserver.util.validations.ValidIsEmpty;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Arleudo
  */
-public class ServiceCrud extends PassControlPanel 
+public class ServiceCrud extends PassControlPanel
 {
+
     ServiceCrudController controller = null;
     private boolean insert;
     private boolean ready;
     private ServiceBean currentBean;
+
     /**
      * Creates new form AdminScreen
      */
-    public ServiceCrud() 
+    public ServiceCrud()
     {
         super("Cadastro de Serviços", new ServiceCrudController());
-        this.controller = (ServiceCrudController) getPanelController();        
+        this.controller = (ServiceCrudController) getPanelController();
         initComponents();
         currentBean = new ServiceBean();
         jpSecundario.setVisible(false);
@@ -266,7 +269,7 @@ public class ServiceCrud extends PassControlPanel
         insert = true;
         cbPrioridade.setSelectedIndex(2);
         jbAdicionar.setText("Adicionar");
-        
+
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jmAdminstradorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmAdminstradorActionPerformed
@@ -295,66 +298,80 @@ public class ServiceCrud extends PassControlPanel
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
-        String s = "";
-        boolean ret = false;
-        if(cbName.getSelectedItem() != null)
-            s = cbName.getSelectedItem().toString();
-        
-        ArrayList<IValidation> validations = new ArrayList<>();
-        validations.add(new ValidIsEmpty());
-        
-        // não permite inserir um registro com o nome vazio
-        if( !ValidationPerform.valid(s, validations) )
+        // verificando se ja existe um com mesmo nome
+        if ( verificarRegistroAntigo() )
         {
             jlNameErro.setVisible(true);
-            jlNameErro.setToolTipText(ValidationPerform.getComment());
-            ready = false;
+            jlNameErro.setToolTipText("Já existe um registro com esse nome!");
         }
         else
         {
             jlNameErro.setVisible(false);
-            ready = true;
-        }
-        
-        if(ready)
-        {
-            // se tiver clicado em novo
-            if(insert)
+            String s = "";
+            boolean ret = false;
+            if ( cbName.getSelectedItem() != null )
             {
-                currentBean = new ServiceBean();
-                writeBeanFromScreen();
-                ret = controller.saveService(currentBean);
+                s = cbName.getSelectedItem().toString();
             }
-            // se tiver clicado em editar
+
+            ArrayList<IValidation> validations = new ArrayList<>();
+            validations.add(new ValidIsEmpty());
+
+            // não permite inserir um registro com o nome vazio
+            if ( !ValidationPerform.valid(s, validations) )
+            {
+                jlNameErro.setVisible(true);
+                jlNameErro.setToolTipText(ValidationPerform.getComment());
+                ready = false;
+            }
             else
             {
-                writeBeanFromScreen();
-                ret = controller.updateService(currentBean);
+                jlNameErro.setVisible(false);
+                ready = true;
+            }
+
+            if ( ready )
+            {
+                // se tiver clicado em novo
+                if ( insert )
+                {
+                    currentBean = new ServiceBean();
+                    writeBeanFromScreen();
+                    ret = controller.saveService(currentBean);
+                }
+                // se tiver clicado em editar
+                else
+                {
+                    writeBeanFromScreen();
+                    ret = controller.updateService(currentBean);
+                }
+            }
+            if ( ret )
+            {
+                voltar(); // limpa a tela
             }
         }
-        if(ret)
-            voltar(); // limpa a tela
     }//GEN-LAST:event_jbAdicionarActionPerformed
 
     private void cbNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cbNameActionPerformed
     {//GEN-HEADEREND:event_cbNameActionPerformed
-       // writeScreenFromBean();
+        // writeScreenFromBean();
     }//GEN-LAST:event_cbNameActionPerformed
 
     private void jbRemoveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbRemoveActionPerformed
     {//GEN-HEADEREND:event_jbRemoveActionPerformed
-        loadCurrentBean();        
+        loadCurrentBean();
         controller.deleteService(currentBean);
         voltar();
     }//GEN-LAST:event_jbRemoveActionPerformed
 
     private void cbNameItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_cbNameItemStateChanged
     {//GEN-HEADEREND:event_cbNameItemStateChanged
-       if(!insert)
+        if ( !insert )
         {
             loadCurrentBean();
             writeScreenFromBean();
-        } 
+        }
     }//GEN-LAST:event_cbNameItemStateChanged
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbVoltarActionPerformed
@@ -362,7 +379,6 @@ public class ServiceCrud extends PassControlPanel
         Main.getInstance().getMainFrame().activatePassControlPanel(new AdminScreen());
         Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
     }//GEN-LAST:event_jbVoltarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbName;
     private javax.swing.JComboBox cbPrioridade;
@@ -383,7 +399,7 @@ public class ServiceCrud extends PassControlPanel
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public ArrayList<JMenu> createMenuItems() 
+    public ArrayList<JMenu> createMenuItems()
     {
         ArrayList<JMenu> ret = new ArrayList<JMenu>();
         ret.add(jmAdmin);
@@ -395,7 +411,7 @@ public class ServiceCrud extends PassControlPanel
     {
         controller.defineCBNames(cbName);
     }
-    
+
     private void voltar()
     {
         Main.getInstance().getMainFrame().activatePassControlPanel(new ServiceCrud());
@@ -405,17 +421,17 @@ public class ServiceCrud extends PassControlPanel
     private void loadCurrentBean()
     {
         controller.loadServices();
-        if(cbName.getSelectedIndex() >= 0 &&  cbName.getSelectedIndex() < controller.getServices().size())
+        if ( cbName.getSelectedIndex() >= 0 && cbName.getSelectedIndex() < controller.getServices().size() )
         {
             int index = cbName.getSelectedIndex();
-            currentBean =  controller.getServices().get(index);
+            currentBean = controller.getServices().get(index);
         }
     }
 
     private void writeScreenFromBean()
     {
         loadCurrentBean();
-        int index = currentBean.getPriority() -1;
+        int index = currentBean.getPriority() - 1;
         cbPrioridade.setSelectedIndex(index);
     }
 
@@ -423,5 +439,20 @@ public class ServiceCrud extends PassControlPanel
     {
         currentBean.setName(cbName.getSelectedItem().toString());
         currentBean.setPriority(cbPrioridade.getSelectedIndex() + 1);
+    }
+
+    private boolean verificarRegistroAntigo()
+    {
+        controller.loadServices();
+        ArrayList<ServiceBean> serviceBeans = controller.getServices();
+        String registro = cbName.getSelectedItem().toString();
+        
+        for ( ServiceBean bean : serviceBeans )
+        {
+            String str = bean.getName();
+            if(str.equalsIgnoreCase(registro))
+                return true;
+        }
+        return false;
     }
 }
