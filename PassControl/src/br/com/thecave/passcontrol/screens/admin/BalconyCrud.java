@@ -369,67 +369,76 @@ public class BalconyCrud extends PassControlPanel
     
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAdicionarActionPerformed
     {//GEN-HEADEREND:event_jbAdicionarActionPerformed
-        String balconyName = "";
-        boolean retorno = false;
-        if(cbBalconysName.getSelectedItem() != null)
-            balconyName = cbBalconysName.getSelectedItem().toString();
-        
-        // adicionando as validações
-        ArrayList<IValidation> validations = new ArrayList<>();
-        validations.add(new ValidIsEmpty());
-        if(!ValidationPerform.valid(balconyName, validations))
+        // verifica se ja existe um com o mesmo nome
+        if(verificarRegistroAntigo())
         {
-            ready = false;
             jlErroName.setVisible(true);
-            jlErroName.setToolTipText(ValidationPerform.getComment());
+            jlErroName.setToolTipText("Já existe um registro com esse nome!");
         }
         else
         {
-            ready = true;
-        }
-        
-        // não permite inserir um registro com o nome vazio
-        if (balconyName == null)
-            return;
-        DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
-        boxModel.addElement(balconyName);
-        cbBalconysName.setModel(boxModel);
+            String balconyName = "";
+            boolean retorno = false;
+            if(cbBalconysName.getSelectedItem() != null)
+                balconyName = cbBalconysName.getSelectedItem().toString();
 
-        ArrayList<ServiceBean> arrayList = getSelectedServices();
-        if (arrayList.isEmpty())
-        {
-            jlErroName.setVisible(true);
-            String message = "<html>" + jlErroName.getToolTipText() + "<br>" + "É necessário escolher um serviço!" + "</html>";
-            jlErroName.setToolTipText(message);
-        }
-        else
-        {
-            if(ready)
+            // adicionando as validações
+            ArrayList<IValidation> validations = new ArrayList<>();
+            validations.add(new ValidIsEmpty());
+            if(!ValidationPerform.valid(balconyName, validations))
             {
-                // se tiver clicado em novo
-                if(adicionarPage)
+                ready = false;
+                jlErroName.setVisible(true);
+                jlErroName.setToolTipText(ValidationPerform.getComment());
+            }
+            else
+            {
+                ready = true;
+            }
+
+            // não permite inserir um registro com o nome vazio
+            if (balconyName == null)
+                return;
+            DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
+            boxModel.addElement(balconyName);
+            cbBalconysName.setModel(boxModel);
+
+            ArrayList<ServiceBean> arrayList = getSelectedServices();
+            if (arrayList.isEmpty())
+            {
+                jlErroName.setVisible(true);
+                String message = "<html>" + jlErroName.getToolTipText() + "<br>" + "É necessário escolher um serviço!" + "</html>";
+                jlErroName.setToolTipText(message);
+            }
+            else
+            {
+                if(ready)
                 {
-                    BalconyBean balconyBean = new BalconyBean();            
-                    balconyBean.setNumber(cbBalconysName.getSelectedItem().toString());
-                    retorno = controller.saveBalcony(balconyBean, arrayList);
-                }
-                // se tiver clicado em editar
-                else
-                {
-                    // construindo o bean com as informações da tela
-                    BalconyBean balconyBean = extractBeanFromSelectedComboBoxItem();
-                    if (balconyBean == null)
+                    // se tiver clicado em novo
+                    if(adicionarPage)
                     {
-                        return;
-                    }            
-                    retorno = controller.updateBalcony(balconyBean, arrayList);
+                        BalconyBean balconyBean = new BalconyBean();            
+                        balconyBean.setNumber(cbBalconysName.getSelectedItem().toString());
+                        retorno = controller.saveBalcony(balconyBean, arrayList);
+                    }
+                    // se tiver clicado em editar
+                    else
+                    {
+                        // construindo o bean com as informações da tela
+                        BalconyBean balconyBean = extractBeanFromSelectedComboBoxItem();
+                        if (balconyBean == null)
+                        {
+                            return;
+                        }            
+                        retorno = controller.updateBalcony(balconyBean, arrayList);
+                    }
                 }
             }
-        }
-        //Analisa o retorno
-        if(retorno)
-        {
-            voltar(); // limpa a tela
+            //Analisa o retorno
+            if(retorno)
+            {
+                voltar(); // limpa a tela
+            }
         }
     }//GEN-LAST:event_jbAdicionarActionPerformed
 
@@ -539,5 +548,20 @@ public class BalconyCrud extends PassControlPanel
                 }
             }
         }
+    }
+    
+    private boolean verificarRegistroAntigo()
+    {
+        controller.loadBalconysAndMap();
+        ArrayList<BalconyBean> balconyBeans = controller.getBalconyBeans();
+        String registro = cbBalconysName.getSelectedItem().toString();
+        
+        for ( BalconyBean bean : balconyBeans )
+        {
+            String str = bean.getNumber();
+            if(str.equalsIgnoreCase(registro))
+                return true;
+        }
+        return false;
     }
 }
