@@ -31,12 +31,14 @@ public class QueuePushScreen extends PassControlPanel
     ClientBean clientBean;
     ServiceBean serviceBean;
     private boolean ready;
+    private ClientBean currentBean;
 
     public QueuePushScreen()
     {
         super("Escolha de Serviços", new QueuePushController());
         this.controller = (QueuePushController) getPanelController();
         initComponents();
+        currentBean = new ClientBean();
         jpNovoCliente.setVisible(false);
         jpNovoAtendimento.setVisible(false);
         jpEditarCliente.setVisible(false);
@@ -558,7 +560,7 @@ public class QueuePushScreen extends PassControlPanel
 
     private void jbAtualizarClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbAtualizarClienteActionPerformed
     {//GEN-HEADEREND:event_jbAtualizarClienteActionPerformed
-        // TODO add your handling code here:
+        atualizarCliente();
     }//GEN-LAST:event_jbAtualizarClienteActionPerformed
 
     private void jbRemoverClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbRemoverClienteActionPerformed
@@ -795,5 +797,19 @@ public class QueuePushScreen extends PassControlPanel
         if(bean == null)            
             return false;
         return true;
+    }
+
+    private void atualizarCliente()
+    {
+        if(controller.updateClient(currentBean))
+        {
+            JOptionPane.showMessageDialog(null, "Registro atualizado com sucesso!!");
+            Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+            Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar registro!");
+        }
     }
 }

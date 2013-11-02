@@ -15,6 +15,7 @@ import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddClien
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientFromRegistration;
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherLoadClientResponse;
+import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherUpdateClient;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -152,6 +153,29 @@ public class QueuePushController extends PassControlController
             return true;
         }
         return false;
+    }
+
+    public boolean updateClient(ClientBean bean)
+    {
+        ClientCommunicationThread thread = Main.getInstance().getCommunicationThread();
+        QueuePusherUpdateClient updateClient = new QueuePusherUpdateClient(bean);
+        ConfirmationResponse response = thread.sendMessageToServerAndWaitForResponse(updateClient, ConfirmationResponse.class);
+        
+        if(response == null)
+        {
+            return false;
+        }
+        else
+        {
+            if(response.getStatusOperation())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }       
     }
     /**
      * FLUXO: Ao inserir o cliente Envia um: QueuePusherAddQueueElement Caso não
