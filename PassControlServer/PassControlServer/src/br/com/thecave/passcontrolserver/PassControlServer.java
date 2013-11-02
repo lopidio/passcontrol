@@ -15,14 +15,13 @@ import br.com.thecave.passcontrolserver.messagelisteners.nongeneric.ClientViewer
 import br.com.thecave.passcontrolserver.messages.queuepusher.QueuePusherAddQueueElement;
 import br.com.thecave.passcontrolserver.util.QueueElementHandler;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author lopidio
  */
-public class PassControlServer {
+public class PassControlServer 
+{
 
     /**
      * Propriedades singleton
@@ -32,7 +31,14 @@ public class PassControlServer {
     public synchronized static PassControlServer getInstance()
     {
         if (singletonInstance == null)
-            singletonInstance = new PassControlServer();
+        {
+            try 
+            {
+                singletonInstance = new PassControlServer();
+            } catch (IOException ex) {
+                return null;
+            }
+        }
         return singletonInstance;
     }
 
@@ -58,37 +64,35 @@ public class PassControlServer {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InterruptedException 
+    public static void main(String[] args)
     {
         ServerCommunicationThread server = getInstance().server;
-        
-        //Fazer uma lista de ClientListeners???
-        
-        // Cadastra os listeners
-        new ClientAdministratorListeners().addListenersCallback(server);
-        new ClientBalconyListeners().addListenersCallback(server);
-        new ClientGenericListeners().addListenersCallback(server);
-        new ClientQueuePusherListener().addListenersCallback(server);
-        new ClientQueuePopperListener().addListenersCallback(server);
-        new ClientViewerListener().addListenersCallback(server);
-        QueueElementHandler.getInstance().addListenersCallback(); //
-        
-        new Thread(server).start();
+        if (server != null)
+        {
+            // Cadastra os listeners
+            new ClientAdministratorListeners().addListenersCallback(server);
+            new ClientBalconyListeners().addListenersCallback(server);
+            new ClientGenericListeners().addListenersCallback(server);
+            new ClientQueuePusherListener().addListenersCallback(server);
+            new ClientQueuePopperListener().addListenersCallback(server);
+            new ClientViewerListener().addListenersCallback(server);
+            new PassControlSystemTray().run();
+            QueueElementHandler.getInstance().addListenersCallback(); //
+
+            new Thread(server).start();
+        }
+        else
+        {
+            System.out.println("Impossível executar o servidor");
+        }
     }
 
     /**
      * Construtor
      */
-    public PassControlServer() 
+    public PassControlServer() throws IOException 
     {
-        try 
-        {        
-            server = new ServerCommunicationThread(23073);
-        }
-        catch (IOException ex) 
-        {
-            Logger.getLogger(PassControlServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        server = new ServerCommunicationThread(23073);
     }
 
     public synchronized ServerCommunicationThread getServer() 

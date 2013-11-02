@@ -27,7 +27,6 @@ import br.com.thecave.passcontrolserver.messages.generic.RequestConfigurationFil
 import br.com.thecave.passcontrolserver.util.EMailSender;
 import br.com.thecave.passcontrolserver.util.PassControlConfigurationSynchronizer;
 import br.com.thecave.passcontrolserver.util.UserPermission;
-import com.sun.org.apache.xml.internal.serialize.Printer;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;

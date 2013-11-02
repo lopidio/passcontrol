@@ -52,17 +52,22 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
      */
     public ServerCommunicationThread(int port) throws IOException
     {
-        markToReset = false;
-        ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
-        configurationFile.setPortServer(port); 
-        configurationFile.setIpServer(getLocalIp());
-        System.out.println("IP do servidor: " + getLocalIp());
+        try {
+            markToReset = false;
+            ConfigurationFile configurationFile = PassControlConfigurationSynchronizer.getInstance().getConfigurationFile();
+            configurationFile.setPortServer(port); 
+            configurationFile.setIpServer(getLocalIp());
+            System.out.println("IP do servidor: " + getLocalIp());
 
-        serverSocketListener = new ServerSocketListener(port, this);
-        setHeartBeat(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
-        //Executa a thread que escuta a porta
-        new Thread(serverSocketListener).start();
-        clientsList = new ConcurrentHashMap<>();
+            serverSocketListener = new ServerSocketListener(port, this);
+            setHeartBeat(new HeartBeatMessage(MessageActors.ServerActor, MessageActors.AllActors));
+            //Executa a thread que escuta a porta
+            new Thread(serverSocketListener).start();
+            clientsList = new ConcurrentHashMap<>();
+        } catch (IOException ex) {
+            System.out.println("Servidor já está online");
+            throw ex;
+        }
     }
     
     private String getLocalIp()
@@ -124,7 +129,10 @@ public class ServerCommunicationThread extends PassControlCommunicationThread {
     
     private void displayClientsList()
     {
-        System.out.println("Número de clientes conectados: " + getNumClients());
+        if (!clientsList.isEmpty())
+        {
+            System.out.println("Número de clientes conectados: " + getNumClients());
+        }
         for (Map.Entry<MessageActors, ArrayList<ClientUserSocketPair>> entry : clientsList.entrySet()) 
         {
             ArrayList<ClientUserSocketPair> arrayList = entry.getValue();
