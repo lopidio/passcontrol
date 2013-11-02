@@ -504,16 +504,25 @@ public class QueuePushScreen extends PassControlPanel
 
     private void jbInserirNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jbInserirNovoClienteActionPerformed
     {//GEN-HEADEREND:event_jbInserirNovoClienteActionPerformed
-        ClientBean bean = new ClientBean();
-        // validar campos posteriormente
-        String nomeCliente = tfNomeNovoCliente.getText();
-        
-        bean.setName(nomeCliente);
-        bean.setRegister(tfCadastroNovoCliente.getText());
-        bean.setTelefone(tfTelefoneNovoCliente.getText());
-        controller.insertNewClient(bean);
-        Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
-        Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+        // verificando se ja existe um com mesmo nome
+        if (verificarRegistroAntigo())
+        {
+            jlCadastroClienteErro.setVisible(true);
+            jlCadastroClienteErro.setToolTipText("Já existe um registro com esse cadastro!");
+        }
+        else
+        {
+            ClientBean bean = new ClientBean();
+            // validar campos posteriormente
+            String nomeCliente = tfNomeNovoCliente.getText();
+
+            bean.setName(nomeCliente);
+            bean.setRegister(tfCadastroNovoCliente.getText());
+            bean.setTelefone(tfTelefoneNovoCliente.getText());
+            controller.insertNewClient(bean);
+            Main.getInstance().getMainFrame().activatePassControlPanel(new QueuePushScreen());
+            Main.getInstance().getMainFrame().activatePassControlTopBar(new MainTopBar());
+        }
     }//GEN-LAST:event_jbInserirNovoClienteActionPerformed
 
     private void tfCadastroNovoClienteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_tfCadastroNovoClienteActionPerformed
@@ -777,5 +786,14 @@ public class QueuePushScreen extends PassControlPanel
         jlCadastroClienteErroEditar.setVisible(false);
         jlNomeClienteErroEditar.setVisible(false);
         jlTelefoneClienteErroEditar.setVisible(false);
+    }
+
+    private boolean verificarRegistroAntigo()
+    {
+        ClientBean bean = controller.loadRegister(cbServico.getSelectedItem().toString());
+        
+        if(bean == null)            
+            return false;
+        return true;
     }
 }
